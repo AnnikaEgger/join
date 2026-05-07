@@ -141,7 +141,7 @@ ul {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: px;
 }
 
 .header-help {
