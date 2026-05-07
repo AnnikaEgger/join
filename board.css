@@ -1,0 +1,136 @@
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: #F6F7F8;
+    padding-left: 64px;
+    padding-right: 64px;
+}
+
+.headText {
+    font-size: 61px;
+    font-family: 'Inter', sans-serif;
+}
+
+.boardHeader {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.searchAndAddSection {
+    display: flex;
+    gap: 15px;
+}
+
+.form {
+    border: 1px solid #C1C8CD;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inputField {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 200px;
+    font-size: 20px;
+    color: #D1D1D1;
+    opacity: 0.4;
+}
+
+hr {
+    border: 1px solid #D1D1D1;
+    height: 70%;
+}
+
+.searchBtn {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.addBtn {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    border: none;
+    gap: 15px;
+    width: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #2A3647;
+    color: white;
+}
+
+.taskTitles {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 25px;
+}
+
+.taskLanes {
+    gap: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
+
+.taskTitle {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    color: #42526E;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+}
+
+.cardContainer {
+    display: flex;
+    height: 500px;
+    padding-top: 20px;
+}
+
+.card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 15px;
+    align-self: start;
+    justify-content: space-between;
+    width: fit-content;
+    max-height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.categoryField {
+    background-color: #0038FF;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    width: fit-content;
+}
+
+.cardText {
+    font-family: 'Inter', sans-serif;
+}
