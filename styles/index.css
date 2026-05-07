@@ -10,6 +10,7 @@ body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .join-logo-blue {
