@@ -1,0 +1,13 @@
+/* colors */
+:root {
+  --dark-blue: #2a3647;
+  --light-blue: #29abe2;
+  --light-gray: #f6f7f8;
+  --gray: #a8a8a8;
+}
+
+:root {
+  --border-radius-l: 30px;
+  --border-radius-s: 10px;
+  --border-radius-xs: 8px;
+}

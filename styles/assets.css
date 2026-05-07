@@ -1,0 +1,29 @@
+button {
+  cursor: pointer;
+  border: unset;
+}
+
+input {
+  border: unset;
+}
+
+.button {
+  border-radius: var(--border-radius-xs);
+}
+
+.button-login {
+  padding: 15px 24px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.button-blue {
+  color: white;
+  background-color: var(--dark-blue);
+}
+
+.button-white {
+  border: 1px solid var(--dark-blue);
+  color: var(--dark-blue);
+  background-color: white;
+}
