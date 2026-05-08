@@ -211,6 +211,7 @@ hr {
     transform: translate(-50%, -50%);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
     z-index: 999;
+    overflow: hidden;
 }
 
 .add-task-dialog::backdrop {
