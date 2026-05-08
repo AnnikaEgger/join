@@ -4,7 +4,17 @@ button {
 }
 
 input {
-  border: unset;
+  padding: 12px 20px;
+  /* border: unset; */
+  border: 1px solid #d1d1d1;
+  border-radius: var(--border-radius-s);
+  width: 420px;
+}
+
+textarea {
+  border: 1px solid #d1d1d1;
+  border-radius: var(--border-radius-s);
+  width: 420px;
 }
 
 .button {

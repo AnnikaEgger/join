@@ -56,8 +56,8 @@ main {
 }
 
 .input-login {
-  padding: 12px 21px;
-  width: 400px;
+  padding: 12px 20px;
+  width: 420px;
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
 }

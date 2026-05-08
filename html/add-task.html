@@ -4,9 +4,96 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/assets.css" />
+
+    <link rel="stylesheet" href="../styles/templates.css" />
+
+    <link rel="stylesheet" href="../styles/add-task.css" />
   </head>
   <body>
-    <!-- eigene add-task CSs-datei benutzen -->
-    <!-- sidebar und header von templates.html rauskopieren -->
+    <section class="sidebar">
+      <div class="sidebar-logo">
+        <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li>
+            <a href="summary.html" class="nav-link active">
+              <img
+                class="nav-icon"
+                src="/assets/icons/summary-icon.svg"
+                alt=""
+              />
+              <span>Summary</span>
+            </a>
+          </li>
+          <li>
+            <a href="add-task.html" class="nav-link">
+              <img
+                class="nav-icon"
+                src="/assets/icons/add-task-icon.svg"
+                alt=""
+              />
+              <span>Add Task</span>
+            </a>
+          </li>
+          <li>
+            <a href="board.html" class="nav-link">
+              <img class="nav-icon" src="/assets/icons/board-icon.svg" alt="" />
+              <span>Board</span>
+            </a>
+          </li>
+          <li>
+            <a href="contacts.html" class="nav-link">
+              <img
+                class="nav-icon"
+                src="/assets/icons/contacts-icon.svg"
+                alt=""
+              />
+              <span>Contacts</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="legal notice.html" class="footer-link">Legal notice</a>
+      </div>
+    </section>
+
+    <header class="header">
+      <h1 class="header-title">Kanban Project Management Tool</h1>
+
+      <div class="header-actions">
+        <a href="help.html" class="nav-link">
+          <img class="nav-icon" src="/assets/icons/help-logo.svg" alt="" />
+        </a>
+
+        <div class="header-avatar">SM</div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <h2>Add Task</h2>
+      <div>
+        <label for="task-title">Title*</label>
+        <input type="text" id="task-title" placeholder="Enter a title" />
+      </div>
+      <label for="task-description">Description</label>
+      <textarea
+        id="task-description"
+        placeholder="Enter a description"
+      ></textarea>
+      <label for="task-due-date">Due Date*</label>
+      <input type="text" id="task-due-date" placeholder="dd/mm/yyyy" />
+      <div class="seperation-line"></div>
+      <div></div>
+    </main>
   </body>
 </html>
