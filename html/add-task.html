@@ -80,7 +80,7 @@
     </header>
 
     <main class="main-content">
-      <h1>Add Task</h1>
+      <h2>Add Task</h2>
       <div class="add-task-wrapper">
         <div class="add-task-inner-wrapper">
           <div class="add-task-container">
@@ -102,9 +102,15 @@
           <div class="add-task-container">
             <label for="task-priority">Priority</label>
             <div id="task-priority" class="add-task-btn-container">
-              <button class="prio-btn">
+              <button
+                onclick="setPriority('urgent')"
+                id="urgent-prio-btn"
+                class="prio-btn"
+              >
                 Urgent
                 <svg
+                  id="urgent-prio-svg"
+                  class="prio-svg"
                   width="20"
                   height="15"
                   viewBox="0 0 20 15"
@@ -120,8 +126,14 @@
                     fill="#FF3D00"
                   />
                 </svg></button
-              ><button class="prio-btn">
+              ><button
+                onclick="setPriority('medium')"
+                id="medium-prio-btn"
+                class="prio-btn"
+              >
                 Medium<svg
+                  id="medium-prio-svg"
+                  class="prio-svg"
                   width="20"
                   height="8"
                   viewBox="0 0 20 8"
@@ -137,8 +149,14 @@
                     fill="#ffa800"
                   />
                 </svg></button
-              ><button class="prio-btn">
+              ><button
+                onclick="setPriority('low')"
+                id="low-prio-btn"
+                class="prio-btn"
+              >
                 Low<svg
+                  id="low-prio-svg"
+                  class="prio-svg"
                   width="20"
                   height="15"
                   viewBox="0 0 20 15"
@@ -216,4 +234,5 @@
       </div>
     </main>
   </body>
+  <script src="../scripts/add-task.js"></script>
 </html>

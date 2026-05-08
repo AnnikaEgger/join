@@ -11,6 +11,13 @@ main * {
   --light-orange: #ffa800;
 }
 
+h2 {
+  font-weight: 700;
+  font-size: 60px;
+  color: black;
+  margin-bottom: 48px;
+}
+
 .add-task-wrapper {
   max-width: 1000px;
 }
@@ -74,13 +81,21 @@ label {
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
-.prio-btn:nth-child(1) {
+.urgent-active {
+  background-color: #ff3d00;
+  color: white;
+}
+.medium-active {
+  background-color: var(--light-orange);
+  color: white;
+}
+.low-active {
+  background-color: #7ae229;
+  color: white;
 }
 
-.prio-btn:nth-child(2) {
-}
-
-.prio-btn:nth-child(3) {
+.active-svg {
+  fill: white;
 }
 
 /* buttons Farbe ändern/ toggeln beim klicken --> mit js */
@@ -102,3 +117,5 @@ label {
   align-items: end;
   margin-top: 120px;
 }
+
+/* Date input + select --> wie designen? */
