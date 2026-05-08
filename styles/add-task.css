@@ -2,17 +2,28 @@ main * {
   font-size: 20px;
 }
 
+.main-content {
+  padding: 48px 100px;
+}
+
 :root {
   --light-gray2: #d1d1d1;
   --light-orange: #ffa800;
 }
 
 .add-task-wrapper {
+  max-width: 1000px;
+}
+
+.add-task-inner-wrapper {
   display: flex;
-  gap: 32px;
+  width: 100%;
+  justify-content: space-between;
+  /* gap: 32px; */
 }
 
 .add-task-container {
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
 }
@@ -44,6 +55,7 @@ label {
 .seperation-line {
   width: 1px;
   background-color: var(--light-gray2);
+  margin: 0 32px;
 }
 
 .add-task-btn-container {
@@ -72,3 +84,21 @@ label {
 }
 
 /* buttons Farbe ändern/ toggeln beim klicken --> mit js */
+
+.add-task-bottom-btns-container {
+  display: flex;
+  gap: 16px;
+}
+
+.add-task-bottom-btn {
+  padding: 16px;
+}
+
+/* buttons background + svg Farbe toggeln beim klicken; button clear task per default ausgewählt */
+
+.add-task-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 120px;
+}
