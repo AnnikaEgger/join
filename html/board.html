@@ -10,9 +10,11 @@
     <link rel="stylesheet" type="text/css" href="../styles/standard.css">
     <link rel="stylesheet" type="text/css" href="../styles/variables.css">
     <link rel="stylesheet" type="text/css" href="../styles/templates.css">
+    <link rel="stylesheet" type="text/css" href="../styles/fonts.css">
+    <script src="../scripts/board.js"></script>
 </head>
 
-<body>
+<body onload="updateHTML()">
     <!-- SIDEBAR  -->
     <section class="sidebar">
         <div class="sidebar-logo">
@@ -89,39 +91,41 @@
                 <div class="taskLanes">
                     <div class="taskTitle">
                         <h2>To do</h2>
-                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
-                    <div class="cardContainer">
+                    <div id="toDo" class="cardContainer" ondrop="moveTo('toDo'); removeHighlight('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')">
+                        <div class="emptyCardContainer">
+                            <p>No tasks To do</p>
+                        </div>
                     </div>
                 </div>
                 <div class="taskLanes">
                     <div class="taskTitle">
                         <h2>in progress</h2>
-                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
-                    <div class="cardContainer">
-                        <div class="card">
+                    <div id="inProgress" class="cardContainer" ondrop="moveTo('inProgress'); removeHighlight('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')">
+                        <div draggable="true" class="card">
                             <span class="categoryField">User Story</span>
                             <h3 class="cardText">TestCard</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-                            0
                         </div>
                     </div>
                 </div>
                 <div class="taskLanes">
                     <div class="taskTitle">
                         <h2>Await feedback</h2>
-                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
-                    <div class="cardContainer">
+                    <div id="awaitFeedback" class="cardContainer" ondrop="moveTo('awaitFeedback'); removeHighlight('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')">
                     </div>
                 </div>
                 <div class="taskLanes">
                     <div class="taskTitle">
                         <h2>Done</h2>
-                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
-                    <div class="cardContainer">
+                    <div id="done" class="cardContainer" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                     </div>
                 </div>
             </div>
