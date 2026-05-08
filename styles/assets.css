@@ -9,6 +9,8 @@ input {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
   width: 420px;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 input::placeholder {
@@ -19,6 +21,8 @@ textarea {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
   width: 420px;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 textarea::placeholder {

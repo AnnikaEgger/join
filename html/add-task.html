@@ -85,23 +85,41 @@
         <div class="add-task-container">
           <label for="task-title">Title<span class="red">*</span></label>
           <input type="text" id="task-title" placeholder="Enter a title" />
+          <label for="task-description">Description</label>
+          <textarea
+            id="task-description"
+            placeholder="Enter a description"
+          ></textarea>
+          <label for="task-due-date">Due Date<span class="red">*</span></label>
+          <input type="date" id="task-due-date" placeholder="dd/mm/yyyy" />
         </div>
-        <label for="task-description">Description</label>
-        <textarea
-          id="task-description"
-          placeholder="Enter a description"
-        ></textarea>
-        <label for="task-due-date">Due Date<span class="red">*</span></label>
-        <input type="date" id="task-due-date" />
+
         <div class="seperation-line"></div>
 
         <div class="add-task-container">
           <label for=""></label>
           <div class="add-task-btn-container">
-            <button></button><button></button><button></button>
+            <button>
+              Urgent
+              <img src="../assets/icons/urgent-prio-icon.svg" alt="" /></button
+            >Medium<img
+              src="../assets/icons/medium-prio-icon.svg"
+              alt=""
+            /><button></button
+            ><button>
+              Low<img src="../assets/icons/low-prio-icon.svg" alt="" />
+            </button>
           </div>
-          <label for=""></label>
-          input
+          <label for="contacts">Assigned to</label>
+          <select name="" id="contacts">
+            <option value=""></option>
+          </select>
+          <label for="task-category">Category</label>
+          <select name="" id="task-category">
+            <option value=""></option>
+          </select>
+          <label for="subtask">Subtasks</label>
+          <input type="text" id="subtask" />
         </div>
       </div>
     </main>
