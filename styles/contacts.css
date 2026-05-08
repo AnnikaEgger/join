@@ -1,0 +1,336 @@
+:root {
+    --dark-blue: #2a3647;
+    --color-accent: #29ABE2;
+    --color-bg: #F6F7F8;
+    --color-white: #FFFFFF;
+    --color-text: #2A3647;
+    --color-text-light: #CDCDCD;
+    --color-active-bg: #091931;
+    --color-border: #E0E0E0;
+    --light-blue: #29abe2;
+    --light-gray: #f6f7f8;
+    --gray: #a8a8a8;
+    --sidebar-width: 232px;
+    --header-height: 96px;
+    --transition-default: all 100ms ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Open Sans", Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* SIDEBAR  */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background-color: #2a3647;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 0 32px 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.sidebar-logo img {
+    width: 100px;
+    height: auto;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 56px;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+}
+
+.nav-link.active {
+    background-color: var(--color-active-bg);
+    color: var(--color-white);
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 56px;
+}
+
+.footer-link {
+    color: var(--color-text-light);
+    font-size: 14px;
+    transition: var(--transition-default);
+}
+
+.footer-link:hover {
+    color: var(--color-accent);
+}
+
+/* HEADER*/
+.header {
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: var(--header-height);
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: px;
+}
+
+.header-help {
+    display: flex;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.header-help:hover {
+    color: var(--color-accent);
+}
+
+.header-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    color: var(--color-accent);
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.header-avatar:hover {
+    background-color: var(--color-primary);
+}
+
+/*  MAIN CONTENT */
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--header-height);
+    padding: 48px;
+    min-height: calc(100vh - var(--header-height));
+}
+
+
+
+
+
+
+
+
+
+
+/* --- CONTACTS LAYOUT --- */
+.contact-main {
+    display: flex;
+    padding: 0;
+    height: calc(100vh - var(--header-height));
+    overflow: hidden;
+}
+
+/* --- LINKER TEIL: Kontaktliste --- */
+.contact-list-container {
+    width: 450px;
+    background-color: var(--color-white);
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 0 24px;
+}
+
+.add-contact-btn {
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    width: 100%;
+    max-width: 352px;
+    margin: 0 auto 32px auto;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.add-contact-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.contact-list {
+    overflow-y: auto; 
+    flex-grow: 1;
+    margin-right: -24px; 
+    padding-right: 24px;
+}
+
+.letter-section {
+    margin-bottom: 24px;
+    padding-left: 12px; 
+}
+
+.letter-header {
+    font-size: 20px;
+    padding: 10px 0 10px 36px;
+}
+
+.letter-divider {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 8px 36px;
+}
+
+/* Einzelner Kontakt in der Liste */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    padding: 15px 36px; 
+    cursor: pointer;
+    border-radius: 10px;
+    transition: var(--transition-default);
+}
+
+.contact-item:hover {
+    background-color: #f0f0f0;
+}
+
+.contact-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 400;
+    border: 2px solid white;
+}
+
+.contact-info-short {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-size: 20px;
+}
+
+.contact-email {
+    color: var(--color-accent);
+    font-size: 16px;
+}
+
+/* --- RECHTER TEIL: Detail-Ansicht --- */
+.contact-detail-view {
+    flex-grow: 1;
+    background-color: var(--color-bg);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.detail-header-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.detail-header-section h2 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.blue-divider {
+    width: 3px;
+    height: 59px;
+    border-radius: 3px;
+    background-color: var(--color-accent);
+}
+
+.detail-header-section span {
+    font-size: 27px;
+}
+
+.contact-detail-content {
+    /* Vorbereitung für das Reinschweben */
+    transform: translateX(100%); 
+    transition: transform 0.125s ease-in-out;
+}
+
+/* Diese Klasse fügen wir später per JS hinzu */
+.contact-detail-view.show {
+    transform: translateX(0);
+}
