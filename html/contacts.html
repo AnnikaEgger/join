@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Contacts</title>
+    <link rel="stylesheet" href="../styles/contacts.css" />
+</head>
+
+<body>
+    <!-- SIDEBAR  -->
+    <section class="sidebar">
+        <div class="sidebar-logo">
+            <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="summary.html" class="nav-link active">
+                        <img class="nav-icon" src="/assets/icons/summary-icon.svg" alt="" />
+                        <span>Summary</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-task.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/add-task-icon.svg" alt="" />
+                        <span>Add Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="board.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/board-icon.svg" alt="" />
+                        <span>Board</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="contacts.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/contacts-icon.svg" alt="" />
+                        <span>Contacts</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="legal notice.html" class="footer-link">Legal notice</a>
+        </div>
+    </section>
+
+    <!--  HEADER  -->
+    <header class="header">
+        <h1 class="header-title">Kanban Project Management Tool</h1>
+
+        <div class="header-actions">
+            <a href="help.html" class="nav-link">
+                <img class="nav-icon" src="/assets/icons/help-logo.svg" alt="" />
+            </a>
+
+            <div class="header-avatar">SM</div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content contact-main">
+        <!-- LINKER TEIL: Kontaktliste -->
+        <section class="contact-list-container">
+            <button class="add-contact-btn">
+                Add new contact <img src="../assets/icons/add-new-contact-icon.svg" alt="Add Contact Icon"/>
+            </button>
+
+            <div id="contact-list" class="contact-list">
+                <!-- Beispiel für einen Buchstaben-Block -->
+                <div class="letter-section">
+                    <div class="letter-header">A</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter-section">
+                    <div class="letter-header">B</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter-section">
+                    <div class="letter-header">C</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter-section">
+                    <div class="letter-header">D</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter-section">
+                    <div class="letter-header">E</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter-section">
+                    <div class="letter-header">F</div>
+                    <div class="letter-divider"></div>
+                    <!-- Kontakt Item -->
+                    <div class="contact-item" onclick="showContactDetails()">
+                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
+                        <div class="contact-info-short">
+                            <span class="contact-name">Anton Mayer</span>
+                            <span class="contact-email">anton@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECHTER TEIL: Details (Die Karte die "reinschwebt") -->
+        <section id="contact-detail-view" class="contact-detail-view">
+            <div class="detail-header-section">
+                <h2>Contacts</h2>
+                <div class="blue-divider"></div>
+                <span>Better with a team</span>
+            </div>
+
+            <div id="contact-detail-content" class="contact-detail-content">
+                <!-- Hier wird später per JS der gewählte Kontakt reingeladen -->
+                 Hallo hier die Kontaktdaten
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
