@@ -1,7 +1,31 @@
+main {
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.add-task-wrapper {
+  display: flex;
+}
+
+.add-task-container {
+  display: flex;
+  flex-direction: column;
+}
+
 textarea {
   padding: 18px 16px;
 }
 
 input {
   padding: 18px 16px;
+}
+
+.red {
+  color: rgb(240, 68, 68);
+}
+
+.seperation-line {
+  height: 1px;
+  background-color: red;
+  margin: 24px 0;
 }

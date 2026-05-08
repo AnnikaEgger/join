@@ -81,19 +81,29 @@
 
     <main class="main-content">
       <h2>Add Task</h2>
-      <div>
-        <label for="task-title">Title*</label>
-        <input type="text" id="task-title" placeholder="Enter a title" />
+      <div class="add-task-wrapper">
+        <div class="add-task-container">
+          <label for="task-title">Title<span class="red">*</span></label>
+          <input type="text" id="task-title" placeholder="Enter a title" />
+        </div>
+        <label for="task-description">Description</label>
+        <textarea
+          id="task-description"
+          placeholder="Enter a description"
+        ></textarea>
+        <label for="task-due-date">Due Date<span class="red">*</span></label>
+        <input type="date" id="task-due-date" />
+        <div class="seperation-line"></div>
+
+        <div class="add-task-container">
+          <label for=""></label>
+          <div class="add-task-btn-container">
+            <button></button><button></button><button></button>
+          </div>
+          <label for=""></label>
+          input
+        </div>
       </div>
-      <label for="task-description">Description</label>
-      <textarea
-        id="task-description"
-        placeholder="Enter a description"
-      ></textarea>
-      <label for="task-due-date">Due Date*</label>
-      <input type="text" id="task-due-date" placeholder="dd/mm/yyyy" />
-      <div class="seperation-line"></div>
-      <div></div>
     </main>
   </body>
 </html>

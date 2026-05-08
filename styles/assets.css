@@ -11,10 +11,18 @@ input {
   width: 420px;
 }
 
+input::placeholder {
+  color: #d1d1d1;
+}
+
 textarea {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
   width: 420px;
+}
+
+textarea::placeholder {
+  color: #d1d1d1;
 }
 
 .button {
