@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="stylesheet" type="text/css" href="../styles/board.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../styles/standard.css">
+    <link rel="stylesheet" type="text/css" href="../styles/variables.css">
+    <link rel="stylesheet" type="text/css" href="../styles/templates.css">
+</head>
+
+<body>
+    <!-- SIDEBAR  -->
+    <section class="sidebar">
+        <div class="sidebar-logo">
+            <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="summary.html" class="nav-link active">
+                        <img class="nav-icon" src="/assets/icons/summary-icon.svg" alt="" />
+                        <span>Summary</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-task.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/add-task-icon.svg" alt="" />
+                        <span>Add Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="board.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/board-icon.svg" alt="" />
+                        <span>Board</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="contacts.html" class="nav-link">
+                        <img class="nav-icon" src="/assets/icons/contacts-icon.svg" alt="" />
+                        <span>Contacts</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="legal notice.html" class="footer-link">Legal notice</a>
+        </div>
+    </section>
+
+    <!--  HEADER  -->
+    <header class="header">
+        <h1 class="header-title">Kanban Project Management Tool</h1>
+
+        <div class="header-actions">
+            <a href="help.html" class="nav-link">
+                <img class="nav-icon" src="/assets/icons/help-logo.svg" alt="" />
+            </a>
+
+            <div class="header-avatar">SM</div>
+        </div>
+    </header>
+
+    <main class="mainContent">
+        <section class="boardHeader">
+            <h1 class="headText">Board</h1>
+            <div class="searchAndAddSection">
+                <form class="form" action="onSubmit">
+                    <input class="inputField" required type="text" placeholder="Find Task">
+                    <hr>
+                    <button class="searchBtn" type="submit">
+                        <img class="searchBtnImg" src="../assets/icons/search.svg" alt="search icon">
+                    </button>
+                </form>
+                <button class="addBtn">
+                    <span>Add task</span>
+                    <img src="../assets/icons/white_plus_button.svg" alt="white plus icon">
+                </button>
+            </div>
+        </section>
+        <section>
+            <div class="taskTitles">
+                <div class="taskLanes">
+                    <div class="taskTitle">
+                        <h2>To do</h2>
+                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                    </div>
+                    <div class="cardContainer">
+                    </div>
+                </div>
+                <div class="taskLanes">
+                    <div class="taskTitle">
+                        <h2>in progress</h2>
+                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                    </div>
+                    <div class="cardContainer">
+                        <div class="card">
+                            <span class="categoryField">User Story</span>
+                            <h3 class="cardText">TestCard</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
+                            0
+                        </div>
+                    </div>
+                </div>
+                <div class="taskLanes">
+                    <div class="taskTitle">
+                        <h2>Await feedback</h2>
+                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                    </div>
+                    <div class="cardContainer">
+                    </div>
+                </div>
+                <div class="taskLanes">
+                    <div class="taskTitle">
+                        <h2>Done</h2>
+                        <img class="addTaskBtn" role="button" src="../assets/icons/plus_button.svg" alt="plus button">
+                    </div>
+                    <div class="cardContainer">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
