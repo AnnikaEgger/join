@@ -81,3 +81,11 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
+
+function openAddTaskDialog() {
+    document.getElementById('addTaskDialog').showModal();
+}
+
+function closeAddTaskDialog() {
+    document.getElementById('addTaskDialog').close();
+}
