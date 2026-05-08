@@ -62,10 +62,17 @@ select {
 .button-blue {
   color: white;
   background-color: var(--dark-blue);
+  border: 1px solid transparent;
 }
 
 .button-white {
-  border: 1px solid var(--dark-blue);
   color: var(--dark-blue);
   background-color: white;
+  border: 1px solid var(--dark-blue);
+}
+
+.button-white:active {
+  color: white;
+  background-color: var(--dark-blue);
+  border: 1px solid transparent;
 }

@@ -2,11 +2,11 @@ let priority = "medium";
 
 function setPriority(prio) {
   priority = prio;
-  stylePrioBtns();
-  stylePrioSvgs();
+  stylePrioBtnsColor();
+  stylePrioSvgColors();
 }
 
-function stylePrioBtns() {
+function stylePrioBtnsColor() {
   let activeBtn = document.getElementById(priority + "-prio-btn");
 
   document.querySelectorAll(".prio-btn").forEach((btn) => {
@@ -17,7 +17,7 @@ function stylePrioBtns() {
   activeBtn.classList.toggle(priority + "-active");
 }
 
-function stylePrioSvgs() {
+function stylePrioSvgColors() {
   let activeSvg = document.getElementById(priority + "-prio-svg");
 
   document.querySelectorAll(".prio-svg").forEach((svg) => {
@@ -32,3 +32,18 @@ function stylePrioSvgs() {
     path.classList.toggle("active-svg");
   });
 }
+
+// function toggleBtnColor(btnId) {
+//   let btn = document.getElementById(btnId);
+//   btn.classList.toggle("button-blue");
+//   btn.classList.toggle("button-white");
+
+//   toggleSvgColor(btnId + "-svg");
+// }
+
+// function toggleSvgColor(svgId) {
+//   let svg = document.getElementById(svgId);
+//   svg.querySelectorAll("path").forEach((path) => {
+//     path.classList.toggle("active-svg");
+//   });
+// }

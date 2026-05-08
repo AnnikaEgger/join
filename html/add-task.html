@@ -81,11 +81,16 @@
 
     <main class="main-content">
       <h2>Add Task</h2>
-      <div class="add-task-wrapper">
+      <form class="add-task-wrapper">
         <div class="add-task-inner-wrapper">
           <div class="add-task-container">
             <label for="task-title">Title<span class="red">*</span></label>
-            <input type="text" id="task-title" placeholder="Enter a title" />
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Enter a title"
+              required
+            />
             <label for="task-description">Description</label>
             <textarea
               id="task-description"
@@ -94,7 +99,12 @@
             <label for="task-due-date"
               >Due Date<span class="red">*</span></label
             >
-            <input type="date" id="task-due-date" placeholder="dd/mm/yyyy" />
+            <input
+              type="date"
+              id="task-due-date"
+              placeholder="dd/mm/yyyy"
+              required
+            />
           </div>
 
           <div class="seperation-line"></div>
@@ -103,6 +113,7 @@
             <label for="task-priority">Priority</label>
             <div id="task-priority" class="add-task-btn-container">
               <button
+                type="button"
                 onclick="setPriority('urgent')"
                 id="urgent-prio-btn"
                 class="prio-btn"
@@ -127,6 +138,7 @@
                   />
                 </svg></button
               ><button
+                type="button"
                 onclick="setPriority('medium')"
                 id="medium-prio-btn"
                 class="prio-btn"
@@ -150,6 +162,7 @@
                   />
                 </svg></button
               ><button
+                type="button"
                 onclick="setPriority('low')"
                 id="low-prio-btn"
                 class="prio-btn"
@@ -184,7 +197,7 @@
             <label for="task-category"
               >Category<span class="red">*</span></label
             >
-            <select name="" id="task-category">
+            <select name="" id="task-category" required>
               <option value="" disabled selected>Select task category</option>
               <option value=""></option>
             </select>
@@ -196,9 +209,15 @@
         <section class="add-task-bottom-section">
           <p><span class="red">*</span>this field is required</p>
           <div class="add-task-bottom-btns-container">
-            <button class="button add-task-bottom-btn button-white">
+            <button
+              type="reset"
+              id="clear-task-btn"
+              onclick="toggleBtnColor('clear-task-btn')"
+              class="button add-task-bottom-btn button-white"
+            >
               Clear
               <svg
+                id="clear-task-btn-svg"
                 width="13"
                 height="13"
                 viewBox="0 0 13 13"
@@ -214,9 +233,15 @@
                 />
               </svg>
             </button>
-            <button class="button add-task-bottom-btn button-white">
+            <button
+              type="submit"
+              id="create-task-btn"
+              onclick="toggleBtnColor('create-task-btn')"
+              class="button add-task-bottom-btn button-white"
+            >
               Create Task
               <svg
+                id="create-task-btn-svg"
                 width="16"
                 height="12"
                 viewBox="0 0 16 12"
@@ -231,7 +256,7 @@
             </button>
           </div>
         </section>
-      </div>
+      </form>
     </main>
   </body>
   <script src="../scripts/add-task.js"></script>
