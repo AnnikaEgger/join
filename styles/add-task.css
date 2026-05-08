@@ -1,10 +1,15 @@
-main {
-  /* display: flex;
-  flex-direction: column; */
+main * {
+  font-size: 20px;
+}
+
+:root {
+  --light-gray2: #d1d1d1;
+  --light-orange: #ffa800;
 }
 
 .add-task-wrapper {
   display: flex;
+  gap: 32px;
 }
 
 .add-task-container {
@@ -20,12 +25,50 @@ input {
   padding: 12px 16px;
 }
 
+input,
+textarea,
+select,
+.add-task-btn-container {
+  margin-bottom: 32px;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
 .red {
   color: rgb(240, 68, 68);
 }
 
 .seperation-line {
-  height: 1px;
-  background-color: red;
-  margin: 24px 0;
+  width: 1px;
+  background-color: var(--light-gray2);
 }
+
+.add-task-btn-container {
+  display: flex;
+  gap: 16px;
+}
+
+.prio-btn {
+  display: flex;
+  align-items: center;
+  padding: 16px 10px;
+  background-color: white;
+  border-radius: var(--border-radius-s);
+  width: 130px;
+  gap: 8px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.prio-btn:nth-child(1) {
+}
+
+.prio-btn:nth-child(2) {
+}
+
+.prio-btn:nth-child(3) {
+}
+
+/* buttons Farbe ändern/ toggeln beim klicken --> mit js */
