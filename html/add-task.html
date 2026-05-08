@@ -23,7 +23,7 @@
       <nav class="sidebar-nav">
         <ul class="nav-list">
           <li>
-            <a href="summary.html" class="nav-link active">
+            <a href="summary.html" class="nav-link">
               <img
                 class="nav-icon"
                 src="/assets/icons/summary-icon.svg"
@@ -33,7 +33,7 @@
             </a>
           </li>
           <li>
-            <a href="add-task.html" class="nav-link">
+            <a href="add-task.html" class="nav-link active">
               <img
                 class="nav-icon"
                 src="/assets/icons/add-task-icon.svg"
@@ -100,6 +100,8 @@
               >Due Date<span class="red">*</span></label
             >
             <input
+              class="task-date-input"
+              lang="en-GB"
               type="date"
               id="task-due-date"
               placeholder="dd/mm/yyyy"
@@ -188,18 +190,25 @@
               </button>
             </div>
             <label for="contacts">Assigned to</label>
-            <select name="" id="contacts">
+            <select class="task-form-select" name="" id="contacts">
               <option value="" disabled selected>
                 Select contacts to assign
               </option>
-              <option value=""></option>
+              <option value="">Option 1</option>
+              <option value="">Option 2</option>
             </select>
             <label for="task-category"
               >Category<span class="red">*</span></label
             >
-            <select name="" id="task-category" required>
+            <select
+              class="task-form-select"
+              name=""
+              id="task-category"
+              required
+            >
               <option value="" disabled selected>Select task category</option>
-              <option value=""></option>
+              <option value="">Option 1</option>
+              <option value="">Option 2</option>
             </select>
             <label for="subtask">Subtasks</label>
             <input type="text" id="subtask" placeholder="Add new subtask" />

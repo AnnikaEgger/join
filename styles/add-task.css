@@ -124,3 +124,41 @@ label {
 }
 
 /* Date input + select --> wie designen? */
+
+.task-form-select {
+  appearance: none;
+  background-image: url("../assets/icons/arrow-drop-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.task-date-input {
+  background-image: url("../assets/icons/calendar.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.task-date-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.task-date-input::-webkit-datetime-edit-month-field {
+  color: var(--light-gray2);
+}
+.task-date-input::-webkit-datetime-edit-day-field {
+  color: var(--light-gray2);
+}
+.task-date-input::-webkit-datetime-edit-year-field {
+  color: var(--light-gray2);
+}
+
+.task-date-input:focus::-webkit-datetime-edit-month-field {
+  color: black;
+}
+.task-date-input:focus::-webkit-datetime-edit-day-field {
+  color: black;
+}
+.task-date-input:focus::-webkit-datetime-edit-year-field {
+  color: black;
+}
