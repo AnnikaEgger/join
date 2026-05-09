@@ -1,0 +1,59 @@
+const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/.json";
+let contacts = [];
+
+async function init() {
+    await loadContacts();
+    renderContactList();
+}
+
+async function loadContacts() {
+    let response = await fetch(BASE_URL);
+    let data = await response.json();
+
+    if (data && data.contacts) {
+        fillContactsArray(data.contacts);
+        contacts.sort(function(a, b) {
+            return a.name.localeCompare(b.name);
+        });
+    }
+}
+
+function fillContactsArray(contactsObj) {
+    let keys = Object.keys(contactsObj);
+
+    for (let i = 0; i < keys.length; i++) {
+        let id = keys[i];
+        let contactData = contactsObj[id];
+        contactData.id = id;
+        contacts.push(contactData);
+    }
+}
+
+function renderContactList() {
+    let content = document.getElementById('contact-list');
+    content.innerHTML = '';
+    let currentLetter = '';
+
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        let firstLetter = contact.name.charAt(0).toUpperCase();
+
+        if (firstLetter !== currentLetter) {
+            currentLetter = firstLetter;
+            content.innerHTML += renderLetterHeader(currentLetter);
+        }
+        content.innerHTML += generateContactHTML(contact);
+    }
+}
+
+function getInitials(name) {
+    let firstLetter = name.charAt(0);
+    let spaceIndex = name.indexOf(' ');
+    let secondLetter = '';
+
+    if (spaceIndex !== -1) {
+        secondLetter = name.charAt(spaceIndex + 1);
+    }
+
+    return (firstLetter + secondLetter).toUpperCase();
+}

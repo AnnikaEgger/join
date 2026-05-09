@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/contacts.css" />
 </head>
 
-<body>
+<body onload="init()">
     <!-- SIDEBAR  -->
     <section class="sidebar">
         <div class="sidebar-logo">
@@ -69,83 +69,11 @@
         <!-- LINKER TEIL: Kontaktliste -->
         <section class="contact-list-container">
             <button class="add-contact-btn">
-                Add new contact <img src="../assets/icons/add-new-contact-icon.svg" alt="Add Contact Icon"/>
+                Add new contact <img src="../assets/icons/add-new-contact-icon.svg" alt="Add Contact Icon" />
             </button>
 
             <div id="contact-list" class="contact-list">
-                <!-- Beispiel für einen Buchstaben-Block -->
-                <div class="letter-section">
-                    <div class="letter-header">A</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="letter-section">
-                    <div class="letter-header">B</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="letter-section">
-                    <div class="letter-header">C</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="letter-section">
-                    <div class="letter-header">D</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="letter-section">
-                    <div class="letter-header">E</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="letter-section">
-                    <div class="letter-header">F</div>
-                    <div class="letter-divider"></div>
-                    <!-- Kontakt Item -->
-                    <div class="contact-item" onclick="showContactDetails()">
-                        <div class="contact-avatar" style="background-color: #FF7A00;">AM</div>
-                        <div class="contact-info-short">
-                            <span class="contact-name">Anton Mayer</span>
-                            <span class="contact-email">anton@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </section>
 
@@ -159,10 +87,13 @@
 
             <div id="contact-detail-content" class="contact-detail-content">
                 <!-- Hier wird später per JS der gewählte Kontakt reingeladen -->
-                 Hallo hier die Kontaktdaten
+                Hallo hier die Kontaktdaten
             </div>
         </section>
     </main>
+
+    <script src="../scripts/contacts templates.js"></script>
+    <script src="../scripts/contacts.js"></script>
 </body>
 
 </html>
