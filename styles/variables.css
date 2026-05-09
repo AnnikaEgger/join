@@ -11,3 +11,8 @@
   --border-radius-s: 10px;
   --border-radius-xs: 8px;
 }
+
+:root {
+  --content-limitation: calc(50% - 960px);
+  /* einfügen mit max(var(--content-limitation), dein padding) */
+}
