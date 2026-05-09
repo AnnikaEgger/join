@@ -1,9 +1,8 @@
-main * {
-  font-size: 20px;
+:root {
+  --textarea-height: 120px;
 }
 
 .main-content {
-  /* padding: 48px 100px; */
   padding: 48px max(calc(var(--content-limitation) + var(--sidebar-width)), 0px);
   display: flex;
   flex-direction: column;
@@ -16,20 +15,15 @@ main * {
 }
 
 h2 {
-  font-weight: 700;
-  font-size: 60px;
-  color: black;
   margin-bottom: 48px;
 }
 
-/* .add-task-wrapper {
-  max-width: 1000px;
-} */
+.add-task-wrapper * {
+  font-size: 20px;
+}
 
 .add-task-inner-wrapper {
   display: flex;
-  /* width: 100%;
-  justify-content: space-between; */
 }
 
 .add-task-container {
@@ -39,7 +33,7 @@ h2 {
 
 textarea {
   padding: 18px 16px;
-  height: 120px;
+  height: var(--textarea-height);
   resize: vertical;
 }
 
@@ -71,7 +65,10 @@ label {
 
 .add-task-btn-container {
   display: flex;
-  gap: 16px;
+  /* flex-wrap: wrap; */
+  justify-content: space-around;
+  width: var(--input-width);
+  /* gap: 16px; */
 }
 
 .prio-btn {
@@ -81,7 +78,7 @@ label {
   padding: 16px 10px;
   background-color: white;
   border-radius: var(--border-radius-s);
-  width: 130px;
+  width: 120px;
   gap: 8px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
@@ -107,8 +104,6 @@ label {
   stroke: white;
 }
 
-/* buttons Farbe ändern/ toggeln beim klicken --> mit js */
-
 .add-task-bottom-btns-container {
   display: flex;
   gap: 16px;
@@ -118,16 +113,12 @@ label {
   padding: 16px;
 }
 
-/* buttons background + svg Farbe toggeln beim klicken; button clear task per default ausgewählt */
-
 .add-task-bottom-section {
   display: flex;
   justify-content: space-between;
   align-items: end;
   margin-top: 100px;
 }
-
-/* Date input + select --> wie designen? */
 
 .task-form-select {
   appearance: none;
@@ -172,6 +163,54 @@ label {
 /* #region responsive */
 
 @media screen and (max-width: 1280px) {
+  :root {
+    --textarea-height: 100px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  :root {
+    --input-width: 80dvw;
+    --textarea-height: 90px;
+  }
+  .main-content {
+    padding: 48px max(calc(var(--content-limitation)), 24px);
+  }
+
+  .add-task-wrapper {
+    max-width: 1000px;
+  }
+
+  .add-task-wrapper * {
+    font-size: 16px;
+  }
+  .add-task-bottom-btn {
+    font-size: 20px;
+  }
+
+  .add-task-inner-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  textarea {
+    resize: none;
+    background-image: none;
+  }
+
+  .add-task-bottom-section {
+    margin-top: 0;
+  }
+
+  .add-task-bottom-btns-container {
+    width: 100%;
+    background-color: var(--light-gray);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    justify-content: end;
+    padding: 0px max(var(--content-limitation), 24px);
+  }
 }
 
 /* #endregion */

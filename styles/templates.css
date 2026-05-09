@@ -201,3 +201,18 @@ ul {
     text-align: center;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    /* erstmal auf display none, damit von der Seite weg :) */
+    display: none;
+  }
+
+  .header {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}

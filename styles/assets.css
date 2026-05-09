@@ -1,3 +1,7 @@
+:root {
+  --input-width: 420px;
+}
+
 button {
   cursor: pointer;
   border: unset;
@@ -5,20 +9,18 @@ button {
 
 input {
   padding: 12px 20px;
-  /* border: unset; */
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
-  width: 420px;
+  max-width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
 }
 
 select {
   padding: 12px 20px;
-  /* border: unset; */
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
-  width: 420px;
+  width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
 }
@@ -30,7 +32,7 @@ input::placeholder {
 textarea {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
-  width: 420px;
+  width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
   background-image: url("../assets/icons/textarea-resizer.svg");
@@ -44,7 +46,6 @@ textarea::placeholder {
 
 ::-webkit-resizer {
   opacity: 0;
-  /* background: url("../assets/icons/textarea-resizer.svg") no-repeat center; */
   padding: 8px;
 }
 
@@ -89,4 +90,16 @@ select {
 .button-white:active path {
   fill: white;
   stroke: white;
+}
+
+@media screen and (max-width: 1280px) {
+  :root {
+    --input-width: 340px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  input {
+    padding: 10px 20px;
+  }
 }

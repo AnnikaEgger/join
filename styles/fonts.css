@@ -156,7 +156,14 @@ body {
   font-size: 60px;
 }
 
-h1 {
+h2 {
+  color: black;
   font-weight: 700;
   font-size: 60px;
+}
+
+@media screen and (max-width: 1024px) {
+  h2 {
+    font-size: 48px;
+  }
 }
