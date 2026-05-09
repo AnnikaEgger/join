@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join Add Task</title>
-    <link rel="icon" href="../assets/icons/join-logo-white.svg" type="image/svg+xml">
+    <link
+      rel="icon"
+      href="../assets/icons/join-logo-white.svg"
+      type="image/svg+xml"
+    />
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
@@ -92,10 +96,8 @@
               required
             />
             <label for="task-description">Description</label>
-            <textarea
-              id="task-description"
-              placeholder="Enter a description"
-            ></textarea>
+            <textarea id="task-description" placeholder="Enter a description">
+            </textarea>
             <label for="task-due-date"
               >Due Date<span class="red">*</span></label
             >
@@ -221,7 +223,6 @@
             <button
               type="reset"
               id="clear-task-btn"
-              onclick="toggleBtnColor('clear-task-btn')"
               class="button add-task-bottom-btn button-white"
             >
               Clear
@@ -245,7 +246,6 @@
             <button
               type="submit"
               id="create-task-btn"
-              onclick="toggleBtnColor('create-task-btn')"
               class="button add-task-bottom-btn button-white"
             >
               Create Task

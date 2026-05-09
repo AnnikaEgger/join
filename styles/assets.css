@@ -33,10 +33,19 @@ textarea {
   width: 420px;
   font-size: 20px;
   font-weight: 400;
+  background-image: url("../assets/icons/textarea-resizer.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 6px right 6px;
 }
 
 textarea::placeholder {
   color: #d1d1d1;
+}
+
+::-webkit-resizer {
+  opacity: 0;
+  /* background: url("../assets/icons/textarea-resizer.svg") no-repeat center; */
+  padding: 8px;
 }
 
 select {
@@ -75,4 +84,9 @@ select {
   color: white;
   background-color: var(--dark-blue);
   border: 1px solid transparent;
+}
+
+.button-white:active path {
+  fill: white;
+  stroke: white;
 }

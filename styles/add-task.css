@@ -37,6 +37,8 @@ h2 {
 
 textarea {
   padding: 18px 16px;
+  height: 120px;
+  resize: vertical;
 }
 
 input {
@@ -136,6 +138,7 @@ label {
   background-image: url("../assets/icons/calendar.svg");
   background-repeat: no-repeat;
   background-position: right 16px center;
+  cursor: pointer;
 }
 
 .task-date-input::-webkit-calendar-picker-indicator {
@@ -143,22 +146,27 @@ label {
   cursor: pointer;
 }
 
-.task-date-input::-webkit-datetime-edit-month-field {
-  color: var(--light-gray2);
-}
-.task-date-input::-webkit-datetime-edit-day-field {
-  color: var(--light-gray2);
-}
-.task-date-input::-webkit-datetime-edit-year-field {
+.task-date-input:invalid::-webkit-datetime-edit-text,
+.task-date-input:invalid::-webkit-datetime-edit-month-field,
+.task-date-input:invalid::-webkit-datetime-edit-day-field,
+.task-date-input:invalid::-webkit-datetime-edit-year-field {
   color: var(--light-gray2);
 }
 
-.task-date-input:focus::-webkit-datetime-edit-month-field {
-  color: black;
-}
-.task-date-input:focus::-webkit-datetime-edit-day-field {
-  color: black;
-}
+.task-date-input:focus::-webkit-datetime-edit-text,
+.task-date-input:focus::-webkit-datetime-edit-month-field,
+.task-date-input:focus::-webkit-datetime-edit-day-field,
 .task-date-input:focus::-webkit-datetime-edit-year-field {
   color: black;
 }
+
+.task-date-input:valid::-webkit-datetime-edit-text,
+.task-date-input:valid::-webkit-datetime-edit-month-field,
+.task-date-input:valid::-webkit-datetime-edit-day-field,
+.task-date-input:valid::-webkit-datetime-edit-year-field {
+  color: black;
+}
+
+/* #region responsive */
+
+/* #endregion */

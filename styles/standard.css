@@ -8,3 +8,7 @@
 a {
   text-decoration: none;
 }
+
+body {
+  padding: 0 max(calc(50% - 720px), 64px);
+}
