@@ -1,0 +1,45 @@
+/* --- 1. Haupt-Container mit Inhaltsbegrenzung auf 1440px --- */
+.main-content {
+  /* max-width: 1440px;   Begrenzung der Breite auf 1440px */
+  /* margin: 0 auto; Zentrierung des Inhalts */
+  /* width: 100%; */
+  /* padding: 40px; Innerer Abstand zum Rand */
+  /* box-sizing: border-box; */
+  /* min-height: 100vh; */
+  /* background-color: #ffffff; */
+}
+
+/* --- 2. Styling für Textelemente --- */
+.main-content h1 {
+  font-size: 61px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #2a3647;
+}
+
+.main-content h2 {
+  font-size: 27px;
+  margin-top: 30px;
+  color: #2a3647;
+}
+
+.main-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* --- 3. Responsive Anpassungen (Mobile & Tablet) --- */
+@media (max-width: 1000px) {
+  .main-content {
+    padding: 40px 20px;
+    margin-top: 80px; /* Abstand zum Header auf kleineren Bildschirmen */
+    max-width: 100%; /* Volle Breite auf kleinen Bildschirmen */
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content h1 {
+    font-size: 47px;
+  }
+}
