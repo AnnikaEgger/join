@@ -11,7 +11,7 @@
   --light-gray: #f6f7f8;
   --gray: #a8a8a8;
   --sidebar-width: 232px;
-  --header-height: 96px;
+  --header-height: 100px;
   --transition-default: all 100ms ease-in-out;
 }
 
@@ -101,7 +101,7 @@ ul {
 .sidebar-footer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 20px;
   padding: 0 56px;
 }
 
@@ -180,4 +180,24 @@ ul {
   margin-top: var(--header-height);
   padding: 48px;
   min-height: calc(100vh - var(--header-height));
+}
+
+@media screen and (max-width: 1280px) {
+  .sidebar-logo img {
+    width: 75px;
+  }
+
+  :root {
+    --sidebar-width: 175px;
+    --header-height: 75px;
+  }
+
+  .nav-link {
+    padding: 12px 24px;
+  }
+
+  .sidebar-footer {
+    padding: 0 24px;
+    text-align: center;
+  }
 }

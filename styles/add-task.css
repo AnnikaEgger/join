@@ -3,8 +3,11 @@ main * {
 }
 
 .main-content {
-  padding: 48px 100px;
-  padding: 48px var(--content-limitation);
+  /* padding: 48px 100px; */
+  padding: 48px max(calc(var(--content-limitation) + var(--sidebar-width)), 0px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 :root {
@@ -19,14 +22,14 @@ h2 {
   margin-bottom: 48px;
 }
 
-.add-task-wrapper {
+/* .add-task-wrapper {
   max-width: 1000px;
-}
+} */
 
 .add-task-inner-wrapper {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  /* width: 100%;
+  justify-content: space-between; */
 }
 
 .add-task-container {
@@ -167,5 +170,8 @@ label {
 }
 
 /* #region responsive */
+
+@media screen and (max-width: 1280px) {
+}
 
 /* #endregion */
