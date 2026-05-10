@@ -85,17 +85,19 @@
 
     <main class="main-content">
       <div class="content-wrapper">
-        <h2>Add Task</h2>
+        <h1>Add Task</h1>
         <form class="add-task-wrapper">
           <div class="add-task-inner-wrapper">
             <div class="add-task-container">
               <label for="task-title">Title<span class="red">*</span></label>
-              <input
-                type="text"
-                id="task-title"
-                placeholder="Enter a title"
-                required
-              />
+              <div class="required">
+                <input
+                  type="text"
+                  id="task-title"
+                  placeholder="Enter a title"
+                  required
+                />
+              </div>
               <label for="task-description">Description</label>
               <textarea
                 id="task-description"
@@ -104,14 +106,16 @@
               <label for="task-due-date"
                 >Due Date<span class="red">*</span></label
               >
-              <input
-                class="task-date-input"
-                lang="en-GB"
-                type="date"
-                id="task-due-date"
-                placeholder="dd/mm/yyyy"
-                required
-              />
+              <div class="required">
+                <input
+                  class="task-date-input"
+                  lang="en-GB"
+                  type="date"
+                  id="task-due-date"
+                  placeholder="dd/mm/yyyy"
+                  required
+                />
+              </div>
             </div>
 
             <div class="seperation-line"></div>
@@ -205,16 +209,20 @@
               <label for="task-category"
                 >Category<span class="red">*</span></label
               >
-              <select
-                class="task-form-select"
-                name=""
-                id="task-category"
-                required
-              >
-                <option value="" disabled selected>Select task category</option>
-                <option value="">Option 1</option>
-                <option value="">Option 2</option>
-              </select>
+              <div class="required">
+                <select
+                  class="task-form-select"
+                  name=""
+                  id="task-category"
+                  required
+                >
+                  <option value="" disabled selected>
+                    Select task category
+                  </option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              </div>
               <label for="subtask">Subtasks</label>
               <input type="text" id="subtask" placeholder="Add new subtask" />
             </div>
@@ -249,7 +257,7 @@
               <button
                 type="submit"
                 id="create-task-btn"
-                class="button add-task-bottom-btn button-white"
+                class="button add-task-bottom-btn button-blue"
               >
                 Create Task
                 <svg
@@ -262,7 +270,7 @@
                 >
                   <path
                     d="M5.288 8.775L13.763 0.3C13.963 0.1 14.2005 0 14.4755 0C14.7505 0 14.988 0.1 15.188 0.3C15.388 0.5 15.488 0.7375 15.488 1.0125C15.488 1.2875 15.388 1.525 15.188 1.725L5.988 10.925C5.788 11.125 5.55467 11.225 5.288 11.225C5.02133 11.225 4.788 11.125 4.588 10.925L0.288 6.625C0.088 6.425 -0.00783333 6.1875 0.0005 5.9125C0.00883333 5.6375 0.113 5.4 0.313 5.2C0.513 5 0.7505 4.9 1.0255 4.9C1.3005 4.9 1.538 5 1.738 5.2L5.288 8.775Z"
-                    fill="#2a3647"
+                    fill="white"
                   />
                 </svg>
               </button>

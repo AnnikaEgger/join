@@ -14,7 +14,7 @@
   --light-orange: #ffa800;
 }
 
-h2 {
+h1 {
   margin-bottom: 48px;
 }
 
@@ -81,27 +81,45 @@ label {
   width: 120px;
   gap: 8px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease-in;
+}
+
+.prio-btn:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease-in;
+}
+
+.urgent-active,
+.medium-active,
+.low-active {
+  color: white;
+  font-weight: 700;
 }
 
 .urgent-active {
   background-color: #ff3d00;
-  color: white;
-  font-weight: 700;
 }
 .medium-active {
   background-color: var(--light-orange);
-  color: white;
-  font-weight: 700;
 }
 .low-active {
   background-color: #7ae229;
-  color: white;
-  font-weight: 700;
 }
 
 .active-svg {
   fill: white;
   stroke: white;
+}
+
+#urgent-prio-svg,
+#low-prio-svg {
+  width: 20px;
+  height: 15px;
+}
+
+#medium-prio-svg {
+  height: 10px;
+  width: 20px;
 }
 
 .add-task-bottom-btns-container {
@@ -213,4 +231,39 @@ label {
   }
 }
 
+@media screen and (max-width: 480px) {
+  .add-task-bottom-btn {
+    padding: 8px;
+  }
+
+  .prio-btn {
+    padding: 6px;
+    gap: 4px;
+    width: unset;
+  }
+
+  #urgent-prio-svg,
+  #low-prio-svg {
+    width: 18px;
+    height: 12px;
+  }
+
+  #medium-prio-svg {
+    height: 8px;
+    width: 16px;
+  }
+
+  .urgent-active,
+  .medium-active,
+  .low-active {
+    font-weight: 600;
+  }
+}
+
 /* #endregion */
+
+/* tooltip */
+
+/* :hover::after
+content: "bla"
+position: absolute; attr(title) */

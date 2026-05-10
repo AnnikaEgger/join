@@ -25,8 +25,30 @@ select {
   font-weight: 400;
 }
 
+.required input {
+  width: 100%;
+}
+
+.required {
+  position: relative;
+  display: flex;
+}
+
 input::placeholder {
   color: #d1d1d1;
+}
+
+/* input:invalid:focus {
+  border: 1px solid red;
+} */
+
+.required:has(:is(input, select):focus:invalid)::after {
+  content: "this field is required";
+  font-size: 16px;
+  color: red;
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
 }
 
 textarea {
@@ -73,15 +95,32 @@ select {
   color: white;
   background-color: var(--dark-blue);
   border: 1px solid transparent;
+  transition: all 0.2s ease-in;
+}
+
+.button-blue:hover {
+  background-color: var(--light-blue);
+  border: 1px solid transparent;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in;
 }
 
 .button-white {
   color: var(--dark-blue);
   background-color: white;
   border: 1px solid var(--dark-blue);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  transition: box-shadow 0.2s ease-in;
 }
 
-.button-white:active {
+.button-white:hover {
+  border: 1px solid var(--light-blue);
+  outline: 1px solid var(--light-blue);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease-in;
+}
+
+/* .button-white:active {
   color: white;
   background-color: var(--dark-blue);
   border: 1px solid transparent;
@@ -90,7 +129,7 @@ select {
 .button-white:active path {
   fill: white;
   stroke: white;
-}
+} */
 
 @media screen and (max-width: 1280px) {
   :root {
