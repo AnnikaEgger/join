@@ -22,6 +22,10 @@ h1 {
   font-size: 20px;
 }
 
+.add-task-wrapper {
+  /* position: relative; */
+}
+
 .add-task-inner-wrapper {
   display: flex;
 }
@@ -96,6 +100,12 @@ label {
   font-weight: 700;
 }
 
+.urgent-active:hover,
+.medium-active:hover,
+.low-active:hover {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
 .urgent-active {
   background-color: #ff3d00;
 }
@@ -127,11 +137,25 @@ label {
   gap: 16px;
 }
 
+.add-task-bottom-btns-container {
+  position: sticky;
+  top: 40px;
+  left: 40px;
+  bottom: 40px;
+  right: max(var(--content-limitation), 24px);
+  justify-content: end;
+  padding: 0px max(var(--content-limitation), 24px);
+}
+
 .add-task-bottom-btn {
   padding: 16px;
 }
 
 .add-task-bottom-section {
+  position: sticky;
+  top: 40px;
+  left: 40px;
+  bottom: 40px;
   display: flex;
   justify-content: space-between;
   align-items: end;

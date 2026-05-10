@@ -2,6 +2,13 @@
   font-size: 20px;
 } */
 
+:root {
+  --login-container-height: 450px;
+  --login-container-width: 650px;
+  --signup-container-height: 630px;
+  --signup-container-width: 600px;
+}
+
 * {
   font-family: "Inter", sans-serif;
 }
@@ -40,6 +47,10 @@ header nav {
   text-decoration: none;
 }
 
+.button-signup-small {
+  color: white;
+}
+
 footer {
   height: 100px;
 }
@@ -73,7 +84,7 @@ main {
 }
 
 .input-login-email {
-  background-image: url("../assets/icons/mail\ \(1\).svg");
+  background-image: url("../assets/icons/mail.svg");
   background-repeat: no-repeat;
   background-position: calc(100% - 21px) center;
 }
@@ -90,9 +101,8 @@ main {
   background-position: calc(100% - 21px) center;
 }
 
-.login-container {
-  position: relative;
-
+.form-container {
+  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,21 +113,35 @@ main {
   border-radius: var(--border-radius-l);
 }
 
-.login-headline-container {
+.login-container {
+  height: var(--login-container-height);
+  width: var(--login-container-width);
+  top: calc(50dvh - var(--login-container-height) / 2);
+  left: calc(50dvw - var(--login-container-width) / 2);
+}
+
+.signup-container {
+  height: var(--signup-container-height);
+  width: var(--signup-container-width);
+  top: calc(50dvh - var(--signup-container-height) / 2);
+  left: calc(50dvw - var(--signup-container-width) / 2);
+}
+
+.form-headline-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-.login-underline {
+.h1-underline {
   height: 4px;
   width: 150px;
   background-color: var(--light-blue);
   border-radius: 3px;
 }
 
-.login-btn-section {
+.form-btn-section {
   display: flex;
   gap: 32px;
   border-radius: var(--border-radius-l);

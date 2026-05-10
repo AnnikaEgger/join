@@ -86,7 +86,7 @@
     <main class="main-content">
       <div class="content-wrapper">
         <h1>Add Task</h1>
-        <form class="add-task-wrapper">
+        <form id="task-form" novalidate class="add-task-wrapper">
           <div class="add-task-inner-wrapper">
             <div class="add-task-container">
               <label for="task-title">Title<span class="red">*</span></label>
@@ -200,23 +200,35 @@
               </div>
               <label for="contacts">Assigned to</label>
               <select class="task-form-select" name="" id="contacts">
-                <option value="" disabled selected>
+                <option value="" disabled selected hidden>
                   Select contacts to assign
                 </option>
-                <option value="">Option 1</option>
+                <option value="">
+                  <img src="../assets/icons/initials.svg" alt="" />Sofia Müller
+                  <input type="checkbox" name="" id="" />
+                </option>
                 <option value="">Option 2</option>
               </select>
               <label for="task-category"
                 >Category<span class="red">*</span></label
               >
               <div class="required">
+                <button>
+                  <selectedcontent></selectedcontent>
+                  <img
+                    src="../assets/icons/arrow-drop-down.svg"
+                    alt=""
+                    class="picker"
+                  />
+                </button>
+
                 <select
                   class="task-form-select"
                   name=""
                   id="task-category"
                   required
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled selected hidden>
                     Select task category
                   </option>
                   <option value="">Option 1</option>

@@ -16,13 +16,41 @@ input {
   font-weight: 400;
 }
 
+input,
+select,
+textarea {
+  outline: none;
+}
+
 select {
+  appearance: none;
   padding: 12px 20px;
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
   width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select option {
+  appearance: none;
+  border-radius: var(--border-radius-s);
+}
+
+select option:hover {
+  background-color: var(--light-gray);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid var(--light-blue);
 }
 
 .required input {
@@ -38,12 +66,13 @@ input::placeholder {
   color: #d1d1d1;
 }
 
-/* input:invalid:focus {
+input:invalid:focus,
+select:invalid:focus {
   border: 1px solid red;
-} */
+}
 
 .required:has(:is(input, select):focus:invalid)::after {
-  content: "this field is required";
+  content: "This field is required";
   font-size: 16px;
   color: red;
   position: absolute;

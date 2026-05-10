@@ -33,17 +33,11 @@ function stylePrioSvgColors() {
   });
 }
 
-// function toggleBtnColor(btnId) {
-//   let btn = document.getElementById(btnId);
-//   btn.classList.toggle("button-blue");
-//   btn.classList.toggle("button-white");
+let taskForm = document.getElementById("task-form");
 
-//   toggleSvgColor(btnId + "-svg");
-// }
-
-// function toggleSvgColor(svgId) {
-//   let svg = document.getElementById(svgId);
-//   svg.querySelectorAll("path").forEach((path) => {
-//     path.classList.toggle("active-svg");
-//   });
-// }
+taskForm.addEventListener("submit", (e) => {
+  if (!taskForm.checkValidity()) {
+    e.preventDefault();
+    taskForm.querySelector(":invalid").focus();
+  }
+});
