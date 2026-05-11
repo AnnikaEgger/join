@@ -1,0 +1,400 @@
+.summary-page {
+    padding: 48px 0;
+}
+
+.summary-title {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 64px;
+}
+
+.summary-title h1 {
+    font-size: 61px;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin: 0;
+}
+
+.title-divider {
+    width: 3px;
+    height: 59px;
+    background-color: var(--light-blue);
+    border-radius: 3px;
+}
+
+.summary-title p {
+    font-size: 27px;
+    color: var(--dark-blue);
+    margin: 0;
+}
+
+.summary-body {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.summary-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+    min-width: 600px;
+}
+
+.cards-row {
+    display: flex;
+    gap: 24px;
+}
+
+.metric-card {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
+    transition: var(--transition-default);
+    cursor: pointer;
+    color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+}
+
+.metric-card:hover {
+    background-color: var(--dark-blue);
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
+}
+
+.metric-card-icon {
+    flex: 1;
+    gap: 16px;
+    padding: 24px 32px;
+}
+
+.card-icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: var(--transition-default);
+}
+
+.metric-card:hover .card-icon-circle {
+    background-color: white;
+}
+
+.metric-card:hover .card-icon-circle svg path {
+    fill: var(--dark-blue);
+}
+
+.card-icon-urgent {
+    background-color: #ff3d00;
+}
+
+.metric-card:hover .card-icon-urgent svg path {
+    fill: #ff3d00;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-count {
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.card-label {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 6px;
+}
+
+.metric-card-wide {
+    gap: 32px;
+    padding: 24px 32px;
+}
+
+.card-urgent-side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.card-divider {
+    width: 2px;
+    height: 60px;
+    background-color: #d1d1d1;
+    border-radius: 2px;
+    transition: var(--transition-default);
+}
+
+.metric-card:hover .card-divider {
+    background-color: white;
+}
+
+.card-deadline {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.deadline-date {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.deadline-label {
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.metric-card-bottom {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 16px;
+    gap: 4px;
+}
+
+.metric-card-bottom .card-count {
+    font-size: 47px;
+}
+
+.metric-card-bottom .card-label {
+    font-size: 16px;
+    text-align: center;
+}
+
+.summary-greeting {
+    flex: 1;
+    min-width: 300px;
+}
+
+.summary-greeting h2 {
+    font-size: 47px;
+    font-weight: 500;
+    color: var(--dark-blue);
+    margin: 0;
+}
+
+.summary-greeting p {
+    font-size: 61px;
+    font-weight: 700;
+    color: var(--light-blue);
+    margin: 8px 0 0 0;
+}
+
+
+@media screen and (max-width: 1440px) {
+    .summary-title h1 {
+        font-size: 55px;
+    }
+    .summary-title p {
+        font-size: 24px;
+    }
+    .card-count {
+        font-size: 42px;
+    }
+    .metric-card-bottom .card-count {
+        font-size: 42px;
+    }
+    .summary-greeting h2 {
+        font-size: 42px;
+    }
+    .summary-greeting p {
+        font-size: 55px;
+    }
+    .summary-cards {
+        min-width: 500px;
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .summary-title h1 {
+        font-size: 47px;
+    }
+    .summary-title p {
+        font-size: 20px;
+    }
+    .title-divider {
+        height: 47px;
+    }
+    .summary-body {
+        flex-direction: column-reverse;
+        gap: 48px;
+        align-items: stretch;
+    }
+    .summary-greeting {
+        text-align: center;
+        min-width: unset;
+    }
+    .summary-cards {
+        min-width: unset;
+    }
+    .card-count,
+    .metric-card-bottom .card-count {
+        font-size: 36px;
+    }
+    .metric-card-icon {
+        padding: 20px 24px;
+    }
+    .card-icon-circle {
+        width: 50px;
+        height: 50px;
+    }
+    .summary-greeting h2 {
+        font-size: 36px;
+    }
+    .summary-greeting p {
+        font-size: 47px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .summary-title {
+        gap: 16px;
+        margin-bottom: 48px;
+    }
+    .summary-title h1 {
+        font-size: 40px;
+    }
+    .summary-title p {
+        font-size: 18px;
+    }
+    .cards-row-bottom {
+        flex-direction: column;
+    }
+    .card-count,
+    .metric-card-bottom .card-count {
+        font-size: 32px;
+    }
+    .card-label {
+        font-size: 16px;
+    }
+    .metric-card-wide {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+    }
+    .card-divider {
+        width: 80%;
+        height: 2px;
+    }
+    .summary-greeting h2 {
+        font-size: 28px;
+    }
+    .summary-greeting p {
+        font-size: 36px;
+    }
+}
+
+
+@media screen and (max-width: 425px) {
+    .summary-title h1 {
+        font-size: 32px;
+    }
+    .summary-title p {
+        font-size: 16px;
+    }
+    .title-divider {
+        height: 32px;
+    }
+    .cards-row-top {
+        flex-direction: column;
+    }
+    .card-count,
+    .metric-card-bottom .card-count {
+        font-size: 28px;
+    }
+    .card-label {
+        font-size: 14px;
+    }
+    .metric-card {
+        border-radius: 20px;
+    }
+    .metric-card-icon {
+        padding: 16px 20px;
+    }
+    .card-icon-circle {
+        width: 44px;
+        height: 44px;
+    }
+    .summary-greeting h2 {
+        font-size: 22px;
+    }
+    .summary-greeting p {
+        font-size: 28px;
+    }
+    .deadline-date {
+        font-size: 18px;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .summary-title h1 {
+        font-size: 28px;
+    }
+    .card-count,
+    .metric-card-bottom .card-count {
+        font-size: 24px;
+    }
+    .summary-greeting p {
+        font-size: 24px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .summary-title {
+        gap: 12px;
+    }
+    .summary-title h1 {
+        font-size: 24px;
+    }
+    .summary-title p {
+        font-size: 14px;
+    }
+    .title-divider {
+        height: 28px;
+    }
+    .card-count,
+    .metric-card-bottom .card-count {
+        font-size: 20px;
+    }
+    .card-label {
+        font-size: 12px;
+    }
+    .metric-card-icon {
+        padding: 12px 16px;
+    }
+    .card-icon-circle {
+        width: 36px;
+        height: 36px;
+    }
+    .summary-greeting h2 {
+        font-size: 18px;
+    }
+    .summary-greeting p {
+        font-size: 22px;
+    }
+    .deadline-date {
+        font-size: 16px;
+    }
+    .deadline-label {
+        font-size: 12px;
+    }
+}
