@@ -57,3 +57,18 @@ function getInitials(name) {
 
     return (firstLetter + secondLetter).toUpperCase();
 }
+
+function showContactDetails(id) {
+    let contact = null;
+
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].id === id) {
+            contact = contacts[i];
+            break;
+        }
+    }
+
+    if (contact) {
+        document.getElementById('contact-detail-content').innerHTML = generateDetailHTML(contact);
+    }
+}
