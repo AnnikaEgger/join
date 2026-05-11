@@ -85,3 +85,26 @@ function highlightContact(id) {
         activeCard.classList.add('contact-item-active');
     }
 }
+
+async function deleteContact(id) {
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${id}.json`;
+    
+    await fetch(url, {
+        method: "DELETE"
+    });
+
+    document.getElementById('contact-detail-content').innerHTML = '';
+    
+    await init();
+}
+
+async function loadContacts() {
+    contacts = [];
+    let response = await fetch(BASE_URL);
+    let data = await response.json();
+
+    if (data && data.contacts) {
+        fillContactsArray(data.contacts);
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
+    }
+}
