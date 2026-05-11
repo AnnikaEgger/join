@@ -27,53 +27,62 @@
 
     <main>
       <form class="form-container signup-container">
-        <div class="form-headline-container">
-          <button class="blue-arrow-left-btn">
-            <img src="./assets/icons/blue-arrow-left.svg" alt="" />
-          </button>
-          <h1 class="h1-login">Sign up</h1>
-          <div class="h1-underline"></div>
+        <div class="form-headline-container form-headline-container-signup">
+          <a href="../index.html">
+            <button class="blue-arrow-left-btn">
+              <img src="../assets/icons/blue-arrow-left.svg" alt="" />
+            </button>
+          </a>
+          <div class="headline-wrapper">
+            <h1>Sign up</h1>
+            <div class="h1-underline"></div>
+          </div>
         </div>
-        <input
-          class="input-login input-login-name"
-          placeholder="Name"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          placeholder="Email"
-          class="input-login input-login-email"
-          type="email"
-          name=""
-          id=""
-        />
-        <input
-          placeholder="Password"
-          class="input-login input-login-password"
-          type="password"
-          name=""
-          id=""
-        />
-        <input
-          placeholder="Confirm Password"
-          class="input-login input-login-confirm-password"
-          type="password"
-          name=""
-          id=""
-        />
+        <section class="input-fields input-fields-signup">
+          <input
+            class="form-input form-input-name"
+            placeholder="Name"
+            type="text"
+            name=""
+            id=""
+          />
+          <input
+            placeholder="Email"
+            class="form-input form-input-email"
+            type="email"
+            name=""
+            id=""
+          />
+          <input
+            placeholder="Password"
+            class="form-input form-input-password"
+            type="password"
+            name=""
+            id=""
+          />
+          <input
+            placeholder="Confirm Password"
+            class="form-input form-input-confirm-password"
+            type="password"
+            name=""
+            id=""
+          />
+        </section>
 
         <div class="accept-privacy-container">
           <input class="accept-checkbox" type="checkbox" name="" id="" />
           <p>I accept the <a href="">Privacy Policy</a></p>
         </div>
 
-        <button class="mg-top- button button-login button-blue">Sign Up</button>
+        <button class="button button-login button-blue">Sign Up</button>
       </form>
     </main>
 
     <footer>
-      <nav><a href="">Privacy Policy</a><a href="">Legal Notice</a></nav>
+      <nav>
+        <a href="../html/privacy-policy.html">Privacy Policy</a
+        ><a href="../html/legal-notice.html">Legal Notice</a>
+      </nav>
     </footer>
   </body>
 </html>

@@ -1,5 +1,7 @@
 :root {
   --input-width: 420px;
+  --input-width-mobile-big: 400px;
+  --input-width-mobile-small: 364px;
 }
 
 button {
@@ -11,9 +13,10 @@ input {
   padding: 12px 20px;
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
-  max-width: var(--input-width);
+  width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
+  cursor: pointer;
 }
 
 input,
@@ -110,7 +113,7 @@ select {
 
 .button-login {
   padding: 15px 24px;
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -161,9 +164,9 @@ select {
 } */
 
 @media screen and (max-width: 1280px) {
-  :root {
+  /* :root {
     --input-width: 340px;
-  }
+  } */
 }
 
 @media screen and (max-width: 1024px) {

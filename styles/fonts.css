@@ -151,11 +151,6 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.h1-login {
-  font-weight: 700;
-  font-size: 60px;
-}
-
 h1 {
   color: black;
   font-weight: 700;
@@ -165,5 +160,11 @@ h1 {
 @media screen and (max-width: 1024px) {
   h1 {
     font-size: 48px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 36px;
   }
 }

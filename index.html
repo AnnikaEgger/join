@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join - Log in</title>
     <link
       rel="icon"
       href="../assets/icons/join-logo-white.svg"
@@ -25,33 +25,39 @@
         alt="logo"
         class="logo"
       />
-      <nav>
+      <nav class="login-nav">
         <a class="not-a-user-link" href="#">Not a join user?</a>
-        <button class="button button-blue button-signup-small">
-          <a href="./html/signup.html">Sign up</a>
-        </button>
+        <a href="./html/signup.html"
+          ><button class="button button-blue button-signup-small">
+            Sign up
+          </button></a
+        >
       </nav>
     </header>
     <main>
       <form class="form-container login-container">
-        <div class="form-headline-container">
-          <h1 class="h1-login">Log in</h1>
-          <div class="h1-underline"></div>
+        <div class="form-headline-container form-headline-container-login">
+          <div class="headline-wrapper">
+            <h1>Log In</h1>
+            <div class="h1-underline"></div>
+          </div>
         </div>
-        <input
-          placeholder="Email"
-          class="form-login input-login-email"
-          type="email"
-          name=""
-          id=""
-        />
-        <input
-          placeholder="Password"
-          class="form-login input-login-password"
-          type="password"
-          name=""
-          id=""
-        />
+        <section class="input-fields input-fields-login">
+          <input
+            placeholder="Email"
+            class="form-input form-input-email"
+            type="email"
+            name=""
+            id=""
+          />
+          <input
+            placeholder="Password"
+            class="form-input form-input-password"
+            type="password"
+            name=""
+            id=""
+          />
+        </section>
         <section class="form-btn-section">
           <button type="submit" class="button button-login button-blue">
             Log in</button
@@ -63,8 +69,8 @@
     </main>
     <footer>
       <nav>
-        <a href="">Privacy Policy</a
-        ><a href="/html/legal notice.html">Legal Notice</a>
+        <a href="./html/privacy-policy.html">Privacy Policy</a
+        ><a href="./html/legal-notice.html">Legal Notice</a>
       </nav>
     </footer>
   </body>
