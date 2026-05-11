@@ -59,6 +59,7 @@ function getInitials(name) {
 }
 
 function showContactDetails(id) {
+    highlightContact(id);
     let contact = null;
 
     for (let i = 0; i < contacts.length; i++) {
@@ -70,5 +71,17 @@ function showContactDetails(id) {
 
     if (contact) {
         document.getElementById('contact-detail-content').innerHTML = generateDetailHTML(contact);
+    }
+}
+
+function highlightContact(id) {
+    let allCards = document.getElementsByClassName('contact-item');
+    for (let i = 0; i < allCards.length; i++) {
+        allCards[i].classList.remove('contact-item-active');
+    }
+
+    let activeCard = document.getElementById(`card-${id}`);
+    if (activeCard) {
+        activeCard.classList.add('contact-item-active');
     }
 }

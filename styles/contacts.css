@@ -178,15 +178,6 @@ ul {
     min-height: calc(100vh - var(--header-height));
 }
 
-
-
-
-
-
-
-
-
-
 /* --- CONTACTS LAYOUT --- */
 .contact-main {
     display: flex;
@@ -408,4 +399,9 @@ ul {
 
 .detail-info-item a:hover {
     text-decoration: underline;
+}
+
+.contact-item-active {
+    background-color: var(--dark-blue) !important;
+    color: white !important;
 }
