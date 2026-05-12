@@ -1,28 +1,43 @@
-/* Overlay-Hintergrund */
+.d-none {
+    display: none;
+}
+
 .add-contact-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
 
-/* Der Dialog-Container */
 .add-contact-dialog {
     background-color: var(--color-white);
-    width: 1212px; /* Ergibt sich aus 467px links + Rest rechts */
+    width: 1212px;
     height: 592px;
     border-radius: 30px;
     display: flex;
     overflow: hidden;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    transform: translateX(100vw);
+    transition: transform 0.3s ease-out;
 }
 
-/* Linke Seite (Blau) */
+.add-contact-overlay.show-overlay .add-contact-dialog {
+    transform: translateX(0);
+}
+
+.add-contact-overlay.show-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
 .dialog-left {
     background-color: var(--dark-blue);
     width: 467px;
@@ -58,7 +73,6 @@
     border-radius: 3px;
 }
 
-/* Rechte Seite */
 .dialog-right {
     flex: 1;
     display: flex;
@@ -102,7 +116,6 @@
     box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
 }
 
-/* Formular & Inputs */
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -140,7 +153,6 @@
     background-image: url('../assets/icons/call.svg');
 }
 
-/* Buttons */
 .dialog-buttons {
     display: flex;
     gap: 24px;
@@ -191,9 +203,4 @@
 
 .btn-cancel, .btn-cancel img, .btn-create, .add-contact-btn {
     transition: all 0.1s ease-in-out;
-}
-
-/* Hilfsklasse zum Verstecken */
-.d-none {
-    display: none;
 }
