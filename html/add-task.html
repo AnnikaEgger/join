@@ -199,29 +199,54 @@
                 </button>
               </div>
               <label for="contacts">Assigned to</label>
-              <select class="task-form-select" name="" id="contacts">
+              <!-- <select class="task-form-select" name="" id="contacts">
                 <option value="" disabled selected hidden>
                   Select contacts to assign
                 </option>
                 <option value="">
-                  <img src="../assets/icons/initials.svg" alt="" />Sofia Müller
-                  <input type="checkbox" name="" id="" />
+               
                 </option>
                 <option value="">Option 2</option>
-              </select>
+              </select> -->
+
+              <div class="custom-select" id="contacts-dropdown">
+                <div class="custom-select--trigger" tabindex="0">
+                  <span>Select contacts to assign</span>
+                  <div class="custom-select--trigger--img-container">
+                    <img src="../assets/icons/arrow-drop-down.svg" alt="" />
+                  </div>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-select--option" tabindex="0">
+                    <div class="contact-container">
+                      <div class="contact-avatar">
+                        <p class="contact-avatar--initials">SM</p>
+                      </div>
+                      Sofia Müller
+                    </div>
+                    <div class="checkbox-container">
+                      <input type="checkbox" name="" id="" value="sofia" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="selected-contacts">
+                <div class="contact-avatar">
+                  <p class="contact-avatar--initials">SM</p>
+                </div>
+                <div class="contact-avatar">
+                  <p class="contact-avatar--initials">SM</p>
+                </div>
+                <div class="contact-avatar">
+                  <p class="contact-avatar--initials">SM</p>
+                </div>
+              </div>
+
               <label for="task-category"
                 >Category<span class="red">*</span></label
               >
               <div class="required">
-                <!-- <button>
-                  <selectedcontent></selectedcontent>
-                  <img
-                    src="../assets/icons/arrow-drop-down.svg"
-                    alt=""
-                    class="picker"
-                  />
-                </button> -->
-
                 <select
                   class="task-form-select"
                   name=""

@@ -22,10 +22,6 @@ h1 {
   font-size: 20px;
 }
 
-.add-task-wrapper {
-  /* position: relative; */
-}
-
 .add-task-inner-wrapper {
   display: flex;
 }
@@ -69,12 +65,11 @@ label {
 
 .add-task-btn-container {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: space-around;
   width: var(--input-width);
-  /* gap: 16px; */
 }
 
+/* #region prio btns */
 .prio-btn {
   display: flex;
   align-items: center;
@@ -132,6 +127,9 @@ label {
   width: 20px;
 }
 
+/* #endregion */
+
+/* #region bottom btns container */
 .add-task-bottom-btns-container {
   display: flex;
   gap: 16px;
@@ -161,6 +159,8 @@ label {
   align-items: end;
   margin-top: 100px;
 }
+
+/* #endregion */
 
 .task-form-select {
   appearance: none;
@@ -201,6 +201,30 @@ label {
 .task-date-input:valid::-webkit-datetime-edit-year-field {
   color: black;
 }
+
+/* #region contacts (form) */
+.contact-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border: 3px solid green;
+  border-radius: 100%;
+  background-color: red;
+}
+
+.contact-avatar--initials {
+  color: white;
+  font-size: 16px;
+}
+
+.selected-contacts {
+  display: flex;
+  gap: 10px;
+}
+
+/* #endregion */
 
 /* #region responsive */
 
@@ -285,9 +309,3 @@ label {
 }
 
 /* #endregion */
-
-/* tooltip */
-
-/* :hover::after
-content: "bla"
-position: absolute; attr(title) */
