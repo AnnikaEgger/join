@@ -73,74 +73,74 @@
         </div>
     </header>
 
-    <main class="mainContent">
-        <section class="boardHeader">
-            <h1 class="headText">Board</h1>
-            <div class="searchAndAddSection">
+    <main class="main-content">
+        <section class="board-header">
+            <h1 class="head-text">Board</h1>
+            <div class="search-and-add-section">
                 <form class="form" action="onSubmit">
-                    <input class="inputField" required type="text" placeholder="Find Task">
+                    <input class="input-field" required type="text" placeholder="Find Task">
                     <hr>
-                    <button class="searchBtn" type="submit">
-                        <img class="searchBtnImg" src="../assets/icons/search.svg" alt="search icon">
+                    <button class="search-btn" type="submit">
+                        <img class="search-btn-img" src="../assets/icons/search.svg" alt="search icon">
                     </button>
                 </form>
-                <button class="addBtn" onclick="openAddTaskDialog()">
+                <button class="add-btn" onclick="openAddTaskDialog()">
                     <span>Add task</span>
                     <img src="../assets/icons/white_plus_button.svg" alt="white plus icon">
                 </button>
             </div>
         </section>
         <section class="board-section">
-            <div class="taskTitles">
-                <div class="taskLanes">
-                    <div class="taskTitle">
+            <div class="task-titles">
+                <div class="task-lanes">
+                    <div class="task-title">
                         <h2>To do</h2>
-                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
+                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
                             alt="plus button">
                     </div>
-                    <div id="toDo" class="cardContainer" ondrop="moveTo('toDo'); removeHighlight('toDo')"
+                    <div id="toDo" class="card-container" ondrop="moveTo('toDo'); removeHighlight('toDo')"
                         ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')">
-                        <!-- <div class="emptyCardContainer">
+                        <!-- <div class="empty-card-container">
                             <p>No tasks To do</p>
                         </div> -->
                     </div>
                 </div>
-                <div class="taskLanes">
-                    <div class="taskTitle">
+                <div class="task-lanes">
+                    <div class="task-title">
                         <h2>in progress</h2>
-                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
+                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
                             alt="plus button">
                     </div>
-                    <div id="inProgress" class="cardContainer"
+                    <div id="inProgress" class="card-container"
                         ondrop="moveTo('inProgress'); removeHighlight('inProgress')"
                         ondragleave="removeHighlight('inProgress')"
                         ondragover="allowDrop(event); highlight('inProgress')">
                         <!-- <div draggable="true" class="card">
-                            <span class="categoryField">User Story</span>
-                            <h3 class="cardText">TestCard</h3>
+                            <span class="category-field">User Story</span>
+                            <h3 class="card-text">TestCard</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
                         </div> -->
                     </div>
                 </div>
-                <div class="taskLanes">
-                    <div class="taskTitle">
+                <div class="task-lanes">
+                    <div class="task-title">
                         <h2>Await feedback</h2>
-                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
+                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
                             alt="plus button">
                     </div>
-                    <div id="awaitFeedback" class="cardContainer"
+                    <div id="awaitFeedback" class="card-container"
                         ondrop="moveTo('awaitFeedback'); removeHighlight('awaitFeedback')"
                         ondragleave="removeHighlight('awaitFeedback')"
                         ondragover="allowDrop(event); highlight('awaitFeedback')">
                     </div>
                 </div>
-                <div class="taskLanes">
-                    <div class="taskTitle">
+                <div class="task-lanes">
+                    <div class="task-title">
                         <h2>Done</h2>
-                        <img class="addTaskBtn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
+                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
                             alt="plus button">
                     </div>
-                    <div id="done" class="cardContainer" ondrop="moveTo('done'); removeHighlight('done')"
+                    <div id="done" class="card-container" ondrop="moveTo('done'); removeHighlight('done')"
                         ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                     </div>
                 </div>
@@ -149,16 +149,16 @@
     </main>
     <dialog onclick="closeAddTaskDialog()" id="addTaskDialog" class="add-task-dialog">
         <div onclick="event.stopPropagation()">
-            <h2 class="dialogTitle">Add Task</h2>
+            <h2 class="dialog-title">Add Task</h2>
             <form class="add-task-wrapper">
                 <div class="add-task-inner-wrapper">
                     <div class="add-task-container">
                         <label id="task-title">Title<span class="red">*</span></label>
-                        <input class="inputWindow" type="text" id="task-title" placeholder="Enter a title" required />
+                        <input class="input-window" type="text" id="task-title" placeholder="Enter a title" required />
                         <label id="task-description">Description</label>
                         <textarea id="task-description" placeholder="Enter a description"></textarea>
                         <label id="task-due-date">Due Date<span class="red">*</span></label>
-                        <input class="task-date-input inputWindow" lang="en-GB" type="date" id="task-due-date"
+                        <input class="task-date-input input-window" lang="en-GB" type="date" id="task-due-date"
                             placeholder="dd/mm/yyyy" required />
                     </div>
 
@@ -215,7 +215,7 @@
                             <option value="">Option 2</option>
                         </select>
                         <label id="subtask">Subtasks</label>
-                        <input class="inputWindow" type="text" id="subtask" placeholder="Add new subtask" />
+                        <input class="input-window" type="text" id="subtask" placeholder="Add new subtask" />
                     </div>
                 </div>
 
