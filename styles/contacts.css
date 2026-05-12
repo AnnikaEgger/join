@@ -213,10 +213,12 @@ ul {
     gap: 16px;
     cursor: pointer;
     transition: var(--transition-default);
+    transition: all 0.1s ease-in-out;
 }
 
 .add-contact-btn:hover {
     background-color: var(--color-accent);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .contact-list {
@@ -290,6 +292,12 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 32px;
+    transform: translateX(100%);
+     transition: transform 0.125s ease-out;
+}
+
+.contact-detail-view.show-detail {
+    transform: translateX(0);
 }
 
 .detail-header-section {

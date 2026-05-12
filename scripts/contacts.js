@@ -60,18 +60,37 @@ function getInitials(name) {
 
 function showContactDetails(id) {
     highlightContact(id);
-    let contact = null;
-
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i].id === id) {
-            contact = contacts[i];
-            break;
-        }
-    }
+    let contact = findContactById(id);
 
     if (contact) {
-        document.getElementById('contact-detail-content').innerHTML = generateDetailHTML(contact);
+        prepareDetailsAnimation();
+        renderDetails(contact);
+        startDetailsAnimation();
     }
+}
+
+function findContactById(id) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].id === id) return contacts[i];
+    }
+    return null;
+}
+
+function prepareDetailsAnimation() {
+    let view = document.getElementById('contact-detail-view');
+    view.classList.remove('show-detail');
+}
+
+function renderDetails(contact) {
+    let content = document.getElementById('contact-detail-content');
+    content.innerHTML = generateDetailHTML(contact);
+}
+
+function startDetailsAnimation() {
+    setTimeout(() => {
+        let view = document.getElementById('contact-detail-view');
+        view.classList.add('show-detail');
+    }, 50);
 }
 
 function highlightContact(id) {
@@ -107,4 +126,12 @@ async function loadContacts() {
         fillContactsArray(data.contacts);
         contacts.sort((a, b) => a.name.localeCompare(b.name));
     }
+}
+
+function openAddContact() {
+    document.getElementById('add-contact-overlay').classList.add('show-overlay');
+}
+
+function closeAddContact() {
+    document.getElementById('add-contact-overlay').classList.remove('show-overlay');
 }

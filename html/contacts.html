@@ -7,6 +7,7 @@
     <title>Join Contacts</title>
     <link rel="icon" href="../assets/icons/join-logo-white.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/contacts-dialog.css" />
 </head>
 
 <body onload="init()">
@@ -68,7 +69,7 @@
     <main class="main-content contact-main">
         <!-- LINKER TEIL: Kontaktliste -->
         <section class="contact-list-container">
-            <button class="add-contact-btn">
+            <button class="add-contact-btn" onclick="openAddContact()">
                 Add new contact <img src="../assets/icons/add-new-contact-icon.svg" alt="Add Contact Icon" />
             </button>
 
@@ -90,6 +91,54 @@
             </div>
         </section>
     </main>
+
+    <div id="add-contact-overlay" class="add-contact-overlay d-none" onclick="closeAddContact()">
+    <div class="add-contact-dialog" onclick="event.stopPropagation()">
+        
+        <!-- LINKER BEREICH -->
+        <div class="dialog-left">
+            <img src="../assets/icons/join-logo-white.svg" alt="Join Logo" class="dialog-logo">
+            <div class="dialog-left-content">
+                <h1>Add contact</h1>
+                <span>Tasks are better with a team!</span>
+                <div class="blue-horizontal-divider"></div>
+            </div>
+        </div>
+
+        <!-- RECHTER BEREICH -->
+        <div class="dialog-right">
+            <!-- Schließen-Button oben rechts -->
+            <div class="dialog-close-btn" onclick="closeAddContact()">
+                <img src="../assets/icons/close-icon.svg" alt="Close">
+            </div>
+            
+            <div class="dialog-body">
+                <div class="dialog-avatar-container">
+                    <div class="default-avatar">
+                        <img src="../assets/icons/person-white.svg" alt="Avatar">
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="createNewContact(); return false;">
+                    <div class="input-container">
+                        <input type="text" placeholder="Name" required class="contact-input icon-name">
+                        <input type="email" placeholder="Email" required class="contact-input icon-mail">
+                        <input type="tel" placeholder="Phone" required class="contact-input icon-phone">
+                    </div>
+
+                    <div class="dialog-buttons">
+                        <button type="button" class="btn-cancel" onclick="closeAddContact()">
+                            Cancel <img src="../assets/icons/close-icon.svg" alt="X">
+                        </button>
+                        <button type="submit" class="btn-create">
+                            Create contact <img src="../assets/icons/check.svg" alt="Check">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="../scripts/contacts templates.js"></script>
     <script src="../scripts/contacts.js"></script>
