@@ -2,11 +2,12 @@
     display: flex;
     flex-direction: column;
     background-color: #F6F7F8;
-    margin-left: 232px;
-    margin-top: 125px;
-    padding-left: 64px;
-    padding-right: 64px;
+    margin-left: calc(max(var(--content-limitation), 0px) + var(--sidebar-width));
+    margin-top: var(--header-height);
+    max-width: 1920px;
+    padding: 0 64px;
     box-sizing: border-box;
+    min-height: calc(100vh - var(--header-height));
 }
 
 .headText {
@@ -91,21 +92,21 @@ hr {
     filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
 }
 
+.board-section {
+    display: flex;
+    margin-top: 20px;
+}
+
 .taskTitles {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: space-between;
-    align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 25px;
+    width: 100%;
 }
 
 .taskLanes {
-    gap: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
+    flex: 1;
+    min-width: 220px;
 }
 
 .taskTitle {
@@ -382,4 +383,132 @@ label {
     color: black;
 }
 
-@media (max-width: 1024px) {}
+@media (max-width: 1200px) {
+    .mainContent {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .headText {
+        font-size: 52px;
+    }
+
+    .boardHeader {
+        gap: 10px;
+    }
+
+    .inputField {
+        width: 150px;
+    }
+
+    .taskTitles {
+        gap: 15px;
+    }
+
+    .taskLanes {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 1122px) {
+    .taskTitle {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1060px) {
+    .mainContent {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .headText {
+        font-size: 44px;
+    }
+
+    .searchAndAddSection {
+        gap: 10px;
+    }
+
+    .inputField {
+        width: 150px;
+        font-size: 16px;
+    }
+
+    .taskTitles {
+        gap: 10px;
+    }
+
+    .taskLanes {
+        min-width: 180px;
+    }
+
+    .addBtn {
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+}
+
+/* Tablet Anpassung */
+@media (max-width: 1024px) {
+    .mainContent {
+        margin-left: 0;
+        padding: 0 20px;
+    }
+
+    .taskTitles {
+        flex-direction: column;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .boardHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .searchAndAddSection {
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+
+    .addBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .taskLanes {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .headText {
+        font-size: 40px;
+    }
+
+    .searchAndAddSection {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+}
+
+@media (max-width: 375px) {
+    .headText {
+        font-size: 36px;
+    }
+
+    .mainContent {
+        padding: 0 16px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .dialogTitle {
+        font-size: 40px;
+    }
+}
