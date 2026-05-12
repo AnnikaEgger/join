@@ -416,7 +416,7 @@ label {
     }
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1070px) {
     .main-content {
         padding-left: 20px;
         padding-right: 20px;
@@ -460,6 +460,10 @@ label {
         flex-direction: column;
         gap: 32px;
     }
+
+    .card-container {
+        height: 250px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -493,9 +497,9 @@ label {
         flex-direction: column-reverse;
         width: 100%;
     }
-    
+
     .card-container {
-        height: 250px;
+        height: 200px;
     }
 }
 
