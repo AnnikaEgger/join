@@ -205,6 +205,8 @@ main {
   border-radius: var(--border-radius-l);
 }
 
+/* #region accept privacy */
+
 .accept-privacy-container {
   display: flex;
   gap: 12px;
@@ -218,13 +220,7 @@ main {
   color: var(--light-blue);
 }
 
-.accept-checkbox {
-  /* appearance: none; */
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--dark-blue);
-  border-radius: 3px;
-}
+/* #endregion */
 
 :root {
   --gap: 32px;
