@@ -1,0 +1,199 @@
+/* Overlay-Hintergrund */
+.add-contact-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Der Dialog-Container */
+.add-contact-dialog {
+    background-color: var(--color-white);
+    width: 1212px; /* Ergibt sich aus 467px links + Rest rechts */
+    height: 592px;
+    border-radius: 30px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Linke Seite (Blau) */
+.dialog-left {
+    background-color: var(--dark-blue);
+    width: 467px;
+    padding: 66px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.dialog-logo {
+    width: 56px;
+    height: 66px;
+    margin-bottom: 32px;
+}
+
+.dialog-left-content h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.dialog-left-content span {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.blue-horizontal-divider {
+    width: 90px;
+    height: 3px;
+    background-color: var(--light-blue);
+    margin-top: 16px;
+    border-radius: 3px;
+}
+
+/* Rechte Seite */
+.dialog-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.dialog-body {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+}
+
+.dialog-close-btn {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.1s;
+    border-radius: 50%;
+}
+
+.dialog-close-btn:hover {
+    background-color: var(--color-bg);
+}
+
+.default-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 70px;
+    border: 3px solid white;
+    background-color: #D1D1D1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
+}
+
+/* Formular & Inputs */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.contact-input {
+    width: 380px;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 13px 21px;
+    padding-right: 48px;
+    font-size: 20px;
+    outline: none;
+    background-repeat: no-repeat;
+    background-position: right 21px center;
+}
+
+.icon-name {
+    background-image: url('../assets/icons/person.svg');
+}
+
+.icon-mail {
+    background-image: url('../assets/icons/mail.svg');
+}
+
+.icon-phone {
+    background-image: url('../assets/icons/call.svg');
+}
+
+/* Buttons */
+.dialog-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.btn-cancel {
+    background-color: var(--color-white);
+    color: var(--dark-blue);
+    border: 1px solid var(--dark-blue);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    color: var(--light-blue);
+    border-color: var(--light-blue);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-cancel:hover img {
+    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg) brightness(100%) contrast(100%);
+}
+
+.btn-create {
+    background-color: var(--dark-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-create:hover {
+    background-color: var(--light-blue);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-cancel, .btn-cancel img, .btn-create, .add-contact-btn {
+    transition: all 0.1s ease-in-out;
+}
+
+/* Hilfsklasse zum Verstecken */
+.d-none {
+    display: none;
+}

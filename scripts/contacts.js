@@ -108,3 +108,11 @@ async function loadContacts() {
         contacts.sort((a, b) => a.name.localeCompare(b.name));
     }
 }
+
+function openAddContact() {
+    document.getElementById('add-contact-overlay').classList.remove('d-none');
+}
+
+function closeAddContact() {
+    document.getElementById('add-contact-overlay').classList.add('d-none');
+}
