@@ -18,7 +18,7 @@
     <script src="../scripts/add-task.js"></script>
 </head>
 
-<body onload="updateHTML()">
+<body onload="updateHTL()">
     <!-- SIDEBAR  -->
     <section class="sidebar">
         <div class="sidebar-logo">
@@ -95,8 +95,8 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>To do</h2>
-                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
-                            alt="plus button">
+                        <img class="add-task-btn" aria-label="button" role="button"
+                            src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="toDo" class="card-container" ondrop="moveTo('toDo'); removeHighlight('toDo')"
                         ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')">
@@ -108,25 +108,25 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>in progress</h2>
-                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
-                            alt="plus button">
+                        <img class="add-task-btn" aria-label="button" role="button"
+                            src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="inProgress" class="card-container"
                         ondrop="moveTo('inProgress'); removeHighlight('inProgress')"
                         ondragleave="removeHighlight('inProgress')"
                         ondragover="allowDrop(event); highlight('inProgress')">
-                        <!-- <div draggable="true" class="card">
+                        <div draggable="true" class="card">
                             <span class="category-field">User Story</span>
                             <h3 class="card-text">TestCard</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Await feedback</h2>
-                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
-                            alt="plus button">
+                        <img class="add-task-btn" aria-label="button" role="button"
+                            src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="awaitFeedback" class="card-container"
                         ondrop="moveTo('awaitFeedback'); removeHighlight('awaitFeedback')"
@@ -137,8 +137,8 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Done</h2>
-                        <img class="add-task-btn" aria-label="button" role="button" src="../assets/icons/plus_button.svg"
-                            alt="plus button">
+                        <img class="add-task-btn" aria-label="button" role="button"
+                            src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="done" class="card-container" ondrop="moveTo('done'); removeHighlight('done')"
                         ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
