@@ -117,10 +117,10 @@ ul {
 
 /* HEADER*/
 .header {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
-  left: var(--sidebar-width);
-  right: 0;
+  left: calc(var(--sidebar-width) + var(--content-limitation));
+  right: var(--content-limitation);
   height: var(--header-height);
   background-color: var(--color-white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -129,7 +129,12 @@ ul {
   justify-content: space-between;
   padding: 0 40px;
   /* content Begrenzung */
-  margin: 0px max(var(--content-limitation), 0px);
+  /* margin: 0px max(var(--content-limitation), 0px); */
+  margin-left: max(
+    calc(var(--content-limitation) + var(--sidebar-width)),
+    var(--sidebar-width)
+  );
+  margin-right: max(var(--content-limitation), 0px);
 }
 
 .header-title {
@@ -180,8 +185,8 @@ ul {
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
   );
-  margin-right: var(--content-limitation);
-  margin-top: var(--header-height);
+  margin-right: max(var(--content-limitation), 0px);
+  /* margin-top: var(--header-height); */
   padding: 48px;
   min-height: calc(100vh - var(--header-height));
 }
@@ -213,10 +218,11 @@ ul {
   }
 
   .header {
-    left: 0;
+    /* left: 0; */
+    margin-left: max(var(--content-limitation), 0px);
   }
 
   .main-content {
-    margin-left: 0;
+    margin-left: max(var(--content-limitation), 0px);
   }
 }
