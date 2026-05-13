@@ -1,19 +1,23 @@
 let todos = [{
-    'id': 0,
-    'title': 'header',
-    'category': 'toDo'
+    /*     'id': 0,
+        'title': '',
+        'description': '',
+        'category': 'toDo' */
 }, {
     'id': 1,
     'title': 'footer',
+    'description': 'make the footer shiny and nice',
     'category': 'inProgress'
 }, {
-    'id': 2,
-    'title': 'sidebar',
-    'category': 'awaitFeedback'
+        'id': 2,
+        'title': 'headline',
+        'description': 'make the headline wow',
+        'category': 'awaitFeedback'
 }, {
-    'id': 3,
-    'title': 'burgermenu',
-    'category': 'done'
+        'id': 3,
+        'title': 'main content',
+        'description': 'write the main content for the page and make it look good',
+        'category': 'done'
 }
 ];
 
@@ -59,10 +63,6 @@ function updateHTML() {
 
 function startDragging(id) {
     currentDraggedElement = id;
-}
-
-function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="card">${element['title']}</div>`;
 }
 
 function allowDrop(ev) {

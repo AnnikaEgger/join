@@ -16,9 +16,10 @@
     <!-- <link rel="stylesheet" href="../styles/add-task.css"> -->
     <script src="../scripts/board.js"></script>
     <script src="../scripts/add-task.js"></script>
+    <script src="../scripts/templates.js"></script>
 </head>
 
-<body onload="updateHTL()">
+<body onload="updateHTML()">
     <!-- SIDEBAR  -->
     <section class="sidebar">
         <div class="sidebar-logo">
@@ -115,7 +116,7 @@
                         ondrop="moveTo('inProgress'); removeHighlight('inProgress')"
                         ondragleave="removeHighlight('inProgress')"
                         ondragover="allowDrop(event); highlight('inProgress')">
-                        <div draggable="true" class="card">
+                        <!-- <div draggable="true" class="card">
                             <span class="category-field">User Story</span>
                             <h3 class="card-text">TestCard</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
@@ -133,7 +134,7 @@
                                 </div>
                                 <img src="../assets/icons/low-prio-icon.svg" alt="low priority icon">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="task-lanes">
