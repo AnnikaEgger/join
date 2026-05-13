@@ -41,7 +41,7 @@ input {
   padding: 12px 16px;
 }
 
-input,
+input:not([type="checkbox"]),
 textarea,
 select,
 .add-task-btn-container {
@@ -162,6 +162,7 @@ label {
 
 /* #endregion */
 
+/* #region task form */
 .task-form-select {
   appearance: none;
   background-image: url("../assets/icons/arrow-drop-down.svg");
@@ -202,14 +203,20 @@ label {
   color: black;
 }
 
-/* #region contacts (form) */
+/* #endregion  */
+
+/* #region contacts (task form) */
+input[type="checkbox"] {
+  padding: 8px 16px;
+}
+
 .contact-avatar {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 42px;
-  height: 42px;
-  border: 3px solid green;
+  width: 40px;
+  height: 40px;
+  border: 2px solid green;
   border-radius: 100%;
   background-color: red;
 }
@@ -222,6 +229,19 @@ label {
 .selected-contacts {
   display: flex;
   gap: 10px;
+}
+
+.display-none {
+  display: none;
+}
+
+.custom-select--option:has(input[type="checkbox"]:checked) {
+  background-color: var(--dark-blue);
+  color: white;
+}
+
+.custom-select--option:has(input[type="checkbox"]:checked):hover {
+  background-color: var(--darkest-blue);
 }
 
 /* #endregion */

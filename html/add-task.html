@@ -210,14 +210,31 @@
               </select> -->
 
               <div class="custom-select" id="contacts-dropdown">
-                <div class="custom-select--trigger" tabindex="0">
+                <div
+                  onclick="openCustomSelectDropdown()"
+                  class="custom-select--trigger"
+                  id="custom-select-trigger"
+                  tabindex="0"
+                >
                   <span>Select contacts to assign</span>
                   <div class="custom-select--trigger--img-container">
-                    <img src="../assets/icons/arrow-drop-down.svg" alt="" />
+                    <img
+                      id="arrow-dropdown"
+                      src="../assets/icons/arrow-drop-down.svg"
+                      alt=""
+                    />
                   </div>
                 </div>
-                <div class="custom-select-options">
-                  <div class="custom-select--option" tabindex="0">
+
+                <div
+                  id="select-options"
+                  class="custom-select-options display-none"
+                >
+                  <div
+                    onclick="selectOption(0)"
+                    class="custom-select--option"
+                    tabindex="0"
+                  >
                     <div class="contact-container">
                       <div class="contact-avatar">
                         <p class="contact-avatar--initials">SM</p>
@@ -225,7 +242,52 @@
                       Sofia Müller
                     </div>
                     <div class="checkbox-container">
-                      <input type="checkbox" name="" id="" value="sofia" />
+                      <input
+                        type="checkbox"
+                        name=""
+                        id="checkbox0"
+                        value="sofia"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    onclick="selectOption(1)"
+                    class="custom-select--option"
+                    tabindex="0"
+                  >
+                    <div class="contact-container">
+                      <div class="contact-avatar">
+                        <p class="contact-avatar--initials">SM</p>
+                      </div>
+                      Sofia Müller
+                    </div>
+                    <div class="checkbox-container">
+                      <input
+                        type="checkbox"
+                        name=""
+                        id="checkbox1"
+                        value="sofia"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    onclick="selectOption(2)"
+                    class="custom-select--option"
+                    tabindex="0"
+                  >
+                    <div class="contact-container">
+                      <div class="contact-avatar">
+                        <p class="contact-avatar--initials">SM</p>
+                      </div>
+                      Sofia Müller
+                    </div>
+                    <div class="checkbox-container">
+                      <input
+                        type="checkbox"
+                        name=""
+                        id="checkbox2"
+                        value="sofia"
+                      />
                     </div>
                   </div>
                 </div>
