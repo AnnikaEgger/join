@@ -1,20 +1,21 @@
-.mainContent {
+.main-content {
     display: flex;
     flex-direction: column;
     background-color: #F6F7F8;
-    margin-left: 232px;
-    margin-top: 125px;
-    padding-left: 64px;
-    padding-right: 64px;
+    margin-left: calc(max(var(--content-limitation), 0px) + var(--sidebar-width));
+    margin-top: var(--header-height);
+    max-width: 1920px;
+    padding: 0 64px;
     box-sizing: border-box;
+    min-height: calc(100vh - var(--header-height));
 }
 
-.headText {
+.head-text {
     font-size: 61px;
     font-family: 'Inter', sans-serif;
 }
 
-.boardHeader {
+.board-header {
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
@@ -22,7 +23,7 @@
     padding: 10px;
 }
 
-.searchAndAddSection {
+.search-and-add-section {
     display: flex;
     gap: 15px;
 }
@@ -35,7 +36,7 @@
     justify-content: space-between;
 }
 
-.inputField {
+.input-field {
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -50,7 +51,7 @@ hr {
     height: 70%;
 }
 
-.searchBtn {
+.search-btn {
     border: none;
     border-radius: 5px;
     padding: 10px;
@@ -60,12 +61,12 @@ hr {
     background-color: #ffffff;
 }
 
-.searchBtnImg:hover {
+.search-btn-img:hover {
     background-color: #ebe8e8;
     border-radius: 5px;
 }
 
-.addBtn {
+.add-btn {
     display: flex;
     align-items: center;
     font-size: 20px;
@@ -79,36 +80,36 @@ hr {
     color: white;
 }
 
-.addBtn:hover {
+.add-btn:hover {
     background-color: #29ABE2;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
     transform: scale(1.0);
     transition: transform 0.2s ease-in;
 }
 
-.addTaskBtn:hover {
+.add-task-btn:hover {
     cursor: pointer;
     filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
 }
 
-.taskTitles {
+.board-section {
     display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 25px;
+    margin-top: 20px;
 }
 
-.taskLanes {
-    gap: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+.task-titles {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
     width: 100%;
 }
 
-.taskTitle {
+.task-lanes {
+    flex: 1;
+    min-width: 220px;
+}
+
+.task-title {
     display: flex;
     gap: 15px;
     justify-content: space-between;
@@ -117,7 +118,7 @@ hr {
     font-size: 15px;
 }
 
-.cardContainer {
+.card-container {
     display: flex;
     height: 500px;
     flex-direction: column !important;
@@ -142,7 +143,7 @@ hr {
     cursor: pointer;
 }
 
-.emptyCardContainer {
+.empty-card-container {
     height: 45px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -155,7 +156,7 @@ hr {
     justify-content: center;
 }
 
-.categoryField {
+.category-field {
     background-color: #0038FF;
     color: #ffffff;
     border-radius: 5px;
@@ -166,7 +167,7 @@ hr {
     width: fit-content;
 }
 
-.cardText {
+.card-text {
     font-family: 'Inter', sans-serif;
 }
 
@@ -223,7 +224,7 @@ hr {
     --light-orange: #ffa800;
 }
 
-.dialogTitle {
+.dialog-title {
     font-weight: 700;
     font-size: 60px;
     color: black;
@@ -251,11 +252,11 @@ textarea {
     padding: 18px 16px;
 }
 
-.inputWindow {
+.input-window {
     padding: 12px 16px;
 }
 
-.inputWindow,
+.input-window,
 textarea,
 select,
 .add-task-btn-container {
@@ -382,4 +383,139 @@ label {
     color: black;
 }
 
-@media (max-width: 1024px) {}
+@media (max-width: 1200px) {
+    .main-content {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .head-text {
+        font-size: 52px;
+    }
+
+    .board-header {
+        gap: 10px;
+    }
+
+    .input-field {
+        width: 150px;
+    }
+
+    .task-titles {
+        gap: 15px;
+    }
+
+    .task-lanes {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 1122px) {
+    .task-title {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1070px) {
+    .main-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .head-text {
+        font-size: 44px;
+    }
+
+    .search-and-add-section {
+        gap: 10px;
+    }
+
+    .input-field {
+        width: 150px;
+        font-size: 16px;
+    }
+
+    .task-titles {
+        gap: 10px;
+    }
+
+    .task-lanes {
+        min-width: 180px;
+    }
+
+    .add-btn {
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 0;
+        padding: 0 20px;
+    }
+
+    .task-titles {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .card-container {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .board-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .search-and-add-section {
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .task-lanes {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    .head-text {
+        font-size: 40px;
+    }
+
+    .search-and-add-section {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .card-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 375px) {
+    .head-text {
+        font-size: 36px;
+    }
+
+    .main-content {
+        padding: 0 16px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .dialog-title {
+        font-size: 40px;
+    }
+}
