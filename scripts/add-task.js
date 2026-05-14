@@ -45,20 +45,16 @@ taskForm.addEventListener("submit", (e) => {
 function openCustomSelectDropdown() {
   let options = document.getElementById("select-options");
   let arrow = document.getElementById("arrow-dropdown");
-
   options.classList.toggle("display-none");
   arrow.classList.toggle("rotate");
 }
 
-let checkedStatus = false;
-
 function selectOption(indexOption) {
   let checkbox = document.getElementById("checkbox" + indexOption);
 
-  if (checkedStatus == false) {
-    checkedStatus = true;
+  if (checkbox.checked == true) {
+    checkbox.checked = false;
   } else {
-    checkedStatus = false;
+    checkbox.checked = true;
   }
-  checkbox.checked = checkedStatus;
 }
