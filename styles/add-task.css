@@ -72,6 +72,10 @@ label {
   width: var(--input-width);
 }
 
+.custom-select--categories {
+  margin-bottom: 32px;
+}
+
 /* #region prio btns */
 .prio-btn {
   display: flex;
@@ -213,6 +217,16 @@ input[type="checkbox"] {
   padding: 8px 16px;
 }
 
+.select-contacts-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.custom-select--contacts {
+  margin-bottom: 10px;
+}
+
 .custom-select-options::-webkit-scrollbar {
   /* background-color: red; */
   /* margin: 10px 0px; */
@@ -236,9 +250,8 @@ input[type="checkbox"] {
   align-items: center;
   width: 40px;
   height: 40px;
-  border: 2px solid green;
+  border: 2px solid white;
   border-radius: 100%;
-  background-color: red;
 }
 
 .contact-avatar--initials {
@@ -298,22 +311,41 @@ input[type="checkbox"] {
   border: none;
 }
 
-.subtask-svg-container button {
+.subtask-btns-container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
 }
 
 .subtask-btn-left {
-  padding-right: 6px;
-  border-right: 1px solid #d1d1d1;
+  margin-right: 4px;
 }
 
 .subtask-btn-right {
-  padding-left: 6px;
+  margin-left: 4px;
 }
 
-.subtask-svg-container {
+.subtask-btns-container button:hover {
+  background-color: #eeeeee;
+}
+
+.subtask-btns-seperation-line {
+  width: 2px;
+  height: 20px;
+  background-color: var(--light-gray2);
+}
+
+.subtask-btns-container {
   display: flex;
   align-items: center;
+}
+
+.subtask-btns-container--ul button:hover {
+  transform: scale(1.05);
 }
 
 .subtask-list {
@@ -337,20 +369,20 @@ input[type="checkbox"] {
   transition: all 100ms ease-out;
 }
 
-.subtask-list button {
+.subtask-list .subtask-btns-container--ul {
   display: none;
 }
 
 .subtask-list li:hover {
-  /* padding: 4px 16px; */
-
   background-color: #eeeeee;
   border-radius: var(--border-radius-s);
   transition: all 100ms ease-out;
 }
 
-.subtask-list li:hover button {
-  display: unset;
+.subtask-list li:hover .subtask-btns-container--ul,
+.subtask-list li:focus .subtask-btns-container--ul,
+.subtask-list:focus-within .subtask-btns-container--ul {
+  display: flex;
 }
 
 .subtask-list p {
