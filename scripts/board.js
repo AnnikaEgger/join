@@ -24,23 +24,23 @@ let todos = [{
 let currentDraggedElement;
 
 function updateHTML() {
-    renderCategory('toDo', 'toDo', 'To Do');
-    renderCategory('inProgress', 'inProgress', 'In Progress');
-    renderCategory('awaitFeedback', 'awaitFeedback', 'Await Feedback');
-    renderCategory('done', 'done', 'Done');
+    renderCategory('toDo', 'toDo', 'No tasks To do');
+    renderCategory('inProgress', 'inProgress', 'No tasks in progress');
+    renderCategory('awaitFeedback', 'awaitFeedback', 'No tasks awaiting feedback');
+    renderCategory('done', 'done', 'No tasks done');
 }
 
-function renderCategory(category, containerId, label) {
+function renderCategory(category, containerId, message) {
     let search = document.getElementById('search-input').value.toLowerCase();
     let container = document.getElementById(containerId);
-    let filtered = todos.filter(t => t.category == category && 
+    let filtered = todos.filter(t => t.category == category &&
         (t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search)));
 
     if (search.length > 0 && filtered.length == 0) {
         container.parentElement.style.display = 'none';
     } else {
         container.parentElement.style.display = 'flex';
-        container.innerHTML = filtered.length ? '' : generateEmptySectionHTML(label);
+        container.innerHTML = filtered.length ? '' : generateEmptySectionHTML(message);
         filtered.forEach(t => container.innerHTML += generateTodoHTML(t));
     }
     checkSearchNoMatches(search);
