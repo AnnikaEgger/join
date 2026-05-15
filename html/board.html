@@ -81,7 +81,7 @@
                 <form class="form" action="onSubmit">
                     <input onkeyup="filterTasks()" id="search-input" class="input-field" required type="text" placeholder="Find Task">
                     <hr>
-                    <button class="search-btn" type="submit">
+                    <button onsubmit="filterTasks()" class="search-btn" type="submit">
                         <img class="search-btn-img" src="../assets/icons/search.svg" alt="search icon">
                     </button>
                 </form>

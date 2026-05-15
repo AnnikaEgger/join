@@ -49,7 +49,7 @@ function renderCategory(category, containerId, label) {
 function checkSearchNoMatches(search) {
     let anyMatch = todos.some(t => t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search));
     let msg = document.getElementById('search-message');
-    if (msg) msg.innerHTML = (!anyMatch && search.length > 0) ? 'nothing found.' : '';
+    if (msg) msg.innerHTML = (!anyMatch && search.length > 0) ? 'no tasks found.' : '';
 }
 
 function filterTasks() {
