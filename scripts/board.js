@@ -1,8 +1,8 @@
 let todos = [{
-    /*     'id': 0,
-        'title': '',
-        'description': '',
-        'category': 'toDo' */
+    'id': 0,
+    'title': 'dialog',
+    'description': 'with a nice',
+    'category': 'toDo'
 }, {
     'id': 1,
     'title': 'footer',
@@ -31,17 +31,29 @@ function updateHTML() {
 }
 
 function renderCategory(category, containerId, label) {
-    let filtered = todos.filter(t => t['category'] == category);
+    let search = document.getElementById('search-input').value.toLowerCase();
     let container = document.getElementById(containerId);
-    container.innerHTML = '';
+    let filtered = todos.filter(t => t.category == category && 
+        (t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search)));
 
-    if (filtered.length == 0) {
-        container.innerHTML = generateEmptySectionHTML(label);
+    if (search.length > 0 && filtered.length == 0) {
+        container.parentElement.style.display = 'none';
     } else {
-        for (let index = 0; index < filtered.length; index++) {
-            container.innerHTML += generateTodoHTML(filtered[index]);
-        }
+        container.parentElement.style.display = 'flex';
+        container.innerHTML = filtered.length ? '' : generateEmptySectionHTML(label);
+        filtered.forEach(t => container.innerHTML += generateTodoHTML(t));
     }
+    checkSearchNoMatches(search);
+}
+
+function checkSearchNoMatches(search) {
+    let anyMatch = todos.some(t => t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search));
+    let msg = document.getElementById('search-message');
+    if (msg) msg.innerHTML = (!anyMatch && search.length > 0) ? 'nothing found.' : '';
+}
+
+function filterTasks() {
+    updateHTML();
 }
 
 function startDragging(id) {

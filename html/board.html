@@ -14,9 +14,9 @@
     <link rel="stylesheet" type="text/css" href="../styles/fonts.css">
     <link rel="stylesheet" type="text/css" href="../styles/assets.css">
     <!-- <link rel="stylesheet" href="../styles/add-task.css"> -->
+    <script src="../scripts/templates.js"></script>
     <script src="../scripts/board.js"></script>
     <script src="../scripts/add-task.js"></script>
-    <script src="../scripts/templates.js"></script>
 </head>
 
 <body onload="updateHTML()">
@@ -79,7 +79,7 @@
             <h1 class="head-text">Board</h1>
             <div class="search-and-add-section">
                 <form class="form" action="onSubmit">
-                    <input class="input-field" required type="text" placeholder="Find Task">
+                    <input onkeyup="filterTasks()" id="search-input" class="input-field" required type="text" placeholder="Find Task">
                     <hr>
                     <button class="search-btn" type="submit">
                         <img class="search-btn-img" src="../assets/icons/search.svg" alt="search icon">
@@ -91,6 +91,7 @@
                 </button>
             </div>
         </section>
+        <div id="search-message" class="search-message"></div>
         <section class="board-section">
             <div class="task-titles">
                 <div class="task-lanes">

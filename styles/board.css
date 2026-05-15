@@ -106,8 +106,16 @@ hr {
 }
 
 .task-lanes {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-width: 220px;
+}
+
+.search-message {
+    color: red;
+    text-align: center;
+    margin: 10px;
 }
 
 .task-title {
