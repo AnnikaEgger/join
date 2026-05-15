@@ -1,18 +1,22 @@
 let todos = [{
     'id': 0,
-    'title': 'header',
+    'title': 'dialog',
+    'description': 'with a nice',
     'category': 'toDo'
 }, {
     'id': 1,
     'title': 'footer',
+    'description': 'make the footer shiny and nice',
     'category': 'inProgress'
 }, {
     'id': 2,
-    'title': 'sidebar',
+    'title': 'headline',
+    'description': 'make the headline wow',
     'category': 'awaitFeedback'
 }, {
     'id': 3,
-    'title': 'burgermenu',
+    'title': 'main content',
+    'description': 'write the main content for the page and make it look good',
     'category': 'done'
 }
 ];
@@ -20,49 +24,40 @@ let todos = [{
 let currentDraggedElement;
 
 function updateHTML() {
-    let toDo = todos.filter(t => t['category'] == 'toDo');
+    renderCategory('toDo', 'toDo', 'No tasks To do');
+    renderCategory('inProgress', 'inProgress', 'No tasks in progress');
+    renderCategory('awaitFeedback', 'awaitFeedback', 'No tasks awaiting feedback');
+    renderCategory('done', 'done', 'No tasks done');
+}
 
-    document.getElementById('toDo').innerHTML = '';
+function renderCategory(category, containerId, message) {
+    let search = document.getElementById('search-input').value.toLowerCase();
+    let container = document.getElementById(containerId);
+    let filtered = todos.filter(t => t.category == category &&
+        (t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search)));
 
-    for (let index = 0; index < toDo.length; index++) {
-        const element = toDo[index];
-        document.getElementById('toDo').innerHTML += generateTodoHTML(element);
+    if (search.length > 0 && filtered.length == 0) {
+        container.parentElement.style.display = 'none';
+    } else {
+        container.parentElement.style.display = 'flex';
+        container.innerHTML = filtered.length ? '' : generateEmptySectionHTML(message);
+        filtered.forEach(t => container.innerHTML += generateTodoHTML(t));
     }
+    checkSearchNoMatches(search);
+}
 
-    let inProgress = todos.filter(t => t['category'] == 'inProgress');
+function checkSearchNoMatches(search) {
+    let anyMatch = todos.some(t => t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search));
+    let msg = document.getElementById('search-message');
+    if (msg) msg.innerHTML = (!anyMatch && search.length > 0) ? 'no tasks found.' : '';
+}
 
-    document.getElementById('inProgress').innerHTML = '';
-
-    for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        document.getElementById('inProgress').innerHTML += generateTodoHTML(element);
-    }
-
-    let awaitFeedback = todos.filter(t => t['category'] == 'awaitFeedback');
-
-    document.getElementById('awaitFeedback').innerHTML = '';
-
-    for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        document.getElementById('awaitFeedback').innerHTML += generateTodoHTML(element);
-    }
-
-    let done = todos.filter(t => t['category'] == 'done');
-
-    document.getElementById('done').innerHTML = '';
-
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
-    }
+function filterTasks() {
+    updateHTML();
 }
 
 function startDragging(id) {
     currentDraggedElement = id;
-}
-
-function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="card">${element['title']}</div>`;
 }
 
 function allowDrop(ev) {

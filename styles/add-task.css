@@ -3,10 +3,13 @@
 }
 
 .main-content {
-  /* padding: 48px max(calc(var(--content-limitation) + var(--sidebar-width)), 0px); */
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+body {
+  overflow-y: scroll;
 }
 
 :root {
@@ -41,7 +44,7 @@ input {
   padding: 12px 16px;
 }
 
-input:not([type="checkbox"]),
+input:not([type="checkbox"], #subtask-input),
 textarea,
 select,
 .add-task-btn-container {
@@ -67,6 +70,10 @@ label {
   display: flex;
   justify-content: space-around;
   width: var(--input-width);
+}
+
+.custom-select--categories {
+  margin-bottom: 32px;
 }
 
 /* #region prio btns */
@@ -210,15 +217,41 @@ input[type="checkbox"] {
   padding: 8px 16px;
 }
 
+.select-contacts-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.custom-select--contacts {
+  margin-bottom: 10px;
+}
+
+.custom-select-options::-webkit-scrollbar {
+  /* background-color: red; */
+  /* margin: 10px 0px; */
+}
+
+.custom-select-options::-webkit-scrollbar-button {
+  height: 2px;
+}
+
+.custom-select--options::-webkit-scrollbar-track {
+  margin: 10px 0px;
+}
+
+.custom-select--options::-webkit-scrollbar-thumb {
+  height: 5px;
+}
+
 .contact-avatar {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40px;
   height: 40px;
-  border: 2px solid green;
+  border: 2px solid white;
   border-radius: 100%;
-  background-color: red;
 }
 
 .contact-avatar--initials {
@@ -232,7 +265,9 @@ input[type="checkbox"] {
 }
 
 .display-none {
-  display: none;
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
 }
 
 .custom-select--option:has(input[type="checkbox"]:checked) {
@@ -245,11 +280,114 @@ input[type="checkbox"] {
 }
 
 .checkbox-container:has(input[type="checkbox"]:checked) {
-  background: white url(../assets/icons/checkbox.svg) no-repeat center;
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 11V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H15' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M8 12L12 16L20 4.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center;
 }
 
 .checkbox-container:hover:has(input[type="checkbox"]:checked) {
-  background: #edf2fa url(../assets/icons/checkbox.svg) no-repeat center;
+  background: rgba(255, 255, 255, 0.2)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 11V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H15' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M8 12L12 16L20 4.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center;
+}
+
+/* #endregion */
+
+/* #region subtask (task form) */
+
+.subtask-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subtask-input-container input {
+  border: none;
+  border-radius: 0px;
+  padding: 0;
+  flex: 1;
+}
+.subtask-input-container input:focus {
+  border: none;
+}
+
+.subtask-btns-container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+}
+
+.subtask-btn-left {
+  margin-right: 4px;
+}
+
+.subtask-btn-right {
+  margin-left: 4px;
+}
+
+.subtask-btns-container button:hover {
+  background-color: #eeeeee;
+}
+
+.subtask-btns-seperation-line {
+  width: 2px;
+  height: 20px;
+  background-color: var(--light-gray2);
+}
+
+.subtask-btns-container {
+  display: flex;
+  align-items: center;
+}
+
+.subtask-btns-container--ul button:hover {
+  transform: scale(1.05);
+}
+
+.subtask-list {
+  padding: 6px 16px;
+  /* list-style-type: disc; */
+  list-style-position: inside;
+}
+
+.subtask-list li::before {
+  content: "•";
+  margin-right: 8px;
+}
+
+.subtask-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 6px 16px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 100ms ease-out;
+}
+
+.subtask-list .subtask-btns-container--ul {
+  display: none;
+}
+
+.subtask-list li:hover {
+  background-color: #eeeeee;
+  border-radius: var(--border-radius-s);
+  transition: all 100ms ease-out;
+}
+
+.subtask-list li:hover .subtask-btns-container--ul,
+.subtask-list li:focus .subtask-btns-container--ul,
+.subtask-list:focus-within .subtask-btns-container--ul {
+  display: flex;
+}
+
+.subtask-list p {
+  font-size: 16px;
+  color: black;
 }
 
 /* #endregion */
