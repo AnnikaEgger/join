@@ -20,3 +20,11 @@ function generateTodoHTML(element) {
                             </div>
                          </div>`;
 }
+
+function generateEmptySectionHTML(category) {
+    return `
+        <div class="empty-card-container">
+            <p>No tasks To do</p>
+        </div>
+    `;
+}
