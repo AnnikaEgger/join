@@ -57,20 +57,36 @@ function openCustomSelectDropdown(selectName) {
 const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 let contactsOptions = [];
+let assignedContacts = [];
 
 async function init() {
   await getContacts();
   renderContactOptions();
 }
 
-function selectContact(indexOption) {
-  let checkbox = document.getElementById("checkbox" + indexOption);
+// indexContact --> number from 0 - 9 (function called by onclick)
+function selectContact(indexContact, contactId) {
+  let checkbox = document.getElementById("checkbox" + indexContact);
+  let indexAssignedContact;
+
+  for (let index = 0; index < assignedContacts.length; index++) {
+    if (assignedContacts[index].id === contactId) {
+      indexAssignedContact = index;
+      break;
+    }
+  }
 
   if (checkbox.checked == true) {
     checkbox.checked = false;
+    assignedContacts.splice(indexAssignedContact, 1);
   } else {
     checkbox.checked = true;
+    assignedContacts.push(contactsOptions[indexContact]);
   }
+
+  console.log(assignedContacts);
+
+  renderAssignedContacts();
 }
 
 async function renderContactOptions() {
@@ -94,8 +110,6 @@ async function getContacts() {
   let response = await fetch(BASE_URL + "contacts" + ".json");
   let contactsObj = await response.json();
 
-  console.log(contactsObj);
-
   if (contactsObj) {
     fillContactsOptionsArray(contactsObj);
   }
@@ -103,7 +117,6 @@ async function getContacts() {
 
 function fillContactsOptionsArray(contactsObj) {
   let keysArr = Object.keys(contactsObj);
-  console.log(keysArr);
 
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
@@ -116,8 +129,6 @@ function fillContactsOptionsArray(contactsObj) {
 
     contactsOptions.push(contactData);
   }
-
-  console.log(contactsOptions);
 }
 
 function getInitials(name) {
@@ -130,6 +141,21 @@ function getInitials(name) {
   }
 
   return (firstLetter + secondLetter).toUpperCase();
+}
+
+function renderAssignedContacts() {
+  const SELECTED_CONTACTS_DIV = document.getElementById(
+    "selected-contacts-container",
+  );
+
+  SELECTED_CONTACTS_DIV.innerHTML = "";
+  for (let index = 0; index < assignedContacts.length; index++) {
+    let contactInitials = getInitials(assignedContacts[index].name);
+    SELECTED_CONTACTS_DIV.innerHTML += contactAvatarTemplate(
+      index,
+      contactInitials,
+    );
+  }
 }
 
 // #endregion
@@ -239,7 +265,9 @@ function subtaskLiTemplate(subtaskText) {
 
 function contactOptionTemplate(indexContact, initials) {
   return `<div
-            onclick="selectContact(${indexContact})"
+            onclick="selectContact(${
+              indexContact
+            },'${contactsOptions[indexContact].id}')"
             class="custom-select--option"
             tabindex="0"
           >
@@ -255,9 +283,15 @@ function contactOptionTemplate(indexContact, initials) {
                 type="checkbox"
                 name=""
                 id="checkbox${indexContact}"
-                value="sofia"
+                value="${contactsOptions[indexContact].name}"
               />
             </div>
+          </div>`;
+}
+
+function contactAvatarTemplate(indexAssignedContact, initials) {
+  return ` <div class="contact-avatar" style="background-color: ${assignedContacts[indexAssignedContact].color}">
+            <p class="contact-avatar--initials">${initials}</p>
           </div>`;
 }
 
