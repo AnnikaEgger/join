@@ -226,3 +226,67 @@ ul {
     margin-left: max(var(--content-limitation), 0px);
   }
 }
+/* ---  NEW PRIVACY POLICY code --- */
+
+.privacy-container h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--dark-blue);
+}
+
+.privacy-container h2 {
+    font-size: 27px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    color: var(--dark-blue);
+}
+
+.privacy-container p, .privacy-container li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.privacy-container ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.privacy-contact-section {
+    background-color: var(--light-gray);
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+/* --- Responsive Design for Privacy Page --- */
+@media screen and (max-width: 1024px) {
+    .privacy-container h1 {
+        font-size: 47px;
+    }
+    
+    .main-content {
+        padding: 40px 24px;
+    }
+}
+/* --- NEW PRIVACY POLICY STYLES (FIXED GAP) --- */
+
+.main-content {
+    margin-left: 232px !important; 
+    margin-top: 100px !important;  
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+    padding-top: 0 !important;    
+}
+
+.main-content section {
+    padding-top: 0 !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.privacy-container {
+    max-width: 1000px !important;
+    margin: 0 !important;
+}
