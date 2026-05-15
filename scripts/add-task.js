@@ -42,14 +42,14 @@ taskForm.addEventListener("submit", (e) => {
   }
 });
 
-function openCustomSelectDropdown() {
-  let options = document.getElementById("select-options");
-  let arrow = document.getElementById("arrow-dropdown");
+function openCustomSelectDropdown(selectName) {
+  let options = document.getElementById("select-options" + "--" + selectName);
+  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
   options.classList.toggle("display-none");
   arrow.classList.toggle("rotate");
 }
 
-function selectOption(indexOption) {
+function selectContact(indexOption) {
   let checkbox = document.getElementById("checkbox" + indexOption);
 
   if (checkbox.checked == true) {
@@ -57,4 +57,16 @@ function selectOption(indexOption) {
   } else {
     checkbox.checked = true;
   }
+}
+
+function selectCategory(category) {
+  let selectedCategory = document.getElementById("selected-category");
+
+  selectedCategory.innerText = category;
+
+  openCustomSelectDropdown("category");
+}
+
+function addSubtask() {
+  let subtaskInput = document.getElementById("subtask-input");
 }

@@ -44,7 +44,7 @@ input {
   padding: 12px 16px;
 }
 
-input:not([type="checkbox"]),
+input:not([type="checkbox"], #subtask-input),
 textarea,
 select,
 .add-task-btn-container {
@@ -276,6 +276,86 @@ input[type="checkbox"] {
   background: rgba(255, 255, 255, 0.2)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 11V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H15' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M8 12L12 16L20 4.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     no-repeat center;
+}
+
+/* #endregion */
+
+/* #region subtask (task form) */
+
+.subtask-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subtask-input-container input {
+  border: none;
+  border-radius: 0px;
+  padding: 0;
+  flex: 1;
+}
+.subtask-input-container input:focus {
+  border: none;
+}
+
+.subtask-svg-container button {
+  background-color: transparent;
+}
+
+.subtask-btn-left {
+  padding-right: 6px;
+  border-right: 1px solid #d1d1d1;
+}
+
+.subtask-btn-right {
+  padding-left: 6px;
+}
+
+.subtask-svg-container {
+  display: flex;
+  align-items: center;
+}
+
+.subtask-list {
+  padding: 6px 16px;
+  /* list-style-type: disc; */
+  list-style-position: inside;
+}
+
+.subtask-list li::before {
+  content: "•";
+  margin-right: 8px;
+}
+
+.subtask-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 6px 16px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 100ms ease-out;
+}
+
+.subtask-list button {
+  display: none;
+}
+
+.subtask-list li:hover {
+  /* padding: 4px 16px; */
+
+  background-color: #eeeeee;
+  border-radius: var(--border-radius-s);
+  transition: all 100ms ease-out;
+}
+
+.subtask-list li:hover button {
+  display: unset;
+}
+
+.subtask-list p {
+  font-size: 16px;
+  color: black;
 }
 
 /* #endregion */
