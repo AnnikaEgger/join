@@ -134,7 +134,7 @@ hr {
 
 .card-container {
     display: flex;
-    height: 500px;
+    height: 800px;
     flex-direction: column !important;
     align-items: center !important;
     gap: 15px;
@@ -148,7 +148,7 @@ hr {
     gap: 15px;
     align-self: start;
     justify-content: space-between;
-    width: fit-content;
+    width: 200px;
     max-height: 100%;
     background-color: white;
     border-radius: 10px;
