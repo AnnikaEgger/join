@@ -206,12 +206,18 @@
                   id="contacts-dropdown"
                 >
                   <div
-                    onclick="openCustomSelectDropdown('contacts')"
-                    class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-contacts"
+                    onclick="toggleCustomSelectDropdown('contacts')"
+                    class="custom-select--trigger custom-select-input trigger-input-container"
+                    id="custom-select-trigger-contacts "
                     tabindex="0"
                   >
-                    <span>Select contacts to assign</span>
+                    <input
+                      oninput="filterContacts1()"
+                      class="search-contact-input"
+                      id="search-contact-input"
+                      type="text"
+                      placeholder="Select contacts to assign"
+                    />
                     <div class="custom-select--trigger--img-container">
                       <img
                         id="arrow-dropdown--contacts"
@@ -263,7 +269,7 @@
                 id="categories-dropdown"
               >
                 <div
-                  onclick="openCustomSelectDropdown('category')"
+                  onclick="toggleCustomSelectDropdown('category')"
                   class="custom-select--trigger custom-select-input"
                   id="custom-select-trigger-category"
                   tabindex="0"
@@ -280,27 +286,14 @@
                 <div
                   id="select-options--category"
                   class="custom-select-options display-none"
-                >
-                  <div
-                    class="custom-select--option"
-                    onclick="selectCategory('Technical Task')"
-                  >
-                    Technical Task
-                  </div>
-                  <div
-                    class="custom-select--option"
-                    onclick="selectCategory('User Story')"
-                  >
-                    User Story
-                  </div>
-                </div>
+                ></div>
               </div>
 
               <label for="subtask">Subtasks</label>
               <div class="subtask-container">
                 <div
                   tabindex="0"
-                  class="subtask-input-container custom-select-input"
+                  class="trigger-input-container custom-select-input"
                 >
                   <input
                     class="subtask-input"

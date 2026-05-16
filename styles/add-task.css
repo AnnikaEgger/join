@@ -44,7 +44,7 @@ input {
   padding: 12px 16px;
 }
 
-input:not([type="checkbox"], #subtask-input),
+input:not([type="checkbox"], .trigger-input-container input),
 textarea,
 select,
 .add-task-btn-container {
@@ -217,6 +217,14 @@ input[type="checkbox"] {
   padding: 8px 16px;
 }
 
+.search-contact-input::placeholder {
+  color: black;
+}
+
+.search-contact-input:focus::placeholder {
+  color: transparent;
+}
+
 .select-contacts-section {
   display: flex;
   flex-direction: column;
@@ -295,19 +303,19 @@ input[type="checkbox"] {
 
 /* #region subtask (task form) */
 
-.subtask-input-container {
+.trigger-input-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.subtask-input-container input {
+.trigger-input-container input {
   border: none;
   border-radius: 0px;
   padding: 0;
   flex: 1;
 }
-.subtask-input-container input:focus {
+.trigger-input-container input:focus {
   border: none;
 }
 

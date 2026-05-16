@@ -1,3 +1,31 @@
+const BASE_URL =
+  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
+
+async function init() {
+  filteredContacts = contactsOptions;
+  await getContacts();
+  renderContactOptions();
+
+  await getCategories();
+  renderCategories();
+
+  const TASK_FORM = document.getElementById("task-form");
+  // check validity of form when pressing enter or submit button
+  TASK_FORM.addEventListener("submit", (e) => {
+    if (!TASK_FORM.checkValidity()) {
+      e.preventDefault();
+      TASK_FORM.querySelector(":invalid").focus();
+    }
+  });
+}
+
+function toggleCustomSelectDropdown(selectName) {
+  let options = document.getElementById("select-options" + "--" + selectName);
+  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+  options.classList.toggle("display-none");
+  arrow.classList.toggle("rotate");
+}
+
 // #region priority
 let priority = "medium";
 
@@ -36,35 +64,12 @@ function stylePrioSvgColors() {
 
 // #endregion
 
-let taskForm = document.getElementById("task-form");
-
-taskForm.addEventListener("submit", (e) => {
-  if (!taskForm.checkValidity()) {
-    e.preventDefault();
-    taskForm.querySelector(":invalid").focus();
-  }
-});
-
-function openCustomSelectDropdown(selectName) {
-  let options = document.getElementById("select-options" + "--" + selectName);
-  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
-  options.classList.toggle("display-none");
-  arrow.classList.toggle("rotate");
-}
-
 // #region contacts
 
-const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 let contactsOptions = [];
+let filteredContacts = [];
 let assignedContacts = [];
 
-async function init() {
-  await getContacts();
-  renderContactOptions();
-}
-
-// indexContact --> number from 0 - 9 (function called by onclick)
 function selectContact(indexContact, contactId) {
   let checkbox = document.getElementById("checkbox" + indexContact);
   let indexAssignedContact;
@@ -81,7 +86,7 @@ function selectContact(indexContact, contactId) {
     assignedContacts.splice(indexAssignedContact, 1);
   } else {
     checkbox.checked = true;
-    assignedContacts.push(contactsOptions[indexContact]);
+    assignedContacts.push(filteredContacts[indexContact]);
   }
 
   console.log(assignedContacts);
@@ -95,10 +100,10 @@ async function renderContactOptions() {
   optionsContainer.innerHTML = "";
   for (
     let indexContact = 0;
-    indexContact < contactsOptions.length;
+    indexContact < filteredContacts.length;
     indexContact++
   ) {
-    let contactInitials = getInitials(contactsOptions[indexContact].name);
+    let contactInitials = getInitials(filteredContacts[indexContact].name);
     optionsContainer.innerHTML += contactOptionTemplate(
       indexContact,
       contactInitials,
@@ -158,15 +163,90 @@ function renderAssignedContacts() {
   }
 }
 
+// #region filter contacts
+
+// function checkSearchNoMatches(search) {
+//   let anyMatch = todos.some(
+//     (t) =>
+//       t.title.toLowerCase().includes(search) ||
+//       t.description.toLowerCase().includes(search),
+//   );
+//   let msg = document.getElementById("search-message");
+//   if (msg)
+//     msg.innerHTML = !anyMatch && search.length > 0 ? "no tasks found." : "";
+// }
+
+function filterContacts1() {
+  let searchContactsInput = document.getElementById(
+    "search-contact-input",
+  ).value;
+  filterContacts(searchContactsInput);
+  renderContactOptions();
+}
+
+function filterContacts(inputValue) {
+  filteredContacts = contactsOptions.filter((obj) => {
+    const searchValue = inputValue.toLowerCase().trim();
+
+    return obj.name
+      .toLowerCase()
+      .split(" ")
+      .some((namePart) => namePart.startsWith(searchValue));
+  });
+}
+
+// #endregion
+
 // #endregion
 
 // #region categories
+
+let categoriesArr = [];
+
+async function getCategories() {
+  let response = await fetch(BASE_URL + "tasks/categories" + ".json");
+  let categoriesObj = await response.json();
+
+  console.log(categoriesObj);
+
+  if (categoriesObj) {
+    fillCategoriesArray(categoriesObj);
+  }
+}
+
+function fillCategoriesArray(categoriesObj) {
+  let keysArr = Object.keys(categoriesObj);
+
+  for (let i = 0; i < keysArr.length; i++) {
+    let id = keysArr[i];
+
+    let categoryData = {
+      id: id,
+      title: categoriesObj[id].title,
+    };
+
+    categoriesArr.push(categoryData);
+  }
+
+  console.log(categoriesArr);
+}
+
+function renderCategories() {
+  const CATEGORIES_DIV = document.getElementById("select-options--category");
+
+  CATEGORIES_DIV.innerHTML = "";
+
+  for (let index = 0; index < categoriesArr.length; index++) {
+    CATEGORIES_DIV.innerHTML += categoryOptionTemplate(index);
+  }
+}
+
 function selectCategory(category) {
   let selectedCategory = document.getElementById("selected-category");
 
   selectedCategory.innerText = category;
 
-  openCustomSelectDropdown("category");
+  toggleCustomSelectDropdown("category");
 }
 
 // #endregion
@@ -267,15 +347,15 @@ function contactOptionTemplate(indexContact, initials) {
   return `<div
             onclick="selectContact(${
               indexContact
-            },'${contactsOptions[indexContact].id}')"
+            },'${filteredContacts[indexContact].id}')"
             class="custom-select--option"
             tabindex="0"
           >
             <div class="contact-container">
-              <div class="contact-avatar" style="background-color: ${contactsOptions[indexContact].color}">
+              <div class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
                 <p class="contact-avatar--initials">${initials}</p>
               </div>
-              <p id="contact-full-name">${contactsOptions[indexContact].name}</p>
+              <p id="contact-full-name">${filteredContacts[indexContact].name}</p>
             </div>
             <div class="checkbox-container">
               <input
@@ -283,7 +363,7 @@ function contactOptionTemplate(indexContact, initials) {
                 type="checkbox"
                 name=""
                 id="checkbox${indexContact}"
-                value="${contactsOptions[indexContact].name}"
+                value="${filteredContacts[indexContact].name}"
               />
             </div>
           </div>`;
@@ -292,6 +372,15 @@ function contactOptionTemplate(indexContact, initials) {
 function contactAvatarTemplate(indexAssignedContact, initials) {
   return ` <div class="contact-avatar" style="background-color: ${assignedContacts[indexAssignedContact].color}">
             <p class="contact-avatar--initials">${initials}</p>
+          </div>`;
+}
+
+function categoryOptionTemplate(indexCategory) {
+  return `<div
+            class="custom-select--option"
+            onclick="selectCategory('${categoriesArr[indexCategory].title}')"
+          >
+            ${categoriesArr[indexCategory].title}
           </div>`;
 }
 
