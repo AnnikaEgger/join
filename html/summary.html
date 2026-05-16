@@ -4,13 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join Summary</title>
-    <link
-      rel="icon"
-      href="../assets/icons/join-logo-white.svg"
-      type="image/svg+xml"
-    />
-    <link rel="stylesheet" href="../styles/variables.css" />
+    
+    <script src="../scripts/auth-guard.js"></script>
 
+    <link rel="icon" href="../assets/icons/join-logo-white.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/assets.css" />
@@ -27,21 +25,13 @@
         <ul class="nav-list">
           <li>
             <a href="summary.html" class="nav-link active">
-              <img
-                class="nav-icon"
-                src="/assets/icons/summary-icon.svg"
-                alt=""
-              />
+              <img class="nav-icon" src="/assets/icons/summary-icon.svg" alt="" />
               <span>Summary</span>
             </a>
           </li>
           <li>
             <a href="add-task.html" class="nav-link">
-              <img
-                class="nav-icon"
-                src="/assets/icons/add-task-icon.svg"
-                alt=""
-              />
+              <img class="nav-icon" src="/assets/icons/add-task-icon.svg" alt="" />
               <span>Add Task</span>
             </a>
           </li>
@@ -53,11 +43,7 @@
           </li>
           <li>
             <a href="contacts.html" class="nav-link">
-              <img
-                class="nav-icon"
-                src="/assets/icons/contacts-icon.svg"
-                alt=""
-              />
+              <img class="nav-icon" src="/assets/icons/contacts-icon.svg" alt="" />
               <span>Contacts</span>
             </a>
           </li>
@@ -77,10 +63,17 @@
         <a href="help.html" class="nav-link">
           <img class="nav-icon" src="/assets/icons/help-logo.svg" alt="" />
         </a>
-        <div class="header-avatar" id="header-avatar"></div>
-      </div>
+        
+        <div class="header-user-area" style="position: relative;">
+          <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
+          
+          <div id="dropdown" class="dropdown-content d-none">
+            <a href="help.html">Help</a>
+            <a href="legal-notice.html">Legal Notice</a>
+            <a onclick="logout()">Log out</a>
+          </div>
+        </div>
     </header>
-
     <main class="main-content">
       <section class="summary-page">
         <div class="summary-title">
@@ -95,10 +88,7 @@
               <a href="board.html" class="metric-card metric-card-icon">
                 <div class="card-icon-circle">
                   <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                      fill="white"
-                    />
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="white" />
                   </svg>
                 </div>
                 <div class="card-info">
@@ -110,10 +100,7 @@
               <a href="board.html" class="metric-card metric-card-icon">
                 <div class="card-icon-circle">
                   <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path
-                      d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
-                      fill="white"
-                    />
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white" />
                   </svg>
                 </div>
                 <div class="card-info">
@@ -137,9 +124,7 @@
               </div>
               <div class="card-divider"></div>
               <div class="card-deadline">
-                <span class="deadline-date" id="deadline-date"
-                  >No deadline</span
-                >
+                <span class="deadline-date" id="deadline-date">No deadline</span>
                 <span class="deadline-label">Upcoming Deadline</span>
               </div>
             </a>
@@ -161,7 +146,6 @@
               </a>
             </div>
           </div>
-        
 
           <aside class="summary-greeting">
             <h2 id="greeting-text">Good morning,</h2>
@@ -170,6 +154,6 @@
         </div>
       </section>
     </main>
-    <script src="/scripts/summary.js"></script>
+    <script src="../scripts/summary.js"></script>
   </body>
 </html>
