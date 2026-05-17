@@ -41,7 +41,8 @@ a {
   position: fixed;
   top: 0;
   /* content Begrenzung sidebar */
-  left: max(var(--content-limitation), 0px);
+  /* left: max(var(--content-limitation), 0px); */
+  left: 0;
   bottom: 0;
   width: var(--sidebar-width);
   background-color: #2a3647;
@@ -118,9 +119,9 @@ a {
 /* HEADER*/
 .header {
   /* position: fixed; */
-  top: 0;
+  /* top: 0;
   left: calc(var(--sidebar-width) + var(--content-limitation));
-  right: var(--content-limitation);
+  right: var(--content-limitation); */
   height: var(--header-height);
   background-color: var(--color-white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -130,11 +131,11 @@ a {
   padding: 0 40px;
   /* content Begrenzung */
   /* margin: 0px max(var(--content-limitation), 0px); */
-  margin-left: max(
+  padding-left: max(
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
   );
-  margin-right: max(var(--content-limitation), 0px);
+  padding-right: max(var(--content-limitation), 0px);
 }
 
 .header-title {
