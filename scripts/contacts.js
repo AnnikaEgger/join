@@ -7,14 +7,13 @@ async function init() {
 }
 
 async function loadContacts() {
+    contacts = [];
     let response = await fetch(BASE_URL);
     let data = await response.json();
 
     if (data && data.contacts) {
         fillContactsArray(data.contacts);
-        contacts.sort(function(a, b) {
-            return a.name.localeCompare(b.name);
-        });
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
     }
 }
 
@@ -105,27 +104,53 @@ function highlightContact(id) {
     }
 }
 
+async function createNewContact() {
+    let name = document.querySelector('.icon-name').value;
+    let email = document.querySelector('.icon-mail').value;
+    let phone = document.querySelector('.icon-phone').value;
+    let color = getRandomColor();
+
+    let newContact = { name, email, phone, color };
+
+    await postContact(newContact);
+    await finalizeAddition();
+}
+
+async function postContact(contact) {
+    let url = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
+    await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contact)
+    });
+}
+
+async function finalizeAddition() {
+    closeAddContact();
+    await init();
+    resetForm();
+}
+
+function resetForm() {
+    document.querySelector('.contact-form').reset();
+}
+
+function getRandomColor() {
+    let colors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
+
+    let randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+}
+
 async function deleteContact(id) {
     let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${id}.json`;
-    
+
     await fetch(url, {
         method: "DELETE"
     });
 
     document.getElementById('contact-detail-content').innerHTML = '';
-    
     await init();
-}
-
-async function loadContacts() {
-    contacts = [];
-    let response = await fetch(BASE_URL);
-    let data = await response.json();
-
-    if (data && data.contacts) {
-        fillContactsArray(data.contacts);
-        contacts.sort((a, b) => a.name.localeCompare(b.name));
-    }
 }
 
 function openAddContact() {
