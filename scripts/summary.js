@@ -4,12 +4,14 @@ const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.
 /**
  * Initialisiert die Summary-Seite: User laden, Avatar + Greeting setzen,
  * Task-Daten aus Firebase fetchen und Metriken rendern.
+ * Startet auf Mobile zusätzlich die Greeting-Animation.
  */
 async function initSummary() {
     const user = getCurrentUser();
     updateHeaderAvatar(user);
     updateGreeting(user);
     await loadSummaryData();
+    runMobileGreetingAnimation();
 }
 
 
@@ -82,6 +84,24 @@ function updateGreeting(user) {
     }
     text.textContent = greeting + ",";
     name.textContent = user.name;
+}
+
+
+/**
+ * Startet die Mobile-Greeting-Animation: Greeting wird 2 Sek angezeigt,
+ * dann fadet es weg und die Cards werden sichtbar.
+ * Läuft nur auf Mobile (≤1024px).
+ */
+function runMobileGreetingAnimation() {
+    if (window.innerWidth > 1024) return;
+
+    const greeting = document.querySelector(".summary-greeting");
+    const cards = document.querySelector(".summary-cards");
+
+    setTimeout(() => {
+        greeting.classList.add("fade-out");
+        cards.classList.add("visible");
+    }, 2000);
 }
 
 

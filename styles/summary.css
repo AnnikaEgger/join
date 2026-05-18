@@ -84,12 +84,14 @@
     flex-shrink: 0;
     transition: var(--transition-default);
 }
+
 .dropdown-content {
     position: absolute;
     right: 0;
     top: 60px;
-    background-color: #2A3647; /* Farbe */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #2A3647;
+    /* Farbe */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 20px 0 20px 20px;
     min-width: 150px;
     z-index: 1;
@@ -102,7 +104,11 @@
     cursor: pointer;
 }
 
-.d-none { display: none; } /* Verstecken */
+.d-none {
+    display: none;
+}
+
+/* Verstecken */
 
 .metric-card:hover .card-icon-circle {
     background-color: white;
@@ -219,201 +225,138 @@
     .summary-title h1 {
         font-size: 55px;
     }
+
     .summary-title p {
         font-size: 24px;
     }
+
     .card-count {
         font-size: 42px;
     }
+
     .metric-card-bottom .card-count {
         font-size: 42px;
     }
+
     .summary-greeting h2 {
         font-size: 42px;
     }
+
     .summary-greeting p {
         font-size: 55px;
     }
+
     .summary-cards {
         min-width: 500px;
     }
 }
 
 
+/* #region mobile greeting animation */
 @media screen and (max-width: 1024px) {
-    .summary-title h1 {
-        font-size: 47px;
+
+    .summary-page {
+        position: relative;
     }
-    .summary-title p {
-        font-size: 20px;
+
+    .header-title {
+        display: none;
     }
+
     .title-divider {
-        height: 47px;
+        display: none;
     }
-    .summary-body {
-        flex-direction: column-reverse;
-        gap: 48px;
-        align-items: stretch;
-    }
+
+    .summary-title {
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    margin-bottom: 64px;
+    flex-direction: column;
+}
     .summary-greeting {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--color-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        min-width: unset;
+        padding: 0 16px;
+        z-index: 100;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
     }
-    .summary-cards {
-        min-width: unset;
-    }
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 36px;
-    }
-    .metric-card-icon {
-        padding: 20px 24px;
-    }
-    .card-icon-circle {
-        width: 50px;
-        height: 50px;
-    }
+
     .summary-greeting h2 {
-        font-size: 36px;
+        font-size: 47px;
+        word-break: break-word;
     }
+
     .summary-greeting p {
         font-size: 47px;
+        word-break: break-word;
+    }
+
+    .summary-greeting.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .summary-cards {
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+    }
+
+    .summary-cards.visible {
+        opacity: 1;
     }
 }
 
-
 @media screen and (max-width: 768px) {
-    .summary-title {
-        gap: 16px;
-        margin-bottom: 48px;
-    }
-    .summary-title h1 {
+    .summary-greeting h2 {
         font-size: 40px;
     }
-    .summary-title p {
-        font-size: 18px;
-    }
-    .cards-row-bottom {
-        flex-direction: column;
-    }
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 32px;
-    }
-    .card-label {
-        font-size: 16px;
-    }
-    .metric-card-wide {
-        flex-direction: column;
-        gap: 16px;
-        padding: 20px;
-    }
-    .card-divider {
-        width: 80%;
-        height: 2px;
-    }
-    .summary-greeting h2 {
-        font-size: 28px;
-    }
-    .summary-greeting p {
-        font-size: 36px;
-    }
+
+}
+
+.summary-greeting p {
+    font-size: 40px;
 }
 
 
 @media screen and (max-width: 425px) {
-    .summary-title h1 {
+    .summary-greeting h2 {
         font-size: 32px;
     }
-    .summary-title p {
-        font-size: 16px;
-    }
-    .title-divider {
-        height: 32px;
-    }
-    .cards-row-top {
-        flex-direction: column;
-    }
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 28px;
-    }
-    .card-label {
-        font-size: 14px;
-    }
-    .metric-card {
-        border-radius: 20px;
-    }
-    .metric-card-icon {
-        padding: 16px 20px;
-    }
-    .card-icon-circle {
-        width: 44px;
-        height: 44px;
-    }
-    .summary-greeting h2 {
-        font-size: 22px;
-    }
+
     .summary-greeting p {
-        font-size: 28px;
-    }
-    .deadline-date {
-        font-size: 18px;
+        font-size: 32px;
     }
 }
-
 
 @media screen and (max-width: 375px) {
-    .summary-title h1 {
+    .summary-greeting h2 {
         font-size: 28px;
     }
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 24px;
-    }
+
     .summary-greeting p {
-        font-size: 24px;
+        font-size: 28px;
     }
 }
-
 
 @media screen and (max-width: 320px) {
-    .summary-title {
-        gap: 12px;
-    }
-    .summary-title h1 {
+    .summary-greeting h2 {
         font-size: 24px;
     }
-    .summary-title p {
-        font-size: 14px;
-    }
-    .title-divider {
-        height: 28px;
-    }
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 20px;
-    }
-    .card-label {
-        font-size: 12px;
-    }
-    .metric-card-icon {
-        padding: 12px 16px;
-    }
-    .card-icon-circle {
-        width: 36px;
-        height: 36px;
-    }
-    .summary-greeting h2 {
-        font-size: 18px;
-    }
+
     .summary-greeting p {
-        font-size: 22px;
-    }
-    .deadline-date {
-        font-size: 16px;
-    }
-    .deadline-label {
-        font-size: 12px;
+        font-size: 24px;
     }
 }
+
+/* #endregion */
