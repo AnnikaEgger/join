@@ -41,7 +41,8 @@ a {
   position: fixed;
   top: 0;
   /* content Begrenzung sidebar */
-  left: max(var(--content-limitation), 0px);
+  /* left: max(var(--content-limitation), 0px); */
+  left: 0;
   bottom: 0;
   width: var(--sidebar-width);
   background-color: #2a3647;
@@ -118,9 +119,9 @@ a {
 /* HEADER*/
 .header {
   /* position: fixed; */
-  top: 0;
+  /* top: 0;
   left: calc(var(--sidebar-width) + var(--content-limitation));
-  right: var(--content-limitation);
+  right: var(--content-limitation); */
   height: var(--header-height);
   background-color: var(--color-white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -130,11 +131,11 @@ a {
   padding: 0 40px;
   /* content Begrenzung */
   /* margin: 0px max(var(--content-limitation), 0px); */
-  margin-left: max(
+  padding-left: max(
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
   );
-  margin-right: max(var(--content-limitation), 0px);
+  padding-right: max(var(--content-limitation), 0px);
 }
 
 .header-title {
@@ -145,12 +146,12 @@ a {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: px;
+  gap: 16px;
 }
 
 .header-help {
   display: flex;
-  color: var(--color-primary);
+  color: var(--dark-blue);
   cursor: pointer;
   transition: var(--transition-default);
 }
@@ -163,7 +164,7 @@ a {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--dark-blue);
   color: var(--color-accent);
   background-color: var(--color-white);
   display: flex;
@@ -176,21 +177,16 @@ a {
 }
 
 .header-avatar:hover {
-  background-color: var(--color-primary);
+  background-color: var(--dark-blue);
 }
 
 /*  MAIN CONTENT */
 .main-content {
-  margin-left: max(
-    calc(var(--content-limitation) + var(--sidebar-width)),
-    var(--sidebar-width)
-  );
+  margin-left: var(--sidebar-width);
   margin-right: max(var(--content-limitation), 0px);
-  /* margin-top: var(--header-height); */
-  padding: 48px;
+  padding: 48px 80px;
   min-height: calc(100vh - var(--header-height));
 }
-
 @media screen and (max-width: 1280px) {
   .sidebar-logo img {
     width: 75px;
@@ -226,7 +222,12 @@ a {
     margin-left: max(var(--content-limitation), 0px);
   }
 }
-/* ---  NEW PRIVACY POLICY code --- */
+
+/* --- NEW PRIVACY POLICY STYLES --- */
+
+.privacy-container {
+    max-width: 1000px;
+}
 
 .privacy-container h1 {
   font-size: 61px;
@@ -241,6 +242,7 @@ a {
   margin-bottom: 15px;
   color: var(--dark-blue);
 }
+<<<<<<< HEAD
 
 .privacy-container p,
 .privacy-container li {
@@ -291,3 +293,10 @@ a {
     max-width: 1000px !important;
     margin: 0 !important;
 } */
+=======
+/* --- Responsive Design for Privacy Page --- */
+@media screen and (max-width: 1024px) {
+    .privacy-container h1 {
+        font-size: 47px;
+    }
+>>>>>>> cd3ade4 (Fix responsive privacy policy layoutFix responsive privacy policy layout)

@@ -17,25 +17,90 @@ async function init() {
       TASK_FORM.querySelector(":invalid").focus();
     }
   });
+
+  const SEARCH_INPUT = document.getElementById("search-contact-input");
+  const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
+
+  SEARCH_INPUT.addEventListener(
+    "click",
+    toggleStopPropagationSearchContactInput,
+  );
+
+  CONTACTS_DROPDOWN.addEventListener("focusout", (event) => {
+    // event.relatedTarget = das element, das jetzt den Fokus bekommt
+    // event object --> dort Info enthalten, welches Element Fokus verloren hat + welches jetzt den Fokus hat
+    const nextFocused = event.relatedTarget;
+
+    if (!CONTACTS_DROPDOWN.contains(nextFocused)) {
+      closeCustomSelectDropdown("contacts");
+      // toggleOnclickSearchContactInput(false);
+    }
+
+    // SEARCH_INPUT.removeEventListener("click", stopClick);
+  });
+
+  const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
+  CATEGORIES_DROPDOWN.addEventListener("focusout", (event) => {
+    const nextFocused = event.relatedTarget;
+
+    if (!CATEGORIES_DROPDOWN.contains(nextFocused)) {
+      console.log("Fokus außerhalb");
+      closeCustomSelectDropdown("category");
+    } else {
+      console.log("we're still inside!");
+    }
+  });
+}
+
+function stopClick(event) {
+  event.stopPropagation();
+  console.log("its working");
+}
+
+function closeCustomSelectDropdown(selectName) {
+  let options = document.getElementById("select-options" + "--" + selectName);
+  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+  options.classList.add("display-none");
+  arrow.classList.remove("rotate");
 }
 
 function toggleCustomSelectDropdown(selectName) {
-  // let options = document.getElementById("select-options" + "--" + selectName);
-  // let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
-  // options.classList.toggle("display-none");
-  // arrow.classList.toggle("rotate");
+  let options = document.getElementById("select-options" + "--" + selectName);
+  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+
+  options.classList.toggle("display-none");
+  arrow.classList.toggle("rotate");
+
+  // if (options.classList.contains == "display-none") {
+  //   toggleOnclickSearchContactInput(false);
+  // } else {
+  //   toggleOnclickSearchContactInput(true);
+  // }
 }
 
-// const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
+function toggleStopPropagationSearchContactInput() {
+  const searchInput = document.getElementById("search-contact-input");
+  let options = document.getElementById("select-options" + "--" + "contacts");
+  let enable;
 
-// CONTACTS_DROPDOWN.addEventListener("focus", function () {
-//   console.log("focus on me");
+  if (options.classList.contains("display-none")) {
+    enable = false;
+  } else {
+    enable = true;
+    debugger;
+  }
 
-//   let options = document.getElementById("select-options" + "--" + "contacts");
-//   let arrow = document.getElementById("arrow-dropdown" + "--" + "contacts");
-//   options.classList.toggle("display-none");
-//   arrow.classList.toggle("rotate");
-// });
+  // enable true -> kein schließen/ toggeln; enable false -> schließen/ toggeln
+  if (enable) {
+    searchInput.onclick = function (event) {
+      event.stopPropagation();
+      console.log(true);
+    };
+  } else {
+    searchInput.onclick = null;
+    console.log(false);
+  }
+}
 
 // #region priority
 let priority = "medium";
@@ -99,8 +164,6 @@ function selectContact(indexContact, contactId) {
     checkbox.checked = true;
     assignedContacts.push(filteredContacts[indexContact]);
   }
-
-  console.log(assignedContacts);
 
   renderAssignedContacts();
 }
@@ -207,8 +270,6 @@ async function getCategories() {
   let response = await fetch(BASE_URL + "tasks/categories" + ".json");
   let categoriesObj = await response.json();
 
-  console.log(categoriesObj);
-
   if (categoriesObj) {
     fillCategoriesArray(categoriesObj);
   }
@@ -227,8 +288,6 @@ function fillCategoriesArray(categoriesObj) {
 
     categoriesArr.push(categoryData);
   }
-
-  console.log(categoriesArr);
 }
 
 function renderCategories() {
@@ -246,7 +305,7 @@ function selectCategory(category) {
 
   selectedCategory.innerText = category;
 
-  toggleCustomSelectDropdown("category");
+  closeCustomSelectDropdown("category");
 }
 
 // #endregion
@@ -359,7 +418,7 @@ function contactOptionTemplate(indexContact, initials) {
             </div>
             <div class="checkbox-container">
               <input
-                onclick="event.stopPropagation()"
+               onclick="event.stopPropagation()"
                 type="checkbox"
                 name=""
                 id="checkbox${indexContact}"
@@ -379,6 +438,7 @@ function categoryOptionTemplate(indexCategory) {
   return `<div
             class="custom-select--option"
             onclick="selectCategory('${categoriesArr[indexCategory].title}')"
+            tabindex="0"
           >
             ${categoriesArr[indexCategory].title}
           </div>`;
