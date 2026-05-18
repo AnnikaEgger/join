@@ -182,7 +182,14 @@ a {
 
 /*  MAIN CONTENT */
 .main-content {
-  margin-left: var(--sidebar-width);
+   /* padding-left: max(
+    calc(var(--content-limitation) + var(--sidebar-width)),
+    var(--sidebar-width)
+  );
+  padding-right: max(var(--content-limitation), 0px); */
+
+
+  margin-left: max(var(--content-limitation) + var(--sidebar-width),0px);
   margin-right: max(var(--content-limitation), 0px);
   padding: 48px 80px;
   min-height: calc(100vh - var(--header-height));
