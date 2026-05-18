@@ -20,11 +20,22 @@ async function init() {
 }
 
 function toggleCustomSelectDropdown(selectName) {
-  let options = document.getElementById("select-options" + "--" + selectName);
-  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
-  options.classList.toggle("display-none");
-  arrow.classList.toggle("rotate");
+  // let options = document.getElementById("select-options" + "--" + selectName);
+  // let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+  // options.classList.toggle("display-none");
+  // arrow.classList.toggle("rotate");
 }
+
+// const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
+
+// CONTACTS_DROPDOWN.addEventListener("focus", function () {
+//   console.log("focus on me");
+
+//   let options = document.getElementById("select-options" + "--" + "contacts");
+//   let arrow = document.getElementById("arrow-dropdown" + "--" + "contacts");
+//   options.classList.toggle("display-none");
+//   arrow.classList.toggle("rotate");
+// });
 
 // #region priority
 let priority = "medium";
@@ -164,17 +175,6 @@ function renderAssignedContacts() {
 }
 
 // #region filter contacts
-
-// function checkSearchNoMatches(search) {
-//   let anyMatch = todos.some(
-//     (t) =>
-//       t.title.toLowerCase().includes(search) ||
-//       t.description.toLowerCase().includes(search),
-//   );
-//   let msg = document.getElementById("search-message");
-//   if (msg)
-//     msg.innerHTML = !anyMatch && search.length > 0 ? "no tasks found." : "";
-// }
 
 function filterContacts1() {
   let searchContactsInput = document.getElementById(
