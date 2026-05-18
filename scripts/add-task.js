@@ -21,11 +21,6 @@ async function init() {
   const SEARCH_INPUT = document.getElementById("search-contact-input");
   const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
 
-  SEARCH_INPUT.addEventListener(
-    "click",
-    toggleStopPropagationSearchContactInput,
-  );
-
   CONTACTS_DROPDOWN.addEventListener("focusout", (event) => {
     // event.relatedTarget = das element, das jetzt den Fokus bekommt
     // event object --> dort Info enthalten, welches Element Fokus verloren hat + welches jetzt den Fokus hat
@@ -33,10 +28,7 @@ async function init() {
 
     if (!CONTACTS_DROPDOWN.contains(nextFocused)) {
       closeCustomSelectDropdown("contacts");
-      // toggleOnclickSearchContactInput(false);
     }
-
-    // SEARCH_INPUT.removeEventListener("click", stopClick);
   });
 
   const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
@@ -52,11 +44,6 @@ async function init() {
   });
 }
 
-function stopClick(event) {
-  event.stopPropagation();
-  console.log("its working");
-}
-
 function closeCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
@@ -70,35 +57,13 @@ function toggleCustomSelectDropdown(selectName) {
 
   options.classList.toggle("display-none");
   arrow.classList.toggle("rotate");
-
-  // if (options.classList.contains == "display-none") {
-  //   toggleOnclickSearchContactInput(false);
-  // } else {
-  //   toggleOnclickSearchContactInput(true);
-  // }
 }
 
-function toggleStopPropagationSearchContactInput() {
-  const searchInput = document.getElementById("search-contact-input");
+function checkStopPropagation(event) {
   let options = document.getElementById("select-options" + "--" + "contacts");
-  let enable;
 
-  if (options.classList.contains("display-none")) {
-    enable = false;
-  } else {
-    enable = true;
-    debugger;
-  }
-
-  // enable true -> kein schließen/ toggeln; enable false -> schließen/ toggeln
-  if (enable) {
-    searchInput.onclick = function (event) {
-      event.stopPropagation();
-      console.log(true);
-    };
-  } else {
-    searchInput.onclick = null;
-    console.log(false);
+  if (!options.classList.contains("display-none")) {
+    event.stopPropagation();
   }
 }
 
@@ -146,10 +111,11 @@ let contactsOptions = [];
 let filteredContacts = [];
 let assignedContacts = [];
 
-function selectContact(indexContact, contactId) {
+function selectContact(indexContact, contactId, clickViaCheckbox) {
   let checkbox = document.getElementById("checkbox" + indexContact);
   let indexAssignedContact;
 
+  // check if contact already assigned
   for (let index = 0; index < assignedContacts.length; index++) {
     if (assignedContacts[index].id === contactId) {
       indexAssignedContact = index;
@@ -157,12 +123,23 @@ function selectContact(indexContact, contactId) {
     }
   }
 
-  if (checkbox.checked == true) {
-    checkbox.checked = false;
-    assignedContacts.splice(indexAssignedContact, 1);
+  if (!clickViaCheckbox) {
+    if (checkbox.checked == true) {
+      checkbox.checked = false;
+      assignedContacts.splice(indexAssignedContact, 1);
+    } else {
+      checkbox.checked = true;
+      assignedContacts.push(filteredContacts[indexContact]);
+    }
   } else {
-    checkbox.checked = true;
-    assignedContacts.push(filteredContacts[indexContact]);
+    event.stopPropagation();
+    if (checkbox.checked == true) {
+      assignedContacts.push(filteredContacts[indexContact]);
+      console.log("new contact assigned");
+    } else {
+      assignedContacts.splice(indexAssignedContact, 1);
+      console.log("assigned contact deleted");
+    }
   }
 
   renderAssignedContacts();
@@ -406,7 +383,7 @@ function contactOptionTemplate(indexContact, initials) {
   return `<div
             onclick="selectContact(${
               indexContact
-            },'${filteredContacts[indexContact].id}')"
+            },'${filteredContacts[indexContact].id}', false)"
             class="custom-select--option"
             tabindex="0"
           >
@@ -418,7 +395,9 @@ function contactOptionTemplate(indexContact, initials) {
             </div>
             <div class="checkbox-container">
               <input
-               onclick="event.stopPropagation()"
+               onclick="selectContact(${
+                 indexContact
+               },'${filteredContacts[indexContact].id}', true)"
                 type="checkbox"
                 name=""
                 id="checkbox${indexContact}"
