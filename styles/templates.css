@@ -133,11 +133,12 @@ a {
   padding: 0 40px;
   /* content Begrenzung */
   /* margin: 0px max(var(--content-limitation), 0px); */
-  padding-left: max(
+  /* padding-left: max(
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
-  );
-  padding-right: max(var(--content-limitation), 0px);
+  ); */
+  padding-left: max(var(--content-limitation), 16px);
+  padding-right: max(var(--content-limitation), 16px);
   z-index: 1;
 }
 
