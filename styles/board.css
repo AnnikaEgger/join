@@ -517,7 +517,7 @@ label {
     }
 }
 
-@media (max-width: 1070px) {
+@media (max-width: 1125px) {
     .main-content {
         padding-left: 20px;
         padding-right: 20px;
@@ -547,6 +547,10 @@ label {
     .add-btn {
         padding: 10px 15px;
         font-size: 18px;
+    }
+
+    .card {
+        width: 180px;
     }
 }
 
