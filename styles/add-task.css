@@ -15,18 +15,44 @@ body {
 :root {
   --light-gray2: #d1d1d1;
   --light-orange: #ffa800;
+
+  --width-content-wrapper: calc(var(--input-width) * 2 + 32px * 2 + 1px);
+  --padding-lr-big: 0;
+  --padding-lr-medium: 0;
+  --padding-lr-small: 24px;
 }
 
 h1 {
   margin-bottom: 48px;
 }
 
-.add-task-wrapper * {
+.content-wrapper {
+  /* min-width: var(--width-content-wrapper);
+  padding-left: calc(
+    (
+      50dvw -
+        max(
+          var(--content-limitation) + var(--sidebar-width),
+          var(--sidebar-width)
+        ) -
+        80px - var(--width-content-wrapper)
+    )
+  );
+  padding-right: calc(
+    (
+      50dvw - max(var(--content-limitation), 0) - 80px -
+        var(--width-content-wrapper)
+    )
+  ); */
+}
+
+.task-form * {
   font-size: 20px;
 }
 
 .add-task-inner-wrapper {
   display: flex;
+  /* margin-bottom: 100px; */
 }
 
 .add-task-container {
@@ -47,7 +73,7 @@ input {
 input:not([type="checkbox"], .trigger-input-container input),
 textarea,
 select,
-.add-task-btn-container {
+.add-task-prio-btns-container {
   margin-bottom: 32px;
 }
 
@@ -64,11 +90,12 @@ label {
   width: 1px;
   background-color: var(--light-gray2);
   margin: 0 32px;
+  max-height: 450px;
 }
 
-.add-task-btn-container {
+.add-task-prio-btns-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: var(--input-width);
 }
 
@@ -137,39 +164,50 @@ label {
 /* #endregion */
 
 /* #region bottom btns container */
-.add-task-bottom-btns-container {
-  display: flex;
-  gap: 16px;
+
+.p-required {
+  position: absolute;
+  top: 610px;
+  left: 0;
+  font-size: 16px;
 }
 
 .add-task-bottom-btns-container {
-  position: sticky;
-  top: 40px;
-  left: 40px;
-  bottom: 40px;
-  right: max(var(--content-limitation), 24px);
-  justify-content: end;
-  padding: 0px max(var(--content-limitation), 24px);
+  position: fixed;
+  /* bottom: 48px; */
+  top: 850px;
+  left: calc(
+    var(--sidebar-width) + ((100dvw - var(--sidebar-width)) / 2) +
+      (var(--width-content-wrapper) / 2)
+  );
+  transform: translateX(-100%);
+  /* white-space: nowrap;
+  flex-shrink: 0; */
+}
+
+.bottom-btns-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .add-task-bottom-btn {
-  padding: 16px;
-}
-
-.add-task-bottom-section {
-  position: sticky;
-  top: 40px;
-  left: 40px;
-  bottom: 40px;
   display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-top: 100px;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
 }
 
 /* #endregion */
 
 /* #region task form */
+
+.task-form {
+  position: relative;
+}
+
 .task-form-select {
   appearance: none;
   background-image: url("../assets/icons/arrow-drop-down.svg");
@@ -278,26 +316,6 @@ input[type="checkbox"] {
   pointer-events: none;
 }
 
-/* .custom-select:not(:focus, :focus-within) .custom-select-options {
-  opacity: 0;
-  max-height: 0;
-  pointer-events: none;
-} */
-
-/* .custom-select:focus
-  .custom-select-options:focus
-  .custom-select:focus-within
-  .custom-select-options {
-  opacity: 1;
-  max-height: 200;
-  pointer-events: unset;
-} */
-
-/* .custom-select:not(:focus, :focus-within) .custom-select--trigger img {
-  transform: rotate(0deg);
-  transition: transform 200ms ease-in;
-} */
-
 .custom-select--option:has(input[type="checkbox"]:checked) {
   background-color: var(--dark-blue);
   color: white;
@@ -334,6 +352,7 @@ input[type="checkbox"] {
   border-radius: 0px;
   padding: 0;
   flex: 1;
+  min-width: 0;
 }
 .trigger-input-container input:focus {
   border: none;
@@ -421,6 +440,12 @@ input[type="checkbox"] {
 /* #endregion */
 
 /* #region responsive */
+@media screen and (min-height: 1000px) {
+  .add-task-bottom-btns-container {
+    /* top: 850px;
+    bottom: unset; */
+  }
+}
 
 @media screen and (max-width: 1280px) {
   :root {
@@ -430,25 +455,66 @@ input[type="checkbox"] {
 
 @media screen and (max-width: 1024px) {
   :root {
-    --input-width: 80dvw;
+    --input-width: 550px;
     --textarea-height: 90px;
+    --width-content-wrapper: var(--input-width);
+    --bottom-btns-container-width: 285px;
+  }
+
+  h1 {
+    /* margin-bottom: 32px; */
+    position: fixed;
+    /* left: max(var(--content-limitation), 24px); */
+    top: var(--header-height);
+    width: 100dvw;
+    background-color: var(--light-gray);
+    z-index: 1;
+    padding-top: 40px;
+    padding-bottom: 10px;
   }
   .main-content {
     padding: 48px max(calc(var(--content-limitation)), 24px);
   }
 
-  .add-task-wrapper {
-    max-width: 1000px;
+  .content-wrapper {
+    margin-top: 80px;
   }
 
-  .add-task-wrapper * {
+  .task-form {
+    max-width: 1000px;
+    margin-bottom: 100px;
+  }
+
+  .task-form * {
     font-size: 16px;
   }
+
+  .add-task-bottom-btns-container {
+    /* display: flex;
+    justify-content: end; */
+    top: unset;
+    bottom: 24px;
+    left: 0;
+    padding-left: calc(
+      50dvw + (var(--width-content-wrapper) / 2) -
+        var(--bottom-btns-container-width)
+    );
+    padding-right: max(var(--content-limitation), var(--padding-lr-small));
+    transform: translateX(0%);
+    background-color: var(--light-gray);
+    width: 100%;
+  }
+
+  .bottom-btns-wrapper {
+    width: var(--bottom-btns-container-width);
+  }
+
   .add-task-bottom-btn {
     font-size: 20px;
   }
 
   .add-task-inner-wrapper {
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
   }
@@ -462,18 +528,43 @@ input[type="checkbox"] {
     margin-top: 0;
   }
 
-  .add-task-bottom-btns-container {
-    width: 100%;
-    background-color: var(--light-gray);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    justify-content: end;
-    padding: 0px max(var(--content-limitation), 24px);
+  .subtask-container {
+    margin-bottom: 16px;
+  }
+
+  .p-required {
+    position: unset;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --input-width: 70dvw;
   }
 }
 
 @media screen and (max-width: 480px) {
+  :root {
+    --width-content-wrapper: calc(100dvw - (var(--padding-lr-small) * 2));
+    /* --input-width: calc(100dvw - var(--padding-lr-small) * 2); */
+    --input-width: unset;
+    --bottom-btns-container-width: unset;
+  }
+
+  .add-task-container {
+    width: 100%;
+  }
+
+  .add-task-bottom-btns-container {
+    padding: 0 var(--padding-lr-small);
+    display: flex;
+    justify-content: end;
+  }
+
+  .content-wrapper {
+    width: 100%;
+  }
+
   .add-task-bottom-btn {
     padding: 8px;
   }
@@ -499,6 +590,10 @@ input[type="checkbox"] {
   .medium-active,
   .low-active {
     font-weight: 600;
+  }
+
+  .trigger-input-container input {
+    /* flex: unset; */
   }
 }
 

@@ -66,13 +66,13 @@
       </nav>
 
       <div class="sidebar-footer">
-        <a href="privacy_policy.html" class="footer-link">Privacy Policy</a>
+        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
         <a href="legal-notice.html" class="footer-link">Legal notice</a>
       </div>
     </section>
 
     <header class="header">
-      <h1 class="header-title">Kanban Project Management Tool</h1>
+      <h2 class="header-title">Kanban Project Management Tool</h2>
 
       <div class="header-actions">
         <a href="help.html" class="nav-link">
@@ -86,7 +86,7 @@
     <main class="main-content">
       <div class="content-wrapper">
         <h1>Add Task</h1>
-        <form id="task-form" novalidate class="add-task-wrapper">
+        <form id="task-form" class="task-form" novalidate>
           <div class="add-task-inner-wrapper">
             <div class="add-task-container">
               <label for="task-title">Title<span class="red">*</span></label>
@@ -122,7 +122,7 @@
 
             <div class="add-task-container">
               <label for="task-priority">Priority</label>
-              <div id="task-priority" class="add-task-btn-container">
+              <div id="task-priority" class="add-task-prio-btns-container">
                 <button
                   type="button"
                   onclick="setPriority('urgent')"
@@ -214,6 +214,7 @@
                   >
                     <input
                       oninput="filterContacts1()"
+                      onclick="checkStopPropagation(event)"
                       class="search-contact-input"
                       id="search-contact-input"
                       type="text"
@@ -372,9 +373,12 @@
             </div>
           </div>
 
-          <section class="add-task-bottom-section">
-            <p><span class="red">*</span>this field is required</p>
-            <div class="add-task-bottom-btns-container">
+          <p class="p-required">
+            <span class="red">*</span>this field is required
+          </p>
+
+          <div class="add-task-bottom-btns-container">
+            <div class="bottom-btns-wrapper">
               <button
                 type="reset"
                 id="clear-task-btn"
@@ -419,7 +423,7 @@
                 </svg>
               </button>
             </div>
-          </section>
+          </div>
         </form>
       </div>
     </main>

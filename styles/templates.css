@@ -118,9 +118,11 @@ a {
 
 /* HEADER*/
 .header {
-  /* position: fixed; */
-  /* top: 0;
-  left: calc(var(--sidebar-width) + var(--content-limitation));
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  width: calc(100dvw - var(--sidebar-width));
+  /* left: calc(var(--sidebar-width) + var(--content-limitation));
   right: var(--content-limitation); */
   height: var(--header-height);
   background-color: var(--color-white);
@@ -131,11 +133,13 @@ a {
   padding: 0 40px;
   /* content Begrenzung */
   /* margin: 0px max(var(--content-limitation), 0px); */
-  padding-left: max(
+  /* padding-left: max(
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
-  );
-  padding-right: max(var(--content-limitation), 0px);
+  ); */
+  padding-left: max(var(--content-limitation), 16px);
+  padding-right: max(var(--content-limitation), 16px);
+  z-index: 1;
 }
 
 .header-title {
@@ -182,7 +186,14 @@ a {
 
 /*  MAIN CONTENT */
 .main-content {
-  margin-left: var(--sidebar-width);
+   /* padding-left: max(
+    calc(var(--content-limitation) + var(--sidebar-width)),
+    var(--sidebar-width)
+  );
+  padding-right: max(var(--content-limitation), 0px); */
+
+  margin-top: var(--header-height);
+  margin-left: max(var(--content-limitation) + var(--sidebar-width), var(--sidebar-width));
   margin-right: max(var(--content-limitation), 0px);
   padding: 48px 80px;
   min-height: calc(100vh - var(--header-height));
@@ -214,8 +225,9 @@ a {
   }
 
   .header {
-    /* left: 0; */
-    margin-left: max(var(--content-limitation), 0px);
+    left: 0;
+    width: 100dvw;
+    padding-left: max(var(--content-limitation), 0px);
   }
 
   .main-content {
