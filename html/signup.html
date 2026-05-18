@@ -9,6 +9,9 @@
       href="../assets/icons/join-logo-white.svg"
       type="image/svg+xml"
     />
+
+    <script src="../scripts/signup.js" defer></script>
+
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
@@ -21,15 +24,14 @@
         class="join-logo-blue"
         src="../assets/icons/join-logo-blue.svg"
         alt="logo"
-        class="logo"
       />
     </header>
 
     <main>
-      <form class="form-container signup-container">
+      <form class="form-container signup-container" id="signup-form" novalidate>
         <div class="form-headline-container form-headline-container-signup">
           <a href="../index.html">
-            <button class="blue-arrow-left-btn">
+            <button type="button" class="blue-arrow-left-btn">
               <img src="../assets/icons/blue-arrow-left.svg" alt="" />
             </button>
           </a>
@@ -38,40 +40,52 @@
             <div class="h1-underline"></div>
           </div>
         </div>
+
         <section class="input-fields input-fields-signup">
-          <input
-            class="form-input form-input-name"
-            placeholder="Name"
-            type="text"
-            name=""
-            id=""
-          />
-          <input
-            placeholder="Email"
-            class="form-input form-input-email"
-            type="email"
-            name=""
-            id=""
-          />
-          <input
-            placeholder="Password"
-            class="form-input form-input-password"
-            type="password"
-            name=""
-            id=""
-          />
-          <input
-            placeholder="Confirm Password"
-            class="form-input form-input-confirm-password"
-            type="password"
-            name=""
-            id=""
-          />
+          <div class="input-wrapper">
+            <input
+              class="form-input form-input-name"
+              id="signup-name"
+              placeholder="Name"
+              type="text"
+            />
+            <span class="error-msg" id="error-name"></span>
+          </div>
+
+          <div class="input-wrapper">
+            <input
+              class="form-input form-input-email"
+              id="signup-email"
+              placeholder="Email"
+              type="email"
+            />
+            <span class="error-msg" id="error-email"></span>
+          </div>
+
+          <div class="input-wrapper">
+            <input
+              class="form-input form-input-password"
+              id="signup-password"
+              placeholder="Password"
+              type="password"
+            />
+            <span class="error-msg" id="error-password"></span>
+          </div>
+
+          <div class="input-wrapper">
+            <input
+              class="form-input form-input-confirm-password"
+              id="signup-confirm-password"
+              placeholder="Confirm Password"
+              type="password"
+            />
+            <span class="error-msg" id="error-confirm"></span>
+          </div>
         </section>
 
         <div class="accept-privacy-container">
           <div class="checkbox-container">
-            <input class="accept-checkbox" type="checkbox" name="" id="" />
+            <input class="accept-checkbox" type="checkbox" id="signup-checkbox" />
           </div>
           <p>
             I accept the
@@ -79,15 +93,18 @@
           </p>
         </div>
 
-        <button class="button button-login button-blue">Sign Up</button>
+        <button type="submit" class="button button-login button-blue" id="signup-btn" disabled>
+          Sign Up
+        </button>
       </form>
     </main>
 
     <footer>
       <nav>
-        <a href="../html/privacy-policy.html">Privacy Policy</a
-        ><a href="../html/legal-notice.html">Legal Notice</a>
+        <a href="../html/privacy-policy.html">Privacy Policy</a>
+        <a href="../html/legal-notice.html">Legal Notice</a>
       </nav>
     </footer>
+    <div id="success-toast" class="success-toast">You signed up successfully</div>
   </body>
 </html>
