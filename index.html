@@ -6,16 +6,17 @@
     <title>Join - Log in</title>
     <link
       rel="icon"
-      href="../assets/icons/join-logo-white.svg"
+      href="./assets/icons/join-logo-white.svg"
       type="image/svg+xml"
     />
+
+    <script src="./script.js" defer></script>
+
     <link rel="stylesheet" href="./styles/variables.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./styles/fonts.css" />
     <link rel="stylesheet" href="./styles/assets.css" />
     <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="./script.js" defer></script>
   </head>
   <body>
     <header>
@@ -23,54 +24,65 @@
         class="join-logo-blue"
         src="./assets/icons/join-logo-blue.svg"
         alt="logo"
-        class="logo"
       />
       <nav class="login-nav">
         <a class="not-a-user-link" href="#">Not a join user?</a>
-        <a href="./html/signup.html"
-          ><button class="button button-blue button-signup-small">
+        <a href="./html/signup.html">
+          <button class="button button-blue button-signup-small">
             Sign up
-          </button></a
-        >
+          </button>
+        </a>
       </nav>
     </header>
+
     <main>
-      <form class="form-container login-container">
+      <form class="form-container login-container" id="login-form" novalidate>
         <div class="form-headline-container form-headline-container-login">
           <div class="headline-wrapper">
             <h1>Log In</h1>
             <div class="h1-underline"></div>
           </div>
         </div>
+
         <section class="input-fields input-fields-login">
-          <input
-            placeholder="Email"
-            class="form-input form-input-email"
-            type="email"
-            name=""
-            id=""
-          />
-          <input
-            placeholder="Password"
-            class="form-input form-input-password"
-            type="password"
-            name=""
-            id=""
-          />
+          <div class="input-wrapper">
+            <input
+              placeholder="Email"
+              class="form-input form-input-email"
+              id="login-email"
+              type="email"
+            />
+            <span class="error-msg" id="error-login-email"></span>
+          </div>
+
+          <div class="input-wrapper">
+            <input
+              placeholder="Password"
+              class="form-input form-input-password"
+              id="login-password"
+              type="password"
+            />
+            <span class="error-msg" id="error-login-password"></span>
+          </div>
+
+          <span class="error-msg" id="error-login-general"></span>
         </section>
+
         <section class="form-btn-section">
-          <button type="submit" class="button button-login button-blue">
-            Log in</button
-          ><button type="button" class="button button-login button-white"onclick="guestLogin()">
+          <button type="submit" class="button button-login button-blue" id="login-btn">
+            Log in
+          </button>
+          <button type="button" class="button button-login button-white" onclick="guestLogin()">
             Guest Log in
           </button>
         </section>
       </form>
     </main>
+
     <footer>
       <nav>
-        <a href="./html/privacy-policy.html">Privacy Policy</a
-        ><a href="./html/legal-notice.html">Legal Notice</a>
+        <a href="./html/privacy-policy.html">Privacy Policy</a>
+        <a href="./html/legal-notice.html">Legal Notice</a>
       </nav>
     </footer>
   </body>
