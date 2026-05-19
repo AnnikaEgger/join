@@ -17,8 +17,8 @@ body {
   --light-orange: #ffa800;
 
   --width-content-wrapper: calc(var(--input-width) * 2 + 32px * 2 + 1px);
-  --padding-lr-big: 0;
-  --padding-lr-medium: 0;
+  --padding-lr-big: 80px;
+  --padding-lr-medium: 48px;
   --padding-lr-small: 24px;
 }
 
@@ -451,6 +451,21 @@ input[type="checkbox"] {
   :root {
     --textarea-height: 100px;
   }
+
+  .main-content {
+    padding: 48px 24px;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  :root {
+    --input-width: 350px;
+  }
+
+  .prio-btn {
+    padding: 10px 5px;
+    width: 110px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -459,6 +474,11 @@ input[type="checkbox"] {
     --textarea-height: 90px;
     --width-content-wrapper: var(--input-width);
     --bottom-btns-container-width: 285px;
+  }
+
+  .prio-btn {
+    padding: 16px 10px;
+    width: 120px;
   }
 
   h1 {
@@ -540,6 +560,11 @@ input[type="checkbox"] {
 @media screen and (max-width: 768px) {
   :root {
     --input-width: 70dvw;
+  }
+
+  .prio-btn {
+    padding: 10px 10px;
+    width: 110px;
   }
 }
 
