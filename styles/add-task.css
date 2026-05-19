@@ -26,26 +26,6 @@ h1 {
   margin-bottom: 48px;
 }
 
-.content-wrapper {
-  /* min-width: var(--width-content-wrapper);
-  padding-left: calc(
-    (
-      50dvw -
-        max(
-          var(--content-limitation) + var(--sidebar-width),
-          var(--sidebar-width)
-        ) -
-        80px - var(--width-content-wrapper)
-    )
-  );
-  padding-right: calc(
-    (
-      50dvw - max(var(--content-limitation), 0) - 80px -
-        var(--width-content-wrapper)
-    )
-  ); */
-}
-
 .task-form * {
   font-size: 20px;
 }
@@ -269,6 +249,10 @@ input[type="checkbox"] {
   margin-bottom: 32px;
 }
 
+.custom-select {
+  width: var(--input-width);
+}
+
 .custom-select--contacts {
   margin-bottom: 10px;
 }
@@ -341,6 +325,10 @@ input[type="checkbox"] {
 
 /* #region subtask (task form) */
 
+.subtask-container {
+  width: var(--input-width);
+}
+
 .trigger-input-container {
   display: flex;
   align-items: center;
@@ -401,14 +389,17 @@ input[type="checkbox"] {
   list-style-position: inside;
 }
 
-.subtask-list li::before {
+.subtask-list .normal-li::before {
   content: "•";
   margin-right: 8px;
 }
 
-.subtask-list li {
+.subtask-list .normal-li {
   display: grid;
   grid-template-columns: auto 1fr auto;
+}
+
+.subtask-list li {
   align-items: center;
   padding: 6px 16px;
   margin-bottom: 4px;
@@ -416,18 +407,33 @@ input[type="checkbox"] {
   transition: all 100ms ease-out;
 }
 
-.subtask-list .subtask-btns-container--ul {
+.li-with-input {
+  border-radius: 0px;
+  border-bottom: 1px solid var(--light-blue);
+  background-color: white;
+}
+
+.li-with-input input {
+  border: none;
+  border-radius: 0px;
+  padding: 0;
+  flex: 1;
+  width: unset;
+  min-width: 0;
+}
+
+.subtask-list .normal-li .subtask-btns-container--ul {
   display: none;
 }
 
-.subtask-list li:hover {
+.subtask-list .normal-li:hover {
   background-color: #eeeeee;
   border-radius: var(--border-radius-s);
   transition: all 100ms ease-out;
 }
 
-.subtask-list li:hover .subtask-btns-container--ul,
-.subtask-list li:focus .subtask-btns-container--ul,
+.subtask-list .normal-li:hover .subtask-btns-container--ul,
+.subtask-list .normal-li:focus .subtask-btns-container--ul,
 .subtask-list:focus-within .subtask-btns-container--ul {
   display: flex;
 }
@@ -441,10 +447,6 @@ input[type="checkbox"] {
 
 /* #region responsive */
 @media screen and (min-height: 1000px) {
-  .add-task-bottom-btns-container {
-    /* top: 850px;
-    bottom: unset; */
-  }
 }
 
 @media screen and (max-width: 1280px) {
@@ -615,10 +617,6 @@ input[type="checkbox"] {
   .medium-active,
   .low-active {
     font-weight: 600;
-  }
-
-  .trigger-input-container input {
-    /* flex: unset; */
   }
 }
 
