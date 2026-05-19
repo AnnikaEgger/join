@@ -224,6 +224,7 @@ async function saveEditedContact() {
 
     await putContact(updatedContact);
     await finalizeAddition();
+    showContactDetails(currentEditingId);
 }
 
 async function putContact(contact) {
