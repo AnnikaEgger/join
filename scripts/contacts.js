@@ -113,17 +113,23 @@ async function createNewContact() {
 
     let newContact = { name, email, phone, color };
 
-    await postContact(newContact);
+    let newId = await postContact(newContact);
     await finalizeAddition();
+
+    showContactDetails(newId);
+    showSuccessBanner();
 }
 
 async function postContact(contact) {
     let url = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
-    await fetch(url, {
+    let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contact)
     });
+
+    let data = await response.json();
+    return data.name;
 }
 
 async function finalizeAddition() {
@@ -140,6 +146,16 @@ function getRandomColor() {
 
     let randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
+}
+
+function showSuccessBanner() {
+    let banner = document.getElementById('success-banner');
+    
+    banner.classList.add('show-banner');
+    
+    setTimeout(() => {
+        banner.classList.remove('show-banner');
+    }, 3000);
 }
 
 function openEditContact(id) {
