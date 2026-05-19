@@ -29,7 +29,7 @@ function generateDetailHTML(contact) {
             <div class="detail-name-section">
                 <h1>${contact.name}</h1>
                 <div class="edit-delete-section">
-                    <div onclick="editContact('${contact.id}')" class="contact-action">
+                    <div onclick="openEditContact('${contact.id}')" class="contact-action">
                         <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
                     </div>
                     <div onclick="deleteContact('${contact.id}')" class="contact-action">
