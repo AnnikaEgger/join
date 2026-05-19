@@ -249,7 +249,7 @@ let categoriesArr = [];
 let selectedCategory = "Select task category";
 
 async function getCategories() {
-  let response = await fetch(BASE_URL + "tasks/categories" + ".json");
+  let response = await fetch(BASE_URL + "categories" + ".json");
   let categoriesObj = await response.json();
 
   if (categoriesObj) {
@@ -307,8 +307,10 @@ function clearSubtaskInput() {
 
 function addSubtask() {
   let subtaskInput = document.getElementById("subtask-input").value;
-  subtasksArr.push(subtaskInput);
-  renderSubtasks();
+  if (subtaskInput.length > 0) {
+    subtasksArr.push(subtaskInput);
+    renderSubtasks();
+  }
 }
 
 function renderSubtasks() {
@@ -348,27 +350,44 @@ function deleteSubtask(indexSubtask) {
 // #region add task
 let tasks = [];
 
-function addTask() {
+async function addTask() {
   let title = document.getElementById("task-title");
   let description = document.getElementById("task-description");
   let dueDate = document.getElementById("task-due-date");
+  let form = document.getElementById("task-form");
 
-  let task = {
-    title: title.value,
-    description: description.value,
-    due_date: dueDate.value,
-    priority: priority,
-    assigned_contacts: assignedContacts,
-    category: selectedCategory,
-    subtasks: subtasksArr,
-  };
+  if (form.checkValidity()) {
+    let task = {
+      title: title.value,
+      description: description.value,
+      due_date: dueDate.value,
+      priority: priority,
+      assigned_contacts: assignedContacts,
+      category: selectedCategory,
+      subtasks: subtasksArr,
+    };
 
-  console.log(task);
+    console.log(task);
 
-  tasks.push(task);
-  console.log(tasks);
+    // tasks.push(task);
 
-  clearTask();
+    await postTaskToFirebase(task);
+    console.log(tasks);
+
+    clearTask();
+  }
+}
+
+async function postTaskToFirebase(task) {
+  let response = await fetch(BASE_URL + "tasks" + ".json", {
+    method: "POST",
+    header: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+
+  return (responseToJson = await response.json());
 }
 
 function clearTask() {
