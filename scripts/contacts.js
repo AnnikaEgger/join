@@ -1,5 +1,6 @@
 const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/.json";
 let contacts = [];
+let currentEditingId = null;
 
 async function init() {
     await loadContacts();
@@ -126,9 +127,8 @@ async function postContact(contact) {
 }
 
 async function finalizeAddition() {
-    closeAddContact();
+    closeContactDialog();
     await init();
-    resetForm();
 }
 
 function resetForm() {
@@ -142,6 +142,99 @@ function getRandomColor() {
     return colors[randomIndex];
 }
 
+function openEditContact(id) {
+    currentEditingId = id;
+    let contact = findContactById(id);
+
+    if (contact) {
+        fillFormFields(contact);
+        adaptDialogForEdit(id);
+        openContactDialog();
+    }
+}
+
+function fillFormFields(contact) {
+    document.querySelector('.icon-name').value = contact.name;
+    document.querySelector('.icon-mail').value = contact.email;
+    document.querySelector('.icon-phone').value = contact.phone;
+}
+
+function adaptDialogForEdit(id) {
+    document.querySelector('.dialog-left h1').innerHTML = 'Edit Contact';
+
+    let btnCreate = document.querySelector('.btn-create');
+    btnCreate.innerHTML = `Save <img src="../assets/icons/check.svg" alt="Save">`;
+
+    document.querySelector('.contact-form').onsubmit = function () {
+        saveEditedContact();
+        return false;
+    }
+
+    adaptCancelButtonToDelete(id);
+}
+
+function adaptCancelButtonToDelete(id) {
+    let cancelBtn = document.querySelector('.btn-cancel');
+    cancelBtn.innerHTML = `Delete`;
+    cancelBtn.onclick = async function () {
+        await deleteContact(id);
+        closeContactDialog();
+    }
+}
+
+function openContactDialog() {
+    document.getElementById('add-contact-overlay').classList.add('show-overlay');
+}
+
+function closeContactDialog() {
+    document.getElementById('add-contact-overlay').classList.remove('show-overlay');
+}
+
+function prepareAddContactDialog() {
+    currentEditingId = null;
+    resetForm();
+
+    document.querySelector('.dialog-left h1').innerHTML = "Add contact";
+
+    let btnCreate = document.querySelector('.btn-create');
+    btnCreate.innerHTML = `Create contact <img src="../assets/icons/check.svg" alt="Check">`;
+
+    document.querySelector('.contact-form').onsubmit = function () {
+        createNewContact();
+        return false;
+    }
+
+    resetCancelButton();
+    openContactDialog();
+}
+
+function resetCancelButton() {
+    let btnCancel = document.querySelector('.btn-cancel');
+    btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
+    btnCancel.onclick = closeContactDialog;
+}
+
+async function saveEditedContact() {
+    let name = document.querySelector('.icon-name').value;
+    let email = document.querySelector('.icon-mail').value;
+    let phone = document.querySelector('.icon-phone').value;
+    let contact = findContactById(currentEditingId);
+
+    let updatedContact = { name, email, phone, color: contact.color };
+
+    await putContact(updatedContact);
+    await finalizeAddition();
+}
+
+async function putContact(contact) {
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${currentEditingId}.json`;
+    await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contact)
+    });
+}
+
 async function deleteContact(id) {
     let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${id}.json`;
 
@@ -151,12 +244,4 @@ async function deleteContact(id) {
 
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
-}
-
-function openAddContact() {
-    document.getElementById('add-contact-overlay').classList.add('show-overlay');
-}
-
-function closeAddContact() {
-    document.getElementById('add-contact-overlay').classList.remove('show-overlay');
 }
