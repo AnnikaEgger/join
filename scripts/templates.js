@@ -1,6 +1,6 @@
 
 function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="card">
+    return `<div draggable="true" ondragstart="startDragging(event, ${element['id']})" ondragend="stopDragging(event)" class="card">
                 <span class="category-field">User Story</span>
                             <h3 class="card-text">${element['title']}</h3>
                             <p>${element['description']}</p>

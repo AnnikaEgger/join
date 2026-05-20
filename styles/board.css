@@ -171,6 +171,12 @@ hr {
     justify-content: center;
 }
 
+.dragging {
+    transform: rotate(5deg) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    opacity: 0.8;
+}
+
 .category-field {
     background-color: #0038ff;
     color: #ffffff;

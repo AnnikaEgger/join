@@ -79,12 +79,23 @@ function filterTasks() {
 }
 
 /**
- * Starts dragging a task.
+ * Starts dragging a task and adds a visual effect to indicate that the task is being dragged.
  * 
+ * @param {parameter} event - The drag event.
  * @param {parameter} id - The ID of the task to drag.
  */
-function startDragging(id) {
+function startDragging(event, id) {
     currentDraggedElement = id;
+    event.target.classList.add('dragging');
+}
+
+/**
+ * Stops dragging a task and removes the visual effect.
+ * 
+ * @param {parameter} event - The drag event.
+ */
+function stopDragging(event) {
+    event.target.classList.remove('dragging');
 }
 
 /**
