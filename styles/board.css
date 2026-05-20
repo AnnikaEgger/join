@@ -173,7 +173,7 @@ hr {
 
 .dragging {
     transform: rotate(5deg) !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     opacity: 0.8;
 }
 
@@ -515,9 +515,12 @@ label {
     .task-lanes {
         min-width: 200px;
     }
-}
 
-@media (max-width: 1166px) {
+    .empty-card-container {
+        height: 30px;
+        font-size: 12px;
+    }
+
     .task-title {
         font-size: 12px;
     }
@@ -584,6 +587,11 @@ label {
     .card {
         width: 200px;
         margin-bottom: 0 !important;
+    }
+
+    .empty-card-container {
+        height: 45px;
+        font-size: 17px;
     }
 }
 
