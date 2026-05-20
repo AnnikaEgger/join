@@ -47,12 +47,25 @@ input::placeholder {
   color: #d1d1d1;
 }
 
-input:invalid:focus,
+/* input:invalid:focus,
 select:invalid:focus {
   border: 1px solid red;
+} */
+
+.invalid:focus {
+  border: 1px solid red !important;
 }
 
-.required:has(:is(input, select):focus:invalid)::after {
+.custom-select-with-after:focus-within::after {
+  content: "This field is required";
+  font-size: 16px;
+  color: red;
+  position: absolute;
+  bottom: -20px;
+  left: 5px;
+}
+
+.input-with-after:focus-within::after {
   content: "This field is required";
   font-size: 16px;
   color: red;
@@ -60,6 +73,15 @@ select:invalid:focus {
   bottom: 10px;
   left: 5px;
 }
+
+/* .required:has(:is(input, select):focus:invalid)::after {
+  content: "This field is required";
+  font-size: 16px;
+  color: red;
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
+} */
 
 /* #endregion */
 

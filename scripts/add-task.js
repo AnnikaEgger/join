@@ -2,6 +2,16 @@ const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function init() {
+  const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
+  const TASK_FORM = document.getElementById("task-form");
+  const CATEGORY_TRIGGER = document.getElementById(
+    "custom-select-trigger-category",
+  );
+  const SEARCH_INPUT = document.getElementById("search-contact-input");
+  const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
+
+  // await putDefaultTasksToFirebase();
+
   filteredContacts = contactsOptions;
   renderSelectedCategory();
   renderPriority();
@@ -12,17 +22,49 @@ async function init() {
   await getCategories();
   renderCategories();
 
-  const TASK_FORM = document.getElementById("task-form");
   // check validity of form when pressing enter or submit button
   TASK_FORM.addEventListener("submit", (e) => {
-    if (!TASK_FORM.checkValidity()) {
+    if (
+      !TASK_FORM.checkValidity() ||
+      selectedCategory == "Select task category"
+    ) {
       e.preventDefault();
-      TASK_FORM.querySelector(":invalid").focus();
+      if (!TASK_FORM.checkValidity()) {
+        TASK_FORM.querySelector(":invalid").classList.add("invalid");
+
+        TASK_FORM.querySelector(":invalid")
+          .closest(".required")
+          .classList.add("input-with-after");
+
+        TASK_FORM.querySelector(":invalid").focus();
+
+        TASK_FORM.querySelector(":invalid").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+
+      if (
+        TASK_FORM.checkValidity() &&
+        selectedCategory == "Select task category"
+      ) {
+        CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
+        CATEGORY_TRIGGER.classList.add("invalid");
+        CATEGORY_TRIGGER.focus();
+        CATEGORY_TRIGGER.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
     }
   });
 
-  const SEARCH_INPUT = document.getElementById("search-contact-input");
-  const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
+  CATEGORIES_DROPDOWN.addEventListener("click", function () {
+    if (selectedCategory !== "Select task category") {
+      // CATEGORIES_DROPDOWN.classList.remove("custom-select-with-after");
+      // CATEGORY_TRIGGER.classList.remove("invalid");
+    }
+  });
 
   CONTACTS_DROPDOWN.addEventListener("focusout", (event) => {
     // event.relatedTarget = das element, das jetzt den Fokus bekommt
@@ -34,7 +76,6 @@ async function init() {
     }
   });
 
-  const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
   CATEGORIES_DROPDOWN.addEventListener("focusout", (event) => {
     const nextFocused = event.relatedTarget;
 
@@ -57,6 +98,11 @@ function toggleCustomSelectDropdown(selectName) {
 
   options.classList.toggle("display-none");
   arrow.classList.toggle("rotate");
+
+  if (selectName == "category") {
+    selectedCategory = "Select task category";
+    renderSelectedCategory();
+  }
 }
 
 function checkStopPropagation(event) {
@@ -291,7 +337,9 @@ function renderSelectedCategory() {
   let selectedCategoryRef = document.getElementById("selected-category");
   selectedCategoryRef.innerText = selectedCategory;
 
-  closeCustomSelectDropdown("category");
+  if (selectedCategory !== "Select task category") {
+    closeCustomSelectDropdown("category");
+  }
 }
 
 // #endregion
@@ -349,6 +397,7 @@ function deleteSubtask(indexSubtask) {
 
 // #region add task
 let tasks = [];
+let column = "to do";
 
 async function addTask() {
   let title = document.getElementById("task-title");
@@ -356,7 +405,7 @@ async function addTask() {
   let dueDate = document.getElementById("task-due-date");
   let form = document.getElementById("task-form");
 
-  if (form.checkValidity()) {
+  if (form.checkValidity() && selectedCategory !== "Select task category") {
     let task = {
       title: title.value,
       description: description.value,
@@ -365,11 +414,10 @@ async function addTask() {
       assigned_contacts: assignedContacts,
       category: selectedCategory,
       subtasks: subtasksArr,
+      column: column,
     };
 
     console.log(task);
-
-    // tasks.push(task);
 
     await postTaskToFirebase(task);
     console.log(tasks);
@@ -390,6 +438,79 @@ async function postTaskToFirebase(task) {
   return (responseToJson = await response.json());
 }
 
+const defaultTasks = [
+  {
+    title: "Implement User Authentication System",
+    description:
+      "Develop a secure authentication workflow including login, registration, and session handling.",
+    due_date: "2026-05-28",
+    priority: "urgent",
+    assigned_contacts: ["John Miller"],
+    category: "technical task",
+    subtasks: [
+      "Create login endpoint",
+      "Implement JWT authentication",
+      "Add password hashing",
+      "Handle authentication errors",
+    ],
+  },
+  {
+    title: "Create Responsive Dashboard Layout",
+    description:
+      "Design and implement a responsive dashboard interface optimized for desktop and mobile devices.",
+    due_date: "2026-05-25",
+    priority: "medium",
+    assigned_contacts: ["Emma Johnson"],
+    category: "user story",
+    subtasks: [
+      "Create dashboard structure",
+      "Implement responsive grid layout",
+      "Add sidebar navigation",
+      "Optimize mobile spacing",
+    ],
+  },
+  {
+    title: "Add Drag-and-Drop Task Management",
+    description:
+      "Enable users to move tasks between Kanban columns using drag-and-drop interactions.",
+    due_date: "2026-05-30",
+    priority: "medium",
+    assigned_contacts: ["Sophia Williams"],
+    category: "user story",
+    subtasks: [
+      "Integrate drag-and-drop library",
+      "Handle task position updates",
+      "Persist changes in backend",
+      "Add visual feedback animations",
+    ],
+  },
+  {
+    title: "Optimize Application Performance",
+    description:
+      "Improve frontend and backend performance to reduce loading times and enhance user experience.",
+    due_date: "2026-06-03",
+    priority: "low",
+    assigned_contacts: ["Daniel Garcia"],
+    category: "technical task",
+    subtasks: [
+      "Optimize API requests",
+      "Reduce unnecessary re-renders",
+      "Compress static assets",
+      "Analyze Lighthouse performance score",
+    ],
+  },
+];
+
+// async function putDefaultTasksToFirebase() {
+//   fetch(BASE_URL + "tasks" + "/default_task_5" + ".json", {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(defaultTasks[3]),
+//   });
+// }
+
 function clearTask() {
   let title = document.getElementById("task-title");
   let description = document.getElementById("task-description");
@@ -407,6 +528,18 @@ function clearTask() {
   renderSubtasks();
   renderSelectedCategory();
   renderPriority();
+}
+
+function checkInputValidity(inputType) {
+  let input = document.getElementById("task-" + inputType);
+
+  if (input.checkValidity()) {
+    input.classList.remove("invalid");
+    input.closest(".required").classList.remove("input-with-after");
+  } else {
+    input.classList.add("invalid");
+    input.closest(".required").classList.add("input-with-after");
+  }
 }
 
 // #endregion

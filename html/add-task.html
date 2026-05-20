@@ -92,6 +92,7 @@
               <label for="task-title">Title<span class="red">*</span></label>
               <div class="required">
                 <input
+                  oninput="checkInputValidity('title')"
                   type="text"
                   id="task-title"
                   placeholder="Enter a title"
@@ -108,6 +109,7 @@
               >
               <div class="required">
                 <input
+                  oninput="checkInputValidity('date-input')"
                   class="task-date-input"
                   lang="en-GB"
                   type="date"
@@ -245,7 +247,7 @@
                 >Category<span class="red">*</span></label
               >
               <div
-                class="custom-select custom-select--categories"
+                class="custom-select custom-select--categories required"
                 id="categories-dropdown"
               >
                 <div

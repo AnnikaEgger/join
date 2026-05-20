@@ -80,6 +80,7 @@ label {
 }
 
 .custom-select--categories {
+  flex-direction: column;
   margin-bottom: 32px;
 }
 
@@ -247,6 +248,7 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   margin-bottom: 32px;
+  width: var(--input-width);
 }
 
 .custom-select {
@@ -291,6 +293,7 @@ input[type="checkbox"] {
 
 .selected-contacts {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
