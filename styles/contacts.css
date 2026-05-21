@@ -8,7 +8,7 @@
 
 /* --- LINKER TEIL: Kontaktliste --- */
 .contact-list-container {
-    width: 450px;
+    width: 400px;
     background-color: var(--color-white);
     box-shadow: 4px 0 6px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -23,9 +23,9 @@
     border-radius: 10px;
     padding: 12px 0;
     width: 100%;
-    max-width: 352px;
+    max-width: 350px;
     margin: 0 auto 32px auto;
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -67,8 +67,8 @@
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 35px;
-    padding: 15px 36px; 
+    gap: 24px;
+    padding: 12px 24px; 
     cursor: pointer;
     border-radius: 10px;
     transition: var(--transition-default);
@@ -88,11 +88,14 @@
     color: white;
     font-weight: 400;
     border: 2px solid white;
+    flex-shrink: 0;
 }
 
 .contact-info-short {
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    flex-grow: 1;
 }
 
 .contact-name {
@@ -104,16 +107,23 @@
     font-size: 16px;
 }
 
+.contact-name, .contact-email {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* --- RECHTER TEIL: Detail-Ansicht --- */
 .contact-detail-view {
     flex-grow: 1;
     background-color: var(--color-bg);
-    padding: 48px;
+    padding: 42px;
     display: flex;
     flex-direction: column;
     gap: 32px;
     transform: translateX(100%);
      transition: transform 0.125s ease-out;
+     min-width: 0;
 }
 
 .contact-detail-view.show-detail {
@@ -123,34 +133,38 @@
 .detail-header-section {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 24px;
 }
 
 .detail-header-section h2 {
-    font-size: 61px;
+    font-size: 60px;
     font-weight: 700;
 }
 
 .blue-divider {
     width: 3px;
-    height: 59px;
-    border-radius: 3px;
+    height: 60px;
+    border-radius: 4px;
     background-color: var(--color-accent);
 }
 
 .detail-header-section span {
-    font-size: 27px;
+    font-size: 24px;
 }
 
 .contact-detail-content {
-    padding: 32px;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
 }
 
 .detail-header {
     display: flex;
     align-items: center;
-    gap: 54px;
+    gap: 36px;
     margin-bottom: 40px;
+    width: 100%;
+    min-width: 0;
 }
 
 .detail-avatar {
@@ -161,15 +175,22 @@
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 47px;
+    font-size: 42px;
     border: 3px solid white;
     box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.detail-name-section {
+    min-width: 0;
+    flex-grow: 1;
 }
 
 .detail-name-section h1 {
-    font-size: 47px;
+    font-size: 42px;
     margin: 0;
     font-weight: 500;
+    overflow-wrap: break-word;
 }
 
 .edit-delete-section {
@@ -217,12 +238,12 @@
 .detail-info-item a, 
 .detail-info-item span {
     font-size: 16px;
-    
     text-decoration: none;
 }
 
 .detail-info-item a {
     color: var(--light-blue);
+    word-break: break-all;
 }
 
 .detail-info-item a:hover {
