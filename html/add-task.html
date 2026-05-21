@@ -85,8 +85,14 @@
 
     <main class="main-content">
       <div class="content-wrapper">
-        <h1>Add Task</h1>
-        <form onsubmit="addTask()" id="task-form" class="task-form" novalidate>
+        <h1 id="add-task-headline">Add Task</h1>
+        <form
+          aria-labelledby="add-task-headline"
+          onsubmit="addTask()"
+          id="task-form"
+          class="task-form"
+          novalidate
+        >
           <div class="add-task-inner-wrapper">
             <div class="add-task-container">
               <label for="task-title">Title<span class="red">*</span></label>
@@ -107,9 +113,12 @@
               <label for="task-due-date"
                 >Due Date<span class="red">*</span></label
               >
-              <div class="required">
+              <div
+                class="required custom-select-input trigger-input-container"
+                tabindex="0"
+              >
                 <input
-                  oninput="checkInputValidity('date-input')"
+                  oninput="checkInputValidity('due-date')"
                   class="task-date-input"
                   lang="en-GB"
                   type="date"
@@ -117,14 +126,23 @@
                   placeholder="dd/mm/yyyy"
                   required
                 />
+                <img
+                  class="calendar-icon"
+                  src="../assets/icons/calendar.svg"
+                  alt="Calendar icon"
+                />
               </div>
             </div>
 
             <div class="seperation-line"></div>
 
             <div class="add-task-container">
-              <label for="task-priority">Priority</label>
-              <div id="task-priority" class="add-task-prio-btns-container">
+              <p class="label" id="task-priority-label">Priority</p>
+              <div
+                id="task-priority"
+                class="add-task-prio-btns-container"
+                aria-labelledby="task-priority-label"
+              >
                 <button
                   type="button"
                   onclick="setPriority('urgent')"
@@ -201,17 +219,24 @@
                 </button>
               </div>
 
+              <label id="contacts-label" for="search-contact-input"
+                >Assigned to</label
+              >
               <section class="select-contacts-section">
-                <label for="contacts">Assigned to</label>
                 <div
+                  aria-labelledby="contacts-label"
                   class="custom-select custom-select--contacts"
                   id="contacts-dropdown"
                   tabindex="0"
                 >
                   <div
+                    role="combobox"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-owns="select-options--contacts"
                     onclick="toggleCustomSelectDropdown('contacts')"
                     class="custom-select--trigger custom-select-input trigger-input-container"
-                    id="custom-select-trigger-contacts "
+                    id="custom-select-trigger-contacts"
                     tabindex="0"
                   >
                     <input
@@ -219,22 +244,31 @@
                       onclick="checkStopPropagation(event)"
                       class="search-contact-input"
                       id="search-contact-input"
-                      type="text"
+                      type="search"
                       placeholder="Select contacts to assign"
+                      aria-autocomplete="list"
+                      aria-controls="select-options--contacts"
+                      aria-activedescendant=""
                     />
-                    <div class="custom-select--trigger--img-container">
+                    <button
+                      type="button"
+                      aria-label="Open contact selection"
+                      onclick="toggleCustomSelectDropdown('contacts')"
+                      class="custom-select--trigger--img-container"
+                    >
                       <img
                         id="arrow-dropdown--contacts"
                         src="../assets/icons/arrow-drop-down.svg"
-                        alt=""
+                        alt="arrow down icon"
                       />
-                    </div>
+                    </button>
                   </div>
 
-                  <div
+                  <ul
+                    role="listbox"
                     id="select-options--contacts"
                     class="custom-select-options custom-select-options--contacts display-none"
-                  ></div>
+                  ></ul>
                 </div>
 
                 <div
@@ -243,12 +277,13 @@
                 ></div>
               </section>
 
-              <label for="task-category"
-                >Category<span class="red">*</span></label
-              >
+              <p class="label" id="categories-label">
+                Category<span class="red">*</span>
+              </p>
               <div
                 class="custom-select custom-select--categories required"
                 id="categories-dropdown"
+                aria-labelledby="categories-label"
               >
                 <div
                   onclick="toggleCustomSelectDropdown('category')"
@@ -257,27 +292,35 @@
                   tabindex="0"
                 >
                   <span id="selected-category"></span>
-                  <div class="custom-select--trigger--img-container">
+                  <button
+                    type="button"
+                    class="custom-select--trigger--img-container"
+                  >
                     <img
                       id="arrow-dropdown--category"
                       src="../assets/icons/arrow-drop-down.svg"
-                      alt=""
+                      alt="arrow down icon"
                     />
-                  </div>
+                  </button>
                 </div>
-                <div
+                <ul
                   id="select-options--category"
                   class="custom-select-options display-none"
-                ></div>
+                ></ul>
               </div>
 
-              <label for="subtask">Subtasks</label>
-              <div class="subtask-container">
+              <p class="label" id="subtasks-label">Subtasks</p>
+              <div
+                class="subtask-container"
+                id="subtasks-container"
+                aria-labelledby="subtasks-label"
+              >
                 <div
                   tabindex="0"
                   class="trigger-input-container custom-select-input"
                 >
                   <input
+                    onkeypress="addSubtask(event)"
                     class="subtask-input"
                     type="text"
                     id="subtask-input"
@@ -312,7 +355,7 @@
                       class="subtask-btn-right"
                       type="button"
                       id="save-subtask-btn"
-                      onclick="addSubtask()"
+                      onclick="addSubtask(event)"
                     >
                       <svg
                         width="14"

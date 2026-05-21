@@ -1,5 +1,6 @@
 const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
+let successfullSubmit;
 
 async function init() {
   const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
@@ -29,12 +30,16 @@ async function init() {
       selectedCategory == "Select task category"
     ) {
       e.preventDefault();
+      successfullSubmit = false;
       if (!TASK_FORM.checkValidity()) {
-        TASK_FORM.querySelector(":invalid").classList.add("invalid");
+        const invalidElements = TASK_FORM.querySelectorAll(":invalid");
+        invalidElements.forEach((element) => {
+          element.classList.add("invalid");
+        });
 
-        TASK_FORM.querySelector(":invalid")
-          .closest(".required")
-          .classList.add("input-with-after");
+        invalidElements.forEach((element) => {
+          element.closest(".required").classList.add("input-with-after");
+        });
 
         TASK_FORM.querySelector(":invalid").focus();
 
@@ -43,26 +48,36 @@ async function init() {
           block: "center",
         });
       }
+      if (selectedCategory == "Select task category") {
+        CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
+        CATEGORY_TRIGGER.classList.add("invalid");
+      }
 
       if (
         TASK_FORM.checkValidity() &&
         selectedCategory == "Select task category"
       ) {
-        CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
-        CATEGORY_TRIGGER.classList.add("invalid");
         CATEGORY_TRIGGER.focus();
         CATEGORY_TRIGGER.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       }
+    } else if (
+      TASK_FORM.checkValidity() &&
+      selectedCategory !== "Select task category"
+    ) {
+      successfullSubmit = true;
     }
   });
 
   CATEGORIES_DROPDOWN.addEventListener("click", function () {
-    if (selectedCategory !== "Select task category") {
-      // CATEGORIES_DROPDOWN.classList.remove("custom-select-with-after");
-      // CATEGORY_TRIGGER.classList.remove("invalid");
+    if (successfullSubmit == false) {
+      CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
+      CATEGORY_TRIGGER.classList.add("invalid");
+    } else {
+      CATEGORIES_DROPDOWN.classList.remove("custom-select-with-after");
+      CATEGORY_TRIGGER.classList.remove("invalid");
     }
   });
 
@@ -95,6 +110,8 @@ function closeCustomSelectDropdown(selectName) {
 function toggleCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+
+  console.log("this function is being called");
 
   options.classList.toggle("display-none");
   arrow.classList.toggle("rotate");
@@ -336,9 +353,13 @@ function selectCategory(category) {
 function renderSelectedCategory() {
   let selectedCategoryRef = document.getElementById("selected-category");
   selectedCategoryRef.innerText = selectedCategory;
+  const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
+  const TRIGGER = document.getElementById("custom-select-trigger-category");
+  let focused = CATEGORIES_DROPDOWN.querySelector(":focus");
 
   if (selectedCategory !== "Select task category") {
     closeCustomSelectDropdown("category");
+    focused.blur();
   }
 }
 
@@ -353,11 +374,14 @@ function clearSubtaskInput() {
   SUBTASK_INPUT_REF.value = "";
 }
 
-function addSubtask() {
+function addSubtask(event) {
   let subtaskInput = document.getElementById("subtask-input").value;
-  if (subtaskInput.length > 0) {
-    subtasksArr.push(subtaskInput);
-    renderSubtasks();
+
+  if (event.key === "Enter" || event.type === "click") {
+    if (subtaskInput.length > 0) {
+      subtasksArr.push(subtaskInput);
+      renderSubtasks();
+    }
   }
 }
 
@@ -532,7 +556,6 @@ function clearTask() {
 
 function checkInputValidity(inputType) {
   let input = document.getElementById("task-" + inputType);
-
   if (input.checkValidity()) {
     input.classList.remove("invalid");
     input.closest(".required").classList.remove("input-with-after");
@@ -546,7 +569,7 @@ function checkInputValidity(inputType) {
 
 // #region templates
 function subtaskLiTemplate(subtaskText, indexSubtask) {
-  return `<li id="${"li" + indexSubtask}" class="normal-li">
+  return `<li id="${"li" + indexSubtask}" class="normal-li" tabindex="0">
             <p id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
@@ -594,7 +617,7 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
 }
 
 function subtaskLiWithInputTemplate(indexSubtask) {
-  return ` <li id="${"li" + indexSubtask}" class="li-with-input trigger-input-container">
+  return ` <li id="${"li" + indexSubtask}" class="li-with-input trigger-input-container" tabindex="0">
             <input id="${"li-input" + indexSubtask}" type="text" value="${subtasksArr[indexSubtask]}" />
             <div
               class="subtask-btns-container subtask-btns-container--ul"
@@ -643,12 +666,15 @@ function subtaskLiWithInputTemplate(indexSubtask) {
 }
 
 function contactOptionTemplate(indexContact, initials) {
-  return `<div
+  return `<li
+            role="option"
+             aria-selected="false"
             onclick="selectContact(${
               indexContact
             },'${filteredContacts[indexContact].id}', false)"
             class="custom-select--option"
             tabindex="0"
+           
           >
             <div class="contact-container">
               <div class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
@@ -667,7 +693,7 @@ function contactOptionTemplate(indexContact, initials) {
                 value="${filteredContacts[indexContact].name}"
               />
             </div>
-          </div>`;
+          </li>`;
 }
 
 function contactAvatarTemplate(indexAssignedContact, initials) {
@@ -677,13 +703,14 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
 }
 
 function categoryOptionTemplate(indexCategory) {
-  return `<div
+  return `<li
             class="custom-select--option"
             onclick="selectCategory('${categoriesArr[indexCategory].title}')"
+            onkeypress="selectCategory('${categoriesArr[indexCategory].title}')"
             tabindex="0"
           >
             ${categoriesArr[indexCategory].title}
-          </div>`;
+          </li>`;
 }
 
 // #endregion

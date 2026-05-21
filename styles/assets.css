@@ -15,7 +15,7 @@ input[type="checkbox"] {
 }
 
 input:not([type="checkbox"]):focus,
-.custom-select-input:focus-within,
+.custom-select:focus-within .custom-select-input,
 .custom-select-input:focus,
 textarea:focus {
   border: 1px solid var(--light-blue);
@@ -103,6 +103,9 @@ select:invalid:focus {
   background-color: #edf2fa;
   transform: scale(1.05);
 }
+.checkbox-container input[type="checkbox"]:focus-visible {
+  border: 1px solid black;
+}
 
 .checkbox-container:has(input[type="checkbox"]:checked) {
   background: white
@@ -132,6 +135,7 @@ input[type="checkbox"] {
 
   scrollbar-gutter: stable;
   box-shadow: 0px 0px 14px 5px rgba(0, 0, 0, 0.04);
+  outline: none;
 }
 
 .custom-select--trigger img {
@@ -156,6 +160,7 @@ input[type="checkbox"] {
   font-size: 20px;
   font-weight: 400;
   background-color: white;
+  outline: none;
 }
 
 .custom-select-input:hover:not(:focus, :focus-within) {
@@ -169,6 +174,10 @@ input[type="checkbox"] {
   border-radius: 100%;
   width: 24px;
   height: 24px;
+  background-color: transparent;
+}
+.custom-select--trigger--img-container:focus-visible {
+  background-color: red;
 }
 
 .custom-select--trigger--img-container:hover {
@@ -196,6 +205,10 @@ input[type="checkbox"] {
 
   border-radius: var(--border-radius-s);
   background-color: white;
+}
+.custom-select--option:focus-visible {
+  background-color: #eeeeee;
+  outline: none;
 }
 
 .custom-select--option:hover {

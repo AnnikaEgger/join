@@ -62,6 +62,11 @@ label {
   font-size: 20px;
 }
 
+.label {
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
 .red {
   color: rgb(240, 68, 68);
 }
@@ -191,21 +196,36 @@ label {
 
 .task-form-select {
   appearance: none;
-  background-image: url("../assets/icons/arrow-drop-down.svg");
+  /* background-image: url("../assets/icons/arrow-drop-down.svg");
   background-repeat: no-repeat;
-  background-position: right 16px center;
+  background-position: right 16px center; */
 }
 
 .task-date-input {
-  background-image: url("../assets/icons/calendar.svg");
+  /* background-image: url("../assets/icons/calendar.svg");
   background-repeat: no-repeat;
-  background-position: right 16px center;
+  background-position: right 16px center; */
   cursor: pointer;
+}
+
+/* .task-date-input:focus-within {
+  border: 1px solid var(--light-blue);
+} */
+
+.custom-select-input img {
+  /* display: none; */
+}
+
+.task-date-input::-webkit-calendar-picker-indicator:focus .calendar-icon {
+  outline: 1px solid black;
 }
 
 .task-date-input::-webkit-calendar-picker-indicator {
   opacity: 0;
+  position: absolute;
+  right: 17px;
   cursor: pointer;
+  z-index: 1;
 }
 
 .task-date-input:invalid::-webkit-datetime-edit-text,
@@ -408,6 +428,10 @@ input[type="checkbox"] {
   margin-bottom: 4px;
   cursor: pointer;
   transition: all 100ms ease-out;
+}
+
+.subtask-list li:focus-visible {
+  background-color: #eeeeee;
 }
 
 .li-with-input {
