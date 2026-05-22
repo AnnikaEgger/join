@@ -476,7 +476,7 @@
         justify-content: center;
         text-align: center;
         padding: 0 16px;
-        z-index: 100;
+        z-index: 1000;
         opacity: 1;
         transition: opacity 0.5s ease-out;
     }
