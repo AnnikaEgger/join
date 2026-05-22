@@ -130,6 +130,11 @@ function checkStopPropagation(event) {
   }
 }
 
+function showDatePicker() {
+  let dateInput = document.getElementById("task-date-input");
+  dateInput.showPicker();
+}
+
 // #region priority
 let priority = "medium";
 
@@ -421,9 +426,9 @@ function deleteSubtask(indexSubtask) {
 
 // #region add task
 let tasks = [];
-let column = "to do";
+// let column = "to do";
 
-async function addTask() {
+async function addTask(column) {
   let title = document.getElementById("task-title");
   let description = document.getElementById("task-description");
   let dueDate = document.getElementById("task-due-date");

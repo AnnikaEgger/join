@@ -208,24 +208,35 @@ label {
   cursor: pointer;
 }
 
-/* .task-date-input:focus-within {
+.task-date-input:focus-within {
   border: 1px solid var(--light-blue);
-} */
-
-.custom-select-input img {
-  /* display: none; */
 }
 
-.task-date-input::-webkit-calendar-picker-indicator:focus .calendar-icon {
-  outline: 1px solid black;
+.calendar-svg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: transparent;
+}
+
+.calendar-svg-btn:hover {
+  background-color: #eeeeee;
+}
+
+.calendar-svg-btn:focus-visible {
+  background-color: var(--light-gray2);
 }
 
 .task-date-input::-webkit-calendar-picker-indicator {
-  opacity: 0;
+  display: none;
+  /* opacity: 0;
   position: absolute;
   right: 17px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 1; */
 }
 
 .task-date-input:invalid::-webkit-datetime-edit-text,

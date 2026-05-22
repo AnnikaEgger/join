@@ -17,6 +17,7 @@ input[type="checkbox"] {
 input:not([type="checkbox"]):focus,
 .custom-select:focus-within .custom-select-input,
 .custom-select-input:focus,
+.custom-select-input:focus-within,
 textarea:focus {
   border: 1px solid var(--light-blue);
 }
@@ -177,7 +178,7 @@ input[type="checkbox"] {
   background-color: transparent;
 }
 .custom-select--trigger--img-container:focus-visible {
-  background-color: red;
+  background-color: var(--light-gray2);
 }
 
 .custom-select--trigger--img-container:hover {
