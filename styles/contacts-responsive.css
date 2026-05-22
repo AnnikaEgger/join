@@ -1,0 +1,38 @@
+@media (max-width: 1024px) {
+    /* Stapelt die Liste und die Details untereinander */
+    .contact-main {
+        flex-direction: column;
+        height: calc(100dvh - 80px - 75px); 
+    }
+
+    /* Die Kontaktliste nimmt jetzt die volle Breite ein */
+    .contact-list-container {
+        width: 100%;
+        padding: 16px;
+    }
+
+    /* Der normale große Button wird auf Mobile versteckt */
+    .contact-list-container .add-contact-btn {
+        display: none;
+    }
+
+    /* Die Detailansicht liegt mobil als Fixes Overlay über der Liste */
+    .contact-detail-view {
+        position: fixed;
+        top: 77px;       /* 75px Header + 2px Abstand */
+        left: 0;
+        right: 0;
+        bottom: 77px;    /* 80px Nav - 3px Abstand */
+        width: 100%;
+        padding: 24px;
+        z-index: 4;
+        background-color: var(--color-bg);
+        transform: translateX(100%); /* Startet außerhalb des Bildschirms */
+        transition: transform 0.2s ease-out;
+    }
+
+    /* Wenn ein Kontakt aktiv ist, fliegt die Karte rein */
+    .contact-detail-view.show-detail {
+        transform: translateX(0);
+    }
+}
