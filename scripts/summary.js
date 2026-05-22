@@ -2,13 +2,10 @@ const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.
 
 
 /**
- * Initialisiert die Summary-Seite: User laden, Avatar + Greeting setzen,
- * Task-Daten aus Firebase fetchen und Metriken rendern.
- * Startet auf Mobile zusätzlich die Greeting-Animation.
+ * Initializes the summary page. Sets greeting, loads tasks, runs mobile animation.
  */
 async function initSummary() {
     const user = getCurrentUser();
-    updateHeaderAvatar(user);
     updateGreeting(user);
     await loadSummaryData();
     runMobileGreetingAnimation();
@@ -16,36 +13,8 @@ async function initSummary() {
 
 
 /**
- * Liest den aktuell eingeloggten User aus localStorage.
- * @returns {Object|null} User-Objekt oder null wenn nicht eingeloggt / kaputtes JSON
- */
-function getCurrentUser() {
-    const stored = localStorage.getItem("currentUser");
-    if (!stored) return null;
-    try {
-        return JSON.parse(stored);
-    } catch (e) {
-        return null;
-    }
-}
-
-
-/**
- * Erstellt Initialen aus einem Namen (z.B. "Max Müller" → "MM").
- * @param {string} name - Voller Name des Users
- * @returns {string} Initialen in Großbuchstaben (max. 2 Zeichen)
- */
-function getInitials(name) {
-    const parts = name.trim().split(" ");
-    const first = parts[0].charAt(0).toUpperCase();
-    if (parts.length < 2) return first;
-    return first + parts[1].charAt(0).toUpperCase();
-}
-
-
-/**
- * Gibt eine tageszeit-abhängige Begrüßung zurück.
- * @returns {string} "Good morning", "Good afternoon" oder "Good evening"
+ * Returns greeting based on time of day.
+ * @returns {string} Greeting text
  */
 function getGreeting() {
     const hour = new Date().getHours();
@@ -56,22 +25,8 @@ function getGreeting() {
 
 
 /**
- * Aktualisiert den Header-Avatar mit Initialen oder "G" für Gast.
- * @param {Object|null} user - User-Objekt aus localStorage
- */
-function updateHeaderAvatar(user) {
-    const avatar = document.getElementById("header-avatar");
-    if (!user || user.isGuest) {
-        avatar.textContent = "G";
-        return;
-    }
-    avatar.textContent = getInitials(user.name);
-}
-
-
-/**
- * Aktualisiert den Begrüßungstext und Namen je nach User-Status.
- * @param {Object|null} user - User-Objekt aus localStorage
+ * Updates greeting text and user name.
+ * @param {Object|null} user - User object
  */
 function updateGreeting(user) {
     const text = document.getElementById("greeting-text");
@@ -88,16 +43,12 @@ function updateGreeting(user) {
 
 
 /**
- * Startet die Mobile-Greeting-Animation: Greeting wird 2 Sek angezeigt,
- * dann fadet es weg und die Cards werden sichtbar.
- * Läuft nur auf Mobile (≤1024px).
+ * Runs mobile greeting animation (only on screens ≤1024px).
  */
 function runMobileGreetingAnimation() {
     if (window.innerWidth > 1024) return;
-
     const greeting = document.querySelector(".summary-greeting");
     const cards = document.querySelector(".summary-cards");
-
     setTimeout(() => {
         greeting.classList.add("fade-out");
         cards.classList.add("visible");
@@ -106,7 +57,7 @@ function runMobileGreetingAnimation() {
 
 
 /**
- * Lädt alle Tasks aus Firebase und übergibt sie an das Rendering.
+ * Loads all tasks from Firebase.
  */
 async function loadSummaryData() {
     const response = await fetch(BASE_URL + "/tasks.json");
@@ -116,8 +67,8 @@ async function loadSummaryData() {
 
 
 /**
- * Rendert alle Task-Counter und Deadline-Infos auf der Summary-Seite.
- * @param {Object} tasks - Tasks-Objekt aus Firebase
+ * Renders all counters and deadline info.
+ * @param {Object} tasks - Tasks object from Firebase
  */
 function renderMetrics(tasks) {
     const arr = Object.values(tasks);
@@ -127,8 +78,8 @@ function renderMetrics(tasks) {
 
 
 /**
- * Setzt die Counter für alle Status-Spalten und die Gesamtanzahl.
- * @param {Array} arr - Array aller Tasks
+ * Sets status counters and total.
+ * @param {Array} arr - All tasks
  */
 function renderStatusCounts(arr) {
     document.getElementById("count-board").textContent = arr.length;
@@ -140,10 +91,10 @@ function renderStatusCounts(arr) {
 
 
 /**
- * Zählt Tasks mit einem bestimmten Status.
- * @param {Array} arr - Array aller Tasks
- * @param {string} status - Status-Name (z.B. "todo")
- * @returns {number} Anzahl matchender Tasks
+ * Counts tasks by status.
+ * @param {Array} arr - All tasks
+ * @param {string} status - Status to count
+ * @returns {number} Count
  */
 function countByStatus(arr, status) {
     return arr.filter(t => t.status === status).length;
@@ -151,8 +102,8 @@ function countByStatus(arr, status) {
 
 
 /**
- * Rendert die Urgent-Anzahl und die früheste Urgent-Deadline.
- * @param {Array} arr - Array aller Tasks
+ * Renders urgent count and earliest deadline.
+ * @param {Array} arr - All tasks
  */
 function renderUrgentSection(arr) {
     const urgent = arr.filter(t => t.prio === "urgent");
@@ -165,49 +116,15 @@ function renderUrgentSection(arr) {
 
 
 /**
- * Formatiert ein Datum für die Deadline-Anzeige (z.B. "May 16, 2026").
- * @param {string} dateString - Datum als ISO-String
- * @returns {string} Lesbar formatiertes Datum
+ * Formats date for deadline display.
+ * @param {string} dateString - ISO date string
+ * @returns {string} Formatted date
  */
 function formatDeadline(dateString) {
     return new Date(dateString).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
+        year: "numeric", month: "long", day: "numeric"
     });
 }
 
 
-/**
- * Öffnet/schließt das Dropdown-Menü am Header-Avatar.
- */
-function toggleDropdown() {
-    const drop = document.getElementById("dropdown");
-    drop.classList.toggle("d-none");
-}
-
-
-/**
- * Schließt das Dropdown wenn außerhalb geklickt wird.
- * @param {Event} event - Click-Event
- */
-function closeDropdownOnOutsideClick(event) {
-    const drop = document.getElementById("dropdown");
-    const avatar = document.getElementById("header-avatar");
-    if (!avatar.contains(event.target) && !drop.contains(event.target)) {
-        drop.classList.add("d-none");
-    }
-}
-
-
-/**
- * Loggt den User aus: localStorage leeren und zurück zur Login-Seite.
- */
-function logout() {
-    localStorage.removeItem("currentUser");
-    window.location.href = "../index.html";
-}
-
-
 document.addEventListener("DOMContentLoaded", initSummary);
-document.addEventListener("click", closeDropdownOnOutsideClick);
