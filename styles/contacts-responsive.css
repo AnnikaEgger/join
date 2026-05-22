@@ -5,12 +5,15 @@
 @media (max-width: 1024px) {
     .contact-main {
         flex-direction: column;
-        height: calc(100dvh - 80px - 75px); 
+        height: calc(100dvh - 75px);
+        padding-bottom: 80px;
     }
 
     .contact-list-container {
         width: 100%;
-        padding: 16px;
+        padding: 24px 36px 24px 24px;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
     }
 
     .contact-list-container .add-contact-btn {
@@ -99,6 +102,7 @@
         z-index: 3;
         transition: background-color 0.1s;
     }
+
     .add-contact-mobile-btn:hover {
         background-color: var(--light-blue);
     }
