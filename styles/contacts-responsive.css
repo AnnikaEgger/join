@@ -11,13 +11,34 @@
 
     .contact-list-container {
         width: 100%;
-        padding: 24px 36px 24px 24px;
+        padding: 24px;
         overflow-y: auto;
         scrollbar-gutter: stable;
     }
 
     .contact-list-container .add-contact-btn {
         display: none;
+    }
+
+    .contact-list {
+        width: 100%;
+        margin-right: 0;
+        padding: 0 calc((100% - 350px) / 2);
+    }
+
+    .letter-section, 
+    .contact-item {
+        width: 100%;
+        max-width: none;
+        margin: 0 0 12px 0; 
+    }
+
+    .letter-header {
+        padding-left: 24px;
+    }
+
+    .letter-divider {
+        margin: 8px 24px;
     }
 
     .contact-detail-view {
