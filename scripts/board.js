@@ -1,4 +1,4 @@
-let todos = [{
+let todos = [/* {
     'id': 0,
     'title': 'dialog',
     'description': 'with a nice',
@@ -18,10 +18,32 @@ let todos = [{
     'title': 'main content',
     'description': 'write the main content for the page and make it look good',
     'category': 'done'
-}
+} */
 ];
 
 let currentDraggedElement;
+
+async function loadTasks() {
+    todos = [];
+    let response = await fetch("https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json");
+    let data = await response.json();
+
+    if (data) {
+        fillTasksArray(data);
+    }
+    updateHTML();
+}
+
+function fillTasksArray(tasksObj) {
+    let keys = Object.keys(tasksObj);
+
+    for (let i = 0; i < keys.length; i++) {
+        let id = keys[i];
+        let taskData = tasksObj[id];
+        taskData.id = id;
+        todos.push(taskData);
+    }
+}
 
 /**
  * This function updates the HTML of the board by rendering each category of tasks based on the current state of the `todos` array. It calls the `renderCategory` function for each category, passing the appropriate parameters to display the tasks and handle search functionality.
@@ -29,23 +51,24 @@ let currentDraggedElement;
  * @param {*} - No parameters are required for this function as it relies on the global `todos` array and the search input value to update the HTML content of the board.
  */
 function updateHTML() {
-    renderCategory('toDo', 'toDo', 'No tasks To do');
-    renderCategory('inProgress', 'inProgress', 'No tasks in progress');
-    renderCategory('awaitFeedback', 'awaitFeedback', 'No tasks awaiting feedback');
+    renderCategory('to do', 'toDo', 'No tasks To do');
+    renderCategory('in progress', 'inProgress', 'No tasks in progress');
+    renderCategory('await feedback', 'awaitFeedback', 'No tasks awaiting feedback');
     renderCategory('done', 'done', 'No tasks done');
 }
 
 /**
- * Renders the tasks for a specific category in the board.
+ * Renders the tasks for a specific column in the board.
  * 
- * @param {parameter} category - The category of tasks to render.
+ * @param {parameter} column - The column of tasks to render.
  * @param {parameter} containerId - The ID of the container where tasks will be displayed.
- * @param {parameter} message - The message to display if no tasks are found for the category.
+ * @param {parameter} message - The message to display if no tasks are found for the column.
  */
-function renderCategory(category, containerId, message) {
+function renderCategory(column, containerId, message) {
     let search = document.getElementById('search-input').value.toLowerCase();
     let container = document.getElementById(containerId);
-    let filtered = todos.filter(t => t.category == category &&
+    
+    let filtered = todos.filter(t => t.column == column &&
         (t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search)));
 
     if (search.length > 0 && filtered.length == 0) {
@@ -113,8 +136,14 @@ function allowDrop(ev) {
  * @param {parameter} category - The category to move the task to.
  */
 function moveTo(category) {
-    todos[currentDraggedElement]['category'] = category;
-    updateHTML();
+    // Sucht das Element anhand der ID im Array
+    let task = todos.find(t => t.id === currentDraggedElement);
+    if (task) {
+        task['category'] = category;
+        // Optional: Hier solltest du später ein PUT/PATCH an Firebase senden,
+        // damit die neue Kategorie auch in der Cloud gespeichert bleibt!
+        updateHTML();
+    }
 }
 
 /**
