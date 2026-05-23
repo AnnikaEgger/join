@@ -120,7 +120,7 @@
                 <input
                   oninput="checkInputValidity('due-date')"
                   class="task-date-input"
-                  id="task-date-input"
+                  id="task-due-date"
                   lang="en-GB"
                   type="date"
                   id="task-due-date"
@@ -128,6 +128,7 @@
                   required
                 />
                 <button
+                  id="calendar-btn"
                   class="calendar-svg-btn"
                   type="button"
                   onclick="showDatePicker()"
@@ -266,9 +267,9 @@
                       aria-activedescendant=""
                     />
                     <button
+                      id="arrow-btn-contacts"
                       type="button"
                       aria-label="Open contact selection"
-                      onclick="toggleCustomSelectDropdown('contacts')"
                       class="custom-select--trigger--img-container"
                     >
                       <img
@@ -283,6 +284,7 @@
                     role="listbox"
                     id="select-options--contacts"
                     class="custom-select-options custom-select-options--contacts display-none"
+                    inert
                   ></ul>
                 </div>
 
@@ -308,6 +310,8 @@
                 >
                   <span id="selected-category"></span>
                   <button
+                    id="arrow-btn-categories"
+                    aria-label="Open category selection"
                     type="button"
                     class="custom-select--trigger--img-container"
                   >
@@ -321,6 +325,7 @@
                 <ul
                   id="select-options--category"
                   class="custom-select-options display-none"
+                  inert
                 ></ul>
               </div>
 
@@ -335,7 +340,6 @@
                   class="trigger-input-container custom-select-input"
                 >
                   <input
-                    onkeypress="addSubtask(event)"
                     class="subtask-input"
                     type="text"
                     id="subtask-input"
@@ -370,7 +374,7 @@
                       class="subtask-btn-right"
                       type="button"
                       id="save-subtask-btn"
-                      onclick="addSubtask(event)"
+                      onclick="addSubtask()"
                     >
                       <svg
                         width="14"

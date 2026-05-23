@@ -2,6 +2,17 @@ const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 let successfullSubmit;
 
+// map --> saves key value paires
+const enterHandlers = new Map();
+
+// set key value pairs --> selector (html element) + handler (function on the element)
+function registerEnterHandler(selector, handler) {
+  // save pair to map
+
+  // check if handler already exists (for lis)?
+  enterHandlers.set(selector, handler);
+}
+
 async function init() {
   const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
   const TASK_FORM = document.getElementById("task-form");
@@ -23,7 +34,141 @@ async function init() {
   await getCategories();
   renderCategories();
 
+  // prevent form from submmitting when pressing enter on an input element
+  // TASK_FORM.addEventListener("keydown", (event) => {
+  //   if (event.key !== "Enter") return;
+  //   const element = event.target;
+
+  //   console.log(element);
+  //   console.log(new Map());
+
+  //   // debugger;
+
+  //   if (element.tagName !== "INPUT" && element.id !== "contacts-dropdown") {
+  //     return;
+  //   }
+
+  //   if (event.key === "Enter") {
+  //     // debugger;
+
+  //     event.preventDefault();
+
+  //     if (element.id !== "contacts-dropdown") {
+  //       // element.blur?.() --> wenn blur für das element unterstützt wird, dann bluren
+  //       element.blur();
+  //     }
+
+  //     if (element.id === "subtask-input") {
+  //       addSubtask();
+  //     }
+
+  //     if (element.id.startsWith("li-input")) {
+  //       submitEditedSubtask(element.id.charAt(element.id.length - 1));
+  //     }
+
+  //     if (element.id === "contacts-dropdown") {
+  //       toggleCustomSelectDropdown("contacts");
+  //     }
+  //   }
+  // });
+
+  registerEnterHandler("#calendar-btn", () => {
+    showDatePicker();
+  });
+
+  registerEnterHandler("#urgent-prio-btn", () => {
+    setPriority("urgent");
+  });
+  registerEnterHandler("#medium-prio-btn", () => {
+    setPriority("medium");
+  });
+  registerEnterHandler("#low-prio-btn", () => {
+    setPriority("low");
+  });
+
+  registerEnterHandler("#custom-select-trigger-contacts", () => {
+    toggleCustomSelectDropdown("contacts");
+  });
+  registerEnterHandler("search-contact-input", () => {
+    // event.stopPropagation();
+  });
+  registerEnterHandler("#arrow-btn-contacts", () => {
+    toggleCustomSelectDropdown("contacts");
+  });
+  let contactOptions = document.querySelectorAll(".contact-option");
+  contactOptions.forEach((option) => {
+    registerEnterHandler(
+      "#contact-option-" + option.dataset.indexContact,
+      () => {
+        selectContact(
+          option.dataset.indexContact,
+          filteredContacts[option.dataset.indexContact].id,
+          false,
+        );
+      },
+    );
+  });
+
+  let contactOptionsCheckboxes = document.querySelectorAll(
+    ".contact-option-checkbox",
+  );
+  contactOptionsCheckboxes.forEach((checkbox) => {
+    registerEnterHandler("#checkbox" + checkbox.dataset.indexContact, () => {
+      selectContact(
+        checkbox.dataset.indexContact,
+        filteredContacts[checkbox.dataset.indexContact].id,
+        false,
+      );
+    });
+  });
+  registerEnterHandler("#arrow-btn-categories", () => {
+    toggleCustomSelectDropdown("category");
+  });
+
+  registerEnterHandler("#custom-select-trigger-category", () => {
+    toggleCustomSelectDropdown("category");
+  });
+  let categoryOptions = document.querySelectorAll(".category-option");
+  categoryOptions.forEach((option) => {
+    registerEnterHandler(
+      "#category-option-" + option.dataset.indexCategory,
+      () => {
+        selectCategory(categoriesArr[option.dataset.indexCategory].title);
+      },
+    );
+  });
+
+  registerEnterHandler("#subtask-input", addSubtask);
+
+  TASK_FORM.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+
+    const el = event.target;
+    // check if the element is an html element
+    if (!(el instanceof HTMLElement)) return;
+    if (el.classList.contains(".display-none")) return;
+
+    event.preventDefault();
+    // check if element supports blur-method, if yes, run it
+    if (el.tagName !== "BUTTON") {
+      console.log("not a button");
+
+      // el.blur?.();
+    }
+
+    for (const [selector, handler] of enterHandlers) {
+      // debugger;
+      // if element was setted to our map
+      if (el.matches(selector)) {
+        // handler(el, event);
+        handler();
+        break;
+      }
+    }
+  });
+
   // check validity of form when pressing enter or submit button
+
   TASK_FORM.addEventListener("submit", (e) => {
     if (
       !TASK_FORM.checkValidity() ||
@@ -104,6 +249,8 @@ function closeCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
   options.classList.add("display-none");
+  options.setAttribute("inert", "");
+
   arrow.classList.remove("rotate");
 }
 
@@ -114,6 +261,13 @@ function toggleCustomSelectDropdown(selectName) {
   console.log("this function is being called");
 
   options.classList.toggle("display-none");
+
+  if (options.classList.contains("display-none")) {
+    options.setAttribute("inert", "");
+  } else {
+    options.removeAttribute("inert");
+  }
+
   arrow.classList.toggle("rotate");
 
   if (selectName == "category") {
@@ -131,7 +285,7 @@ function checkStopPropagation(event) {
 }
 
 function showDatePicker() {
-  let dateInput = document.getElementById("task-date-input");
+  let dateInput = document.getElementById("task-due-date");
   dateInput.showPicker();
 }
 
@@ -379,15 +533,16 @@ function clearSubtaskInput() {
   SUBTASK_INPUT_REF.value = "";
 }
 
-function addSubtask(event) {
+function addSubtask() {
   let subtaskInput = document.getElementById("subtask-input").value;
 
-  if (event.key === "Enter" || event.type === "click") {
-    if (subtaskInput.length > 0) {
-      subtasksArr.push(subtaskInput);
-      renderSubtasks();
-    }
+  // if (event.key === "Enter" || event.type === "click") {
+  if (subtaskInput.length > 0) {
+    subtasksArr.push(subtaskInput);
+    renderSubtasks();
   }
+  //   event.stopPropagation();
+  // }
 }
 
 function renderSubtasks() {
@@ -398,6 +553,9 @@ function renderSubtasks() {
 
   for (let index = 0; index < subtasksArr.length; index++) {
     SUBTASK_UL.innerHTML += subtaskLiTemplate(subtasksArr[index], index);
+    registerEnterHandler("#li" + index, () => {
+      editSubtask(index);
+    });
   }
 
   SUBTASK_INPUT_REF.value = "";
@@ -574,7 +732,8 @@ function checkInputValidity(inputType) {
 
 // #region templates
 function subtaskLiTemplate(subtaskText, indexSubtask) {
-  return `<li id="${"li" + indexSubtask}" class="normal-li" tabindex="0">
+  return `<li id="${"li" + indexSubtask}" class="normal-li" tabindex="0" 
+              data-index-subtask="${indexSubtask}">
             <p id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
@@ -672,12 +831,14 @@ function subtaskLiWithInputTemplate(indexSubtask) {
 
 function contactOptionTemplate(indexContact, initials) {
   return `<li
+            id="contact-option-${indexContact}"
+            data-index-contact="${indexContact}"
             role="option"
              aria-selected="false"
             onclick="selectContact(${
               indexContact
             },'${filteredContacts[indexContact].id}', false)"
-            class="custom-select--option"
+            class="custom-select--option contact-option"
             tabindex="0"
            
           >
@@ -689,6 +850,8 @@ function contactOptionTemplate(indexContact, initials) {
             </div>
             <div class="checkbox-container">
               <input
+              class="contact-option-checkbox"
+               data-index-contact="${indexContact}"
                onclick="selectContact(${
                  indexContact
                },'${filteredContacts[indexContact].id}', true)"
@@ -709,7 +872,9 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
 
 function categoryOptionTemplate(indexCategory) {
   return `<li
-            class="custom-select--option"
+            class="custom-select--option category-option"
+            id="category-option-${indexCategory}"
+            data-index-category="${indexCategory}"
             onclick="selectCategory('${categoriesArr[indexCategory].title}')"
             onkeypress="selectCategory('${categoriesArr[indexCategory].title}')"
             tabindex="0"

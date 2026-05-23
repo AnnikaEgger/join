@@ -22,6 +22,9 @@ textarea:focus {
   border: 1px solid var(--light-blue);
 }
 
+.custom-select:focus {
+  border: none;
+}
 /* #region input */
 input {
   border: 1px solid #d1d1d1;
