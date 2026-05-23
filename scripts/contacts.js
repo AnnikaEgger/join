@@ -105,6 +105,11 @@ function highlightContact(id) {
     }
 }
 
+function closeContactDetails() {
+    let detailView = document.getElementById('contact-detail-view');
+    detailView.classList.remove('show-detail');
+}
+
 async function createNewContact() {
     let name = document.querySelector('.icon-name').value;
     let email = document.querySelector('.icon-mail').value;

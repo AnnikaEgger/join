@@ -152,6 +152,10 @@
     font-size: 24px;
 }
 
+.back-to-list-btn {
+    display: none;
+}
+
 .contact-detail-content {
     padding: 0;
     min-width: 0;
