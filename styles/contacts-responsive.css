@@ -1,0 +1,130 @@
+.add-contact-mobile-btn {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .contact-main {
+        flex-direction: column;
+        height: calc(100dvh - 75px);
+        padding-bottom: 80px;
+    }
+
+    .contact-list-container {
+        width: 100%;
+        padding: 24px;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+    }
+
+    .contact-list-container .add-contact-btn {
+        display: none;
+    }
+
+    .contact-list {
+        width: 100%;
+        margin-right: 0;
+        padding: 0 calc((100% - 350px) / 2);
+    }
+
+    .letter-section, 
+    .contact-item {
+        width: 100%;
+        max-width: none;
+        margin: 0 0 12px 0; 
+    }
+
+    .letter-header {
+        padding-left: 24px;
+    }
+
+    .letter-divider {
+        margin: 8px 24px;
+    }
+
+    .contact-detail-view {
+        position: fixed;
+        top: 77px;
+        left: 0;
+        right: 0;
+        bottom: 77px;
+        width: 100%;
+        padding: 24px;
+        z-index: 4;
+        background-color: var(--color-bg);
+        transform: translateX(100%);
+        transition: transform 0.2s ease-out;
+    }
+
+    .contact-detail-view.show-detail {
+        transform: translateX(0);
+    }
+
+    .add-contact-dialog {
+        flex-direction: column;
+        width: 95dvw;
+        height: calc(100dvh - 85px - 85px);
+        max-height: none;
+        border-radius: 30px;
+        transform: translateY(100vh);
+        transition: transform 0.3s ease-out;
+    }
+
+    .add-contact-overlay.show-overlay .add-contact-dialog {
+        transform: translateY(0);
+    }
+
+    .dialog-left {
+        width: 100%;
+        height: 35%;
+        padding: 72px;
+        position: relative;
+    }
+
+    .dialog-right {
+        width: 100%;
+        height: 65%;
+        padding: 24px;
+    }
+
+    .dialog-body {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .dialog-avatar-container {
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+    }
+
+    .dialog-buttons .btn-cancel {
+        display: none;
+    }
+
+    .dialog-buttons {
+        justify-content: center;
+    }
+
+    .add-contact-mobile-btn {
+        display: flex;
+        position: fixed;
+        bottom: 116px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        background-color: var(--dark-blue);
+        border-radius: 50%;
+        border: none;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 3;
+        transition: background-color 0.1s;
+    }
+
+    .add-contact-mobile-btn:hover {
+        background-color: var(--light-blue);
+    }
+}

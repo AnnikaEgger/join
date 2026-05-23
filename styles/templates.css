@@ -183,6 +183,8 @@ a {
 .header-avatar:hover {
   background-color: var(--dark-blue);
 }
+.header-logo-mobile {
+    display: none;}
 
 /*  MAIN CONTENT */
 .main-content {
@@ -263,19 +265,76 @@ a {
     height: 24px;
   }
 
-  .header {
-<<<<<<< HEAD
+.header-logo-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .header-logo-mobile {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-logo-mobile img {
+        height: 50px;
+        width: auto;
+    }
+}
+ 
+.header {
     left: 0;
     width: 100dvw;
-    padding-left: max(var(--content-limitation), 0px);
-=======
-    margin-left: max(var(--content-limitation), 0px);
->>>>>>> ec75681 (Add responsive bottom navbar)
+    padding-left: max(var(--content-limitation), 16px);
+    padding-right: max(var(--content-limitation), 16px);
   }
 
   .main-content {
     margin-left: max(var(--content-limitation), 0px);
     padding-bottom: 120px;
+  }
+}
+
+
+/* header user area + dropdown  */
+.header-user-area {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background-color: var(--dark-blue);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 20px 0 20px 20px;
+  min-width: 180px;
+  z-index: 10;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--color-active-bg);
+}
+
+.d-none {
+  display: none;
+}
+
+
+/*   hide title and help  */
+@media screen and (max-width: 1024px) {
+  .header-title {
+    display: none;
+  }
+
+  .header-help-link {
+    display: none;
   }
 }
 /* --- NEW PRIVACY POLICY STYLES --- */

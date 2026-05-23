@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="../styles/templates.css" />
     <link rel="stylesheet" href="..styles/privacy-policy.css" />
+    <script src="../scripts/header.js" defer></script>
   </head>
   <body>
     <section class="sidebar">
@@ -69,15 +70,30 @@
       </div>
     </section>
 
-    <header class="header">
-      <h1 class="header-title">Kanban Project Management Tool</h1>
-      <div class="header-actions">
-        <a href="help.html" class="nav-link">
-          <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
+     <header class="header">
+    <a href="summary.html" class="header-logo-mobile">
+        <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
+    </a>
+
+    <h1 class="header-title">Kanban Project Management Tool</h1>
+
+    <div class="header-actions">
+        <a href="help.html" class="nav-link header-help-link">
+            <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
         </a>
-        <div class="header-avatar">SM</div>
-      </div>
-    </header>
+
+        <div class="header-user-area">
+            <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
+
+            <div id="dropdown" class="dropdown-content d-none">
+                <a href="help.html" class="dropdown-help-link">Help</a>
+                <a href="legal-notice.html">Legal Notice</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a onclick="logout()">Log out</a>
+            </div>
+        </div>
+    </div>
+</header>
 
     <main class="main-content">
       <div class="privacy-container">
