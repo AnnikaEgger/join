@@ -1,24 +1,34 @@
 
 function generateTodoHTML(todo, catColor) {
+    let progressBar = generateProgressBarHTML(todo);
+    let badgesHTML = generateAssignedBadgesHTML(todo);
+    let prioIconHTML = getPrioIconHTML(todo);
+
     return `<div draggable="true" aria-label="Draggable todo item" tabindex="0" ondragstart="startDragging(event, '${todo['id']}')" ondragend="stopDragging(event)" class="card">
                 <span class="category-field" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
-                            <h3 class="card-text">${todo['title']}</h3>
-                            <p>${todo['description']}</p>
-                            <div class="progress-container">
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 50%;"></div>
-                                </div>
-                                <label class="progress-label" for="progressBar">1/2 Subtasks</label>
-                            </div>
-                            <div class="card-footer">
-                                <div class="badge-container">
-                                    <span class="profile-badge">${todo['assignedTo'] || 'Unassigned'}</span>
-                                    <span class="profile-badge-2">${todo['assignedTo'] || 'Unassigned'}</span>
-                                    <span class="profile-badge-3">${todo['assignedTo'] || 'Unassigned'}</span>
-                                </div>
-                                <img src="../assets/icons/low-prio-icon.svg" alt="low priority icon">
-                            </div>
-                         </div>`;
+                <h3 class="card-text">${todo['title']}</h3>
+                <p>${todo['description']}</p>
+                ${progressBar}
+                <div class="card-footer">
+                    <div class="badge-container">${badgesHTML}</div>
+                    ${prioIconHTML}
+                </div>
+             </div>`;
+}
+
+function generateProgressHTML(done, total, percentage) {
+    return `
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: ${percentage}%;"></div>
+            </div>
+            <label class="progress-label">${done}/${total} Subtasks</label>
+        </div>
+    `;
+}
+
+function generatePrioIconHTML(src, prio) {
+    return `<img src="${src}" alt="${prio} priority icon">`;
 }
 
 function generateEmptySectionHTML(category) {
@@ -27,4 +37,16 @@ function generateEmptySectionHTML(category) {
             <p>${category}</p>
         </div>
     `;
+}
+
+function generateSingleBadgeHTML(initials, color) {
+    return `<span class="profile-badge" style="background-color: ${color}">${initials}</span>`;
+}
+
+function generateOverflowBadgeHTML(count) {
+    return `<span class="profile-badge-plus">+${count}</span>`;
+}
+
+function generateEmptyBadgeHTML() {
+    return '<span class="profile-badge">--</span>';
 }

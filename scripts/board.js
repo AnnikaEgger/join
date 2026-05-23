@@ -100,6 +100,88 @@ function getCategoryColor(category) {
 }
 
 /**
+ * Calculates subtask metrics and requests the progress bar HTML.
+ * 
+ * @param {Object} todo - The current todo object from Firebase.
+ * @return {string} The HTML string or an empty string.
+ */
+function generateProgressBarHTML(todo) {
+    let subtasks = todo['subtasks'] || [];
+    if (subtasks.length === 0) return '';
+
+    let subtaskList = Array.isArray(subtasks) ? subtasks : Object.values(subtasks);
+    let done = subtaskList.filter(s => s.status === 'done' || s.done === true).length;
+    let total = subtaskList.length;
+    let percentage = (done / total) * 100;
+
+    return generateProgressHTML(done, total, percentage);
+}
+
+/**
+ * Generates HTML badges for assigned contacts (max 4, 5th becomes +X).
+ * @param {Object} todo - The current todo object from Firebase.
+ * @return {string} The HTML string containing all profile badges.
+ */
+function generateAssignedBadgesHTML(todo) {
+    let assigned = todo['assigned_contacts'] || [];
+    if (assigned.length === 0) return generateEmptyBadgeHTML();
+
+    let contactsList = Array.isArray(assigned) ? assigned : Object.values(assigned);
+    let renderedContacts = contactsList.slice(0, 4);
+    let extraCount = contactsList.length - 4;
+
+    let html = renderedContacts.map(name => {
+        let initials = getInitials(name);
+        let color = getContactColor(name);
+        return generateSingleBadgeHTML(initials, color);
+    }).join('');
+
+    if (extraCount > 0) html += generateOverflowBadgeHTML(extraCount);
+    return html;
+}
+
+/**
+ * Extracts the initials from a full name.
+ * 
+ * @param {string} name - Full name of the contact.
+ * @return {string} Initials (e.g. "MM").
+ */
+function getInitials(name) {
+    let words = name.trim().split(' ');
+    let first = words[0] ? words[0].charAt(0).toUpperCase() : '';
+    let last = words[1] ? words[1].charAt(0).toUpperCase() : '';
+    return (first + last) || '?';
+}
+
+/**
+ * Generates a consistent background color based on the contact's name.
+ * 
+ * @param {string} name - Name of the contact.
+ * @return {string} Hex color string.
+ */
+function getContactColor(name) {
+    let colors = ['#FF7A00', '#6E52FF', '#9327FF', '#00BEE8', '#FF745E', '#FFA800'];
+    let index = (name.charCodeAt(0) || 0) % colors.length;
+    return colors[index];
+}
+
+/**
+ * Determines the correct priority icon path and gets the HTML string.
+ * 
+ * @param {Object} todo - The current todo object from Firebase.
+ * @return {string} HTML string of the image tag.
+ */
+function getPrioIconHTML(todo) {
+    let prio = (todo['priority'] || 'low').toLowerCase();
+    let src = `../assets/icons/${prio}-prio-icon.svg`;
+
+    if (prio === 'urgent' || prio === 'hoch') src = '../assets/icons/urgent-prio-icon.svg';
+    if (prio === 'medium' || prio === 'mittel') src = '../assets/icons/medium-prio-icon-2.svg';
+
+    return generatePrioIconHTML(src, prio);
+}
+
+/**
  * Checks if the search results match any tasks.
  * 
  * @param {parameter} search - The search term.
@@ -149,16 +231,31 @@ function allowDrop(ev) {
 }
 
 /**
- * Moves a task to a different category.
+ * Moves a task to a different column and updates Firebase.
  * 
- * @param {parameter} column - The column to move the task to.
+ * @param {string} column - The target column.
  */
 function moveTo(column) {
     let task = todos.find(t => t.id === currentDraggedElement);
     if (task) {
         task['column'] = column;
         updateHTML();
+        updateTaskInFirebase(task);
     }
+}
+
+/**
+ * Sends a PUT request to Firebase to update a specific task.
+ * 
+ * @param {Object} task - The updated task object.
+ */
+async function updateTaskInFirebase(task) {
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks/${task.id}.json`;
+    await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
+    });
 }
 
 /**
