@@ -119,6 +119,10 @@
     background-color: var(--color-bg);
 }
 
+.dialog-close-btn-mobile {
+    display: none;
+}
+
 .default-avatar {
     width: 120px;
     height: 120px;
