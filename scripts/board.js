@@ -7,17 +7,17 @@ let todos = [/* {
     'id': 1,
     'title': 'footer',
     'description': 'make the footer shiny and nice',
-    'category': 'inProgress'
+    'column': 'inProgress'
 }, {
     'id': 2,
     'title': 'headline',
     'description': 'make the headline wow',
-    'category': 'awaitFeedback'
+    'column': 'awaitFeedback'
 }, {
     'id': 3,
     'title': 'main content',
     'description': 'write the main content for the page and make it look good',
-    'category': 'done'
+    'column': 'done'
 } */
 ];
 
@@ -67,7 +67,7 @@ function updateHTML() {
 function renderCategory(column, containerId, message) {
     let search = document.getElementById('search-input').value.toLowerCase();
     let container = document.getElementById(containerId);
-    
+
     let filtered = todos.filter(t => t.column == column &&
         (t.title.toLowerCase().includes(search) || t.description.toLowerCase().includes(search)));
 
@@ -76,9 +76,27 @@ function renderCategory(column, containerId, message) {
     } else {
         container.parentElement.style.display = 'flex';
         container.innerHTML = filtered.length ? '' : generateEmptySectionHTML(message);
-        filtered.forEach(t => container.innerHTML += generateTodoHTML(t));
+        filtered.forEach(t => {
+            let catColor = getCategoryColor(t.category);
+            container.innerHTML += generateTodoHTML(t, catColor);
+        });
     }
     checkSearchNoMatches(search);
+}
+
+/**
+ * Returns the color for a given category.
+ * 
+ * @param {parameter} category - The category for which to return a color.
+ * @returns {string} The color for the given category.
+ */
+function getCategoryColor(category) {
+    if (!category) return 'gray';
+    let cat = category.toLowerCase();
+    if (cat.includes('story') || cat.includes('user')) return '#0038FF';
+    if (cat.includes('technical') || cat.includes('task')) return '#1FD7C1';
+    if (cat.includes('bug')) return '#FF1A1A';
+    return '#FF7A00';
 }
 
 /**
@@ -133,15 +151,12 @@ function allowDrop(ev) {
 /**
  * Moves a task to a different category.
  * 
- * @param {parameter} category - The category to move the task to.
+ * @param {parameter} column - The column to move the task to.
  */
-function moveTo(category) {
-    // Sucht das Element anhand der ID im Array
+function moveTo(column) {
     let task = todos.find(t => t.id === currentDraggedElement);
     if (task) {
-        task['category'] = category;
-        // Optional: Hier solltest du später ein PUT/PATCH an Firebase senden,
-        // damit die neue Kategorie auch in der Cloud gespeichert bleibt!
+        task['column'] = column;
         updateHTML();
     }
 }

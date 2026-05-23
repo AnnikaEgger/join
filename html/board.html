@@ -64,42 +64,43 @@
 
     <!--  HEADER  -->
     <header class="header">
-    <a href="summary.html" class="header-logo-mobile">
-        <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
-    </a>
-
-    <h2 class="header-title">Kanban Project Management Tool</h2>
-
-    <div class="header-actions">
-        <a href="help.html" class="nav-link header-help-link">
-            <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
+        <a href="summary.html" class="header-logo-mobile">
+            <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
         </a>
 
-        <div class="header-user-area">
-            <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
+        <h2 class="header-title">Kanban Project Management Tool</h2>
 
-            <div id="dropdown" class="dropdown-content d-none">
-                <a href="help.html" class="dropdown-help-link">Help</a>
-                <a href="legal-notice.html">Legal Notice</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a onclick="logout()">Log out</a>
+        <div class="header-actions">
+            <a href="help.html" class="nav-link header-help-link">
+                <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
+            </a>
+
+            <div class="header-user-area">
+                <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
+
+                <div id="dropdown" class="dropdown-content d-none">
+                    <a href="help.html" class="dropdown-help-link">Help</a>
+                    <a href="legal-notice.html">Legal Notice</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a onclick="logout()">Log out</a>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <main class="main-content">
         <section class="board-header">
             <h1 class="head-text">Board</h1>
             <div class="search-and-add-section">
                 <form class="form" action="onSubmit">
-                    <input onkeyup="filterTasks()" id="search-input" class="input-field" required type="text" placeholder="Find Task">
+                    <input onkeyup="filterTasks()" aria-label="Search tasks" id="search-input" class="input-field"
+                        required type="text" placeholder="Find Task">
                     <hr>
-                    <button onsubmit="filterTasks()" class="search-btn" type="submit">
+                    <button onsubmit="filterTasks()" aria-label="Submit search" class="search-btn" type="submit">
                         <img class="search-btn-img" src="../assets/icons/search.svg" alt="search icon">
                     </button>
                 </form>
-                <button class="add-btn" onclick="openAddTaskDialog()">
+                <button class="add-btn" aria-label="Add task" onclick="openAddTaskDialog()">
                     <span>Add task</span>
                     <img src="../assets/icons/white_plus_button.svg" alt="white plus icon">
                 </button>
@@ -111,10 +112,10 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>To do</h2>
-                        <img class="add-task-btn" aria-label="button" role="button"
+                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
-                    <div id="toDo" class="card-container" ondrop="moveTo('toDo'); removeHighlight('toDo')"
+                    <div id="toDo" class="card-container" ondrop="moveTo('to do'); removeHighlight('toDo')"
                         ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')">
                         <!-- <div class="empty-card-container">
                             <p>No tasks To do</p>
@@ -124,11 +125,11 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>in progress</h2>
-                        <img class="add-task-btn" aria-label="button" role="button"
+                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="inProgress" class="card-container"
-                        ondrop="moveTo('inProgress'); removeHighlight('inProgress')"
+                        ondrop="moveTo('in progress'); removeHighlight('inProgress')"
                         ondragleave="removeHighlight('inProgress')"
                         ondragover="allowDrop(event); highlight('inProgress')">
                         <!-- <div draggable="true" class="card">
@@ -155,11 +156,11 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Await feedback</h2>
-                        <img class="add-task-btn" aria-label="button" role="button"
+                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="awaitFeedback" class="card-container"
-                        ondrop="moveTo('awaitFeedback'); removeHighlight('awaitFeedback')"
+                        ondrop="moveTo('await feedback'); removeHighlight('awaitFeedback')"
                         ondragleave="removeHighlight('awaitFeedback')"
                         ondragover="allowDrop(event); highlight('awaitFeedback')">
                     </div>
@@ -167,7 +168,7 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Done</h2>
-                        <img class="add-task-btn" aria-label="button" role="button"
+                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="done" class="card-container" ondrop="moveTo('done'); removeHighlight('done')"

@@ -1,7 +1,7 @@
 
-function generateTodoHTML(todo) {
-    return `<div draggable="true" ondragstart="startDragging(event, '${todo['id']}')" ondragend="stopDragging(event)" class="card">
-                <span class="category-field">${todo['category']}</span>
+function generateTodoHTML(todo, catColor) {
+    return `<div draggable="true" aria-label="Draggable todo item" tabindex="0" ondragstart="startDragging(event, '${todo['id']}')" ondragend="stopDragging(event)" class="card">
+                <span class="category-field" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
                             <h3 class="card-text">${todo['title']}</h3>
                             <p>${todo['description']}</p>
                             <div class="progress-container">
