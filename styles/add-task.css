@@ -431,6 +431,7 @@ input[type="checkbox"] {
 .subtask-list .normal-li {
   display: grid;
   grid-template-columns: auto 1fr auto;
+  border-radius: var(--border-radius-s);
 }
 
 .subtask-list li {
@@ -441,8 +442,13 @@ input[type="checkbox"] {
   transition: all 100ms ease-out;
 }
 
-.subtask-list li:focus-visible {
+.subtask-list .normal-li:focus-visible {
   background-color: #eeeeee;
+}
+
+.subtask-list .li-with-input:focus-visible {
+  outline: none;
+  /* border: 1px solid var(--light-blue); */
 }
 
 .li-with-input {
@@ -466,7 +472,6 @@ input[type="checkbox"] {
 
 .subtask-list .normal-li:hover {
   background-color: #eeeeee;
-  border-radius: var(--border-radius-s);
   transition: all 100ms ease-out;
 }
 

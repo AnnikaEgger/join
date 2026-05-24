@@ -34,57 +34,19 @@ async function init() {
   await getCategories();
   renderCategories();
 
-  // prevent form from submmitting when pressing enter on an input element
-  // TASK_FORM.addEventListener("keydown", (event) => {
-  //   if (event.key !== "Enter") return;
-  //   const element = event.target;
-
-  //   console.log(element);
-  //   console.log(new Map());
-
-  //   // debugger;
-
-  //   if (element.tagName !== "INPUT" && element.id !== "contacts-dropdown") {
-  //     return;
-  //   }
-
-  //   if (event.key === "Enter") {
-  //     // debugger;
-
-  //     event.preventDefault();
-
-  //     if (element.id !== "contacts-dropdown") {
-  //       // element.blur?.() --> wenn blur für das element unterstützt wird, dann bluren
-  //       element.blur();
-  //     }
-
-  //     if (element.id === "subtask-input") {
-  //       addSubtask();
-  //     }
-
-  //     if (element.id.startsWith("li-input")) {
-  //       submitEditedSubtask(element.id.charAt(element.id.length - 1));
-  //     }
-
-  //     if (element.id === "contacts-dropdown") {
-  //       toggleCustomSelectDropdown("contacts");
-  //     }
-  //   }
+  // registerEnterHandler("#calendar-btn", () => {
+  //   showDatePicker();
   // });
 
-  registerEnterHandler("#calendar-btn", () => {
-    showDatePicker();
-  });
-
-  registerEnterHandler("#urgent-prio-btn", () => {
-    setPriority("urgent");
-  });
-  registerEnterHandler("#medium-prio-btn", () => {
-    setPriority("medium");
-  });
-  registerEnterHandler("#low-prio-btn", () => {
-    setPriority("low");
-  });
+  // registerEnterHandler("#urgent-prio-btn", () => {
+  //   setPriority("urgent");
+  // });
+  // registerEnterHandler("#medium-prio-btn", () => {
+  //   setPriority("medium");
+  // });
+  // registerEnterHandler("#low-prio-btn", () => {
+  //   setPriority("low");
+  // });
 
   registerEnterHandler("#custom-select-trigger-contacts", () => {
     toggleCustomSelectDropdown("contacts");
@@ -92,9 +54,9 @@ async function init() {
   registerEnterHandler("search-contact-input", () => {
     // event.stopPropagation();
   });
-  registerEnterHandler("#arrow-btn-contacts", () => {
-    toggleCustomSelectDropdown("contacts");
-  });
+  // registerEnterHandler("#arrow-btn-contacts", () => {
+  //   toggleCustomSelectDropdown("contacts");
+  // });
   let contactOptions = document.querySelectorAll(".contact-option");
   contactOptions.forEach((option) => {
     registerEnterHandler(
@@ -121,9 +83,9 @@ async function init() {
       );
     });
   });
-  registerEnterHandler("#arrow-btn-categories", () => {
-    toggleCustomSelectDropdown("category");
-  });
+  // registerEnterHandler("#arrow-btn-categories", () => {
+  //   toggleCustomSelectDropdown("category");
+  // });
 
   registerEnterHandler("#custom-select-trigger-category", () => {
     toggleCustomSelectDropdown("category");
@@ -146,21 +108,18 @@ async function init() {
     const el = event.target;
     // check if the element is an html element
     if (!(el instanceof HTMLElement)) return;
+    if (el.tagName === "BUTTON") return;
     if (el.classList.contains(".display-none")) return;
 
     event.preventDefault();
     // check if element supports blur-method, if yes, run it
-    if (el.tagName !== "BUTTON") {
-      console.log("not a button");
-
-      // el.blur?.();
-    }
 
     for (const [selector, handler] of enterHandlers) {
       // debugger;
       // if element was setted to our map
       if (el.matches(selector)) {
-        // handler(el, event);
+        // debugger;
+
         handler();
         break;
       }
@@ -553,26 +512,76 @@ function renderSubtasks() {
 
   for (let index = 0; index < subtasksArr.length; index++) {
     SUBTASK_UL.innerHTML += subtaskLiTemplate(subtasksArr[index], index);
-    registerEnterHandler("#li" + index, () => {
-      editSubtask(index);
-    });
+
+    registerEnterHandler(
+      "#subtask-li-" + index,
+      registerEnterHandlerHelpFunction(index, editSubtask),
+    );
   }
 
   SUBTASK_INPUT_REF.value = "";
 }
 
+let skipFocusoutRender = false;
+
+function renderSingleSubtask(indexSubtask) {
+  console.log("render subtask function called");
+
+  let li = document.getElementById("subtask-li-" + indexSubtask);
+  li.outerHTML = subtaskLiTemplate(subtasksArr[indexSubtask], indexSubtask);
+
+  registerEnterHandler(
+    "#subtask-li-" + indexSubtask,
+    registerEnterHandlerHelpFunction(indexSubtask, editSubtask),
+  );
+}
+
 function editSubtask(indexSubtask) {
-  let li = document.getElementById("li" + indexSubtask);
+  let li = document.getElementById("subtask-li-" + indexSubtask);
 
   li.outerHTML = subtaskLiWithInputTemplate(indexSubtask);
+
+  registerEnterHandler(
+    "#li-input" + indexSubtask,
+    registerEnterHandlerHelpFunction(indexSubtask, submitEditedSubtask),
+  );
+
+  let liAfter = document.getElementById("subtask-li-" + indexSubtask);
+  liAfter.addEventListener("focusout", (event) => {
+    liEventListenerFunction(event, indexSubtask);
+  });
+}
+
+function liEventListenerFunction(event, indexSubtask) {
+  let li = document.getElementById("subtask-li-" + indexSubtask);
+
+  const nextFocusedElement = event.relatedTarget;
+
+  if (li.contains(nextFocusedElement)) {
+    return;
+  }
+
+  if (skipFocusoutRender) return;
+  renderSingleSubtask(indexSubtask);
+}
+
+function registerEnterHandlerHelpFunction(index, returnFunction) {
+  return () => {
+    returnFunction(index);
+  };
 }
 
 function submitEditedSubtask(indexSubtask) {
+  console.log("submit function called");
+
   let edit = document.getElementById("li-input" + indexSubtask).value;
 
   subtasksArr.splice(indexSubtask, 1, edit);
 
-  renderSubtasks();
+  skipFocusoutRender = true;
+  renderSingleSubtask(indexSubtask);
+
+  skipFocusoutRender = false;
 }
 
 function deleteSubtask(indexSubtask) {
@@ -732,7 +741,7 @@ function checkInputValidity(inputType) {
 
 // #region templates
 function subtaskLiTemplate(subtaskText, indexSubtask) {
-  return `<li id="${"li" + indexSubtask}" class="normal-li" tabindex="0" 
+  return `<li id="${"subtask-li-" + indexSubtask}" class="normal-li" tabindex="0" 
               data-index-subtask="${indexSubtask}">
             <p id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
@@ -781,7 +790,7 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
 }
 
 function subtaskLiWithInputTemplate(indexSubtask) {
-  return ` <li id="${"li" + indexSubtask}" class="li-with-input trigger-input-container" tabindex="0">
+  return ` <li id="${"subtask-li-" + indexSubtask}" class="li-with-input trigger-input-container" tabindex="0">
             <input id="${"li-input" + indexSubtask}" type="text" value="${subtasksArr[indexSubtask]}" />
             <div
               class="subtask-btns-container subtask-btns-container--ul"
