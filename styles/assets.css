@@ -1,5 +1,5 @@
 :root {
-  --input-width: 420px;
+  --input-width: 440px;
   --input-width-mobile-big: 400px;
   --input-width-mobile-small: 364px;
 }
@@ -94,8 +94,8 @@ select:invalid:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Crect x='1' y='1' width='16' height='16' rx='3' stroke='%232A3647' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
@@ -108,7 +108,7 @@ select:invalid:focus {
   transform: scale(1.05);
 }
 .checkbox-container input[type="checkbox"]:focus-visible {
-  border: 1px solid black;
+  outline: 2px solid black;
 }
 
 .checkbox-container:has(input[type="checkbox"]:checked) {
@@ -223,6 +223,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
 }
 
 /* #endregion */

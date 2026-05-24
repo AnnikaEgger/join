@@ -43,7 +43,7 @@
 }
 
 .privacy-contact-section {
-  background-color: #F6F7F8;
+  background-color: #f6f7f8;
   padding: 25px;
   border-radius: 10px;
   margin-top: 40px;
@@ -51,6 +51,56 @@
 
 .privacy-contact-section p {
   line-height: 1.8;
+}
+
+/* --- Responsive Design for Privacy Page --- */
+@media screen and (max-width: 1024px) {
+  .privacy-container h1 {
+    font-size: 47px;
+  }
+
+  .main-content {
+    padding: 40px 24px;
+  }
+
+  /* --- NEW PRIVACY POLICY STYLES --- */
+
+  .privacy-container {
+    max-width: 1000px;
+  }
+
+  .privacy-container h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--dark-blue);
+  }
+
+  .privacy-container h2 {
+    font-size: 27px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    color: var(--dark-blue);
+  }
+
+  .privacy-container p,
+  .privacy-container li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .privacy-container ul {
+    list-style: disc;
+    margin-left: 20px;
+  }
+
+  .privacy-contact-section {
+    background-color: var(--light-gray);
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 40px;
+  }
 }
 
 /* --- 3. Responsive Anpassungen (Mobile & Tablet) --- */
@@ -68,7 +118,7 @@
     font-size: 47px;
     margin-bottom: 30px;
   }
-  
+
   .main-content h2 {
     font-size: 22px;
   }

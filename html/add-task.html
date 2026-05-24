@@ -128,7 +128,7 @@
                 >Due Date<span class="red">*</span></label
               >
               <div
-                class="required custom-select-input trigger-input-container"
+                class="required custom-select-input trigger-input-container due-date-container"
                 tabindex="0"
               >
                 <input
@@ -255,7 +255,7 @@
               <section class="select-contacts-section">
                 <div
                   aria-labelledby="contacts-label"
-                  class="custom-select custom-select--contacts"
+                  class="custom-select custom-select--contacts "
                   id="contacts-dropdown"
                   tabindex="0"
                 >
@@ -265,10 +265,9 @@
                     aria-expanded="false"
                     aria-owns="select-options--contacts"
                     onclick="toggleCustomSelectDropdown('contacts')"
-                    class="custom-select--trigger custom-select-input trigger-input-container"
+                    class="custom-select--trigger custom-select-input trigger-input-container "
                     id="custom-select-trigger-contacts"
-                    tabindex="0"
-                  >
+                    tabindex="0">
                     <input
                       oninput="filterContacts1()"
                       onclick="checkStopPropagation(event)"

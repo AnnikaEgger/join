@@ -34,29 +34,13 @@ async function init() {
   await getCategories();
   renderCategories();
 
-  // registerEnterHandler("#calendar-btn", () => {
-  //   showDatePicker();
-  // });
-
-  // registerEnterHandler("#urgent-prio-btn", () => {
-  //   setPriority("urgent");
-  // });
-  // registerEnterHandler("#medium-prio-btn", () => {
-  //   setPriority("medium");
-  // });
-  // registerEnterHandler("#low-prio-btn", () => {
-  //   setPriority("low");
-  // });
-
   registerEnterHandler("#custom-select-trigger-contacts", () => {
     toggleCustomSelectDropdown("contacts");
   });
   registerEnterHandler("search-contact-input", () => {
     // event.stopPropagation();
   });
-  // registerEnterHandler("#arrow-btn-contacts", () => {
-  //   toggleCustomSelectDropdown("contacts");
-  // });
+
   let contactOptions = document.querySelectorAll(".contact-option");
   contactOptions.forEach((option) => {
     registerEnterHandler(
@@ -83,9 +67,6 @@ async function init() {
       );
     });
   });
-  // registerEnterHandler("#arrow-btn-categories", () => {
-  //   toggleCustomSelectDropdown("category");
-  // });
 
   registerEnterHandler("#custom-select-trigger-category", () => {
     toggleCustomSelectDropdown("category");
@@ -138,11 +119,20 @@ async function init() {
       if (!TASK_FORM.checkValidity()) {
         const invalidElements = TASK_FORM.querySelectorAll(":invalid");
         invalidElements.forEach((element) => {
-          element.classList.add("invalid");
+          if (element.id === "task-due-date") {
+          } else {
+            element.classList.add("invalid");
+          }
         });
 
         invalidElements.forEach((element) => {
-          element.closest(".required").classList.add("input-with-after");
+          if (element.id === "task-due-date") {
+            element
+              .closest(".required")
+              .classList.add("custom-select-with-after", "invalid");
+          } else {
+            element.closest(".required").classList.add("input-with-after");
+          }
         });
 
         TASK_FORM.querySelector(":invalid").focus();
@@ -216,19 +206,14 @@ function closeCustomSelectDropdown(selectName) {
 function toggleCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
-
   console.log("this function is being called");
-
   options.classList.toggle("display-none");
-
   if (options.classList.contains("display-none")) {
     options.setAttribute("inert", "");
   } else {
     options.removeAttribute("inert");
   }
-
   arrow.classList.toggle("rotate");
-
   if (selectName == "category") {
     selectedCategory = "Select task category";
     renderSelectedCategory();
@@ -339,12 +324,23 @@ async function renderContactOptions() {
     indexContact < filteredContacts.length;
     indexContact++
   ) {
+    const checkboxChecked = checkIfContactAssigned(
+      filteredContacts[indexContact],
+    );
+
     let contactInitials = getInitials(filteredContacts[indexContact].name);
     optionsContainer.innerHTML += contactOptionTemplate(
       indexContact,
       contactInitials,
+      checkboxChecked,
     );
   }
+}
+
+function checkIfContactAssigned(contact) {
+  return assignedContacts.some(
+    (assignedContact) => assignedContact.name === contact.name,
+  );
 }
 
 async function getContacts() {
@@ -410,9 +406,9 @@ function filterContacts1() {
 }
 
 function filterContacts(inputValue) {
-  filteredContacts = contactsOptions.filter((obj) => {
-    const searchValue = inputValue.toLowerCase().trim();
+  const searchValue = inputValue.toLowerCase().trim();
 
+  filteredContacts = contactsOptions.filter((obj) => {
     return obj.name
       .toLowerCase()
       .split(" ")
@@ -525,8 +521,6 @@ function renderSubtasks() {
 let skipFocusoutRender = false;
 
 function renderSingleSubtask(indexSubtask) {
-  console.log("render subtask function called");
-
   let li = document.getElementById("subtask-li-" + indexSubtask);
   li.outerHTML = subtaskLiTemplate(subtasksArr[indexSubtask], indexSubtask);
 
@@ -550,6 +544,10 @@ function editSubtask(indexSubtask) {
   liAfter.addEventListener("focusout", (event) => {
     liEventListenerFunction(event, indexSubtask);
   });
+
+  let input = document.getElementById("li-input" + indexSubtask);
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
 }
 
 function liEventListenerFunction(event, indexSubtask) {
@@ -572,16 +570,18 @@ function registerEnterHandlerHelpFunction(index, returnFunction) {
 }
 
 function submitEditedSubtask(indexSubtask) {
-  console.log("submit function called");
-
   let edit = document.getElementById("li-input" + indexSubtask).value;
 
-  subtasksArr.splice(indexSubtask, 1, edit);
+  if (edit.length > 0) {
+    subtasksArr.splice(indexSubtask, 1, edit);
 
-  skipFocusoutRender = true;
-  renderSingleSubtask(indexSubtask);
+    skipFocusoutRender = true;
+    renderSingleSubtask(indexSubtask);
 
-  skipFocusoutRender = false;
+    skipFocusoutRender = false;
+  } else if (edit.length === 0) {
+    deleteSubtask(indexSubtask);
+  }
 }
 
 function deleteSubtask(indexSubtask) {
@@ -728,12 +728,24 @@ function clearTask() {
 
 function checkInputValidity(inputType) {
   let input = document.getElementById("task-" + inputType);
-  if (input.checkValidity()) {
-    input.classList.remove("invalid");
-    input.closest(".required").classList.remove("input-with-after");
-  } else {
-    input.classList.add("invalid");
-    input.closest(".required").classList.add("input-with-after");
+
+  if (inputType == "title") {
+    if (input.checkValidity()) {
+      input.classList.remove("invalid");
+      input.closest(".required").classList.remove("input-with-after");
+    } else {
+      input.classList.add("invalid");
+      input.closest(".required").classList.add("input-with-after");
+    }
+  }
+  if (inputType == "due-date") {
+    if (input.checkValidity()) {
+      input.classList.remove("invalid");
+      input.closest(".required").classList.remove("custom-select-with-after");
+    } else {
+      input.classList.add("invalid");
+      input.closest(".required").classList.add("custom-select-with-after");
+    }
   }
 }
 
@@ -742,7 +754,9 @@ function checkInputValidity(inputType) {
 // #region templates
 function subtaskLiTemplate(subtaskText, indexSubtask) {
   return `<li id="${"subtask-li-" + indexSubtask}" class="normal-li" tabindex="0" 
-              data-index-subtask="${indexSubtask}">
+              data-index-subtask="${indexSubtask}"
+                ondblclick="editSubtask(${indexSubtask})"
+              >
             <p id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
@@ -838,7 +852,7 @@ function subtaskLiWithInputTemplate(indexSubtask) {
           </li>`;
 }
 
-function contactOptionTemplate(indexContact, initials) {
+function contactOptionTemplate(indexContact, initials, checkboxChecked) {
   return `<li
             id="contact-option-${indexContact}"
             data-index-contact="${indexContact}"
@@ -855,7 +869,7 @@ function contactOptionTemplate(indexContact, initials) {
               <div class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
                 <p class="contact-avatar--initials">${initials}</p>
               </div>
-              <p id="contact-full-name">${filteredContacts[indexContact].name}</p>
+              <p class="contact-full-name" id="contact-full-name">${filteredContacts[indexContact].name}</p>
             </div>
             <div class="checkbox-container">
               <input
@@ -868,6 +882,7 @@ function contactOptionTemplate(indexContact, initials) {
                 name=""
                 id="checkbox${indexContact}"
                 value="${filteredContacts[indexContact].name}"
+                ${checkboxChecked ? "checked" : ""}
               />
             </div>
           </li>`;
