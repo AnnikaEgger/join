@@ -112,7 +112,7 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>To do</h2>
-                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
+                        <img class="add-task-btn" onclick="openAddTaskDialog()" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="toDo" class="card-container" ondrop="moveTo('to do'); removeHighlight('toDo')"
@@ -125,7 +125,7 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>in progress</h2>
-                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
+                        <img class="add-task-btn" onclick="openAddTaskDialog()" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="inProgress" class="card-container"
@@ -156,7 +156,7 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Await feedback</h2>
-                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
+                        <img class="add-task-btn" onclick="openAddTaskDialog()" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="awaitFeedback" class="card-container"
@@ -168,7 +168,7 @@
                 <div class="task-lanes">
                     <div class="task-title">
                         <h2>Done</h2>
-                        <img class="add-task-btn" tabindex="0" aria-label="Add task button" role="button"
+                        <img class="add-task-btn" onclick="openAddTaskDialog()" tabindex="0" aria-label="Add task button" role="button"
                             src="../assets/icons/plus_button.svg" alt="plus button">
                     </div>
                     <div id="done" class="card-container" ondrop="moveTo('done'); removeHighlight('done')"
