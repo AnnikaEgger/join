@@ -110,6 +110,7 @@ a {
   color: var(--color-text-light);
   font-size: 14px;
   transition: var(--transition-default);
+  display: block;
 }
 
 .footer-link:hover {
@@ -322,8 +323,12 @@ a {
   .header {
     left: 0;
     width: 100dvw;
+<<<<<<< HEAD
     padding-left: max(var(--content-limitation), 16px);
     padding-right: max(var(--content-limitation), 16px);
+=======
+    padding-left: max(var(--content-limitation), 0px);
+>>>>>>> 1f9041a (Updated external pages and help layout)
   }
 
   .main-content {
