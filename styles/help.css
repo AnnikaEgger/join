@@ -1,14 +1,9 @@
 /*  (1920px+) */
 
 .help-page {
-<<<<<<< HEAD
-    padding: 48px 0;
-   
-=======
-    max-width: 900px;
-    padding: 96px 80px;
+    max-width: 1014px;
+    padding: 80px 64px;
     margin: 0 auto;
->>>>>>> 1f9041a (Updated external pages and help layout)
 }
 
 .help-title-row {
