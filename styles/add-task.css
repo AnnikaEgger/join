@@ -192,6 +192,7 @@ label {
 
 .task-form {
   position: relative;
+  margin-bottom: 64px;
 }
 
 .task-form-select {
@@ -301,6 +302,11 @@ input[type="checkbox"] {
 .custom-select-options::-webkit-scrollbar {
   /* background-color: red; */
   /* margin: 10px 0px; */
+}
+
+.custom-select-options {
+  border-bottom-left-radius: var(--border-radius-s);
+  border-bottom-right-radius: var(--border-radius-s);
 }
 
 .custom-select-options::-webkit-scrollbar-button {
@@ -454,7 +460,8 @@ input[type="checkbox"] {
   transition: all 100ms ease-out;
 }
 
-.subtask-list .normal-li:focus-visible {
+.subtask-list .normal-li:focus-visible,
+.subtask-list .normal-li:focus-within {
   background-color: #eeeeee;
 }
 
@@ -492,6 +499,7 @@ input[type="checkbox"] {
 .subtask-list .normal-li:hover .subtask-btns-container--ul,
 /* focus-visible und focus-within gleichzeitig? */
 .subtask-list .normal-li:focus-visible .subtask-btns-container--ul,
+
 .subtask-list
   .normal-li:focus-within
   .subtask-btns-container--ul {

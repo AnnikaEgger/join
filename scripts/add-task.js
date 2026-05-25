@@ -37,9 +37,7 @@ async function init() {
   registerEnterHandler("#custom-select-trigger-contacts", () => {
     toggleCustomSelectDropdown("contacts");
   });
-  registerEnterHandler("search-contact-input", () => {
-    // event.stopPropagation();
-  });
+  registerEnterHandler("search-contact-input", () => {});
 
   let contactOptions = document.querySelectorAll(".contact-option");
   contactOptions.forEach((option) => {
@@ -90,10 +88,17 @@ async function init() {
     // check if the element is an html element
     if (!(el instanceof HTMLElement)) return;
     if (el.tagName === "BUTTON") return;
-    if (el.classList.contains(".display-none")) return;
+    // if (el.classList.contains(".display-none")) return;
+
+    if (
+      (el.tagName === "INPUT" || el.tagName === "TEXTAREA") &&
+      el.id !== "search-contact-input" &&
+      el.id !== "subtask-input"
+    ) {
+      el.blur();
+    }
 
     event.preventDefault();
-    // check if element supports blur-method, if yes, run it
 
     for (const [selector, handler] of enterHandlers) {
       // debugger;
@@ -176,8 +181,6 @@ async function init() {
   });
 
   CONTACTS_DROPDOWN.addEventListener("focusout", (event) => {
-    // event.relatedTarget = das element, das jetzt den Fokus bekommt
-    // event object --> dort Info enthalten, welches Element Fokus verloren hat + welches jetzt den Fokus hat
     const nextFocused = event.relatedTarget;
 
     if (!CONTACTS_DROPDOWN.contains(nextFocused)) {
@@ -206,7 +209,7 @@ function closeCustomSelectDropdown(selectName) {
 function toggleCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
-  console.log("this function is being called");
+
   options.classList.toggle("display-none");
   if (options.classList.contains("display-none")) {
     options.setAttribute("inert", "");
@@ -757,14 +760,15 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
               data-index-subtask="${indexSubtask}"
                 ondblclick="editSubtask(${indexSubtask})"
               >
-            <p id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
+            <p class="normal-li-p" id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >
               <button
                 type="button"
-                class="subtask-btn-left"
+                class="subtask-btn-left normal-li-edit-btn"
                 onclick="editSubtask(${indexSubtask})"
+                aria-label="edit subtask"
               >
                 <svg
                   width="19"
@@ -782,8 +786,9 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
               <div class="subtask-btns-seperation-line"></div>
               <button
                 type="button"
-                class="subtask-btn-right"
+                class="subtask-btn-right normal-li-delete-btn"
                 onclick="deleteSubtask(${indexSubtask})"
+                aria-label="delete subtask"
 
               >
                 <svg
@@ -814,6 +819,7 @@ function subtaskLiWithInputTemplate(indexSubtask) {
                 class="subtask-btn-left"
                 id="delete-subtask-btn"
                 onclick="deleteSubtask(${indexSubtask})"
+                aria-label="delete subtask"
               >
                 <svg
                   width="16"
@@ -831,7 +837,7 @@ function subtaskLiWithInputTemplate(indexSubtask) {
 
               <div class="subtask-btns-seperation-line"></div>
 
-              <button onclick="submitEditedSubtask(${indexSubtask})" class="subtask-btn-right" type="button">
+              <button onclick="submitEditedSubtask(${indexSubtask})" class="subtask-btn-right" type="button" aria-label="edit subtask">
                 <svg
                   width="14"
                   height="14"

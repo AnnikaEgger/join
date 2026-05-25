@@ -15,9 +15,9 @@ input[type="checkbox"] {
 }
 
 input:not([type="checkbox"]):focus,
-.custom-select:focus-within .custom-select-input,
 .custom-select-input:focus,
 .custom-select-input:focus-within,
+.custom-select:focus-within .custom-select--trigger,
 textarea:focus {
   border: 1px solid var(--light-blue);
 }
@@ -56,7 +56,8 @@ select:invalid:focus {
   border: 1px solid red;
 } */
 
-.invalid:focus {
+.invalid:focus,
+.invalid:focus-within {
   border: 1px solid red !important;
 }
 
