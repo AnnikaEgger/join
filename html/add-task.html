@@ -132,18 +132,18 @@
                 >Due Date<span class="red">*</span></label
               >
               <div
-                class="required custom-select-input trigger-input-container due-date-container"
+                class="required custom-select-input trigger-input-container"
                 tabindex="0"
               >
                 <input
                   oninput="checkInputValidity('due-date')"
                   class="task-date-input"
                   id="task-due-date"
+                  lang="en-GB"
                   type="date"
                   required
                 />
                 <button
-                  id="calendar-btn"
                   class="calendar-svg-btn"
                   type="button"
                   onclick="showDatePicker()"
@@ -253,6 +253,7 @@
               <label>Assigned to</label>
               <section class="select-contacts-section">
                 <div
+                  aria-labelledby="contacts-label"
                   class="custom-select custom-select--contacts"
                   id="contacts-dropdown"
                 >
@@ -279,9 +280,9 @@
                       aria-activedescendant=""
                     />
                     <button
-                      id="arrow-btn-contacts"
                       type="button"
                       aria-label="Open contact selection"
+                      onclick="toggleCustomSelectDropdown('contacts')"
                       class="custom-select--trigger--img-container"
                     >
                       <img
@@ -296,7 +297,6 @@
                     role="listbox"
                     id="select-options--contacts"
                     class="custom-select-options custom-select-options--contacts display-none"
-                    inert
                   ></ul>
                 </div>
 
@@ -325,8 +325,6 @@
                 >
                   <span id="selected-category"></span>
                   <button
-                    id="arrow-btn-categories"
-                    aria-label="Open category selection"
                     type="button"
                     class="custom-select--trigger--img-container"
                   >
@@ -340,7 +338,6 @@
                 <ul
                   id="select-options--category"
                   class="custom-select-options display-none"
-                  inert
                 ></ul>
               </div>
 
@@ -351,6 +348,7 @@
                   class="trigger-input-container custom-select-input"
                 >
                   <input
+                    onkeypress="addSubtask(event)"
                     class="subtask-input"
                     type="text"
                     id="subtask-input"
@@ -388,7 +386,6 @@
                       type="button"
                       id="save-subtask-btn"
                       onclick="addSubtask()"
-                      aria-label="add a new subtask"
                     >
                       <svg
                         width="14"
