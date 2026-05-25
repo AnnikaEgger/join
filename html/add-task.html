@@ -132,7 +132,7 @@
                 >Due Date<span class="red">*</span></label
               >
               <div
-                class="required custom-select-input trigger-input-container"
+                class="required custom-select-input custom-select-input--date trigger-input-container"
                 tabindex="0"
               >
                 <input
@@ -348,7 +348,6 @@
                   class="trigger-input-container custom-select-input"
                 >
                   <input
-                    onkeypress="addSubtask(event)"
                     class="subtask-input"
                     type="text"
                     id="subtask-input"
@@ -449,7 +448,7 @@
               <button
                 type="submit"
                 id="create-task-btn"
-                class="button add-task-bottom-btn button-blue"
+                class="button add-task-bottom-btn button-blue create-task-btn"
                 aria-label="create task"
               >
                 Create Task

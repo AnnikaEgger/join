@@ -22,7 +22,7 @@ async function init() {
   const SEARCH_INPUT = document.getElementById("search-contact-input");
   const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
 
-  // await putDefaultTasksToFirebase();
+  disablePastDates();
 
   filteredContacts = contactsOptions;
   renderSelectedCategory();
@@ -30,6 +30,8 @@ async function init() {
 
   await getContacts();
   renderContactOptions();
+
+  await putDefaultTasksToFirebase();
 
   await getCategories();
   renderCategories();
@@ -236,6 +238,12 @@ function showDatePicker() {
   dateInput.showPicker();
 }
 
+function disablePastDates() {
+  document.getElementById("task-due-date").min = new Date()
+    .toISOString()
+    .split("T")[0];
+}
+
 // #region priority
 let priority = "medium";
 
@@ -321,6 +329,9 @@ function selectContact(indexContact, contactId, clickViaCheckbox) {
 async function renderContactOptions() {
   let optionsContainer = document.getElementById("select-options--contacts");
 
+  filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
+  renderCurrentUser();
+
   optionsContainer.innerHTML = "";
   for (
     let indexContact = 0;
@@ -331,13 +342,51 @@ async function renderContactOptions() {
       filteredContacts[indexContact],
     );
 
-    let contactInitials = getInitials(filteredContacts[indexContact].name);
+    let contactInitials = getContactInitials(
+      filteredContacts[indexContact].name,
+    );
+
+    let contactName = getContactName(indexContact);
+
     optionsContainer.innerHTML += contactOptionTemplate(
       indexContact,
       contactInitials,
       checkboxChecked,
+      contactName,
     );
   }
+}
+
+function getContactName(indexContact) {
+  let user = getCurrentUser();
+
+  let currentContactIsUser = filteredContacts[indexContact].name == user.name;
+
+  if (currentContactIsUser) {
+    return filteredContacts[indexContact].name + " (You)";
+  } else {
+    return filteredContacts[indexContact].name;
+  }
+}
+
+function getCurrentUser() {
+  const stored = localStorage.getItem("currentUser");
+  if (!stored) return null;
+  try {
+    return JSON.parse(stored);
+  } catch (e) {
+    return null;
+  }
+}
+
+function renderCurrentUser() {
+  let user = getCurrentUser();
+
+  console.log(user);
+
+  if (user.name === "Guest" || user.name === null) return;
+
+  filteredContacts.unshift(user);
 }
 
 function checkIfContactAssigned(contact) {
@@ -371,12 +420,12 @@ function fillContactsOptionsArray(contactsObj) {
   }
 }
 
-function getInitials(name) {
+function getContactInitials(name) {
   let firstLetter = name.charAt(0);
   let spaceIndex = name.indexOf(" ");
   let secondLetter = "";
 
-  if (spaceIndex !== -1) {
+  if (spaceIndex !== -1 && name.charAt(spaceIndex + 1) !== "(") {
     secondLetter = name.charAt(spaceIndex + 1);
   }
 
@@ -390,7 +439,7 @@ function renderAssignedContacts() {
 
   SELECTED_CONTACTS_DIV.innerHTML = "";
   for (let index = 0; index < assignedContacts.length; index++) {
-    let contactInitials = getInitials(assignedContacts[index].name);
+    let contactInitials = getContactInitials(assignedContacts[index].name);
     SELECTED_CONTACTS_DIV.innerHTML += contactAvatarTemplate(
       index,
       contactInitials,
@@ -489,18 +538,16 @@ let subtasksArr = [];
 function clearSubtaskInput() {
   const SUBTASK_INPUT_REF = document.getElementById("subtask-input");
   SUBTASK_INPUT_REF.value = "";
+  SUBTASK_INPUT_REF.focus();
 }
 
 function addSubtask() {
   let subtaskInput = document.getElementById("subtask-input").value;
 
-  // if (event.key === "Enter" || event.type === "click") {
   if (subtaskInput.length > 0) {
     subtasksArr.push(subtaskInput);
     renderSubtasks();
   }
-  //   event.stopPropagation();
-  // }
 }
 
 function renderSubtasks() {
@@ -700,15 +747,26 @@ const defaultTasks = [
   },
 ];
 
-// async function putDefaultTasksToFirebase() {
-//   fetch(BASE_URL + "tasks" + "/default_task_5" + ".json", {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(defaultTasks[3]),
-//   });
-// }
+function getRandomContact() {
+  const randomContact =
+    contactsOptions[Math.floor(Math.random() * contactsOptions.length)];
+}
+
+async function putDefaultTasksToFirebase() {
+  const randomContact =
+    contactsOptions[Math.floor(Math.random() * contactsOptions.length)];
+
+  fetch(
+    BASE_URL + "tasks" + "/default_task_5" + "/assigned_contacts/0" + ".json",
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(contactsOptions[1]),
+    },
+  );
+}
 
 function clearTask() {
   let title = document.getElementById("task-title");
@@ -717,6 +775,7 @@ function clearTask() {
 
   title.value = "";
   description.value = "";
+  description.style.height = "";
   dueDate.value = "";
   priority = "medium";
   assignedContacts = [];
@@ -858,7 +917,12 @@ function subtaskLiWithInputTemplate(indexSubtask) {
           </li>`;
 }
 
-function contactOptionTemplate(indexContact, initials, checkboxChecked) {
+function contactOptionTemplate(
+  indexContact,
+  initials,
+  checkboxChecked,
+  contactName,
+) {
   return `<li
             id="contact-option-${indexContact}"
             data-index-contact="${indexContact}"
@@ -875,7 +939,7 @@ function contactOptionTemplate(indexContact, initials, checkboxChecked) {
               <div class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
                 <p class="contact-avatar--initials">${initials}</p>
               </div>
-              <p class="contact-full-name" id="contact-full-name">${filteredContacts[indexContact].name}</p>
+              <p class="contact-full-name" id="contact-full-name">${contactName}</p>
             </div>
             <div class="checkbox-container">
               <input

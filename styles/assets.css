@@ -281,11 +281,17 @@ button {
   transition: all 0.2s ease-in;
 }
 
-.button-blue:hover {
+.button-blue:hover,
+.button-blue:focus-visible {
   background-color: var(--light-blue);
   border: 1px solid transparent;
+  outline: none;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease-in;
+}
+
+.button-blue:active {
+  background-color: var(--darkest-blue);
 }
 
 .button-white {
@@ -296,7 +302,8 @@ button {
   transition: box-shadow 0.2s ease-in;
 }
 
-.button-white:hover {
+.button-white:hover,
+.button-white:focus-visible {
   border: 1px solid var(--light-blue);
   outline: 1px solid var(--light-blue);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);

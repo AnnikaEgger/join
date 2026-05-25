@@ -202,6 +202,10 @@ label {
   background-position: right 16px center; */
 }
 
+.custom-select-input--date {
+  margin-bottom: 32px;
+}
+
 .task-date-input {
   /* background-image: url("../assets/icons/calendar.svg");
   background-repeat: no-repeat;
@@ -272,10 +276,6 @@ input[type="checkbox"] {
   padding: 8px 16px;
 }
 
-/* input[type="checkbox"]:focus-visible {
-  background-color: var(--light-gray2);
-} */
-
 .search-contact-input::placeholder {
   color: black;
 }
@@ -293,15 +293,6 @@ input[type="checkbox"] {
 
 .custom-select {
   width: var(--input-width);
-}
-
-.custom-select--contacts {
-  margin-bottom: 10px;
-}
-
-.custom-select-options::-webkit-scrollbar {
-  /* background-color: red; */
-  /* margin: 10px 0px; */
 }
 
 .custom-select-options {
@@ -340,10 +331,22 @@ input[type="checkbox"] {
   flex: 1;
 }
 
+.custom-select--option {
+  color: black;
+}
+
+#selected-category {
+  color: black;
+}
+
 .selected-contacts {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.selected-contacts:has(.contact-avatar) {
+  margin-top: 10px;
 }
 
 .display-none {
@@ -372,6 +375,37 @@ input[type="checkbox"] {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 11V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17V7C4 5.34315 5.34315 4 7 4H15' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M8 12L12 16L20 4.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     no-repeat center;
 }
+
+/* #region scrollbar */
+
+.custom-select-options--contacts {
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #a8a8a8;
+  --sb-size: 24px;
+}
+
+.custom-select-options--contacts::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.custom-select-options--contacts::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 14px;
+}
+
+.custom-select-options--contacts::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 14px;
+  border: 8px solid #ffffff;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .custom-select-options--contacts {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+/* #endregion */
 
 /* #endregion */
 
