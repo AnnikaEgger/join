@@ -61,9 +61,9 @@ function fillTasksArray(tasksObj) {
  * @param {*} - No parameters are required for this function as it relies on the global `todos` array and the search input value to update the HTML content of the board.
  */
 function updateHTML() {
-    renderCategory('to do', 'toDo', 'No tasks To do');
-    renderCategory('in progress', 'inProgress', 'No tasks in progress');
-    renderCategory('await feedback', 'awaitFeedback', 'No tasks awaiting feedback');
+    renderCategory('to do', 'to do', 'No tasks To do');
+    renderCategory('in progress', 'in progress', 'No tasks in progress');
+    renderCategory('await feedback', 'await feedback', 'No tasks awaiting feedback');
     renderCategory('done', 'done', 'No tasks done');
 }
 
@@ -129,6 +129,7 @@ function generateProgressBarHTML(todo) {
 
 /**
  * Generates HTML badges for assigned contacts (max 4, 5th becomes +X).
+ * 
  * @param {Object} todo - The current todo object from Firebase.
  * @return {string} The HTML string containing all profile badges.
  */
@@ -211,33 +212,118 @@ function filterTasks() {
     updateHTML();
 }
 
+let touchTimeout;
+let isLongPress = false;
+let startX, startY;
+
 /**
- * Starts dragging a task and adds a visual effect to indicate that the task is being dragged.
+ * Handles the start of a touch event, preparing for a long press detection.
  * 
- * @param {parameter} event - The drag event.
+ * @param {parameter} event - The touch event.
  * @param {parameter} id - The ID of the task to drag.
  */
 function startDragging(event, id) {
     currentDraggedElement = id;
-    event.target.classList.add('dragging');
+    let card = event.target.closest('.card');
+    if (event.type === 'touchstart') {
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        isLongPress = false;
+        touchTimeout = setTimeout(() => {
+            isLongPress = true;
+            if (card) { card.classList.add('dragging'); card.style.pointerEvents = 'none'; }
+            if (navigator.vibrate) navigator.vibrate(50);
+        }, 200);
+    } else if (card) {
+        card.classList.add('dragging');
+    }
 }
 
 /**
- * Stops dragging a task and removes the visual effect.
+ * Allows a drop effect during native HTML5 desktop drag and drop operations.
  * 
- * @param {parameter} event - The drag event.
- */
-function stopDragging(event) {
-    event.target.classList.remove('dragging');
-}
-
-/**
- * Allows dropping of a dragged element.
- * 
- * @param {parameter} ev - The drag event.
+ * @param {parameter} ev - The drag over event.
  */
 function allowDrop(ev) {
     ev.preventDefault();
+}
+
+/**
+ * Moves the card with the finger and handles automatic page scrolling and column highlighting.
+ * 
+ * @param {parameter} event - The touch move event.
+ */
+function handleTouchMove(event) {
+    let touch = event.touches ? event.touches[0] : null;
+    if (!isLongPress || !touch) {
+        if (touch && (Math.abs(touch.clientX - startX) > 10 || Math.abs(touch.clientY - startY) > 10)) {
+            clearTimeout(touchTimeout);
+        }
+        return;
+    }
+    event.preventDefault();
+    let card = event.target.closest('.card');
+    if (card) {
+        card.style.position = 'fixed';
+        card.style.left = `${touch.clientX - (card.offsetWidth / 2)}px`;
+        card.style.top = `${touch.clientY - (card.offsetHeight / 2)}px`;
+        checkAutoScroll(touch.clientY);
+        handleMobileHighlight(touch.clientX, touch.clientY);
+    }
+}
+
+/**
+ * Manually highlights the column container under the user's finger on mobile devices.
+ * 
+ * @param {number} x - The current horizontal position of the finger.
+ * @param {number} y - The current vertical position of the finger.
+ */
+function handleMobileHighlight(x, y) {
+    let element = document.elementFromPoint(x, y);
+    let currentContainer = element ? element.closest('.card-container') : null;
+
+    document.querySelectorAll('.card-container').forEach(c => c.classList.remove('drag-area-highlight'));
+
+    if (currentContainer && currentContainer.id) {
+        currentContainer.classList.add('drag-area-highlight');
+    }
+}
+
+/**
+ * Automatically scrolls the window when the finger is near the top or bottom edge.
+ * 
+ * @param {number} clientY - The current vertical position of the finger.
+ */
+function checkAutoScroll(clientY) {
+    let speed = 90;
+    let threshold = 100;
+
+    if (clientY < threshold) {
+        window.scrollBy(0, -speed);
+    } else if (clientY > (window.innerHeight - threshold)) {
+        window.scrollBy(0, speed);
+    }
+}
+
+/**
+ * Handles the end of a touch event and triggers the drop logic.
+ * 
+ * @param {parameter} event - The touch end event.
+ */
+function stopDragging(event) {
+    clearTimeout(touchTimeout);
+    document.querySelectorAll('.card-container').forEach(c => c.classList.remove('drag-area-highlight'));
+
+    event.target.classList.remove('dragging');
+    let card = event.target.closest('.card');
+    if (card) card.style.position = '';
+
+    if (event.type === 'touchend' && isLongPress) {
+        let touch = event.changedTouches[0];
+        let element = document.elementFromPoint(touch.clientX, touch.clientY);
+        let columnContainer = element ? element.closest('.card-container') : null;
+        if (columnContainer) moveTo(columnContainer.id);
+    }
 }
 
 /**

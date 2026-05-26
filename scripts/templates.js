@@ -4,7 +4,12 @@ function generateTodoHTML(todo, catColor) {
     let badgesHTML = generateAssignedBadgesHTML(todo);
     let prioIconHTML = getPrioIconHTML(todo);
 
-    return `<div draggable="true" aria-label="Draggable todo item" tabindex="0" ontouchstart="startDragging(event, '${todo['id']}')" ontouchend="stopDragging(event)" ondragstart="startDragging(event, '${todo['id']}')" ondragend="stopDragging(event)" class="card">
+    return `<div draggable="true" aria-label="Draggable todo item" tabindex="0" 
+                ontouchstart="startDragging(event, '${todo['id']}')" 
+                ontouchmove="handleTouchMove(event)" 
+                ontouchend="stopDragging(event)" 
+                ondragstart="startDragging(event, '${todo['id']}')" 
+                ondragend="stopDragging(event)" class="card">
                 <span class="category-field" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
                 <h3 class="card-text">${todo['title']}</h3>
                 <p>${todo['description']}</p>

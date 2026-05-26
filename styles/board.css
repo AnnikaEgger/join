@@ -156,6 +156,16 @@ hr {
     padding: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    touch-action: auto;
+}
+
+.card.dragging {
+    z-index: 9999 !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.empty-card-container, .empty-card-container p {
+    pointer-events: none;
 }
 
 .profile-badge-plus {
