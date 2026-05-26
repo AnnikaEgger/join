@@ -131,7 +131,7 @@ function generateAssignedBadgesHTML(todo) {
     let extraCount = contactsList.length - 4;
 
     let html = renderedContacts.map(name => {
-        let initials = getInitials(name);
+        let initials = getTaskInitials(name);
         let color = getContactColor(name);
         return generateSingleBadgeHTML(initials, color);
     }).join('');
@@ -146,7 +146,7 @@ function generateAssignedBadgesHTML(todo) {
  * @param {string} name - Full name of the contact.
  * @return {string} Initials (e.g. "MM").
  */
-function getInitials(name) {
+function getTaskInitials(name) {
     let words = name.trim().split(' ');
     let first = words[0] ? words[0].charAt(0).toUpperCase() : '';
     let last = words[1] ? words[1].charAt(0).toUpperCase() : '';
