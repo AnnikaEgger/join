@@ -24,14 +24,15 @@ async function init() {
 
   disablePastDates();
 
-  filteredContacts = contactsOptions;
   renderSelectedCategory();
   renderPriority();
 
   await getContacts();
+  filteredContacts = contactsOptions;
+
   renderContactOptions();
 
-  await putDefaultTasksToFirebase();
+  // await putDefaultTasksToFirebase();
 
   await getCategories();
   renderCategories();
@@ -90,12 +91,14 @@ async function init() {
     // check if the element is an html element
     if (!(el instanceof HTMLElement)) return;
     if (el.tagName === "BUTTON") return;
+    if (el.tagName === "TEXTAREA") return;
     // if (el.classList.contains(".display-none")) return;
 
     if (
-      (el.tagName === "INPUT" || el.tagName === "TEXTAREA") &&
+      el.tagName === "INPUT" &&
       el.id !== "search-contact-input" &&
-      el.id !== "subtask-input"
+      el.id !== "subtask-input" &&
+      !el.id.startsWith("li-input")
     ) {
       el.blur();
     }
@@ -184,8 +187,12 @@ async function init() {
 
   CONTACTS_DROPDOWN.addEventListener("focusout", (event) => {
     const nextFocused = event.relatedTarget;
+    const CONTACT_INPUT = document.getElementById("search-contact-input");
 
     if (!CONTACTS_DROPDOWN.contains(nextFocused)) {
+      CONTACT_INPUT.value = "";
+      let inputValue = CONTACT_INPUT.value;
+      filterContacts(inputValue);
       closeCustomSelectDropdown("contacts");
     }
   });
@@ -211,6 +218,10 @@ function closeCustomSelectDropdown(selectName) {
 function toggleCustomSelectDropdown(selectName) {
   let options = document.getElementById("select-options" + "--" + selectName);
   let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+
+  if (selectName === "contacts" && options.classList.contains("display-none")) {
+    renderContactOptions();
+  }
 
   options.classList.toggle("display-none");
   if (options.classList.contains("display-none")) {
@@ -326,11 +337,13 @@ function selectContact(indexContact, contactId, clickViaCheckbox) {
   renderAssignedContacts();
 }
 
-async function renderContactOptions() {
+async function renderContactOptions(filtered) {
   let optionsContainer = document.getElementById("select-options--contacts");
 
   filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
-  renderCurrentUser();
+  if (!filtered) {
+    renderCurrentUser();
+  }
 
   optionsContainer.innerHTML = "";
   for (
@@ -385,6 +398,16 @@ function renderCurrentUser() {
   console.log(user);
 
   if (user.name === "Guest" || user.name === null) return;
+
+  const alreadyExists = filteredContacts.some(
+    (contact) => contact.name === user.name,
+  );
+  if (alreadyExists) {
+    const indexUser = filteredContacts.findIndex(
+      (element) => element.name === user.name,
+    );
+    filteredContacts.splice(indexUser, 1);
+  }
 
   filteredContacts.unshift(user);
 }
@@ -454,7 +477,7 @@ function filterContacts1() {
     "search-contact-input",
   ).value;
   filterContacts(searchContactsInput);
-  renderContactOptions();
+  renderContactOptions(true);
 }
 
 function filterContacts(inputValue) {
@@ -561,7 +584,7 @@ function renderSubtasks() {
 
     registerEnterHandler(
       "#subtask-li-" + index,
-      registerEnterHandlerHelpFunction(index, editSubtask),
+      registerEnterHandlerHelpFunction(index, openSubtaskEdit),
     );
   }
 
@@ -576,11 +599,11 @@ function renderSingleSubtask(indexSubtask) {
 
   registerEnterHandler(
     "#subtask-li-" + indexSubtask,
-    registerEnterHandlerHelpFunction(indexSubtask, editSubtask),
+    registerEnterHandlerHelpFunction(indexSubtask, openSubtaskEdit),
   );
 }
 
-function editSubtask(indexSubtask) {
+function openSubtaskEdit(indexSubtask) {
   let li = document.getElementById("subtask-li-" + indexSubtask);
 
   li.outerHTML = subtaskLiWithInputTemplate(indexSubtask);
@@ -642,8 +665,6 @@ function deleteSubtask(indexSubtask) {
 // #endregion
 
 // #region add task
-let tasks = [];
-// let column = "to do";
 
 async function addTask(column) {
   let title = document.getElementById("task-title");
@@ -652,6 +673,9 @@ async function addTask(column) {
   let form = document.getElementById("task-form");
 
   if (form.checkValidity() && selectedCategory !== "Select task category") {
+    //  prevent default submit (page reload)
+    event.preventDefault();
+
     let task = {
       title: title.value,
       description: description.value,
@@ -663,110 +687,117 @@ async function addTask(column) {
       column: column,
     };
 
-    console.log(task);
-
     await postTaskToFirebase(task);
-    console.log(tasks);
 
-    clearTask();
+    showAddtaskToastMsg();
+    setTimeout(function () {
+      console.log("redirect started");
+
+      window.location.href = "../html/board.html";
+      clearTask();
+    }, 3000);
   }
 }
 
+function showAddtaskToastMsg() {
+  let toastMsg = document.getElementById("addtask-toast-msg");
+
+  toastMsg.classList.add("display-toast-msg");
+  setTimeout(() => {
+    toastMsg.classList.remove("display-toast-msg");
+  }, 3000);
+}
+
 async function postTaskToFirebase(task) {
-  let response = await fetch(BASE_URL + "tasks" + ".json", {
+  let response = await fetch(BASE_URL + "tasks.json", {
     method: "POST",
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(task),
   });
 
-  return (responseToJson = await response.json());
+  return await response.json();
 }
 
-const defaultTasks = [
-  {
-    title: "Implement User Authentication System",
-    description:
-      "Develop a secure authentication workflow including login, registration, and session handling.",
-    due_date: "2026-05-28",
-    priority: "urgent",
-    assigned_contacts: ["John Miller"],
-    category: "technical task",
-    subtasks: [
-      "Create login endpoint",
-      "Implement JWT authentication",
-      "Add password hashing",
-      "Handle authentication errors",
-    ],
-  },
-  {
-    title: "Create Responsive Dashboard Layout",
-    description:
-      "Design and implement a responsive dashboard interface optimized for desktop and mobile devices.",
-    due_date: "2026-05-25",
-    priority: "medium",
-    assigned_contacts: ["Emma Johnson"],
-    category: "user story",
-    subtasks: [
-      "Create dashboard structure",
-      "Implement responsive grid layout",
-      "Add sidebar navigation",
-      "Optimize mobile spacing",
-    ],
-  },
-  {
-    title: "Add Drag-and-Drop Task Management",
-    description:
-      "Enable users to move tasks between Kanban columns using drag-and-drop interactions.",
-    due_date: "2026-05-30",
-    priority: "medium",
-    assigned_contacts: ["Sophia Williams"],
-    category: "user story",
-    subtasks: [
-      "Integrate drag-and-drop library",
-      "Handle task position updates",
-      "Persist changes in backend",
-      "Add visual feedback animations",
-    ],
-  },
-  {
-    title: "Optimize Application Performance",
-    description:
-      "Improve frontend and backend performance to reduce loading times and enhance user experience.",
-    due_date: "2026-06-03",
-    priority: "low",
-    assigned_contacts: ["Daniel Garcia"],
-    category: "technical task",
-    subtasks: [
-      "Optimize API requests",
-      "Reduce unnecessary re-renders",
-      "Compress static assets",
-      "Analyze Lighthouse performance score",
-    ],
-  },
-];
+// const defaultTasks = [
+//   {
+//     title: "Implement User Authentication System",
+//     description:
+//       "Develop a secure authentication workflow including login, registration, and session handling.",
+//     due_date: "2026-05-28",
+//     priority: "urgent",
+//     assigned_contacts: ["John Miller"],
+//     category: "technical task",
+//     subtasks: [
+//       "Create login endpoint",
+//       "Implement JWT authentication",
+//       "Add password hashing",
+//       "Handle authentication errors",
+//     ],
+//   },
+//   {
+//     title: "Create Responsive Dashboard Layout",
+//     description:
+//       "Design and implement a responsive dashboard interface optimized for desktop and mobile devices.",
+//     due_date: "2026-05-25",
+//     priority: "medium",
+//     assigned_contacts: ["Emma Johnson"],
+//     category: "user story",
+//     subtasks: [
+//       "Create dashboard structure",
+//       "Implement responsive grid layout",
+//       "Add sidebar navigation",
+//       "Optimize mobile spacing",
+//     ],
+//   },
+//   {
+//     title: "Add Drag-and-Drop Task Management",
+//     description:
+//       "Enable users to move tasks between Kanban columns using drag-and-drop interactions.",
+//     due_date: "2026-05-30",
+//     priority: "medium",
+//     assigned_contacts: ["Sophia Williams"],
+//     category: "user story",
+//     subtasks: [
+//       "Integrate drag-and-drop library",
+//       "Handle task position updates",
+//       "Persist changes in backend",
+//       "Add visual feedback animations",
+//     ],
+//   },
+//   {
+//     title: "Optimize Application Performance",
+//     description:
+//       "Improve frontend and backend performance to reduce loading times and enhance user experience.",
+//     due_date: "2026-06-03",
+//     priority: "low",
+//     assigned_contacts: ["Daniel Garcia"],
+//     category: "technical task",
+//     subtasks: [
+//       "Optimize API requests",
+//       "Reduce unnecessary re-renders",
+//       "Compress static assets",
+//       "Analyze Lighthouse performance score",
+//     ],
+//   },
+// ];
 
-function getRandomContact() {
-  const randomContact =
-    contactsOptions[Math.floor(Math.random() * contactsOptions.length)];
-}
+// async function putDefaultTasksToFirebase() {
+//   const randomContact =
+//     contactsOptions[Math.floor(Math.random() * contactsOptions.length)];
 
-async function putDefaultTasksToFirebase() {
-  const randomContact =
-    contactsOptions[Math.floor(Math.random() * contactsOptions.length)];
-
-  fetch(
-    BASE_URL + "tasks" + "/default_task_5" + "/assigned_contacts/0" + ".json",
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(contactsOptions[1]),
-    },
-  );
-}
+//   fetch(
+//     BASE_URL + "tasks" + "/default_task_5" + "/assigned_contacts/0" + ".json",
+//     {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(contactsOptions[1]),
+//     },
+//   );
+// }
 
 function clearTask() {
   let title = document.getElementById("task-title");
@@ -817,7 +848,7 @@ function checkInputValidity(inputType) {
 function subtaskLiTemplate(subtaskText, indexSubtask) {
   return `<li id="${"subtask-li-" + indexSubtask}" class="normal-li" tabindex="0" 
               data-index-subtask="${indexSubtask}"
-                ondblclick="editSubtask(${indexSubtask})"
+                ondblclick="openSubtaskEdit(${indexSubtask})"
               >
             <p class="normal-li-p" id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
             <div
@@ -826,7 +857,7 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
               <button
                 type="button"
                 class="subtask-btn-left normal-li-edit-btn"
-                onclick="editSubtask(${indexSubtask})"
+                onclick="openSubtaskEdit(${indexSubtask})"
                 aria-label="edit subtask"
               >
                 <svg

@@ -106,7 +106,7 @@
         <h1 id="add-task-headline">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
-          onsubmit="addTask('to-do')"
+          onsubmit="addTask('to do')"
           id="task-form"
           class="task-form"
           novalidate
@@ -282,7 +282,6 @@
                     <button
                       type="button"
                       aria-label="Open contact selection"
-                      onclick="toggleCustomSelectDropdown('contacts')"
                       class="custom-select--trigger--img-container"
                     >
                       <img
@@ -469,6 +468,11 @@
             </div>
           </div>
         </form>
+      </div>
+
+      <div id="addtask-toast-msg" class="addtask-toast-msg">
+        <p>Task added to board</p>
+        <img src="../assets/icons/board-icon-white.svg" alt="Board icon" />
       </div>
     </main>
   </body>

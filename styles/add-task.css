@@ -1,5 +1,6 @@
 :root {
   --textarea-height: 120px;
+  --transition-default: all 100ms ease-in-out;
 }
 
 .main-content {
@@ -108,6 +109,12 @@ label {
   transition: box-shadow 0.2s ease-in;
 }
 
+.prio-btn:focus-visible {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease-in;
+  outline: 1px solid black;
+}
+
 .urgent-active,
 .medium-active,
 .low-active {
@@ -182,7 +189,7 @@ label {
 .add-task-bottom-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   padding: 16px;
 }
 
@@ -233,6 +240,7 @@ label {
 
 .calendar-svg-btn:focus-visible {
   background-color: var(--light-gray2);
+  outline: none;
 }
 
 .task-date-input::-webkit-calendar-picker-indicator {
@@ -454,6 +462,11 @@ input[type="checkbox"] {
   background-color: #eeeeee;
 }
 
+.subtask-btns-container button:focus-visible {
+  background-color: var(--light-gray2);
+  outline: none;
+}
+
 .subtask-btns-seperation-line {
   width: 2px;
   height: 20px;
@@ -465,7 +478,8 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.subtask-btns-container--ul button:hover {
+.subtask-btns-container--ul button:hover,
+.subtask-btns-container--ul button:focus-visible {
   transform: scale(1.05);
 }
 
@@ -494,10 +508,10 @@ input[type="checkbox"] {
   transition: all 100ms ease-out;
 }
 
-.subtask-list .normal-li:focus-visible,
+/* .subtask-list .normal-li:focus-visible,
 .subtask-list .normal-li:focus-within {
   background-color: #eeeeee;
-}
+} */
 
 .subtask-list .li-with-input:focus-visible {
   outline: none;
@@ -523,26 +537,52 @@ input[type="checkbox"] {
   display: none;
 }
 
-.subtask-list .normal-li:hover {
+.subtask-list .normal-li:hover,
+.subtask-list .normal-li:focus-visible,
+.subtask-list .normal-li:focus-within {
   background-color: #eeeeee;
   transition: all 100ms ease-out;
+  outline: none;
 }
 
 /* subtasks hover/ focus effekt fixen */
 
 .subtask-list .normal-li:hover .subtask-btns-container--ul,
-/* focus-visible und focus-within gleichzeitig? */
 .subtask-list .normal-li:focus-visible .subtask-btns-container--ul,
-
-.subtask-list
-  .normal-li:focus-within
-  .subtask-btns-container--ul {
+.subtask-list .normal-li:focus-within .subtask-btns-container--ul {
   display: flex;
 }
 
 .subtask-list p {
   font-size: 16px;
   color: black;
+}
+
+/* #endregion */
+
+/* #region toast message */
+
+.addtask-toast-msg {
+  position: fixed;
+  top: calc(50dvh - 74px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 325px;
+  height: 74px;
+  gap: 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 20px;
+  background-color: var(--dark-blue);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  transform: translateY(100dvh);
+  transition: var(--transition-default);
+}
+
+.display-toast-msg {
+  transform: translateY(0);
+  transition: var(--transition-default);
 }
 
 /* #endregion */
@@ -657,6 +697,10 @@ input[type="checkbox"] {
 
   .p-required {
     position: unset;
+  }
+
+  .subtask-list .normal-li .subtask-btns-container--ul {
+    display: flex;
   }
 }
 

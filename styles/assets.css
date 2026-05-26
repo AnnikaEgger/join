@@ -95,8 +95,8 @@ select:invalid:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Crect x='1' y='1' width='16' height='16' rx='3' stroke='%232A3647' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
@@ -185,8 +185,10 @@ input[type="checkbox"] {
   background-color: var(--light-gray2);
 }
 
-.custom-select--trigger--img-container:hover {
+.custom-select--trigger--img-container:hover,
+.custom-select--trigger--img-container:focus-visible {
   background-color: var(--light-gray2);
+  outline: none;
 }
 
 .custom-select-options {
@@ -296,7 +298,7 @@ button {
 
 .button-white {
   color: var(--dark-blue);
-  background-color: white;
+  background-color: transparent;
   border: 1px solid var(--dark-blue);
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
   transition: box-shadow 0.2s ease-in;
@@ -306,20 +308,16 @@ button {
 .button-white:focus-visible {
   border: 1px solid var(--light-blue);
   outline: 1px solid var(--light-blue);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: box-shadow 0.2s ease-in;
 }
 
-/* .button-white:active {
-  color: white;
-  background-color: var(--dark-blue);
-  border: 1px solid transparent;
+.button-white:active {
+  border: 1px solid var(--dark-blue);
+  outline: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.2s ease-in;
 }
-
-.button-white:active path {
-  fill: white;
-  stroke: white;
-} */
 
 /* #endregion */
 
