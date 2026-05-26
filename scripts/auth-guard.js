@@ -1,7 +1,7 @@
 /**
- * Page Protection: Prüft beim Laden der Seite ob ein User
- * in localStorage existiert. Wenn nicht, Redirect zur Login-Seite.
- * Wird als IIFE automatisch beim Script-Load ausgeführt.
+ * Page Protection: Checks upon page load whether a user exists
+ * in localStorage. If not, redirects to the login page.
+ * Executed automatically as an IIFE during script load.
  */
 (function guardPage() {
     const stored = localStorage.getItem("currentUser");

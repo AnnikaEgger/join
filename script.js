@@ -1,21 +1,8 @@
-/**
- * Loggt den User als Gast ein.
- * Speichert ein Gast-Objekt in localStorage und leitet zur Summary weiter.
- */
-function guestLogin() {
-    const guestUser = {
-        isGuest: true,
-        name: "Guest"
-    };
-
-    localStorage.setItem("currentUser", JSON.stringify(guestUser));
-    window.location.href = "./html/summary.html";
-}
 const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
 
 /**
- * Loggt den User als Gast ein.
- * Speichert ein Gast-Objekt in localStorage und leitet zur Summary weiter.
+ * Logs the user in as a guest.
+ * Stores a guest object in localStorage and redirects to the summary page.
  */
 function guestLogin() {
     const guestUser = {
@@ -29,8 +16,8 @@ function guestLogin() {
 
 
 /**
- * Initialisiert die Login-Seite.
- * Verknüpft Event-Listener auf Inputs und Submit-Button.
+ * Initializes the login page.
+ * Attaches event listeners to the inputs and the submit button.
  */
 function initLogin() {
     const form = document.getElementById("login-form");
@@ -46,7 +33,7 @@ function initLogin() {
 
 
 /**
- * Löscht alle Fehlermeldungen auf der Login-Seite.
+ * Clears all error messages on the login page.
  */
 function clearAllLoginErrors() {
     clearError("error-login-email");
@@ -56,8 +43,8 @@ function clearAllLoginErrors() {
 
 
 /**
- * Validiert die Login-Felder.
- * @returns {boolean} true wenn beide Felder gültig sind
+ * Validates the login form fields.
+ * @returns {boolean} True if both fields are valid.
  */
 function validateLoginForm() {
     const email = document.getElementById("login-email").value.trim();
@@ -71,9 +58,9 @@ function validateLoginForm() {
 
 
 /**
- * Prüft die Login-Email auf Format.
- * @param {string} email - Eingegebene Email
- * @returns {boolean} true wenn gültig
+ * Validates the format of the login email.
+ * @param {string} email - The entered email address.
+ * @returns {boolean} True if the email format is valid.
  */
 function checkLoginEmail(email) {
     if (email.length === 0) {
@@ -89,9 +76,9 @@ function checkLoginEmail(email) {
 
 
 /**
- * Prüft das Login-Passwort.
- * @param {string} password - Eingegebenes Passwort
- * @returns {boolean} true wenn nicht leer
+ * Validates the login password.
+ * @param {string} password - The entered password.
+ * @returns {boolean} True if the password is not empty.
  */
 function checkLoginPassword(password) {
     if (password.length === 0) {
@@ -103,9 +90,9 @@ function checkLoginPassword(password) {
 
 
 /**
- * Zeigt eine Fehlermeldung unter dem Input an.
- * @param {string} errorId - ID des Error-Spans
- * @param {string} message - Anzuzeigender Text
+ * Displays an error message below the input field.
+ * @param {string} errorId - The ID of the error span element.
+ * @param {string} message - The text message to display.
  */
 function showError(errorId, message) {
     document.getElementById(errorId).textContent = message;
@@ -113,8 +100,8 @@ function showError(errorId, message) {
 
 
 /**
- * Entfernt eine Fehlermeldung.
- * @param {string} errorId - ID des Error-Spans
+ * Removes a specific error message.
+ * @param {string} errorId - The ID of the error span element.
  */
 function clearError(errorId) {
     document.getElementById(errorId).textContent = "";
@@ -122,9 +109,9 @@ function clearError(errorId) {
 
 
 /**
- * Verarbeitet den Login-Submit: validiert, lädt User aus Firebase,
- * matcht Email+Passwort und leitet bei Erfolg zur Summary weiter.
- * @param {Event} event - Submit-Event vom Form
+ * Handles the login form submission: validates inputs, loads users from Firebase,
+ * matches the email and password, and redirects to the summary page upon success.
+ * @param {Event} event - The submit event from the form.
  */
 async function handleLogin(event) {
     event.preventDefault();
@@ -146,8 +133,8 @@ async function handleLogin(event) {
 
 
 /**
- * Lädt alle User aus Firebase.
- * @returns {Promise<Array>} Array aller User oder leeres Array
+ * Loads all users from Firebase.
+ * @returns {Promise<Array>} A promise that resolves to an array of all users or an empty array.
  */
 async function loadAllUsers() {
     const response = await fetch(BASE_URL + "/users.json");
@@ -158,11 +145,11 @@ async function loadAllUsers() {
 
 
 /**
- * Sucht einen User mit passender Email und Passwort.
- * @param {string} email - Eingegebene Email
- * @param {string} password - Eingegebenes Passwort
- * @param {Array} users - Array aller User
- * @returns {Object|undefined} Gefundener User oder undefined
+ * Searches for a user with a matching email and password.
+ * @param {string} email - The entered email address.
+ * @param {string} password - The entered password.
+ * @param {Array} users - The array containing all users.
+ * @returns {Object|undefined} The matched user object, or undefined if no match is found.
  */
 function findMatchingUser(email, password, users) {
     return users.find(user =>
@@ -172,9 +159,9 @@ function findMatchingUser(email, password, users) {
 
 
 /**
- * Speichert den eingeloggten User in localStorage.
- * Passwort wird aus Sicherheitsgründen NICHT gespeichert.
- * @param {Object} user - User-Objekt aus Firebase
+ * Saves the currently logged-in user data to localStorage.
+ * Note: The password is NOT stored for security reasons.
+ * @param {Object} user - The user object retrieved from Firebase.
  */
 function saveCurrentUser(user) {
     const userData = {

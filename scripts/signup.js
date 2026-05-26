@@ -7,8 +7,8 @@ const AVATAR_COLORS = [
 
 
 /**
- * Initialisiert die Sign-up-Seite.
- * Verknüpft Event-Listener auf Inputs und Submit-Button.
+ * Initializes the sign-up page.
+ * Attaches event listeners to the inputs and the submit button.
  */
 function initSignup() {
     const inputs = document.querySelectorAll("#signup-form input");
@@ -22,7 +22,7 @@ function initSignup() {
 
 
 /**
- * Prüft alle Felder und aktiviert/deaktiviert den Submit-Button.
+ * Validates all fields and enables or disables the submit button.
  */
 function validateForm() {
     const name = document.getElementById("signup-name").value.trim();
@@ -42,9 +42,9 @@ function validateForm() {
 
 
 /**
- * Prüft ob der Name nicht leer ist.
- * @param {string} name - Eingegebener Name
- * @returns {boolean} true wenn gültig
+ * Validates that the name field is not empty.
+ * @param {string} name - The entered name.
+ * @returns {boolean} True if the name is valid.
  */
 function checkName(name) {
     if (name.length === 0) {
@@ -57,9 +57,9 @@ function checkName(name) {
 
 
 /**
- * Prüft ob die Email gültig ist (enthält @ und .).
- * @param {string} email - Eingegebene Email
- * @returns {boolean} true wenn gültig
+ * Validates that the email is valid (contains @ and .).
+ * @param {string} email - The entered email address.
+ * @returns {boolean} True if the email format is valid.
  */
 function checkEmail(email) {
     if (email.length === 0) {
@@ -76,9 +76,9 @@ function checkEmail(email) {
 
 
 /**
- * Prüft ob das Passwort mindestens 6 Zeichen hat.
- * @param {string} password - Eingegebenes Passwort
- * @returns {boolean} true wenn gültig
+ * Validates that the password has at least 6 characters.
+ * @param {string} password - The entered password.
+ * @returns {boolean} True if the password is valid.
  */
 function checkPassword(password) {
     if (password.length === 0) {
@@ -95,10 +95,10 @@ function checkPassword(password) {
 
 
 /**
- * Prüft ob die beiden Passwörter übereinstimmen.
- * @param {string} password - Passwort
- * @param {string} confirm - Bestätigtes Passwort
- * @returns {boolean} true wenn übereinstimmend
+ * Validates that both passwords match.
+ * @param {string} password - The original password.
+ * @param {string} confirm - The confirmed password.
+ * @returns {boolean} True if both passwords match.
  */
 function checkConfirmPassword(password, confirm) {
     if (confirm.length === 0) {
@@ -115,9 +115,9 @@ function checkConfirmPassword(password, confirm) {
 
 
 /**
- * Zeigt eine Fehlermeldung unter dem Input an.
- * @param {string} errorId - ID des Error-Spans
- * @param {string} message - Anzuzeigender Text
+ * Displays an error message below the input field.
+ * @param {string} errorId - The ID of the error span element.
+ * @param {string} message - The text message to display.
  */
 function showError(errorId, message) {
     document.getElementById(errorId).textContent = message;
@@ -125,8 +125,8 @@ function showError(errorId, message) {
 
 
 /**
- * Entfernt eine Fehlermeldung.
- * @param {string} errorId - ID des Error-Spans
+ * Removes a specific error message.
+ * @param {string} errorId - The ID of the error span element.
  */
 function clearError(errorId) {
     document.getElementById(errorId).textContent = "";
@@ -134,9 +134,9 @@ function clearError(errorId) {
 
 
 /**
- * Verarbeitet den Submit: prüft Email-Duplikat, speichert User,
- * zeigt Toast und leitet zur Login-Seite weiter.
- * @param {Event} event - Submit-Event vom Form
+ * Handles the form submission: checks for duplicate emails, stores the user,
+ * displays a success toast, and redirects to the login page.
+ * @param {Event} event - The submit event from the form.
  */
 async function handleSignup(event) {
     event.preventDefault();
@@ -160,8 +160,8 @@ async function handleSignup(event) {
 
 
 /**
- * Sammelt alle Form-Daten in ein User-Objekt.
- * @returns {Object} User-Objekt mit name, email, password, color
+ * Collects all form inputs into a single user data object.
+ * @returns {Object} User object containing name, email, password, and color.
  */
 function collectFormData() {
     return {
@@ -174,8 +174,8 @@ function collectFormData() {
 
 
 /**
- * Wählt eine zufällige Avatar-Farbe aus dem Pool.
- * @returns {string} Hex-Farbe als String
+ * Selects a random avatar background color from the predefined palette.
+ * @returns {string} The chosen color as a hex string.
  */
 function getRandomColor() {
     const index = Math.floor(Math.random() * AVATAR_COLORS.length);
@@ -184,9 +184,9 @@ function getRandomColor() {
 
 
 /**
- * Prüft ob eine Email bereits in Firebase existiert.
- * @param {string} email - Zu prüfende Email
- * @returns {Promise<boolean>} true wenn Email schon existiert
+ * Checks whether an email address is already registered in Firebase.
+ * @param {string} email - The email address to check.
+ * @returns {Promise<boolean>} A promise that resolves to true if the email exists.
  */
 async function checkEmailExists(email) {
     const response = await fetch(BASE_URL + "/users.json");
@@ -199,8 +199,8 @@ async function checkEmailExists(email) {
 
 
 /**
- * Speichert einen neuen User in Firebase.
- * @param {Object} user - User-Objekt
+ * Saves a new user record to Firebase.
+ * @param {Object} user - The user data object to be saved.
  */
 async function saveUser(user) {
     await fetch(BASE_URL + "/users.json", {
@@ -211,7 +211,7 @@ async function saveUser(user) {
 
 
 /**
- * Zeigt die Erfolgs-Toast-Meldung an.
+ * Displays the success toast notification.
  */
 function showSuccessToast() {
     const toast = document.getElementById("success-toast");
