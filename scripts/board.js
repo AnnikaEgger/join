@@ -23,6 +23,11 @@ let todos = [/* {
 
 let currentDraggedElement;
 
+/**
+ * Loads tasks from Firebase, fills the `todos` array, and updates the HTML to display the tasks on the board. This function is called when the board page is initialized to fetch the latest tasks and render them accordingly.
+ * 
+ * @param {*} - No parameters are required for this function as it directly interacts with the global `todos` array and updates the HTML content of the board.
+ */
 async function loadTasks() {
     todos = [];
     let response = await fetch("https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json");
@@ -34,6 +39,11 @@ async function loadTasks() {
     updateHTML();
 }
 
+/**
+ * Fills the `todos` array with tasks from the Firebase data.
+ * 
+ * @param {*} tasksObj - The object containing tasks from Firebase.
+ */
 function fillTasksArray(tasksObj) {
     let keys = Object.keys(tasksObj);
 
@@ -132,7 +142,7 @@ function generateAssignedBadgesHTML(todo) {
 
     let html = renderedContacts.map(name => {
         let initials = getTaskInitials(name);
-        let color = getContactColor(name);
+        let color = name.color || getContactColor(name);
         return generateSingleBadgeHTML(initials, color);
     }).join('');
 
@@ -147,7 +157,7 @@ function generateAssignedBadgesHTML(todo) {
  * @return {string} Initials (e.g. "MM").
  */
 function getTaskInitials(name) {
-    let words = name.trim().split(' ');
+    let words = name.name.trim().split(' ');
     let first = words[0] ? words[0].charAt(0).toUpperCase() : '';
     let last = words[1] ? words[1].charAt(0).toUpperCase() : '';
     return (first + last) || '?';
@@ -161,7 +171,7 @@ function getTaskInitials(name) {
  */
 function getContactColor(name) {
     let colors = ['#FF7A00', '#6E52FF', '#9327FF', '#00BEE8', '#FF745E', '#FFA800'];
-    let index = (name.charCodeAt(0) || 0) % colors.length;
+    let index = (name.name.charCodeAt(0) || 0) % colors.length;
     return colors[index];
 }
 
