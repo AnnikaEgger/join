@@ -8,7 +8,7 @@ function renderLetterHeader(letter) {
 
 function generateContactHTML(contact) {
     let initials = getInitials(contact.name);
-    
+
     return `
         <div id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
             <div class="contact-avatar" style="background-color: ${contact.color}">${initials}</div>
@@ -52,5 +52,22 @@ function generateDetailHTML(contact) {
             <b>Phone</b>
             <span>${contact.phone}</span>
         </div>
+
+        <div id="mobile-menu-container" class="mobile-menu-container" onclick="toggleMobileMenu()">
+            <div class="mobile-menu-popup" onclick="event.stopPropagation()">
+                <div class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')">
+                    <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
+                </div>
+                <div class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')">
+                    <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
+                </div>
+            </div>
+        </div>
+
+        <button id="mobile-menu-btn" class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </button>
     `;
 }

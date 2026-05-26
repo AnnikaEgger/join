@@ -1,4 +1,6 @@
-.add-contact-mobile-btn {
+.add-contact-mobile-btn
+.mobile-menu-btn,
+.mobile-menu-container {
     display: none;
 }
 
@@ -79,6 +81,96 @@
     .back-to-list-btn img {
         width: 24px;
         height: 24px;
+    }
+
+    .contact-detail-view .edit-delete-section {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        position: fixed;
+        bottom: 116px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        background-color: var(--dark-blue);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        padding: 12px;
+        cursor: pointer;
+        z-index: 6;
+        transition: background-color 0.1s ease-in-out, transform 0.1s;
+    }
+
+    .mobile-menu-btn:hover {
+        background-color: var(--light-blue);
+        border-color: var(--light-blue);
+    }
+
+    .mobile-menu-btn:active {
+        transform: scale(0.95);
+    }
+
+    .mobile-menu-btn .dot {
+        width: 4px;
+        height: 4px;
+        background-color: var(--color-white);
+        border-radius: 50%;
+    }
+
+    .mobile-menu-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease-in-out, visibility 0.2s;
+    }
+
+    .mobile-menu-container.show-menu {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-menu-popup {
+        background-color: var(--color-white);
+        width: 116px;
+        height: 100px;
+        border-radius: 20px 20px 0 20px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+        margin-right: 24px;
+        margin-bottom: 116px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px;
+        gap: 16px;
+        transform: translateY(20px);
+        transition: transform 0.2s ease-out;
+    }
+
+    .mobile-menu-container.show-menu .mobile-menu-popup {
+        transform: translateY(0);
+    }
+
+    .mobile-menu-popup .contact-action {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        color: var(--dark-blue);
     }
 
     .add-contact-dialog {

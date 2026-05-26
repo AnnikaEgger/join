@@ -93,6 +93,13 @@ function startDetailsAnimation() {
     }, 50);
 }
 
+function toggleMobileMenu() {
+    let menu = document.getElementById('mobile-menu-container');
+    if (menu) {
+        menu.classList.toggle('show-menu');
+    }
+}
+
 function highlightContact(id) {
     let allCards = document.getElementsByClassName('contact-item');
     for (let i = 0; i < allCards.length; i++) {
