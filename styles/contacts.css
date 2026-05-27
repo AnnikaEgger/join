@@ -13,7 +13,8 @@
     box-shadow: 4px 0 6px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    padding: 24px 24px 0 24px;
+    padding: 24px 0 0 24px;
+    overflow: hidden;
 }
 
 .add-contact-btn {
@@ -22,9 +23,9 @@
     border: none;
     border-radius: 10px;
     padding: 12px 0;
-    width: 100%;
+    width: calc(100% - 36px);
     max-width: 350px;
-    margin: 0 auto 32px auto;
+    margin: 0 0 32px 0;
     font-size: 20px;
     font-weight: 700;
     display: flex;
@@ -44,7 +45,8 @@
 .contact-list {
     overflow-y: auto; 
     flex-grow: 1;
-    margin-right: -24px; 
+    width: 100%;
+    margin-right: 0; 
     padding-right: 24px;
 }
 
@@ -60,10 +62,9 @@
 .letter-divider {
     height: 1px;
     background-color: var(--color-border);
-    margin: 8px 36px;
+    margin: 8px 0;
 }
 
-/* Einzelner Kontakt in der Liste */
 .contact-item {
     display: flex;
     align-items: center;
@@ -72,6 +73,7 @@
     cursor: pointer;
     border-radius: 10px;
     transition: var(--transition-default);
+    width: 100%;
 }
 
 .contact-item:hover {
@@ -113,7 +115,6 @@
     text-overflow: ellipsis;
 }
 
-/* --- RECHTER TEIL: Detail-Ansicht --- */
 .contact-detail-view {
     flex-grow: 1;
     background-color: var(--color-bg);
