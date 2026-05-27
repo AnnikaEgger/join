@@ -283,6 +283,7 @@ a {
   .sidebar-nav {
     width: 100%;
     flex-grow: 0;
+    z-index: 999 !important;
   }
 
   .nav-list {

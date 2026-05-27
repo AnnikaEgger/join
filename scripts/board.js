@@ -212,6 +212,96 @@ function filterTasks() {
     updateHTML();
 }
 
+/**
+ * Opens the task detail dialog and fills it with the dynamic Firebase data.
+ * 
+ * @param {parameter} id - The ID of the task to display in the dialog, used to find the corresponding task in the `todos` array and populate the dialog with its details.
+ */
+function openTaskDialog(id) {
+    let todo = todos.find(t => t.id === id);
+    if (!todo) return;
+
+    let dialog = document.getElementById('taskDialog');
+    let catColor = getCategoryColor(todo.category);
+    dialog.innerHTML = generateTaskDialogHTML(todo, catColor, id);
+    dialog.showModal();
+}
+
+/**
+ * Closes the task detail dialog.
+ * 
+ * @param {parameter} - No parameters are required for this function as it simply closes a predefined dialog element in the HTML.
+ */
+function closeTaskDialog() {
+    document.getElementById('taskDialog').close();
+}
+
+/**
+ * Processes the contact data and creates the combined HTML string.
+ * 
+ * @param {Object} todo - The current todo object from Firebase.
+ */
+function renderDialogContacts(todo) {
+    if (!todo['assigned_contacts'] || todo['assigned_contacts'].length === 0) return '<p>No one assigned</p>';
+    return todo['assigned_contacts'].map(contact => {
+        let name = typeof contact === 'string' ? contact : (contact.name || 'Unknown');
+        let color = contact.color || '#2A3647';
+        let initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+        return generateDialogContactsHTML(name, color, initials);
+    }).join('');
+}
+
+/**
+ * Processes the subtask data and creates the combined HTML checkbox string.
+ * 
+ * @param {Object} todo - The current todo object from Firebase.
+ * @param {string} id - The ID of the parent task, used to uniquely identify the checkboxes for subtasks and link them to the correct task when toggling their status.
+ */
+function renderDialogSubtasks(todo, id) {
+    if (!todo || !todo['subtasks']) return '<p>No subtasks</p>';
+    let subtasksArray = Array.isArray(todo['subtasks']) ? 
+        todo['subtasks'] : Object.values(todo['subtasks']);
+    if (subtasksArray.length === 0) return '<p>No subtasks</p>';
+    return subtasksArray.map((subtask, index) => {
+        let isChecked = subtask.done ? 'checked' : '';
+        let title = typeof subtask === 'string' ? subtask : 
+            (subtask.title || subtask.name || subtask.text || 'Subtask');
+        return generateDialogSubtasksHTML(id, index, title, isChecked);
+    }).join('');
+}
+
+/**
+ * Toggles the done status of a subtask and triggers the Firebase update.
+ * 
+ * @param {string} todoId - The ID of the parent task containing the subtask.
+ * @param {number} subtaskIndex - The index of the subtask to toggle within the parent task's subtasks array.
+ */
+function toggleSubtask(todoId, subtaskIndex) {
+    let todo = todos.find(t => t.id === todoId);
+    if (todo && todo.subtasks) {
+        let subtasksArray = Array.isArray(todo.subtasks) ? 
+            todo.subtasks : Object.values(todo.subtasks);
+        if (subtasksArray[subtaskIndex]) {
+            subtasksArray[subtaskIndex].done = !subtasksArray[subtaskIndex].done;
+            updateHTML();
+        }
+    }
+}
+
+/**
+ * Sends the updated task object containing the modified subtasks to Firebase.
+ * 
+ * @param {Object} todo - The updated task object with the toggled subtask status, which will be sent to Firebase to persist the changes.
+ */
+async function saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone) {
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks/${todoId}/subtasks/${subtaskIndex}/done.json`;
+    await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(isDone)
+    });
+}
+
 let touchTimeout;
 let isLongPress = false;
 let startX, startY;
