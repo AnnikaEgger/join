@@ -3,12 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up | Join</title>
-    <link
-      rel="icon"
-      href="../assets/icons/join-logo-white.svg"
-      type="image/svg+xml"
-    />
+    <title>Sign Up</title>
+    <link rel="icon" href="../assets/icons/join-logo-white.svg" type="image/svg+xml" />
 
     <script src="../scripts/signup.js" defer></script>
 
@@ -20,11 +16,7 @@
   </head>
   <body>
     <header>
-      <img
-        class="join-logo-blue"
-        src="../assets/icons/join-logo-blue.svg"
-        alt="logo"
-      />
+      <img class="join-logo-blue" src="../assets/icons/join-logo-blue.svg" alt="logo" />
     </header>
 
     <main>
@@ -43,68 +35,40 @@
 
         <section class="input-fields input-fields-signup">
           <div class="input-wrapper">
-            <input
-              class="form-input form-input-name"
-              id="signup-name"
-              placeholder="Name"
-              type="text"
-            />
+            <input class="form-input form-input-name" id="signup-name" placeholder="Name" type="text" />
             <span class="error-msg" id="error-name"></span>
           </div>
 
           <div class="input-wrapper">
-            <input
-              class="form-input form-input-email"
-              id="signup-email"
-              placeholder="Email"
-              type="email"
-            />
+            <input class="form-input form-input-email" id="signup-email" placeholder="Email" type="email" />
             <span class="error-msg" id="error-email"></span>
           </div>
 
           <div class="input-wrapper">
-            <input
-              class="form-input form-input-password"
-              id="signup-password"
-              placeholder="Password"
-              type="password"
-            />
+            <div class="input-with-icon">
+              <input class="form-input form-input-password" id="signup-password" placeholder="Password" type="password" />
+              <button type="button" class="password-toggle" id="toggle-password" onclick="togglePassword('signup-password', 'toggle-password')"></button>
+            </div>
             <span class="error-msg" id="error-password"></span>
           </div>
 
           <div class="input-wrapper">
-            <input
-              class="form-input form-input-confirm-password"
-              id="signup-confirm-password"
-              placeholder="Confirm Password"
-              type="password"
-            />
+            <div class="input-with-icon">
+              <input class="form-input form-input-confirm-password" id="signup-confirm-password" placeholder="Confirm Password" type="password" />
+              <button type="button" class="password-toggle" id="toggle-confirm" onclick="togglePassword('signup-confirm-password', 'toggle-confirm')"></button>
+            </div>
             <span class="error-msg" id="error-confirm"></span>
           </div>
         </section>
 
         <div class="accept-privacy-container">
           <div class="checkbox-container">
-            <input
-              class="accept-checkbox"
-              type="checkbox"
-              id="signup-checkbox"
-            />
+            <input class="accept-checkbox" type="checkbox" id="signup-checkbox" />
           </div>
-          <p>
-            I accept the
-            <a href="../html/privacy-policy.html">Privacy Policy</a>
-          </p>
+          <p>I accept the <a href="../html/privacy-policy.html">Privacy Policy</a></p>
         </div>
 
-        <button
-          type="submit"
-          class="button button-login button-blue"
-          id="signup-btn"
-          disabled
-        >
-          Sign Up
-        </button>
+        <button type="submit" class="button button-login button-blue" id="signup-btn" disabled>Sign Up</button>
       </form>
     </main>
 
@@ -114,8 +78,6 @@
         <a href="../html/legal-notice.html">Legal Notice</a>
       </nav>
     </footer>
-    <div id="success-toast" class="success-toast">
-      You signed up successfully
-    </div>
+    <div id="success-toast" class="success-toast">You signed up successfully</div>
   </body>
 </html>
