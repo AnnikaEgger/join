@@ -1,12 +1,17 @@
-/* --- CONTACTS LAYOUT --- */
+html, body {
+    overflow: hidden;
+    height: 100dvh;
+}
+
 .contact-main {
     display: flex;
     padding: 0;
-    height: calc(100dvh - var(--header-height));
+    margin-top: 0;
+    height: 100dvh;
+    padding-top: var(--header-height);
     overflow: hidden;
 }
 
-/* --- LINKER TEIL: Kontaktliste --- */
 .contact-list-container {
     width: 400px;
     background-color: var(--color-white);
@@ -15,6 +20,7 @@
     flex-direction: column;
     padding: 24px 0 0 24px;
     overflow: hidden;
+    height: 100%;
 }
 
 .add-contact-btn {
@@ -123,8 +129,10 @@
     flex-direction: column;
     gap: 32px;
     transform: translateX(100%);
-     transition: transform 0.125s ease-out;
-     min-width: 0;
+    transition: transform 0.125s ease-out;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .contact-detail-view.show-detail {
