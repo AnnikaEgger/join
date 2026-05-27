@@ -138,9 +138,9 @@ a {
     calc(var(--content-limitation) + var(--sidebar-width)),
     var(--sidebar-width)
   ); */
-  padding-left: max(var(--content-limitation), 16px);
-  padding-right: max(var(--content-limitation), 16px);
-  z-index: 1;
+  padding-left: max(var(--content-limitation), 120px);
+  padding-right: max(var(--content-limitation), 40px);
+  z-index: 10;
 }
 
 .header-title {

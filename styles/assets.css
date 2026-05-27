@@ -130,6 +130,10 @@ input[type="checkbox"] {
   border: none;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
 /* #endregion */
 
 /* #region custom select */
