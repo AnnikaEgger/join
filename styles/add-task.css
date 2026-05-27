@@ -10,7 +10,11 @@
 }
 
 body {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+}
+
+html {
+  /* scrollbar-gutter: stable; */
 }
 
 :root {
@@ -23,7 +27,7 @@ body {
   --padding-lr-small: 24px;
 }
 
-h1 {
+.add-task-headline {
   margin-bottom: 48px;
 }
 
@@ -626,7 +630,7 @@ input[type="checkbox"] {
     width: 120px;
   }
 
-  h1 {
+  .add-task-headline {
     /* margin-bottom: 32px; */
     position: fixed;
     /* left: max(var(--content-limitation), 24px); */

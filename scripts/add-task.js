@@ -120,6 +120,7 @@ async function init() {
   // check validity of form when pressing enter or submit button
 
   TASK_FORM.addEventListener("submit", (e) => {
+    // let titleInput = document.getElementById("task-title");
     if (
       !TASK_FORM.checkValidity() ||
       selectedCategory == "Select task category"
@@ -127,6 +128,9 @@ async function init() {
       e.preventDefault();
       successfullSubmit = false;
       if (!TASK_FORM.checkValidity()) {
+        // if (!titleInput.checkValidity()) {
+        //   titleInput.classList.add("invalid");
+        // }
         const invalidElements = TASK_FORM.querySelectorAll(":invalid");
         invalidElements.forEach((element) => {
           if (element.id === "task-due-date") {
@@ -372,8 +376,11 @@ async function renderContactOptions(filtered) {
 
 function getContactName(indexContact) {
   let user = getCurrentUser();
+  let currentContactIsUser;
 
-  let currentContactIsUser = filteredContacts[indexContact].name == user.name;
+  if (user !== null) {
+    currentContactIsUser = filteredContacts[indexContact].name == user.name;
+  }
 
   if (currentContactIsUser) {
     return filteredContacts[indexContact].name + " (You)";
@@ -397,7 +404,8 @@ function renderCurrentUser() {
 
   console.log(user);
 
-  if (user.name === "Guest" || user.name === null) return;
+  if (user === null) return;
+  if (user.name === "Guest") return;
 
   const alreadyExists = filteredContacts.some(
     (contact) => contact.name === user.name,
@@ -832,12 +840,16 @@ function checkInputValidity(inputType) {
     }
   }
   if (inputType == "due-date") {
+    console.log("oninput function called");
+
     if (input.checkValidity()) {
-      input.classList.remove("invalid");
-      input.closest(".required").classList.remove("custom-select-with-after");
+      input
+        .closest(".required")
+        .classList.remove("custom-select-with-after", "invalid");
     } else {
-      input.classList.add("invalid");
-      input.closest(".required").classList.add("custom-select-with-after");
+      input
+        .closest(".required")
+        .classList.add("custom-select-with-after", "invalid");
     }
   }
 }
@@ -958,7 +970,6 @@ function contactOptionTemplate(
             id="contact-option-${indexContact}"
             data-index-contact="${indexContact}"
             role="option"
-             aria-selected="false"
             onclick="selectContact(${
               indexContact
             },'${filteredContacts[indexContact].id}', false)"
@@ -980,6 +991,7 @@ function contactOptionTemplate(
                  indexContact
                },'${filteredContacts[indexContact].id}', true)"
                 type="checkbox"
+                aria-label="assign contact"
                 name=""
                 id="checkbox${indexContact}"
                 value="${filteredContacts[indexContact].name}"

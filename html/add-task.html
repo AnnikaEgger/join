@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join Add Task</title>
+    <title>Add Task | Join</title>
     <link
       rel="icon"
       href="../assets/icons/join-logo-white.svg"
@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/assets.css" />
-
     <link rel="stylesheet" href="../styles/templates.css" />
-
     <link rel="stylesheet" href="../styles/add-task.css" />
+
     <script src="../scripts/header.js" defer></script>
+    <script src="../scripts/add-task.js" defer></script>
   </head>
   <body onload="init()">
     <section class="sidebar">
@@ -103,7 +103,7 @@
 
     <main class="main-content">
       <div class="content-wrapper">
-        <h1 id="add-task-headline">Add Task</h1>
+        <h1 id="add-task-headline" class="add-task-headline">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
           onsubmit="addTask('to do')"
@@ -250,7 +250,7 @@
                 </button>
               </div>
 
-              <label>Assigned to</label>
+              <p class="label" id="contacts-label">Assigned to</p>
               <section class="select-contacts-section">
                 <div
                   aria-labelledby="contacts-label"
@@ -260,7 +260,6 @@
                   <div
                     role="combobox"
                     aria-haspopup="listbox"
-                    aria-expanded="false"
                     aria-owns="select-options--contacts"
                     onclick="toggleCustomSelectDropdown('contacts')"
                     class="custom-select--trigger custom-select-input trigger-input-container"
@@ -277,7 +276,6 @@
                       aria-label="select contacts to assign"
                       aria-autocomplete="list"
                       aria-controls="select-options--contacts"
-                      aria-activedescendant=""
                     />
                     <button
                       type="button"
@@ -315,7 +313,6 @@
                 <div
                   role="combobox"
                   aria-haspopup="listbox"
-                  aria-expanded="false"
                   aria-owns="select-options--category"
                   onclick="toggleCustomSelectDropdown('category')"
                   class="custom-select--trigger custom-select-input"
@@ -476,5 +473,4 @@
       </div>
     </main>
   </body>
-  <script src="../scripts/add-task.js"></script>
 </html>
