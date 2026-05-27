@@ -1,19 +1,26 @@
-/* --- CONTACTS LAYOUT --- */
+html, body {
+    overflow: hidden;
+    height: 100dvh;
+}
+
 .contact-main {
     display: flex;
     padding: 0;
-    height: calc(100dvh - var(--header-height));
+    margin-top: 0;
+    height: 100dvh;
+    padding-top: var(--header-height);
     overflow: hidden;
 }
 
-/* --- LINKER TEIL: Kontaktliste --- */
 .contact-list-container {
     width: 400px;
     background-color: var(--color-white);
     box-shadow: 4px 0 6px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    padding: 24px 24px 0 24px;
+    padding: 24px 0 0 24px;
+    overflow: hidden;
+    height: 100%;
 }
 
 .add-contact-btn {
@@ -22,9 +29,9 @@
     border: none;
     border-radius: 10px;
     padding: 12px 0;
-    width: 100%;
+    width: calc(100% - 36px);
     max-width: 350px;
-    margin: 0 auto 32px auto;
+    margin: 0 0 32px 0;
     font-size: 20px;
     font-weight: 700;
     display: flex;
@@ -44,7 +51,8 @@
 .contact-list {
     overflow-y: auto; 
     flex-grow: 1;
-    margin-right: -24px; 
+    width: 100%;
+    margin-right: 0; 
     padding-right: 24px;
 }
 
@@ -60,10 +68,9 @@
 .letter-divider {
     height: 1px;
     background-color: var(--color-border);
-    margin: 8px 36px;
+    margin: 8px 0;
 }
 
-/* Einzelner Kontakt in der Liste */
 .contact-item {
     display: flex;
     align-items: center;
@@ -72,6 +79,7 @@
     cursor: pointer;
     border-radius: 10px;
     transition: var(--transition-default);
+    width: 100%;
 }
 
 .contact-item:hover {
@@ -113,7 +121,6 @@
     text-overflow: ellipsis;
 }
 
-/* --- RECHTER TEIL: Detail-Ansicht --- */
 .contact-detail-view {
     flex-grow: 1;
     background-color: var(--color-bg);
@@ -122,8 +129,10 @@
     flex-direction: column;
     gap: 32px;
     transform: translateX(100%);
-     transition: transform 0.125s ease-out;
-     min-width: 0;
+    transition: transform 0.125s ease-out;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .contact-detail-view.show-detail {

@@ -7,8 +7,7 @@
 @media (max-width: 1024px) {
     .contact-main {
         flex-direction: column;
-        height: calc(100dvh - 75px);
-        padding-bottom: 80px;
+        height: calc(100dvh - var(--resp-navbar-height));
     }
 
     .contact-list-container {
@@ -94,7 +93,7 @@
         align-items: center;
         gap: 4px;
         position: fixed;
-        bottom: 116px;
+        bottom: calc(var(--resp-navbar-height) + 116px);
         right: 24px;
         width: 56px;
         height: 56px;
@@ -151,7 +150,7 @@
         border-radius: 20px 20px 0 20px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
         margin-right: 24px;
-        margin-bottom: 116px;
+        margin-bottom: calc(var(--resp-navbar-height) + 116px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -267,7 +266,7 @@
     .add-contact-mobile-btn {
         display: flex;
         position: fixed;
-        bottom: 116px;
+        bottom: calc(var(--resp-navbar-height) + 36px);
         right: 24px;
         width: 56px;
         height: 56px;

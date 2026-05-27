@@ -5,24 +5,37 @@ const AVATAR_COLORS = [
     "#FF5EB3", "#FCBE2D", "#6E52FF", "#FF4646"
 ];
 
+const ICON_LOCK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`;
+
+const ICON_EYE_OFF = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>`;
+
+const ICON_EYE_ON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+
+const ERROR_TO_INPUT = {
+    "error-name": "signup-name",
+    "error-email": "signup-email",
+    "error-password": "signup-password",
+    "error-confirm": "signup-confirm-password"
+};
+
 
 /**
  * Initializes the sign-up page.
- * Attaches event listeners to the inputs and the submit button.
  */
 function initSignup() {
     const inputs = document.querySelectorAll("#signup-form input");
-    inputs.forEach(input => {
-        input.addEventListener("input", validateForm);
-    });
+    inputs.forEach(input => input.addEventListener("input", validateForm));
 
-    const form = document.getElementById("signup-form");
-    form.addEventListener("submit", handleSignup);
+    document.getElementById("signup-form").addEventListener("submit", handleSignup);
+
+    initPasswordToggles();
+    document.getElementById("signup-password").addEventListener("input", () => updatePasswordIcon("signup-password", "toggle-password"));
+    document.getElementById("signup-confirm-password").addEventListener("input", () => updatePasswordIcon("signup-confirm-password", "toggle-confirm"));
 }
 
 
 /**
- * Validates all fields and enables or disables the submit button.
+ * Validates all fields and enables/disables submit button.
  */
 function validateForm() {
     const name = document.getElementById("signup-name").value.trim();
@@ -42,9 +55,9 @@ function validateForm() {
 
 
 /**
- * Validates that the name field is not empty.
- * @param {string} name - The entered name.
- * @returns {boolean} True if the name is valid.
+ * Validates the name field.
+ * @param {string} name
+ * @returns {boolean}
  */
 function checkName(name) {
     if (name.length === 0) {
@@ -57,9 +70,9 @@ function checkName(name) {
 
 
 /**
- * Validates that the email is valid (contains @ and .).
- * @param {string} email - The entered email address.
- * @returns {boolean} True if the email format is valid.
+ * Validates the email field.
+ * @param {string} email
+ * @returns {boolean}
  */
 function checkEmail(email) {
     if (email.length === 0) {
@@ -76,9 +89,9 @@ function checkEmail(email) {
 
 
 /**
- * Validates that the password has at least 6 characters.
- * @param {string} password - The entered password.
- * @returns {boolean} True if the password is valid.
+ * Validates the password field (min 6 characters).
+ * @param {string} password
+ * @returns {boolean}
  */
 function checkPassword(password) {
     if (password.length === 0) {
@@ -96,9 +109,9 @@ function checkPassword(password) {
 
 /**
  * Validates that both passwords match.
- * @param {string} password - The original password.
- * @param {string} confirm - The confirmed password.
- * @returns {boolean} True if both passwords match.
+ * @param {string} password
+ * @param {string} confirm
+ * @returns {boolean}
  */
 function checkConfirmPassword(password, confirm) {
     if (confirm.length === 0) {
@@ -115,28 +128,31 @@ function checkConfirmPassword(password, confirm) {
 
 
 /**
- * Displays an error message below the input field.
- * @param {string} errorId - The ID of the error span element.
- * @param {string} message - The text message to display.
+ * Shows an error message and marks the input as invalid.
+ * @param {string} errorId
+ * @param {string} message
  */
 function showError(errorId, message) {
     document.getElementById(errorId).textContent = message;
+    const inputId = ERROR_TO_INPUT[errorId];
+    if (inputId) document.getElementById(inputId)?.classList.add("invalid");
 }
 
 
 /**
- * Removes a specific error message.
- * @param {string} errorId - The ID of the error span element.
+ * Clears the error message and removes invalid state.
+ * @param {string} errorId
  */
 function clearError(errorId) {
     document.getElementById(errorId).textContent = "";
+    const inputId = ERROR_TO_INPUT[errorId];
+    if (inputId) document.getElementById(inputId)?.classList.remove("invalid");
 }
 
 
 /**
- * Handles the form submission: checks for duplicate emails, stores the user,
- * displays a success toast, and redirects to the login page.
- * @param {Event} event - The submit event from the form.
+ * Handles submit: checks duplicate email, saves user, shows toast.
+ * @param {Event} event
  */
 async function handleSignup(event) {
     event.preventDefault();
@@ -160,8 +176,8 @@ async function handleSignup(event) {
 
 
 /**
- * Collects all form inputs into a single user data object.
- * @returns {Object} User object containing name, email, password, and color.
+ * Collects all form data into a user object.
+ * @returns {Object}
  */
 function collectFormData() {
     return {
@@ -174,8 +190,8 @@ function collectFormData() {
 
 
 /**
- * Selects a random avatar background color from the predefined palette.
- * @returns {string} The chosen color as a hex string.
+ * Returns a random avatar color from the pool.
+ * @returns {string}
  */
 function getRandomColor() {
     const index = Math.floor(Math.random() * AVATAR_COLORS.length);
@@ -184,23 +200,22 @@ function getRandomColor() {
 
 
 /**
- * Checks whether an email address is already registered in Firebase.
- * @param {string} email - The email address to check.
- * @returns {Promise<boolean>} A promise that resolves to true if the email exists.
+ * Checks if an email already exists in Firebase.
+ * @param {string} email
+ * @returns {Promise<boolean>}
  */
 async function checkEmailExists(email) {
     const response = await fetch(BASE_URL + "/users.json");
     const data = await response.json();
     if (!data) return false;
-
     const users = Object.values(data);
     return users.some(user => user.email === email);
 }
 
 
 /**
- * Saves a new user record to Firebase.
- * @param {Object} user - The user data object to be saved.
+ * Saves a new user to Firebase.
+ * @param {Object} user
  */
 async function saveUser(user) {
     await fetch(BASE_URL + "/users.json", {
@@ -211,11 +226,50 @@ async function saveUser(user) {
 
 
 /**
- * Displays the success toast notification.
+ * Shows the success toast.
  */
 function showSuccessToast() {
-    const toast = document.getElementById("success-toast");
-    toast.classList.add("show");
+    document.getElementById("success-toast").classList.add("show");
+}
+
+
+/**
+ * Updates the password toggle icon based on input state.
+ * @param {string} inputId
+ * @param {string} toggleId
+ */
+function updatePasswordIcon(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+    if (input.value === "") {
+        toggle.innerHTML = ICON_LOCK;
+        toggle.classList.add("non-clickable");
+        return;
+    }
+    toggle.classList.remove("non-clickable");
+    toggle.innerHTML = input.type === "password" ? ICON_EYE_OFF : ICON_EYE_ON;
+}
+
+
+/**
+ * Toggles password visibility.
+ * @param {string} inputId
+ * @param {string} toggleId
+ */
+function togglePassword(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    if (input.value === "") return;
+    input.type = input.type === "password" ? "text" : "password";
+    updatePasswordIcon(inputId, toggleId);
+}
+
+
+/**
+ * Initializes both password toggles with the lock icon.
+ */
+function initPasswordToggles() {
+    updatePasswordIcon("signup-password", "toggle-password");
+    updatePasswordIcon("signup-confirm-password", "toggle-confirm");
 }
 
 

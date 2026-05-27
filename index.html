@@ -3,12 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log in | Join</title>
-    <link
-      rel="icon"
-      href="./assets/icons/join-logo-white.svg"
-      type="image/svg+xml"
-    />
+    <title>Join - Log in</title>
+    <link rel="icon" href="./assets/icons/join-logo-white.svg" type="image/svg+xml" />
 
     <script src="./script.js" defer></script>
 
@@ -20,17 +16,11 @@
   </head>
   <body>
     <header>
-      <img
-        class="join-logo-blue"
-        src="./assets/icons/join-logo-blue.svg"
-        alt="logo"
-      />
+      <img class="join-logo-blue" src="./assets/icons/join-logo-blue.svg" alt="logo" />
       <nav class="login-nav">
-        <a class="not-a-user-link" >Not a join user?</a>
+        <a class="not-a-user-link" href="#">Not a join user?</a>
         <a href="./html/signup.html">
-          <button class="button button-blue button-signup-small">
-            Sign up
-          </button>
+          <button class="button button-blue button-signup-small">Sign up</button>
         </a>
       </nav>
     </header>
@@ -46,22 +36,15 @@
 
         <section class="input-fields input-fields-login">
           <div class="input-wrapper">
-            <input
-              placeholder="Email"
-              class="form-input form-input-email"
-              id="login-email"
-              type="email"
-            />
+            <input placeholder="Email" class="form-input form-input-email" id="login-email" type="email" />
             <span class="error-msg" id="error-login-email"></span>
           </div>
 
           <div class="input-wrapper">
-            <input
-              placeholder="Password"
-              class="form-input form-input-password"
-              id="login-password"
-              type="password"
-            />
+            <div class="input-with-icon">
+              <input placeholder="Password" class="form-input form-input-password" id="login-password" type="password" />
+              <button type="button" class="password-toggle" id="toggle-login-password" onclick="togglePassword('login-password', 'toggle-login-password')"></button>
+            </div>
             <span class="error-msg" id="error-login-password"></span>
           </div>
 
@@ -69,20 +52,8 @@
         </section>
 
         <section class="form-btn-section">
-          <button
-            type="submit"
-            class="button button-login button-blue"
-            id="login-btn"
-          >
-            Log in
-          </button>
-          <button
-            type="button"
-            class="button button-login button-white"
-            onclick="guestLogin()"
-          >
-            Guest Log in
-          </button>
+          <button type="submit" class="button button-login button-blue" id="login-btn">Log in</button>
+          <button type="button" class="button button-login button-white" onclick="guestLogin()">Guest Log in</button>
         </section>
       </form>
     </main>
