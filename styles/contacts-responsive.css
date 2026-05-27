@@ -12,6 +12,7 @@
 
     .contact-list-container {
         width: 100%;
+        margin: 0 auto;
         padding: 24px;
         overflow-y: auto;
         scrollbar-gutter: stable;
