@@ -77,32 +77,21 @@ function renderMetrics(tasks) {
  */
 function renderStatusCounts(arr) {
   document.getElementById("count-board").textContent = arr.length;
-  document.getElementById("count-todo").textContent = countByStatus(
-    arr,
-    "todo",
-  );
-  document.getElementById("count-progress").textContent = countByStatus(
-    arr,
-    "inProgress",
-  );
-  document.getElementById("count-feedback").textContent = countByStatus(
-    arr,
-    "awaitingFeedback",
-  );
-  document.getElementById("count-done").textContent = countByStatus(
-    arr,
-    "done",
-  );
+  document.getElementById("count-todo").textContent = countByStatus(arr, "to do");
+  document.getElementById("count-progress").textContent = countByStatus(arr, "in progress");
+  document.getElementById("count-feedback").textContent = countByStatus(arr, "await feedback");
+  document.getElementById("count-done").textContent = countByStatus(arr, "done");
 }
 
+
 /**
- * Counts tasks by status.
+ * Counts tasks by column value.
  * @param {Array} arr - All tasks
- * @param {string} status - Status to count
+ * @param {string} column - Column value to match
  * @returns {number} Count
  */
-function countByStatus(arr, status) {
-  return arr.filter((t) => t.status === status).length;
+function countByStatus(arr, column) {
+  return arr.filter(t => t.column === column).length;
 }
 
 /**
@@ -110,10 +99,10 @@ function countByStatus(arr, status) {
  * @param {Array} arr - All tasks
  */
 function renderUrgentSection(arr) {
-  const urgent = arr.filter((t) => t.prio === "urgent");
+  const urgent = arr.filter(t => t.priority === "urgent");
   document.getElementById("count-urgent").textContent = urgent.length;
   if (urgent.length > 0) {
-    const date = urgent.map((t) => t.date).sort()[0];
+    const date = urgent.map(t => t.due_date).sort()[0];
     document.getElementById("deadline-date").textContent = formatDeadline(date);
   }
 }
