@@ -175,10 +175,24 @@ function openEditContact(id) {
     let contact = findContactById(id);
 
     if (contact) {
+        updateDialogAvatar(contact);
         fillFormFields(contact);
         adaptDialogForEdit(id);
         openContactDialog();
     }
+}
+
+function updateDialogAvatar(contact) {
+    let avatarContainer = document.querySelector('.default-avatar');
+    let initials = getInitials(contact.name);
+    avatarContainer.style.backgroundColor = contact.color;
+    avatarContainer.innerHTML = initials;
+}
+
+function resetDialogAvatar() {
+    let avatarContainer = document.querySelector('.default-avatar');
+    avatarContainer.style.backgroundColor = '#D1D1D1';
+    avatarContainer.innerHTML = `<img src="../assets/icons/person-white.svg" alt="Avatar" />`;
 }
 
 function fillFormFields(contact) {
@@ -221,6 +235,7 @@ function closeContactDialog() {
 function prepareAddContactDialog() {
     currentEditingId = null;
     resetForm();
+    resetDialogAvatar();
 
     document.querySelector('.dialog-left h1').innerHTML = "Add contact";
 
