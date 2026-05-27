@@ -271,6 +271,8 @@ async function deleteContact(id) {
         method: "DELETE"
     });
 
+    closeContactDetails();
+
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
 }
