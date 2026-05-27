@@ -5,13 +5,8 @@
 }
 
 input,
-select,
 textarea {
   outline: none;
-}
-
-input[type="checkbox"] {
-  cursor: pointer;
 }
 
 input:not([type="checkbox"]):focus,
@@ -22,16 +17,18 @@ textarea:focus {
   border: 1px solid var(--light-blue);
 }
 
-.custom-select:focus {
-  border: none;
-}
 /* #region input */
+
 input {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
   width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
 }
 
 input:not([type="checkbox"]) {
@@ -50,11 +47,6 @@ input:not([type="checkbox"]) {
 input::placeholder {
   color: #d1d1d1;
 }
-
-/* input:invalid:focus,
-select:invalid:focus {
-  border: 1px solid red;
-} */
 
 .invalid:focus,
 .invalid:focus-within {
@@ -78,15 +70,6 @@ select:invalid:focus {
   bottom: 10px;
   left: 5px;
 }
-
-/* .required:has(:is(input, select):focus:invalid)::after {
-  content: "This field is required";
-  font-size: 16px;
-  color: red;
-  position: absolute;
-  bottom: 10px;
-  left: 5px;
-} */
 
 /* #endregion */
 
@@ -145,6 +128,10 @@ input[type="search"]::-webkit-search-cancel-button {
   scrollbar-gutter: stable;
   box-shadow: 0px 0px 14px 5px rgba(0, 0, 0, 0.04);
   outline: none;
+}
+
+.custom-select:focus {
+  border: none;
 }
 
 .custom-select--trigger img {
@@ -326,11 +313,6 @@ button {
 /* #endregion */
 
 /* #region responsive */
-@media screen and (max-width: 1280px) {
-  /* :root {
-    --input-width: 340px;
-  } */
-}
 
 @media screen and (max-width: 1024px) {
   input:not([type="checkbox"]) {
