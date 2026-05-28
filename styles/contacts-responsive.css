@@ -362,3 +362,39 @@
         margin-bottom: 12px;
     }
 }
+
+@media (max-width: 425px) {
+    .detail-header-section h2 {
+        font-size: 28px;
+    }
+
+    .detail-header-section span {
+        font-size: 14px;
+        padding-right: 36px;
+    }
+
+    .back-to-list-btn {
+        padding: 0px;
+    }
+
+    .detail-avatar {
+        width: 65px;
+        height: 65px;
+        font-size: 20px;
+    }
+
+    .detail-name-section h1 {
+        font-size: 24px;
+    }
+
+    .contact-info-headline span {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 375px) {
+    .contact-list {
+        padding: 0 calc((100% - 250px) / 2);
+    }
+
+}
