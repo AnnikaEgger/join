@@ -35,14 +35,6 @@
         margin: 0 0 12px 0; 
     }
 
-    .letter-header {
-        padding-left: 24px;
-    }
-
-    .letter-divider {
-        margin: 8px 24px;
-    }
-
     .contact-detail-view {
         position: fixed;
         top: 77px;
@@ -288,5 +280,19 @@
 
     .add-contact-mobile-btn:hover {
         background-color: var(--light-blue);
+    }
+}
+
+@media (max-width: 768px) {
+    .letter-section, .contact-item {
+        margin: 0 0 6px 0;
+    }
+
+    .letter-header {
+    padding: 6px 0 6px 36px;
+}
+
+    .contact-item {
+        gap: 16px;
     }
 }
