@@ -275,36 +275,6 @@ hr {
     font-size: 14px;
 }
 
-.profile-badge-2 {
-    position: relative;
-    right: 20px;
-    background-color: #1FD7C1;
-    color: white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    right: 22px;
-}
-
-.profile-badge-3 {
-    position: relative;
-    right: 20px;
-    background-color: #462F8A;
-    color: white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    right: 28px;
-}
-
 .drag-area {
     height: 200px;
     background-color: rgba(0, 0, 0, 0.1);
