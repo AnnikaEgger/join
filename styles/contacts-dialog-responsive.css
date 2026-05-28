@@ -1,0 +1,95 @@
+    .add-contact-dialog {
+        flex-direction: column;
+        width: 95dvw;
+        height: calc(100dvh - 85px - 85px);
+        max-height: none;
+        border-radius: 30px;
+        transform: translateY(100vh);
+        transition: transform 0.3s ease-out;
+    }
+
+    .add-contact-overlay.show-overlay .add-contact-dialog {
+        transform: translateY(0);
+    }
+
+    .dialog-left {
+        width: 100%;
+        height: 35%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dialog-left .dialog-logo {
+        display: none;
+    }
+
+    .dialog-close-btn-mobile {
+        display: flex;
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        cursor: pointer;
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .dialog-close-btn-mobile:active {
+        background-color: var(--light-blue);
+        border-radius: 50%;
+    }
+
+    .dialog-close-btn-mobile img {
+        filter: brightness(0) invert(1);
+        width: 16px;
+        height: 16px;
+    }
+
+    .dialog-left-content h1 {
+        font-size: 48px;
+        margin: 0 0 8px 0;
+    }
+
+    .dialog-left-content span {
+        font-size: 20px;
+    }
+
+    .default-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .dialog-right {
+        width: 100%;
+        height: 65%;
+        padding: 24px;
+    }
+
+    .dialog-right .dialog-close-btn {
+        display: none;
+    }
+
+    .dialog-body {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .dialog-avatar-container {
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+    }
+
+    .dialog-buttons .btn-cancel {
+        display: none;
+    }
+
+    .dialog-buttons {
+        justify-content: center;
+    }
