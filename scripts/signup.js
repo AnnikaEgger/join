@@ -1,8 +1,15 @@
-const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
+const BASE_URL =
+  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
 
 const AVATAR_COLORS = [
-    "#FF7A00", "#1FD7C1", "#462F8A", "#9327FF",
-    "#FF5EB3", "#FCBE2D", "#6E52FF", "#FF4646"
+  "#FF7A00",
+  "#1FD7C1",
+  "#462F8A",
+  "#9327FF",
+  "#FF5EB3",
+  "#FCBE2D",
+  "#6E52FF",
+  "#FF4646",
 ];
 
 const ICON_LOCK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`;
@@ -12,47 +19,55 @@ const ICON_EYE_OFF = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a
 const ICON_EYE_ON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
 
 const ERROR_TO_INPUT = {
-    "error-name": "signup-name",
-    "error-email": "signup-email",
-    "error-password": "signup-password",
-    "error-confirm": "signup-confirm-password"
+  "error-name": "signup-name",
+  "error-email": "signup-email",
+  "error-password": "signup-password",
+  "error-confirm": "signup-confirm-password",
 };
-
 
 /**
  * Initializes the sign-up page.
  */
 function initSignup() {
-    const inputs = document.querySelectorAll("#signup-form input");
-    inputs.forEach(input => input.addEventListener("input", validateForm));
+  const inputs = document.querySelectorAll("#signup-form input");
+  inputs.forEach((input) => input.addEventListener("input", validateForm));
 
-    document.getElementById("signup-form").addEventListener("submit", handleSignup);
+  document
+    .getElementById("signup-form")
+    .addEventListener("submit", handleSignup);
 
-    initPasswordToggles();
-    document.getElementById("signup-password").addEventListener("input", () => updatePasswordIcon("signup-password", "toggle-password"));
-    document.getElementById("signup-confirm-password").addEventListener("input", () => updatePasswordIcon("signup-confirm-password", "toggle-confirm"));
+  initPasswordToggles();
+  document
+    .getElementById("signup-password")
+    .addEventListener("input", () =>
+      updatePasswordIcon("signup-password", "toggle-password"),
+    );
+  document
+    .getElementById("signup-confirm-password")
+    .addEventListener("input", () =>
+      updatePasswordIcon("signup-confirm-password", "toggle-confirm"),
+    );
 }
-
 
 /**
  * Validates all fields and enables/disables submit button.
  */
 function validateForm() {
-    const name = document.getElementById("signup-name").value.trim();
-    const email = document.getElementById("signup-email").value.trim();
-    const password = document.getElementById("signup-password").value;
-    const confirm = document.getElementById("signup-confirm-password").value;
-    const checkbox = document.getElementById("signup-checkbox").checked;
+  const name = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const password = document.getElementById("signup-password").value;
+  const confirm = document.getElementById("signup-confirm-password").value;
+  const checkbox = document.getElementById("signup-checkbox").checked;
 
-    const isValid = checkName(name)
-        && checkEmail(email)
-        && checkPassword(password)
-        && checkConfirmPassword(password, confirm)
-        && checkbox;
+  const isValid =
+    checkName(name) &&
+    checkEmail(email) &&
+    checkPassword(password) &&
+    checkConfirmPassword(password, confirm) &&
+    checkbox;
 
-    document.getElementById("signup-btn").disabled = !isValid;
+  document.getElementById("signup-btn").disabled = !isValid;
 }
-
 
 /**
  * Validates the name field.
@@ -60,14 +75,13 @@ function validateForm() {
  * @returns {boolean}
  */
 function checkName(name) {
-    if (name.length === 0) {
-        clearError("error-name");
-        return false;
-    }
+  if (name.length === 0) {
     clearError("error-name");
-    return true;
+    return false;
+  }
+  clearError("error-name");
+  return true;
 }
-
 
 /**
  * Validates the email field.
@@ -75,18 +89,17 @@ function checkName(name) {
  * @returns {boolean}
  */
 function checkEmail(email) {
-    if (email.length === 0) {
-        clearError("error-email");
-        return false;
-    }
-    if (!email.includes("@") || !email.includes(".")) {
-        showError("error-email", "Please enter a valid email");
-        return false;
-    }
+  if (email.length === 0) {
     clearError("error-email");
-    return true;
+    return false;
+  }
+  if (!email.includes("@") || !email.includes(".")) {
+    showError("error-email", "Please enter a valid email");
+    return false;
+  }
+  clearError("error-email");
+  return true;
 }
-
 
 /**
  * Validates the password field (min 6 characters).
@@ -94,18 +107,17 @@ function checkEmail(email) {
  * @returns {boolean}
  */
 function checkPassword(password) {
-    if (password.length === 0) {
-        clearError("error-password");
-        return false;
-    }
-    if (password.length < 6) {
-        showError("error-password", "Password must be at least 6 characters");
-        return false;
-    }
+  if (password.length === 0) {
     clearError("error-password");
-    return true;
+    return false;
+  }
+  if (password.length < 6) {
+    showError("error-password", "Password must be at least 6 characters");
+    return false;
+  }
+  clearError("error-password");
+  return true;
 }
-
 
 /**
  * Validates that both passwords match.
@@ -114,18 +126,17 @@ function checkPassword(password) {
  * @returns {boolean}
  */
 function checkConfirmPassword(password, confirm) {
-    if (confirm.length === 0) {
-        clearError("error-confirm");
-        return false;
-    }
-    if (password !== confirm) {
-        showError("error-confirm", "Passwords do not match");
-        return false;
-    }
+  if (confirm.length === 0) {
     clearError("error-confirm");
-    return true;
+    return false;
+  }
+  if (password !== confirm) {
+    showError("error-confirm", "Passwords do not match");
+    return false;
+  }
+  clearError("error-confirm");
+  return true;
 }
-
 
 /**
  * Shows an error message and marks the input as invalid.
@@ -133,71 +144,67 @@ function checkConfirmPassword(password, confirm) {
  * @param {string} message
  */
 function showError(errorId, message) {
-    document.getElementById(errorId).textContent = message;
-    const inputId = ERROR_TO_INPUT[errorId];
-    if (inputId) document.getElementById(inputId)?.classList.add("invalid");
+  document.getElementById(errorId).textContent = message;
+  const inputId = ERROR_TO_INPUT[errorId];
+  if (inputId) document.getElementById(inputId)?.classList.add("invalid");
 }
-
 
 /**
  * Clears the error message and removes invalid state.
  * @param {string} errorId
  */
 function clearError(errorId) {
-    document.getElementById(errorId).textContent = "";
-    const inputId = ERROR_TO_INPUT[errorId];
-    if (inputId) document.getElementById(inputId)?.classList.remove("invalid");
+  document.getElementById(errorId).textContent = "";
+  const inputId = ERROR_TO_INPUT[errorId];
+  if (inputId) document.getElementById(inputId)?.classList.remove("invalid");
 }
-
 
 /**
  * Handles submit: checks duplicate email, saves user, shows toast.
  * @param {Event} event
  */
 async function handleSignup(event) {
-    event.preventDefault();
-    document.getElementById("signup-btn").disabled = true;
+  event.preventDefault();
+  document.getElementById("signup-btn").disabled = true;
 
-    const userData = collectFormData();
+  const userData = collectFormData();
 
-    const emailExists = await checkEmailExists(userData.email);
-    if (emailExists) {
-        showError("error-email", "Email already exists");
-        document.getElementById("signup-btn").disabled = false;
-        return;
-    }
+  const emailExists = await checkEmailExists(userData.email);
+  if (emailExists) {
+    showError("error-email", "Email already exists");
+    document.getElementById("signup-btn").disabled = false;
+    return;
+  }
 
-    await saveUser(userData);
-    showSuccessToast();
-    setTimeout(() => {
-        window.location.href = "../index.html";
-    }, 2000);
+  await saveUser(userData);
+  showSuccessToast();
+  setTimeout(() => {
+    window.location.href = "../index.html";
+  }, 2000);
 }
-
 
 /**
  * Collects all form data into a user object.
  * @returns {Object}
  */
 function collectFormData() {
-    return {
-        name: document.getElementById("signup-name").value.trim(),
-        email: document.getElementById("signup-email").value.trim(),
-        password: document.getElementById("signup-password").value,
-        color: getRandomColor()
-    };
+  return {
+    name: document.getElementById("signup-name").value.trim(),
+    id: "user",
+    email: document.getElementById("signup-email").value.trim(),
+    password: document.getElementById("signup-password").value,
+    color: getRandomColor(),
+  };
 }
-
 
 /**
  * Returns a random avatar color from the pool.
  * @returns {string}
  */
 function getRandomColor() {
-    const index = Math.floor(Math.random() * AVATAR_COLORS.length);
-    return AVATAR_COLORS[index];
+  const index = Math.floor(Math.random() * AVATAR_COLORS.length);
+  return AVATAR_COLORS[index];
 }
-
 
 /**
  * Checks if an email already exists in Firebase.
@@ -205,33 +212,30 @@ function getRandomColor() {
  * @returns {Promise<boolean>}
  */
 async function checkEmailExists(email) {
-    const response = await fetch(BASE_URL + "/users.json");
-    const data = await response.json();
-    if (!data) return false;
-    const users = Object.values(data);
-    return users.some(user => user.email === email);
+  const response = await fetch(BASE_URL + "/users.json");
+  const data = await response.json();
+  if (!data) return false;
+  const users = Object.values(data);
+  return users.some((user) => user.email === email);
 }
-
 
 /**
  * Saves a new user to Firebase.
  * @param {Object} user
  */
 async function saveUser(user) {
-    await fetch(BASE_URL + "/users.json", {
-        method: "POST",
-        body: JSON.stringify(user)
-    });
+  await fetch(BASE_URL + "/users.json", {
+    method: "POST",
+    body: JSON.stringify(user),
+  });
 }
-
 
 /**
  * Shows the success toast.
  */
 function showSuccessToast() {
-    document.getElementById("success-toast").classList.add("show");
+  document.getElementById("success-toast").classList.add("show");
 }
-
 
 /**
  * Updates the password toggle icon based on input state.
@@ -239,17 +243,16 @@ function showSuccessToast() {
  * @param {string} toggleId
  */
 function updatePasswordIcon(inputId, toggleId) {
-    const input = document.getElementById(inputId);
-    const toggle = document.getElementById(toggleId);
-    if (input.value === "") {
-        toggle.innerHTML = ICON_LOCK;
-        toggle.classList.add("non-clickable");
-        return;
-    }
-    toggle.classList.remove("non-clickable");
-    toggle.innerHTML = input.type === "password" ? ICON_EYE_OFF : ICON_EYE_ON;
+  const input = document.getElementById(inputId);
+  const toggle = document.getElementById(toggleId);
+  if (input.value === "") {
+    toggle.innerHTML = ICON_LOCK;
+    toggle.classList.add("non-clickable");
+    return;
+  }
+  toggle.classList.remove("non-clickable");
+  toggle.innerHTML = input.type === "password" ? ICON_EYE_OFF : ICON_EYE_ON;
 }
-
 
 /**
  * Toggles password visibility.
@@ -257,20 +260,18 @@ function updatePasswordIcon(inputId, toggleId) {
  * @param {string} toggleId
  */
 function togglePassword(inputId, toggleId) {
-    const input = document.getElementById(inputId);
-    if (input.value === "") return;
-    input.type = input.type === "password" ? "text" : "password";
-    updatePasswordIcon(inputId, toggleId);
+  const input = document.getElementById(inputId);
+  if (input.value === "") return;
+  input.type = input.type === "password" ? "text" : "password";
+  updatePasswordIcon(inputId, toggleId);
 }
-
 
 /**
  * Initializes both password toggles with the lock icon.
  */
 function initPasswordToggles() {
-    updatePasswordIcon("signup-password", "toggle-password");
-    updatePasswordIcon("signup-confirm-password", "toggle-confirm");
+  updatePasswordIcon("signup-password", "toggle-password");
+  updatePasswordIcon("signup-confirm-password", "toggle-confirm");
 }
-
 
 document.addEventListener("DOMContentLoaded", initSignup);

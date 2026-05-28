@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="../styles/assets.css" />
     <link rel="stylesheet" href="../styles/templates.css" />
     <link rel="stylesheet" href="../styles/add-task.css" />
+    <link rel="stylesheet" href="../styles/add-task-contacts-subtasks.css" />
+    <link rel="stylesheet" href="../styles/add-task-responsive.css" />
 
     <script src="../scripts/header.js" defer></script>
+    <script src="../scripts/add-task-templates.js" defer></script>
     <script src="../scripts/add-task.js" defer></script>
   </head>
   <body onload="init()">
@@ -280,8 +283,8 @@
                       tabindex="0"
                     >
                       <input
-                        oninput="filterContacts1()"
-                        onclick="checkStopPropagation(event)"
+                        oninput="handleContactsSearch()"
+                        onclick="handleStopPropagation(event)"
                         class="search-contact-input"
                         id="search-contact-input"
                         type="search"
