@@ -39,17 +39,17 @@ function generateTaskDialogHTML(todo, catColor, id) {
     let prioIconHTML = getPrioIconHTML(todo);
     return `
         <div class="task-dialog-header">
-            <span class="category-field" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
+            <span class="category-field-dialog" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
             <button class="close-task-dialog-btn" onclick="closeTaskDialog()">X</button>
         </div>
-        <h1 class="dialog-title">${todo['title']}</h1>
+        <h1 class="dialog-task-title">${todo['title']}</h1>
         <p class="dialog-description">${todo['description'] || ''}</p>
         <div class="dialog-prio-date">
-            <div><b>Due date:</b> ${todo['dueDate'] || 'No date'}</div>
-            <div class="dialog-prio-row"><b>Priority:</b> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
+            <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo['dueDate'] || 'No date'}</div>
+            <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
         </div>
-        <div class="dialog-assigned-section"><b>Assigned To:</b><div class="dialog-contacts-container">${contactsListHTML}</div></div>
-        <div class="dialog-subtasks-section"><b>Subtasks:</b><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>`;
+        <div class="dialog-assigned-section">Assigned To:<div class="dialog-contacts-container">${contactsListHTML}</div></div>
+        <div class="dialog-subtasks-section">Subtasks:<div class="dialog-subtasks-container">${subtasksListHTML}</div></div>`;
 }
 
 function generateDialogContactsHTML(name, color, initials) {
