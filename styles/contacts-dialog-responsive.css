@@ -98,7 +98,7 @@
 
 @media (max-width: 768px) {
     .add-contact-dialog {
-        max-height: 650px;
+        min-height: 500px;
     }
 
     .dialog-left-content h1 {
@@ -129,7 +129,66 @@
     }
 }
 
-/* @media (max-width: 425px) {
+@media (max-width: 425px) {
+    .add-contact-dialog {
+        min-height: 375px;
+    }
+
+    .dialog-left {
+        height: 35%;
+        padding: 24px 32px;
+        align-items: flex-start;
+    }
+
+    .dialog-left-content h1 {
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .dialog-left-content span {
+        font-size: 14px;
+    }
+
+    .blue-horizontal-divider {
+        margin: 8px 0 0 0;
+    }
+
+    .dialog-avatar-container {
+        top: -45px;
+    }
+
+    .default-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+    }
+
+    .dialog-right {
+        height: 65%;
+        padding: 32px 16px 16px 16px;
+    }
+
+    .dialog-body {
+        justify-content: center;
+        height: 100%;
+    }
+
+    .contact-input {
+        height: 42px;
+        font-size: 16px;
+        padding: 8px 16px;
+        padding-right: 40px;
+        background-position: right 16px center;
+    }
+
+    .input-container {
+        gap: 12px;
+    }
+
+    .contact-form {
+        gap: 16px;
+    }
+
     .btn-create {
         min-width: 140px;
         height: 48px;
@@ -141,4 +200,4 @@
         width: 14px;
         height: 10px;
     }
-} */
+}
