@@ -48,8 +48,16 @@ function generateTaskDialogHTML(todo, catColor, id) {
             <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo['dueDate'] || 'No date'}</div>
             <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
         </div>
-        <div class="dialog-assigned-section">Assigned To:<div class="dialog-contacts-container">${contactsListHTML}</div></div>
-        <div class="dialog-subtasks-section">Subtasks:<div class="dialog-subtasks-container">${subtasksListHTML}</div></div>`;
+        <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
+        <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
+        <div class="dialog-footer">
+            <img src="/assets/icons/delete-icon.svg" alt="Delete Task Icon">
+            <button class="delete-task-btn" onclick="deleteTask('${id}')">Delete Task</button>
+            <hr class="dialog-footer-hr">
+            <img src="/assets/icons/edit-icon.svg" alt="Edit Task Icon">
+            <button class="edit-task-btn" onclick="openEditTaskDialog('${id}')">Edit Task</button>
+        </div>
+     `;
 }
 
 function generateDialogContactsHTML(name, color, initials) {

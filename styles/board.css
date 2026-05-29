@@ -119,8 +119,8 @@ hr {
 .dialog-contact-row {
     display: flex;
     align-items: center;
-    gap: 16px;
     margin-top: 8px;
+    padding-left: 15px;
 }
 
 .dialog-contacts-container {
@@ -483,6 +483,38 @@ select,
 .dialog-text-label {
     color: #576174;
     font-size: 18px;
+}
+
+.dialog-assigned-section {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.dialog-footer {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dialog-footer-hr {
+    height: 30px;
+    border: 1px solid #d1d1d1;
+}
+
+.delete-task-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.edit-task-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 @media (max-width: 1200px) {
