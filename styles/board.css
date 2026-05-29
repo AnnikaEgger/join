@@ -446,9 +446,18 @@ select,
 .close-task-dialog-btn {
     border: none;
     background-color: transparent;
-    font-size: 19px;
-    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
+}
+
+.close-task-dialog-btn img {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
 }
 
 .close-task-dialog-btn:hover {
@@ -491,7 +500,7 @@ select,
 }
 
 .dialog-footer {
-    margin-top: 15px;
+    margin-top: 25px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -504,17 +513,33 @@ select,
 }
 
 .delete-task-btn {
-    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     font-size: 16px;
     cursor: pointer;
+    height: 27px;
+    gap: 5px;
 }
 
 .edit-task-btn {
-    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     font-size: 16px;
     cursor: pointer;
+    height: 27px;
+    gap: 5px;
+}
+
+.delete-task-btn:hover {
+    filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
+}
+
+.edit-task-btn:hover {
+    filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
 }
 
 @media (max-width: 1200px) {

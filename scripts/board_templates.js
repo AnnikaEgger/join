@@ -40,23 +40,21 @@ function generateTaskDialogHTML(todo, catColor, id) {
     return `
         <div class="task-dialog-header">
             <span class="category-field-dialog" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
-            <button class="close-task-dialog-btn" onclick="closeTaskDialog()">X</button>
+            <button class="close-task-dialog-btn" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
         </div>
         <h1 class="dialog-task-title">${todo['title']}</h1>
         <p class="dialog-description">${todo['description'] || ''}</p>
         <div class="dialog-prio-date">
-            <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo['dueDate'] || 'No date'}</div>
+            <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo['due_date'] || 'No date'}</div>
             <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
         </div>
         <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
         <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
-        <div class="dialog-footer">
-            <img src="/assets/icons/delete-icon.svg" alt="Delete Task Icon">
-            <button class="delete-task-btn" onclick="deleteTask('${id}')">Delete Task</button>
-            <hr class="dialog-footer-hr">
-            <img src="/assets/icons/edit-icon.svg" alt="Edit Task Icon">
-            <button class="edit-task-btn" onclick="openEditTaskDialog('${id}')">Edit Task</button>
-        </div>
+        <section class="dialog-footer">
+                <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                <hr class="dialog-footer-hr">
+                <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+        </section>
      `;
 }
 

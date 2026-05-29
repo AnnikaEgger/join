@@ -36,6 +36,7 @@ async function loadTasks() {
     if (data) {
         fillTasksArray(data);
     }
+    initDialogCloseOnClickOutside()
     updateHTML();
 }
 
@@ -442,6 +443,16 @@ async function updateTaskInFirebase(task) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task)
     });
+}
+
+/**
+ * Closes the dialog when clicking directly on the backdrop background.
+ * 
+ * @param {*} - No parameters are required for this function as it directly interacts with the dialog element in the HTML to set up an event listener for clicks on the backdrop.
+ */
+function initDialogCloseOnClickOutside() {
+    let dialog = document.getElementById('taskDialog');
+    if (dialog) dialog.onclick = (e) => { if (e.target === dialog) dialog.close(); };
 }
 
 /**
