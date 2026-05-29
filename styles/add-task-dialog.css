@@ -1,0 +1,284 @@
+.add-task-dialog {
+  position: fixed;
+  border: none;
+  border-radius: 50px;
+  padding: 40px;
+  background-color: white;
+  color: black;
+  width: 100%;
+  height: 800px;
+  max-width: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.add-task-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.task-dialog {
+  /* display: flex; */
+  position: fixed;
+  border: none;
+  border-radius: 50px;
+  padding: 40px;
+  background-color: white;
+  color: black;
+  width: 60%;
+  height: 900px;
+  max-width: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.dialog-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.dialog-contacts-container {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.dialog-prio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dialog-prio-row img {
+  width: 17px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.dialog-subtasks-section {
+  margin-top: 24px;
+}
+
+.dialog-subtasks-container {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.dialog-subtask-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dialog-subtask-checkbox {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.dialog-subtask-row input[type="checkbox"] {
+  appearance: auto !important;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #2a3647;
+}
+
+.dialog-subtask-row label {
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #2a3647;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+
+.custom-checkbox.checked {
+  background-color: #2a3647;
+}
+
+.custom-checkbox.checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+:root {
+  --light-gray2: #d1d1d1;
+  --light-orange: #ffa800;
+}
+
+.dialog-title {
+  font-weight: 700;
+  font-size: 60px;
+  color: black;
+  margin-bottom: 48px;
+}
+
+.add-task-wrapper {
+  max-width: 1000px;
+}
+
+.add-task-inner-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* gap: 32px; */
+}
+
+.add-task-container {
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  padding: 18px 16px;
+}
+
+/* 
+label {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.red {
+    color: rgb(240, 68, 68);
+}
+
+.seperation-line {
+    width: 1px;
+    background-color: var(--light-gray2);
+    margin: 0 32px;
+}
+
+.add-task-btn-container {
+    display: flex;
+    gap: 16px;
+}
+
+.prio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 10px;
+    background-color: white;
+    border-radius: var(--border-radius-s);
+    width: 130px;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.urgent-active {
+    background-color: #ff3d00;
+    color: white;
+    font-weight: 700;
+}
+
+.medium-active {
+    background-color: var(--light-orange);
+    color: white;
+    font-weight: 700;
+}
+
+.low-active {
+    background-color: #7ae229;
+    color: white;
+    font-weight: 700;
+}
+
+.active-svg {
+    fill: white;
+    stroke: white;
+} */
+
+/* buttons Farbe ändern/ toggeln beim klicken --> mit js */
+
+/* .add-task-bottom-btns-container {
+  display: flex;
+  gap: 16px;
+}
+
+.add-task-bottom-btn {
+  padding: 16px;
+} */
+
+/* buttons background + svg Farbe toggeln beim klicken; button clear task per default ausgewählt */
+
+/* .add-task-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 100px;
+} */
+
+/* Date input + select --> wie designen? */
+/* 
+.task-form-select {
+  appearance: none;
+  background-image: url("../assets/icons/arrow-drop-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.task-date-input {
+  background-image: url("../assets/icons/calendar.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.task-date-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.task-date-input::-webkit-datetime-edit-month-field {
+  color: var(--light-gray2);
+}
+
+.task-date-input::-webkit-datetime-edit-day-field {
+  color: var(--light-gray2);
+}
+
+.task-date-input::-webkit-datetime-edit-year-field {
+  color: var(--light-gray2);
+}
+
+.task-date-input:focus::-webkit-datetime-edit-month-field {
+  color: black;
+}
+
+.task-date-input:focus::-webkit-datetime-edit-day-field {
+  color: black;
+}
+
+.task-date-input:focus::-webkit-datetime-edit-year-field {
+  color: black;
+} */
