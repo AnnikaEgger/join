@@ -1,139 +1,27 @@
 .add-task-dialog {
   position: fixed;
-  border: none;
-  border-radius: 50px;
-  padding: 40px;
-  background-color: white;
-  color: black;
-  width: 100%;
-  height: 800px;
-  max-width: 1000px;
   top: 50%;
   left: 50%;
+
+  border: none;
+  border-radius: 30px;
+  padding: 64px;
+  background-color: white;
+  /* color: black; */
+  height: 870px;
+
   transform: translate(-50%, -50%);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
-  z-index: 999;
-  overflow: hidden;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  /* z-index: 999; */
 }
 
 .add-task-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.task-dialog {
-  /* display: flex; */
-  position: fixed;
-  border: none;
-  border-radius: 50px;
-  padding: 40px;
-  background-color: white;
-  color: black;
-  width: 60%;
-  height: 900px;
-  max-width: 1000px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
-  z-index: 999;
-  overflow: hidden;
+.add-task-bottom-btns-container--dialog {
 }
-
-.dialog-contact-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-.dialog-contacts-container {
-  max-height: 150px;
-  overflow-y: auto;
-  margin-top: 8px;
-}
-
-.dialog-prio-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dialog-prio-row img {
-  width: 17px;
-  height: 12px;
-  object-fit: contain;
-}
-
-.dialog-subtasks-section {
-  margin-top: 24px;
-}
-
-.dialog-subtasks-container {
-  max-height: 150px;
-  overflow-y: auto;
-  margin-top: 8px;
-}
-
-.dialog-subtask-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.dialog-subtask-checkbox {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.dialog-subtask-row input[type="checkbox"] {
-  appearance: auto !important;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  accent-color: #2a3647;
-}
-
-.dialog-subtask-row label {
-  font-size: 16px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.custom-checkbox {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #2a3647;
-  border-radius: 4px;
-  display: inline-block;
-  position: relative;
-  transition: all 0.1s ease-in-out;
-}
-
-.custom-checkbox.checked {
-  background-color: #2a3647;
-}
-
-.custom-checkbox.checked::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 1px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-:root {
-  --light-gray2: #d1d1d1;
-  --light-orange: #ffa800;
-}
-
+/* 
 .dialog-title {
   font-weight: 700;
   font-size: 60px;
@@ -149,18 +37,16 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  /* gap: 32px; */
 }
 
 .add-task-container {
-  /* flex: 1; */
   display: flex;
   flex-direction: column;
 }
 
 textarea {
   padding: 18px 16px;
-}
+} */
 
 /* 
 label {

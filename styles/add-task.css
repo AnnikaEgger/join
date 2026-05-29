@@ -141,7 +141,7 @@ select,
   font-size: 16px;
 }
 
-.add-task-bottom-btns-container {
+.add-task-bottom-btns-container--add-task {
   position: fixed;
   top: 850px;
   left: calc(
@@ -159,7 +159,7 @@ select,
   flex-shrink: 0;
 }
 
-.add-task-bottom-btn {
+.bottom-btn {
   display: flex;
   align-items: center;
   gap: 8px;

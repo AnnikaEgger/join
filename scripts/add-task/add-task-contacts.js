@@ -2,11 +2,22 @@ let contactsOptions = [];
 let filteredContacts = [];
 let assignedContacts = [];
 
+/**
+ * Selects or deselects a contact and updates the assigned contacts display.
+ * @param {number} indexContact - The index of the contact in the filtered contacts list
+ * @param {string} contactId - The unique ID of the contact
+ * @param {boolean} clickViaCheckbox - Whether the selection was triggered by clicking the checkbox
+ */
 function selectContact(indexContact, contactId, clickViaCheckbox) {
   handleContactSelection(indexContact, contactId, clickViaCheckbox);
   renderAssignedContacts();
 }
 
+/**
+ * Checks if a contact is already assigned by ID.
+ * @param {string} contactId - The unique ID of the contact
+ * @returns {number|undefined} The index of the contact in assignedContacts or undefined if not found
+ */
 function checkIfContactAlreadyAssigned(contactId) {
   for (let index = 0; index < assignedContacts.length; index++) {
     if (assignedContacts[index].id === contactId) {
@@ -15,6 +26,12 @@ function checkIfContactAlreadyAssigned(contactId) {
   }
 }
 
+/**
+ * Manages the selection or deselection of a contact, updating checkboxes and assigned contacts.
+ * @param {number} indexContact - The index of the contact
+ * @param {string} contactId - The unique ID of the contact
+ * @param {boolean} clickViaCheckbox - Whether the action was triggered by the checkbox
+ */
 function handleContactSelection(indexContact, contactId, clickViaCheckbox) {
   let checkbox = document.getElementById("checkbox" + indexContact);
   let indexAssignedContact = checkIfContactAlreadyAssigned(contactId);
@@ -38,6 +55,10 @@ function handleContactSelection(indexContact, contactId, clickViaCheckbox) {
   }
 }
 
+/**
+ * Fetches and renders all available contact options in the dropdown.
+ * @async
+ */
 async function renderContactOptions() {
   sortContactOptions();
   document.getElementById("select-options--contacts").innerHTML = "";
@@ -46,11 +67,17 @@ async function renderContactOptions() {
   contactOptionsCheckboxesEnterHandlers();
 }
 
+/**
+ * Sorts the filtered contacts alphabetically by name, ensuring the current user is first.
+ */
 function sortContactOptions() {
   filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
   ensureUserIsFirstInContactsArr();
 }
 
+/**
+ * Renders the contact options list with avatars and names.
+ */
 function renderContactOptionsList() {
   for (
     let indexContact = 0;
@@ -75,6 +102,11 @@ function renderContactOptionsList() {
   }
 }
 
+/**
+ * Retrieves the display name for a contact, appending "(You)" if it's the current user.
+ * @param {number} indexContact - The index of the contact
+ * @returns {string} The contact name with optional "(You)" suffix
+ */
 function getContactName(indexContact) {
   let user = getCurrentUser();
 
@@ -85,6 +117,10 @@ function getContactName(indexContact) {
   }
 }
 
+/**
+ * Retrieves the current user object from localStorage.
+ * @returns {Object|null} The user object or null if not found
+ */
 function getCurrentUser() {
   const stored = localStorage.getItem("currentUser");
   if (!stored) return null;
@@ -95,6 +131,9 @@ function getCurrentUser() {
   }
 }
 
+/**
+ * Ensures the current user is the first contact in the filtered contacts array.
+ */
 function ensureUserIsFirstInContactsArr() {
   let user = getCurrentUser();
   let userPartOfArr = filteredContacts.some(
@@ -111,12 +150,21 @@ function ensureUserIsFirstInContactsArr() {
   filteredContacts.unshift(user);
 }
 
+/**
+ * Checks if a contact is assigned by comparing contact names.
+ * @param {Object} contact - The contact object to check
+ * @returns {boolean} True if the contact is assigned, false otherwise
+ */
 function checkIfContactAssigned(contact) {
   return assignedContacts.some(
     (assignedContact) => assignedContact.name === contact.name,
   );
 }
 
+/**
+ * Fetches all contacts from Firebase and populates the contactsOptions array.
+ * @async
+ */
 async function getContacts() {
   let response = await fetch(BASE_URL + "contacts" + ".json");
   let contactsObj = await response.json();
@@ -126,6 +174,10 @@ async function getContacts() {
   }
 }
 
+/**
+ * Populates the contactsOptions array with contacts from the Firebase response object.
+ * @param {Object} contactsObj - The contacts object from Firebase
+ */
 function fillContactsOptionsArray(contactsObj) {
   let keysArr = Object.keys(contactsObj);
 
@@ -144,12 +196,20 @@ function fillContactsOptionsArray(contactsObj) {
   addUserToContactsOptionsArray();
 }
 
+/**
+ * Adds the current user to the beginning of the contacts options array if logged in.
+ */
 function addUserToContactsOptionsArray() {
   let user = getCurrentUser();
   if (!user || user.name === "Guest") return;
   contactsOptions.unshift(user);
 }
 
+/**
+ * Extracts and returns the initials from a contact name.
+ * @param {string} name - The contact's full name
+ * @returns {string} The initials in uppercase (max 2 characters)
+ */
 function getContactInitials(name) {
   let firstLetter = name.charAt(0);
   let spaceIndex = name.indexOf(" ");
@@ -162,6 +222,9 @@ function getContactInitials(name) {
   return (firstLetter + secondLetter).toUpperCase();
 }
 
+/**
+ * Renders the assigned contacts as avatar badges in the container.
+ */
 function renderAssignedContacts() {
   const SELECTED_CONTACTS_DIV = document.getElementById(
     "selected-contacts-container",
@@ -179,6 +242,9 @@ function renderAssignedContacts() {
 
 // #region filter contacts
 
+/**
+ * Handles the contact search input by filtering contacts and re-rendering the dropdown.
+ */
 function handleContactsSearch() {
   let searchContactsInput = document.getElementById(
     "search-contact-input",
@@ -187,6 +253,10 @@ function handleContactsSearch() {
   renderContactOptions();
 }
 
+/**
+ * Filters contacts based on the search input value.
+ * @param {string} inputValue - The search input value
+ */
 function filterContacts(inputValue) {
   const searchValue = inputValue.toLowerCase().trim();
 

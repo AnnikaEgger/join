@@ -1,3 +1,9 @@
+/**
+ * Adds a new task to the specified column after validating form and category selection.
+ * Shows a toast message and redirects to board on success.
+ * @async
+ * @param {string} column - The target column for the task ("to do", "in progress", "await feedback", "done")
+ */
 async function addTask(column) {
   const FORM = document.getElementById("task-form");
 
@@ -16,6 +22,11 @@ async function addTask(column) {
   }
 }
 
+/**
+ * Creates a JSON object containing all task data from form inputs.
+ * @param {string} column - The target column for the task
+ * @returns {Object} Task object with title, description, due_date, priority, assigned_contacts, category, subtasks, and column
+ */
 function taskJson(column) {
   const TITLE = document.getElementById("task-title").value;
   const DESCRIPTION = document.getElementById("task-description").value;
@@ -33,6 +44,9 @@ function taskJson(column) {
   };
 }
 
+/**
+ * Displays a toast notification message for task creation and hides it after 3 seconds.
+ */
 function showAddtaskToastMsg() {
   const TOAST_MSG = document.getElementById("addtask-toast-msg");
 
@@ -42,6 +56,12 @@ function showAddtaskToastMsg() {
   }, 3000);
 }
 
+/**
+ * Sends the task object to Firebase as a POST request.
+ * @async
+ * @param {Object} task - The task object to post
+ * @returns {Promise<Object>} The response from Firebase containing the new task ID
+ */
 async function postTaskToFirebase(task) {
   let response = await fetch(BASE_URL + "tasks.json", {
     method: "POST",
@@ -54,6 +74,9 @@ async function postTaskToFirebase(task) {
   return await response.json();
 }
 
+/**
+ * Clears all form inputs and resets task-related arrays to their initial state.
+ */
 function clearTask() {
   clearFormValues();
   renderAssignedContacts();
@@ -62,6 +85,9 @@ function clearTask() {
   renderPriority();
 }
 
+/**
+ * Clears all form field values and resets priority to default.
+ */
 function clearFormValues() {
   const TITLE = document.getElementById("task-title");
   const DESCRIPTION = document.getElementById("task-description");
@@ -77,6 +103,10 @@ function clearFormValues() {
   subtasksArr = [];
 }
 
+/**
+ * Validates a form input field based on its type.
+ * @param {string} inputType - The type of input to validate ("title" or "due-date")
+ */
 function checkInputValidity(inputType) {
   const input = document.getElementById("task-" + inputType);
 
@@ -88,6 +118,10 @@ function checkInputValidity(inputType) {
   }
 }
 
+/**
+ * Validates the title input and applies or removes the invalid styling.
+ * @param {HTMLInputElement} input - The title input element
+ */
 function titleFormValidation(input) {
   if (input.checkValidity()) {
     input.classList.remove("invalid");
@@ -98,6 +132,10 @@ function titleFormValidation(input) {
   }
 }
 
+/**
+ * Validates the due date input and applies or removes the invalid styling.
+ * @param {HTMLInputElement} input - The due date input element
+ */
 function dueDateFormValidation(input) {
   if (input.checkValidity()) {
     input

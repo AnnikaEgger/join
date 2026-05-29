@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/assets.css" />
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <link rel="stylesheet" type="text/css" href="../styles/add-task.css" />
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -25,6 +26,11 @@
       rel="stylesheet"
       type="text/css"
       href="../styles/add-task-responsive.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/add-task-dialog.css"
     />
     <link rel="stylesheet" type="text/css" href="../styles/board.css" />
 
@@ -389,7 +395,7 @@
                   <div id="task-priority" class="add-task-prio-btns-container">
                     <button
                       type="button"
-                      onclick="setPriority('urgent')"
+                      onclick="setPriority('Urgent')"
                       id="urgent-prio-btn"
                       class="prio-btn"
                       aria-label="set priority to urgent"
@@ -415,7 +421,7 @@
                       </svg></button
                     ><button
                       type="button"
-                      onclick="setPriority('medium')"
+                      onclick="setPriority('Medium')"
                       id="medium-prio-btn"
                       class="prio-btn"
                       aria-label="set priority to medium"
@@ -440,7 +446,7 @@
                       </svg></button
                     ><button
                       type="button"
-                      onclick="setPriority('low')"
+                      onclick="setPriority('Low')"
                       id="low-prio-btn"
                       class="prio-btn"
                       aria-label="set priority to low"
@@ -637,16 +643,15 @@
               <span class="red">*</span>this field is required
             </p>
 
-            <div class="add-task-bottom-btns-container">
+            <div class="add-task-bottom-btns-container--board">
               <div class="bottom-btns-wrapper">
                 <button
-                  onclick="clearTask()"
                   type="reset"
                   id="clear-task-btn"
-                  class="button add-task-bottom-btn button-white"
+                  class="button bottom-btn bottom-btn--board button-white"
                   aria-label="clear task form"
                 >
-                  Clear
+                  Cancel
                   <svg
                     id="clear-task-btn-svg"
                     width="13"
@@ -667,7 +672,7 @@
                 <button
                   type="submit"
                   id="create-task-btn"
-                  class="button add-task-bottom-btn button-blue create-task-btn"
+                  class="button bottom-btn bottom-btn--board button-blue create-task-btn"
                   aria-label="create task"
                 >
                   Create Task

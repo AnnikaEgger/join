@@ -1,3 +1,9 @@
+/**
+ * Generates HTML for a subtask list item with edit and delete buttons.
+ * @param {string} subtaskText - The text content of the subtask
+ * @param {number} indexSubtask - The index of the subtask
+ * @returns {string} HTML string for the subtask list item
+ */
 function subtaskLiTemplate(subtaskText, indexSubtask) {
   return `<li id="${"subtask-li-" + indexSubtask}" class="normal-li" tabindex="0" 
               data-index-subtask="${indexSubtask}"
@@ -51,6 +57,11 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
           </li>`;
 }
 
+/**
+ * Generates HTML for a subtask list item with an input field for editing.
+ * @param {number} indexSubtask - The index of the subtask
+ * @returns {string} HTML string for the editable subtask list item
+ */
 function subtaskLiWithInputTemplate(indexSubtask) {
   return ` <li id="${"subtask-li-" + indexSubtask}" class="li-with-input trigger-input-container" tabindex="0">
             <input id="${"li-input" + indexSubtask}" type="text" value="${subtasksArr[indexSubtask]}" />
@@ -101,6 +112,14 @@ function subtaskLiWithInputTemplate(indexSubtask) {
           </li>`;
 }
 
+/**
+ * Generates HTML for a contact option in the contact dropdown with checkbox.
+ * @param {number} indexContact - The index of the contact
+ * @param {string} initials - The contact's initials
+ * @param {string} contactName - The contact's full name
+ * @param {boolean} checkboxChecked - Whether the contact is already assigned
+ * @returns {string} HTML string for the contact option
+ */
 function contactOptionTemplate(
   indexContact,
   initials,
@@ -142,12 +161,23 @@ function contactOptionTemplate(
           </li>`;
 }
 
+/**
+ * Generates HTML for an assigned contact avatar badge.
+ * @param {number} indexAssignedContact - The index of the assigned contact
+ * @param {string} initials - The contact's initials
+ * @returns {string} HTML string for the contact avatar badge
+ */
 function contactAvatarTemplate(indexAssignedContact, initials) {
   return ` <div class="contact-avatar" style="background-color: ${assignedContacts[indexAssignedContact].color}">
             <p class="contact-avatar--initials">${initials}</p>
           </div>`;
 }
 
+/**
+ * Generates HTML for a category option in the category dropdown.
+ * @param {number} indexCategory - The index of the category
+ * @returns {string} HTML string for the category option
+ */
 function categoryOptionTemplate(indexCategory) {
   return `<li
             class="custom-select--option category-option"
