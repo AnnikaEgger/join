@@ -59,6 +59,7 @@
 }
 
 .dialog-left-content h1 {
+    color: var(--color-white);
     font-size: 60px;
     font-weight: 700;
     margin-bottom: 8px;
