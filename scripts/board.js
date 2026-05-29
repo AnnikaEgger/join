@@ -277,31 +277,6 @@ function renderDialogSubtasks(todo, id) {
  * @param {string} todoId - The ID of the parent task containing the subtask.
  * @param {number} subtaskIndex - The index of the subtask to toggle within the parent task's subtasks array.
  */
-function toggleSubtask(todoId, subtaskIndex) {
-    let todo = todos.find(t => t.id === todoId);
-    if (todo && todo.subtasks) {
-        let subtasksArray = Array.isArray(todo.subtasks) ? 
-            todo.subtasks : Object.values(todo.subtasks);
-        if (subtasksArray[subtaskIndex]) {
-            subtasksArray[subtaskIndex].done = !subtasksArray[subtaskIndex].done;
-            updateHTML();
-        }
-    }
-}
-
-/**
- * Sends the updated task object containing the modified subtasks to Firebase.
- * 
- * @param {Object} todo - The updated task object with the toggled subtask status, which will be sent to Firebase to persist the changes.
- */
-async function saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone) {
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks/${todoId}/subtasks/${subtaskIndex}/done.json`;
-    await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(isDone)
-    });
-}
 
 let touchTimeout;
 let isLongPress = false;

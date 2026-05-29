@@ -105,15 +105,64 @@ hr {
     padding: 40px;
     background-color: white;
     color: black;
-    width: 60%;
+    width: 90%;
     height: 900px;
-    max-width: 1000px;
+    max-width: 400px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
     z-index: 999;
+}
+
+body:has(.example-dialog[open]) {
     overflow: hidden;
+}
+
+@keyframes slideInCentered {
+    from {
+        transform: translate(150%, -50%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutCentered {
+    from {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate(150%, -50%);
+        opacity: 0;
+    }
+}
+
+#taskDialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 500px;
+    height: fit-content;
+    max-height: 85vh;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+    animation: slideOutCentered 0.3s ease-in forwards;
+}
+
+#taskDialog[open] {
+    animation: slideInCentered 0.3s ease-out forwards;
 }
 
 .dialog-contact-row {
@@ -703,5 +752,13 @@ select,
 
     .dialog-title {
         font-size: 40px;
+    }
+
+    .dialog-task-title {
+        font-size: 36px;
+    }
+
+    .dialog-description {
+        font-size: 16px;
     }
 }

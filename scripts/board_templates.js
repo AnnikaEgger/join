@@ -40,7 +40,7 @@ function generateTaskDialogHTML(todo, catColor, id) {
     return `
         <div class="task-dialog-header">
             <span class="category-field-dialog" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
-            <button class="close-task-dialog-btn" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
+            <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
         </div>
         <h1 class="dialog-task-title">${todo['title']}</h1>
         <p class="dialog-description">${todo['description'] || ''}</p>
@@ -67,11 +67,11 @@ function generateDialogContactsHTML(name, color, initials) {
 }
 
 function generateDialogSubtasksHTML(todoId, index, title, isChecked) {
-    let iconSrc = isChecked ? '/assets/icons/checkbox.svg' : '/assets/icons/checkbox-rect.svg';
     return `
-        <div class="dialog-subtask-row" onclick="toggleSubtask('${todoId}', ${index})">
-            <img src="${iconSrc}" class="dialog-subtask-checkbox" alt="checkbox">
-            <label>${title}</label>
+        <div class="dialog-subtask-row">
+            <input type="checkbox" id="subtask-${index}" ${isChecked} 
+                   onclick="toggleSubtask('${todoId}', ${index})">
+            <label for="subtask-${index}">${title}</label>
         </div>`;
 }
 
