@@ -112,13 +112,13 @@
     </header>
 
     <main class="main-content main-content--add-task">
-      <div class="content-wrapper">
+      <div class="content-wrapper content-wrapper--add-task">
         <h1 class="add-task-headline add-task-headline--add-task">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
           onsubmit="addTask('to do')"
           id="task-form"
-          class="task-form--add-task"
+          class="task-form task-form--add-task"
           novalidate
         >
           <div class="add-task-inner-wrapper">
@@ -442,13 +442,15 @@
             <span class="red">*</span>this field is required
           </p>
 
-          <div class="add-task-bottom-btns-container--add-task">
+          <div
+            class="add-task-bottom-btns-container add-task-bottom-btns-container--add-task"
+          >
             <div class="bottom-btns-wrapper">
               <button
                 onclick="clearTask()"
                 type="reset"
                 id="clear-task-btn"
-                class="button bottom-btn bottom-btn--add-task button-white"
+                class="button bottom-btn bottom-btn--add-task button-white button-white--add-task"
                 aria-label="clear task form"
               >
                 Clear

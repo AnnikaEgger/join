@@ -150,6 +150,10 @@ input {
   transform: translateX(-100%);
 }
 
+.button-white--add-task {
+  background-color: var(--light-gray);
+}
+
 .bottom-btns-wrapper {
   display: flex;
   align-items: center;

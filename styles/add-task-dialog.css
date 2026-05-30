@@ -1,3 +1,7 @@
+:root {
+  --dialog-content-padding: 64px;
+}
+
 .add-task-dialog {
   position: fixed;
   top: 50%;
@@ -5,7 +9,6 @@
 
   border: none;
   border-radius: 30px;
-  padding: 64px;
   background-color: white;
   transform: translate(100dvw, -50%);
   transition: transform 0.15s ease-out;
@@ -15,6 +18,16 @@
 
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   /* z-index: 999; */
+
+  /* scrollbar-gutter: stable; */
+  overflow: hidden;
+}
+
+.content-wrapper--dialog {
+  padding: 0 var(--dialog-content-padding);
+  max-height: 95dvh;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .show-dialog {
@@ -26,16 +39,25 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.add-task-dialog-top-wrapper {
+.add-task-dialog textarea {
+  margin: 0;
+}
+
+/* .add-task-dialog-top-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: start;
-}
+} */
 
 .add-task-bottom-btns-container--dialog {
+  position: sticky;
   bottom: 0;
   right: 0;
+  padding: 16px 0 var(--dialog-content-padding) 0;
+  /* padding: 16px 0; */
   font-size: 16px;
+  display: flex;
+  justify-content: end;
 }
 
 .add-task-inner-wrapper--dialog {
@@ -53,183 +75,150 @@
   font-weight: 700;
   font-size: 60px;
   margin-bottom: 36px;
+  padding-top: var(--dialog-content-padding);
 }
 
 .add-task-dialog-closing-btn {
+  position: absolute;
   padding: 8px;
   background-color: transparent;
-  right: 40px;
-  top: 70px;
+  /* right: 40px;
+  top: 75px; */
+  right: var(--dialog-content-padding);
+  top: var(--dialog-content-padding);
   border-radius: 50%;
+  z-index: 2;
 }
 
 .add-task-dialog-closing-btn:hover {
   background-color: #eeeeee;
 }
-/* 
-.dialog-title {
-  font-weight: 700;
-  font-size: 60px;
-  color: black;
-  margin-bottom: 48px;
+
+/* #region dialog scrollbar */
+
+.add-task-dialog {
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #a8a8a8;
+  --sb-size: 16px;
 }
 
-.add-task-wrapper {
-  max-width: 1000px;
+.content-wrapper--dialog::-webkit-scrollbar {
+  width: var(--sb-size);
 }
 
-.add-task-inner-wrapper {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+.content-wrapper--dialog::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 8px;
 }
 
-.add-task-container {
-  display: flex;
-  flex-direction: column;
+.content-wrapper--dialog::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 8px;
+  border: 4px solid #ffffff;
 }
 
-textarea {
-  padding: 18px 16px;
-} */
-
-/* 
-label {
-    margin-bottom: 8px;
-    font-size: 20px;
+@supports not selector(::-webkit-scrollbar) {
+  .content-wrapper--dialog {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
 }
 
-.red {
-    color: rgb(240, 68, 68);
+.bottom-btns-wrapper--dialog {
 }
 
-.seperation-line {
-    width: 1px;
-    background-color: var(--light-gray2);
-    margin: 0 32px;
-}
-
-.add-task-btn-container {
-    display: flex;
-    gap: 16px;
-}
-
-.prio-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 10px;
-    background-color: white;
-    border-radius: var(--border-radius-s);
-    width: 130px;
-    gap: 8px;
-    cursor: pointer;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-}
-
-.urgent-active {
-    background-color: #ff3d00;
-    color: white;
-    font-weight: 700;
-}
-
-.medium-active {
-    background-color: var(--light-orange);
-    color: white;
-    font-weight: 700;
-}
-
-.low-active {
-    background-color: #7ae229;
-    color: white;
-    font-weight: 700;
-}
-
-.active-svg {
-    fill: white;
-    stroke: white;
-} */
-
-/* buttons Farbe ändern/ toggeln beim klicken --> mit js */
-
-/* .add-task-bottom-btns-container {
-  display: flex;
-  gap: 16px;
-}
-
-.add-task-bottom-btn {
-  padding: 16px;
-} */
-
-/* buttons background + svg Farbe toggeln beim klicken; button clear task per default ausgewählt */
-
-/* .add-task-bottom-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-top: 100px;
-} */
-
-/* Date input + select --> wie designen? */
-/* 
-.task-form-select {
-  appearance: none;
-  background-image: url("../assets/icons/arrow-drop-down.svg");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-}
-
-.task-date-input {
-  background-image: url("../assets/icons/calendar.svg");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-}
-
-.task-date-input::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  cursor: pointer;
-}
-
-.task-date-input::-webkit-datetime-edit-month-field {
-  color: var(--light-gray2);
-}
-
-.task-date-input::-webkit-datetime-edit-day-field {
-  color: var(--light-gray2);
-}
-
-.task-date-input::-webkit-datetime-edit-year-field {
-  color: var(--light-gray2);
-}
-
-.task-date-input:focus::-webkit-datetime-edit-month-field {
-  color: black;
-}
-
-.task-date-input:focus::-webkit-datetime-edit-day-field {
-  color: black;
-}
-
-.task-date-input:focus::-webkit-datetime-edit-year-field {
-  color: black;
-} */
+/* #endregion */
 
 /* #region responsive */
 
 @media screen and (max-width: 1024px) {
+  :root {
+    --dialog-content-padding: 32px;
+  }
   .add-task-headline--dialog {
-    top: 50px;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding-top: var(--dialog-content-padding);
+  }
+
+  .add-task-bottom-btns-container--dialog {
+    background-color: white;
+  }
+
+  .content-wrapper--dialog {
+    padding: 0 var(--dialog-content-padding);
+  }
+
+  .add-task-inner-wrapper--dialog {
+    margin-bottom: 0;
+  }
+
+  .p-required--dialog {
+    margin-bottom: var(--dialog-content-padding);
   }
 }
 
 @media screen and (max-width: 768px) {
+  :root {
+    --dialog-content-padding: 16px;
+  }
   .add-task-dialog {
-    padding: 32px;
+    width: 100dvw;
+  }
+  .content-wrapper--dialog {
+    padding: 0 var(--dialog-content-padding);
   }
 
   .add-task-headline--dialog {
     font-size: 40px;
     margin-bottom: 24px;
+  }
+
+  .add-task-bottom-btns-container--dialog {
+    justify-content: center;
+  }
+
+  .add-task-headline--dialog {
+    text-align: center;
+  }
+
+  .p-required--dialog {
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    --dialog-content-padding: 8px;
+  }
+
+  .add-task-dialog {
+    border-radius: 16px;
+    height: 95dvh;
+    max-height: none;
+    width: 95dvw;
+    max-width: none;
+  }
+
+  .add-task-headline--dialog {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  /* .add-task-dialog input:not([type="checkbox"]), */
+  textarea,
+  .add-task-dialog #task-title,
+  .add-task-dialog #task-description,
+  .add-task-dialog .custom-select-input {
+    padding: 8px;
+  }
+
+  .bottom-btns-wrapper--dialog {
+    flex-direction: column-reverse;
+  }
+
+  .add-task-bottom-btns-container--dialog {
+    justify-content: center;
   }
 }
 
