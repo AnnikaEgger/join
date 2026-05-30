@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../styles/assets.css" />
     <link rel="stylesheet" type="text/css" href="../style.css" />
+
     <link rel="stylesheet" type="text/css" href="../styles/add-task.css" />
 
     <link
@@ -135,7 +136,7 @@
       <section class="board-header">
         <h1 class="head-text">Board</h1>
         <div class="search-and-add-section">
-          <form class="form" action="onSubmit">
+          <div class="search-task-container">
             <input
               onkeyup="filterTasks()"
               aria-label="Search tasks"
@@ -146,11 +147,12 @@
             />
             <hr />
             <img
-              class="search-btn-img search-btn"
+              class="search-icon"
               src="../assets/icons/search.svg"
               alt="search icon"
             />
-          </form>
+          </div>
+
           <button
             class="add-btn"
             aria-label="Add task"
@@ -308,11 +310,34 @@
       id="addTaskDialog"
       class="add-task-dialog"
     >
-      <div onclick="event.stopPropagation()">
+      <div>
         <div class="content-wrapper">
-          <h2 id="add-task-headline" class="add-task-headline dialog-title">
-            Add Task
-          </h2>
+          <div class="add-task-dialog-top-wrapper">
+            <h2 class="add-task-headline add-task-headline--dialog">
+              Add Task
+            </h2>
+            <button
+              class="add-task-dialog-closing-btn"
+              onclick="closeAddTaskDialog()"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 13 13"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
           <form
             aria-labelledby="add-task-headline"
             onsubmit="addTask('to do')"
@@ -320,7 +345,7 @@
             class="task-form"
             novalidate
           >
-            <div class="add-task-inner-wrapper">
+            <div class="add-task-inner-wrapper add-task-inner-wrapper--dialog">
               <div class="add-task-container add-task-container-left">
                 <section class="title-section">
                   <label class="label" for="task-title"
@@ -639,57 +664,59 @@
               </div>
             </div>
 
-            <p class="p-required">
-              <span class="red">*</span>this field is required
-            </p>
+            <div class="add-task-dialog-bottom-wrapper">
+              <p class="p-required p-required--dialog">
+                <span class="red">*</span>this field is required
+              </p>
 
-            <div class="add-task-bottom-btns-container--board">
-              <div class="bottom-btns-wrapper">
-                <button
-                  type="reset"
-                  id="clear-task-btn"
-                  class="button bottom-btn bottom-btn--board button-white"
-                  aria-label="clear task form"
-                >
-                  Cancel
-                  <svg
-                    id="clear-task-btn-svg"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              <div class="add-task-bottom-btns-container--dialog">
+                <div class="bottom-btns-wrapper">
+                  <button
+                    type="reset"
+                    id="clear-task-btn"
+                    class="button bottom-btn bottom-btn--board button-white"
+                    aria-label="clear task form"
                   >
-                    <path
-                      d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
-                      stroke="#2A3647"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-                <button
-                  type="submit"
-                  id="create-task-btn"
-                  class="button bottom-btn bottom-btn--board button-blue create-task-btn"
-                  aria-label="create task"
-                >
-                  Create Task
-                  <svg
-                    id="create-task-btn-svg"
-                    width="16"
-                    height="12"
-                    viewBox="0 0 16 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                    Cancel
+                    <svg
+                      id="clear-task-btn-svg"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 13 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
+                        stroke="#2A3647"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="submit"
+                    id="create-task-btn"
+                    class="button bottom-btn bottom-btn--board button-blue create-task-btn"
+                    aria-label="create task"
                   >
-                    <path
-                      d="M5.288 8.775L13.763 0.3C13.963 0.1 14.2005 0 14.4755 0C14.7505 0 14.988 0.1 15.188 0.3C15.388 0.5 15.488 0.7375 15.488 1.0125C15.488 1.2875 15.388 1.525 15.188 1.725L5.988 10.925C5.788 11.125 5.55467 11.225 5.288 11.225C5.02133 11.225 4.788 11.125 4.588 10.925L0.288 6.625C0.088 6.425 -0.00783333 6.1875 0.0005 5.9125C0.00883333 5.6375 0.113 5.4 0.313 5.2C0.513 5 0.7505 4.9 1.0255 4.9C1.3005 4.9 1.538 5 1.738 5.2L5.288 8.775Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
+                    Create Task
+                    <svg
+                      id="create-task-btn-svg"
+                      width="16"
+                      height="12"
+                      viewBox="0 0 16 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.288 8.775L13.763 0.3C13.963 0.1 14.2005 0 14.4755 0C14.7505 0 14.988 0.1 15.188 0.3C15.388 0.5 15.488 0.7375 15.488 1.0125C15.488 1.2875 15.388 1.525 15.188 1.725L5.988 10.925C5.788 11.125 5.55467 11.225 5.288 11.225C5.02133 11.225 4.788 11.125 4.588 10.925L0.288 6.625C0.088 6.425 -0.00783333 6.1875 0.0005 5.9125C0.00883333 5.6375 0.113 5.4 0.313 5.2C0.513 5 0.7505 4.9 1.0255 4.9C1.3005 4.9 1.538 5 1.738 5.2L5.288 8.775Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </form>

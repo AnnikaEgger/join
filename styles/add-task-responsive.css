@@ -35,12 +35,15 @@
 
   .add-task-headline {
     position: fixed;
-    top: var(--header-height);
-    width: 100dvw;
-    background-color: var(--light-gray);
     z-index: 1;
     padding-top: 40px;
     padding-bottom: 10px;
+  }
+
+  .add-task-headline--add-task {
+    top: var(--header-height);
+    width: 100dvw;
+    background-color: var(--light-gray);
   }
 
   .main-content {
@@ -60,7 +63,7 @@
     font-size: 16px;
   }
 
-  .add-task-bottom-btns-container--add-task {
+  .add-task-bottom-btns-container {
     top: unset;
     bottom: calc(var(--resp-navbar-height) + 24px);
     left: 0;

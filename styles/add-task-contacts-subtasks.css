@@ -14,7 +14,6 @@ input[type="checkbox"] {
 .select-contacts-section {
   display: flex;
   flex-direction: column;
-  margin-bottom: 32px;
   width: var(--input-width);
 }
 

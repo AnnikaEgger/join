@@ -13,7 +13,9 @@ input:not([type="checkbox"]):focus,
 .custom-select-input:focus,
 .custom-select-input:focus-within,
 .custom-select:focus-within .custom-select--trigger,
-textarea:focus {
+textarea:focus,
+.search-task-container:focus,
+.search-task-container:focus-within {
   border: 1px solid var(--light-blue);
 }
 

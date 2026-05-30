@@ -111,14 +111,14 @@
       </div>
     </header>
 
-    <main class="main-content">
+    <main class="main-content main-content--add-task">
       <div class="content-wrapper">
-        <h1 id="add-task-headline" class="add-task-headline">Add Task</h1>
+        <h1 class="add-task-headline add-task-headline--add-task">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
           onsubmit="addTask('to do')"
           id="task-form"
-          class="task-form"
+          class="task-form--add-task"
           novalidate
         >
           <div class="add-task-inner-wrapper">
@@ -438,7 +438,7 @@
             </div>
           </div>
 
-          <p class="p-required">
+          <p class="p-required p-required--add-task">
             <span class="red">*</span>this field is required
           </p>
 

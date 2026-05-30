@@ -7,19 +7,64 @@
   border-radius: 30px;
   padding: 64px;
   background-color: white;
-  /* color: black; */
-  height: 870px;
+  transform: translate(100dvw, -50%);
+  transition: transform 0.15s ease-out;
 
-  transform: translate(-50%, -50%);
+  /* color: black; */
+  /* height: 870px; */
+
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   /* z-index: 999; */
+}
+
+.show-dialog {
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out;
 }
 
 .add-task-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.add-task-dialog-top-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
 .add-task-bottom-btns-container--dialog {
+  bottom: 0;
+  right: 0;
+  font-size: 16px;
+}
+
+.add-task-inner-wrapper--dialog {
+  margin-bottom: 100px;
+}
+
+.add-task-dialog-bottom-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.add-task-headline--dialog {
+  color: black;
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 36px;
+}
+
+.add-task-dialog-closing-btn {
+  padding: 8px;
+  background-color: transparent;
+  right: 40px;
+  top: 70px;
+  border-radius: 50%;
+}
+
+.add-task-dialog-closing-btn:hover {
+  background-color: #eeeeee;
 }
 /* 
 .dialog-title {
@@ -168,3 +213,24 @@ label {
 .task-date-input:focus::-webkit-datetime-edit-year-field {
   color: black;
 } */
+
+/* #region responsive */
+
+@media screen and (max-width: 1024px) {
+  .add-task-headline--dialog {
+    top: 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .add-task-dialog {
+    padding: 32px;
+  }
+
+  .add-task-headline--dialog {
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+}
+
+/* #endregion */

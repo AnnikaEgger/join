@@ -140,21 +140,21 @@ function renderPriority() {
  * Applies active styling to the current priority button and removes it from others.
  */
 function stylePrioBtnsColor() {
-  let activeBtn = document.getElementById(priority + "-prio-btn");
+  let activeBtn = document.getElementById(priority.toLowerCase() + "-prio-btn");
 
   document.querySelectorAll(".prio-btn").forEach((btn) => {
     if (btn !== activeBtn) {
       btn.classList.remove("urgent-active", "medium-active", "low-active");
     }
   });
-  activeBtn.classList.add(priority + "-active");
+  activeBtn.classList.add(priority.toLowerCase() + "-active");
 }
 
 /**
  * Applies active styling to the current priority SVG and removes it from others.
  */
 function stylePrioSvgColors() {
-  let activeSvg = document.getElementById(priority + "-prio-svg");
+  let activeSvg = document.getElementById(priority.toLowerCase() + "-prio-svg");
 
   document.querySelectorAll(".prio-svg").forEach((svg) => {
     if (svg !== activeSvg) {
