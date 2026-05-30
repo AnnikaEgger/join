@@ -39,17 +39,23 @@ function generateTaskDialogHTML(todo, catColor, id) {
     let prioIconHTML = getPrioIconHTML(todo);
     return `
         <div class="task-dialog-header">
-            <span class="category-field" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
-            <button class="close-task-dialog-btn" onclick="closeTaskDialog()">X</button>
+            <span class="category-field-dialog" style="background-color: ${catColor}">${todo['category'] || 'User Story'}</span>
+            <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
         </div>
-        <h1 class="dialog-title">${todo['title']}</h1>
+        <h1 class="dialog-task-title">${todo['title']}</h1>
         <p class="dialog-description">${todo['description'] || ''}</p>
         <div class="dialog-prio-date">
-            <div><b>Due date:</b> ${todo['dueDate'] || 'No date'}</div>
-            <div class="dialog-prio-row"><b>Priority:</b> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
+            <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo['due_date'] || 'No date'}</div>
+            <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo['priority'] || 'Low'} ${prioIconHTML}</div>
         </div>
-        <div class="dialog-assigned-section"><b>Assigned To:</b><div class="dialog-contacts-container">${contactsListHTML}</div></div>
-        <div class="dialog-subtasks-section"><b>Subtasks:</b><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>`;
+        <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
+        <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
+        <section class="dialog-footer">
+                <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                <hr class="dialog-footer-hr">
+                <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+        </section>
+     `;
 }
 
 function generateDialogContactsHTML(name, color, initials) {
@@ -61,11 +67,11 @@ function generateDialogContactsHTML(name, color, initials) {
 }
 
 function generateDialogSubtasksHTML(todoId, index, title, isChecked) {
-    let iconSrc = isChecked ? '/assets/icons/checkbox.svg' : '/assets/icons/checkbox-rect.svg';
     return `
-        <div class="dialog-subtask-row" onclick="toggleSubtask('${todoId}', ${index})">
-            <img src="${iconSrc}" class="dialog-subtask-checkbox" alt="checkbox">
-            <label>${title}</label>
+        <div class="dialog-subtask-row">
+            <input type="checkbox" id="subtask-${index}" ${isChecked} 
+                   onclick="toggleSubtask('${todoId}', ${index})">
+            <label for="subtask-${index}">${title}</label>
         </div>`;
 }
 

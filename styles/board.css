@@ -63,14 +63,19 @@ hr {
   height: 70%;
 }
 
-.search-icon {
+.search-btn {
   border: none;
   border-radius: 5px;
-  padding-left: 10px;
-  /* padding: 10px;
+  padding: 10px;
   padding-left: 15px;
-  padding-right: 15px; */
+  padding-right: 15px;
+  cursor: pointer;
   background-color: #ffffff;
+}
+
+.search-btn-img:hover {
+  background-color: #ebe8e8;
+  border-radius: 5px;
 }
 
 .add-btn {
@@ -112,22 +117,73 @@ hr {
   padding: 40px;
   background-color: white;
   color: black;
-  width: 60%;
+  width: 90%;
   height: 900px;
-  max-width: 1000px;
+  max-width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
   z-index: 999;
+}
+
+body:has(.example-dialog[open]) {
   overflow: hidden;
+}
+
+@keyframes slideInCentered {
+  from {
+    transform: translate(150%, -50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutCentered {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(150%, -50%);
+    opacity: 0;
+  }
+}
+
+#taskDialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px;
+  height: fit-content;
+  max-height: 85vh;
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  transition:
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
+  animation: slideOutCentered 0.3s ease-in forwards;
+}
+
+#taskDialog[open] {
+  animation: slideInCentered 0.3s ease-out forwards;
 }
 
 .dialog-contact-row {
   display: flex;
   align-items: center;
-  gap: 16px;
   margin-top: 8px;
+  padding-left: 15px;
 }
 
 .dialog-contacts-container {
@@ -433,6 +489,124 @@ select,
   margin-bottom: 32px;
 }
 
+.task-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+
+.category-field-dialog {
+  background-color: #0038ff;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font: "Inter", sans-serif;
+  font-size: 20px;
+  width: fit-content;
+}
+
+.close-task-dialog-btn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.close-task-dialog-btn img {
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+}
+
+.close-task-dialog-btn:hover {
+  background-color: #ebe8e8;
+  border-radius: 50px;
+}
+
+.dialog-task-title {
+  font-size: 48px;
+  font-family: "Inter", sans-serif;
+  margin-top: 16px;
+}
+
+.dialog-description {
+  margin-top: 12px;
+  font-size: 18px;
+  color: #000000;
+}
+
+.dialog-prio-date {
+  margin-top: 15px;
+  gap: 15px;
+  font-size: 18px;
+}
+
+.dialog-prio-row {
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.dialog-text-label {
+  color: #576174;
+  font-size: 18px;
+}
+
+.dialog-assigned-section {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.dialog-footer {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dialog-footer-hr {
+  height: 30px;
+  border: 1px solid #d1d1d1;
+}
+
+.delete-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  height: 27px;
+  gap: 5px;
+}
+
+.edit-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  height: 27px;
+  gap: 5px;
+}
+
+.delete-task-btn:hover {
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
+    brightness(95%) contrast(88%);
+}
+
+.edit-task-btn:hover {
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
+    brightness(95%) contrast(88%);
+}
+
 @media (max-width: 1200px) {
   .main-content {
     padding-left: 32px;
@@ -594,5 +768,13 @@ select,
 
   .dialog-title {
     font-size: 40px;
+  }
+
+  .dialog-task-title {
+    font-size: 36px;
+  }
+
+  .dialog-description {
+    font-size: 16px;
   }
 }
