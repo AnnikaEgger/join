@@ -29,7 +29,7 @@
     <script src="../scripts/add-task/add-task-task.js"></script>
     <script src="../scripts/add-task/add-task.js" defer></script>
   </head>
-  <body onload="init()">
+  <body onload="initAddTask()">
     <section class="sidebar">
       <div class="sidebar-logo">
         <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />
@@ -116,7 +116,7 @@
         <h1 class="add-task-headline add-task-headline--add-task">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
-          onsubmit="addTask('to do')"
+          onsubmit="addTask(event, 'to do', 'add task')"
           id="task-form"
           class="task-form task-form--add-task"
           novalidate
@@ -274,7 +274,7 @@
 
               <section class="contacts-section">
                 <p class="label" id="contacts-label">Assigned to</p>
-                <div class="select-contacts-section">
+                <div class="select-wrapper">
                   <div
                     aria-labelledby="contacts-label"
                     class="custom-select custom-select--contacts"
@@ -321,7 +321,7 @@
                   </div>
 
                   <div
-                    class="selected-contacts"
+                    class="selected-contacts selected-contacts--add-task"
                     id="selected-contacts-container"
                   ></div>
                 </div>
@@ -331,35 +331,37 @@
                 <p class="label" id="categories-label">
                   Category<span class="red">*</span>
                 </p>
-                <div
-                  class="custom-select custom-select--categories required"
-                  id="categories-dropdown"
-                >
+                <div class="select-wrapper">
                   <div
-                    role="combobox"
-                    aria-haspopup="listbox"
-                    aria-owns="select-options--category"
-                    onclick="toggleCustomSelectDropdown('category')"
-                    class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-category"
-                    tabindex="0"
+                    class="custom-select custom-select--categories required"
+                    id="categories-dropdown"
                   >
-                    <span id="selected-category"></span>
-                    <button
-                      type="button"
-                      class="custom-select--trigger--img-container"
+                    <div
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-owns="select-options--category"
+                      onclick="toggleCustomSelectDropdown('category')"
+                      class="custom-select--trigger custom-select-input"
+                      id="custom-select-trigger-category"
+                      tabindex="0"
                     >
-                      <img
-                        id="arrow-dropdown--category"
-                        src="../assets/icons/arrow-drop-down.svg"
-                        alt="arrow down icon"
-                      />
-                    </button>
+                      <span id="selected-category"></span>
+                      <button
+                        type="button"
+                        class="custom-select--trigger--img-container"
+                      >
+                        <img
+                          id="arrow-dropdown--category"
+                          src="../assets/icons/arrow-drop-down.svg"
+                          alt="arrow down icon"
+                        />
+                      </button>
+                    </div>
+                    <ul
+                      id="select-options--category"
+                      class="custom-select-options custom-select-options--categories display-none"
+                    ></ul>
                   </div>
-                  <ul
-                    id="select-options--category"
-                    class="custom-select-options display-none"
-                  ></ul>
                 </div>
               </section>
 
@@ -497,7 +499,10 @@
         </form>
       </div>
 
-      <div id="addtask-toast-msg" class="addtask-toast-msg">
+      <div
+        id="addtask-toast-msg"
+        class="addtask-toast-msg addtask-toast-msg--add-task"
+      >
         <p>Task added to board</p>
         <img src="../assets/icons/board-icon-white.svg" alt="Board icon" />
       </div>

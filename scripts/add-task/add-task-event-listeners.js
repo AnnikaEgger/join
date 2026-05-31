@@ -196,11 +196,9 @@ function handleInvalidSubmit() {
   invalidElements.forEach((element) => {
     if (element.id !== "task-due-date") {
       element.classList.add("invalid");
-      element.closest(".required").classList.add("input-with-after");
+      element.closest(".required").classList.add("after");
     } else {
-      element
-        .closest(".required")
-        .classList.add("custom-select-with-after", "invalid");
+      element.closest(".required").classList.add("after", "invalid");
     }
   });
 
@@ -211,7 +209,7 @@ function handleInvalidSubmit() {
  * Adds error styling classes to the category dropdown.
  */
 function addCategoryClasses() {
-  CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
+  CATEGORIES_DROPDOWN.classList.add("after");
   CATEGORY_TRIGGER.classList.add("invalid");
 }
 
@@ -247,10 +245,10 @@ function contactsDropdownFocusOutFunction() {
  */
 function categoriesDropdownClickFunction() {
   if (successfullSubmit == false) {
-    CATEGORIES_DROPDOWN.classList.add("custom-select-with-after");
+    CATEGORIES_DROPDOWN.classList.add("after");
     CATEGORY_TRIGGER.classList.add("invalid");
   } else {
-    CATEGORIES_DROPDOWN.classList.remove("custom-select-with-after");
+    CATEGORIES_DROPDOWN.classList.remove("after");
     CATEGORY_TRIGGER.classList.remove("invalid");
   }
 }

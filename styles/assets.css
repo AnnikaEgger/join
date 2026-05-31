@@ -55,7 +55,7 @@ input::placeholder {
   border: 1px solid red !important;
 }
 
-.custom-select-with-after:focus-within::after {
+/* .custom-select-with-after:focus-within::after {
   content: "This field is required";
   font-size: 16px;
   color: red;
@@ -69,7 +69,16 @@ input::placeholder {
   font-size: 16px;
   color: red;
   position: absolute;
-  bottom: 10px;
+  bottom: -20px;
+  left: 5px;
+} */
+
+.after:focus-within::after {
+  content: "This field is required";
+  font-size: 16px;
+  color: red;
+  position: absolute;
+  bottom: -20px;
   left: 5px;
 }
 

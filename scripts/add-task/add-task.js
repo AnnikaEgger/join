@@ -6,7 +6,7 @@ const BASE_URL =
  * loading contacts and categories, and registering event handlers.
  * @async
  */
-async function init() {
+async function initAddTask() {
   disablePastDates();
   renderPriority();
 

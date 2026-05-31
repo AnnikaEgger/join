@@ -1,10 +1,14 @@
 /**
- * Adds a new task to the specified column after validating form and category selection.
- * Shows a toast message and redirects to board on success.
+ * Adds a new task to the specified column after validating the form and category selection.
+ * If validation passes, the task is posted to Firebase, a toast is shown, the form is cleared,
+ * and task creation is completed for the current page.
  * @async
- * @param {string} column - The target column for the task ("to do", "in progress", "await feedback", "done")
+ * @param {Event} event - The submit event triggered by the form.
+ * @param {string} column - The target column for the task ("to do", "in progress", "await feedback", "done").
+ * @param {string} page - The originating page context ("add task" or "board").
+ * @returns {Promise<void>} Resolves once the task has been posted and UI actions have been triggered.
  */
-async function addTask(column) {
+async function addTask(event, column, page) {
   const FORM = document.getElementById("task-form");
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
@@ -15,13 +19,26 @@ async function addTask(column) {
     await postTaskToFirebase(task);
 
     showAddtaskToastMsg();
-    setTimeout(function () {
-      window.location.href = "../html/board.html";
-      clearTask();
-    }, 3000);
+    clearTask();
+    completeTaskCreation(page);
   }
 }
 
+/**
+ * Completes the task creation flow after a brief delay.
+ * Redirects to the board page when creating a task from the add-task page,
+ * or closes the add-task dialog when running from the board.
+ * @param {string} page - The originating page context ("add task" or "board").
+ */
+function completeTaskCreation(page) {
+  setTimeout(() => {
+    if (page === "add task") {
+      window.location.href = "../html/board.html";
+    } else if (page === "board") {
+      closeAddTaskDialog();
+    }
+  }, 3000);
+}
 /**
  * Creates a JSON object containing all task data from form inputs.
  * @param {string} column - The target column for the task
@@ -125,10 +142,10 @@ function checkInputValidity(inputType) {
 function titleFormValidation(input) {
   if (input.checkValidity()) {
     input.classList.remove("invalid");
-    input.closest(".required").classList.remove("input-with-after");
+    input.closest(".required").classList.remove("after");
   } else {
     input.classList.add("invalid");
-    input.closest(".required").classList.add("input-with-after");
+    input.closest(".required").classList.add("after");
   }
 }
 
@@ -138,12 +155,8 @@ function titleFormValidation(input) {
  */
 function dueDateFormValidation(input) {
   if (input.checkValidity()) {
-    input
-      .closest(".required")
-      .classList.remove("custom-select-with-after", "invalid");
+    input.closest(".required").classList.remove("after", "invalid");
   } else {
-    input
-      .closest(".required")
-      .classList.add("custom-select-with-after", "invalid");
+    input.closest(".required").classList.add("after", "invalid");
   }
 }

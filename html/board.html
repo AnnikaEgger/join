@@ -36,14 +36,14 @@
     <link rel="stylesheet" type="text/css" href="../styles/board.css" />
 
     <script src="../scripts/board_templates.js"></script>
-    <script src="../scripts/board.js"></script>
+    <script src="../scripts/board.js" defer></script>
     <script src="../scripts/add-task/add-task-templates.js" defer></script>
     <script
       src="../scripts/add-task/add-task-event-listeners.js"
       defer
     ></script>
-    <script src="../scripts/add-task/add-task-contacts.js"></script>
-    <script src="../scripts/add-task/add-task-task.js"></script>
+    <script src="../scripts/add-task/add-task-contacts.js" defer></script>
+    <script src="../scripts/add-task/add-task-task.js" defer></script>
     <script src="../scripts/add-task/add-task.js" defer></script>
     <script src="../scripts/header.js" defer></script>
   </head>
@@ -331,7 +331,7 @@
 
         <form
           aria-labelledby="add-task-headline"
-          onsubmit="addTask('to do')"
+          onsubmit="addTask(event, 'to do', 'board')"
           id="task-form"
           class="task-form task-form--dialog"
           novalidate
@@ -489,7 +489,7 @@
 
               <section class="contacts-section">
                 <p class="label" id="contacts-label">Assigned to</p>
-                <div class="select-contacts-section">
+                <div class="select-wrapper">
                   <div
                     aria-labelledby="contacts-label"
                     class="custom-select custom-select--contacts"
@@ -546,35 +546,37 @@
                 <p class="label" id="categories-label">
                   Category<span class="red">*</span>
                 </p>
-                <div
-                  class="custom-select custom-select--categories required"
-                  id="categories-dropdown"
-                >
+                <div class="select-wrapper">
                   <div
-                    role="combobox"
-                    aria-haspopup="listbox"
-                    aria-owns="select-options--category"
-                    onclick="toggleCustomSelectDropdown('category')"
-                    class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-category"
-                    tabindex="0"
+                    class="custom-select custom-select--categories required"
+                    id="categories-dropdown"
                   >
-                    <span id="selected-category"></span>
-                    <button
-                      type="button"
-                      class="custom-select--trigger--img-container"
+                    <div
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-owns="select-options--category"
+                      onclick="toggleCustomSelectDropdown('category')"
+                      class="custom-select--trigger custom-select-input"
+                      id="custom-select-trigger-category"
+                      tabindex="0"
                     >
-                      <img
-                        id="arrow-dropdown--category"
-                        src="../assets/icons/arrow-drop-down.svg"
-                        alt="arrow down icon"
-                      />
-                    </button>
+                      <span id="selected-category"></span>
+                      <button
+                        type="button"
+                        class="custom-select--trigger--img-container"
+                      >
+                        <img
+                          id="arrow-dropdown--category"
+                          src="../assets/icons/arrow-drop-down.svg"
+                          alt="arrow down icon"
+                        />
+                      </button>
+                    </div>
+                    <ul
+                      id="select-options--category"
+                      class="custom-select-options custom-select-options--categories display-none"
+                    ></ul>
                   </div>
-                  <ul
-                    id="select-options--category"
-                    class="custom-select-options display-none"
-                  ></ul>
                 </div>
               </section>
 
@@ -665,7 +667,7 @@
               <button
                 type="reset"
                 id="clear-task-btn"
-                class="button bottom-btn bottom-btn--board button-white"
+                class="button bottom-btn bottom-btn--board button-white button-white--dialog"
                 aria-label="clear task form"
               >
                 Cancel
@@ -712,7 +714,16 @@
           <!-- </div> -->
         </form>
       </div>
+
+      <div
+        id="addtask-toast-msg"
+        class="addtask-toast-msg addtask-toast-msg--dialog"
+      >
+        <p>Task added to board</p>
+        <img src="../assets/icons/board-icon-white.svg" alt="Board icon" />
+      </div>
     </dialog>
+
     <dialog class="task-dialog example-dialog" id="taskDialog"></dialog>
   </body>
 </html>

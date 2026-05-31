@@ -545,6 +545,8 @@ function openAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
   ADD_TASK_DIALOG.showModal();
   ADD_TASK_DIALOG.classList.add("show-dialog");
+
+  initAddTask();
 }
 
 /**
@@ -558,4 +560,13 @@ function closeAddTaskDialog() {
   setTimeout(() => {
     ADD_TASK_DIALOG.close();
   }, 150);
+
+  // clearTask();
 }
+
+const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
+ADD_TASK_DIALOG.addEventListener("click", (event) => {
+  if (event.target === ADD_TASK_DIALOG) {
+    closeAddTaskDialog();
+  }
+});

@@ -11,19 +11,32 @@ input[type="checkbox"] {
   color: transparent;
 }
 
-.select-contacts-section {
+.select-wrapper {
   display: flex;
   flex-direction: column;
   width: var(--input-width);
+  background-color: white;
+  border-top-left-radius: var(--border-radius-s);
+  border-top-right-radius: var(--border-radius-s);
 }
 
 .custom-select {
   width: var(--input-width);
+  position: relative;
 }
 
 .custom-select-options {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  background-color: white;
   border-bottom-left-radius: var(--border-radius-s);
   border-bottom-right-radius: var(--border-radius-s);
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+}
+
+.custom-select-options--categories {
+  top: 100%;
 }
 
 .custom-select-options::-webkit-scrollbar-button {
@@ -71,8 +84,12 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
+.selected-contacts--add-task {
+  background-color: var(--light-gray);
+}
+
 .selected-contacts:has(.contact-avatar) {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .display-none {

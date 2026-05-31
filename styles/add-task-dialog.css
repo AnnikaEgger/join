@@ -2,6 +2,10 @@
   --dialog-content-padding: 64px;
 }
 
+.button-white--dialog {
+  background-color: white;
+}
+
 .add-task-dialog {
   position: fixed;
   top: 50%;
@@ -13,13 +17,8 @@
   transform: translate(100dvw, -50%);
   transition: transform 0.15s ease-out;
 
-  /* color: black; */
-  /* height: 870px; */
-
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-  /* z-index: 999; */
 
-  /* scrollbar-gutter: stable; */
   overflow: hidden;
 }
 
@@ -28,6 +27,7 @@
   max-height: 95dvh;
   overflow-y: auto;
   width: 100%;
+  background-color: white;
 }
 
 .show-dialog {
@@ -43,18 +43,11 @@
   margin: 0;
 }
 
-/* .add-task-dialog-top-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-} */
-
 .add-task-bottom-btns-container--dialog {
   position: sticky;
   bottom: 0;
   right: 0;
   padding: 16px 0 var(--dialog-content-padding) 0;
-  /* padding: 16px 0; */
   font-size: 16px;
   display: flex;
   justify-content: end;
@@ -82,8 +75,7 @@
   position: absolute;
   padding: 8px;
   background-color: transparent;
-  /* right: 40px;
-  top: 75px; */
+
   right: var(--dialog-content-padding);
   top: var(--dialog-content-padding);
   border-radius: 50%;
@@ -92,6 +84,11 @@
 
 .add-task-dialog-closing-btn:hover {
   background-color: #eeeeee;
+}
+
+.p-required--dialog {
+  position: absolute;
+  bottom: var(--dialog-content-padding);
 }
 
 /* #region dialog scrollbar */
@@ -123,9 +120,6 @@
   }
 }
 
-.bottom-btns-wrapper--dialog {
-}
-
 /* #endregion */
 
 /* #region responsive */
@@ -154,6 +148,7 @@
   }
 
   .p-required--dialog {
+    position: unset;
     margin-bottom: var(--dialog-content-padding);
   }
 }
@@ -205,7 +200,6 @@
     margin-bottom: 16px;
   }
 
-  /* .add-task-dialog input:not([type="checkbox"]), */
   textarea,
   .add-task-dialog #task-title,
   .add-task-dialog #task-description,

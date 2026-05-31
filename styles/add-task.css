@@ -279,6 +279,13 @@ input {
   transition: var(--transition-default);
 }
 
+.addtask-toast-msg--add-task {
+}
+
+.addtask-toast-msg--dialog {
+  left: calc(50% - (325px / 2));
+}
+
 .display-toast-msg {
   transform: translateY(0);
   transition: var(--transition-default);
