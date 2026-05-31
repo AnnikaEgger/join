@@ -573,3 +573,19 @@ ADD_TASK_DIALOG.addEventListener("click", (event) => {
     closeAddTaskDialog();
   }
 });
+
+async function deleteTask(taskId) {
+  if (taskId.startsWith("default_task")) return;
+
+  await deleteTaskFromFirebase(taskId);
+  closeTaskDialog();
+  reloadBoard();
+}
+
+async function deleteTaskFromFirebase(taskId) {
+  let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
+    method: "DELETE",
+  });
+
+  return (responseToJson = await response.json());
+}

@@ -49,7 +49,7 @@ function completeTaskCreation(page) {
 function reloadBoard() {
   setTimeout(() => {
     window.location.reload();
-  }, 500);
+  }, 300);
 }
 
 function redirectToBoard() {
