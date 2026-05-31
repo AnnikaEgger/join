@@ -7,6 +7,11 @@ const BASE_URL =
  * @async
  */
 async function initAddTask() {
+  addTaskColumn = "to do";
+
+  contactsOptions = [];
+  categoriesArr = [];
+
   disablePastDates();
   renderPriority();
 

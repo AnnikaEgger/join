@@ -138,7 +138,7 @@
         <div class="search-and-add-section">
           <div class="search-task-container">
             <input
-              onkeyup="filterTasks()"
+              oninput="filterTasks()"
               aria-label="Search tasks"
               id="search-input"
               class="input-field"
@@ -156,7 +156,7 @@
           <button
             class="add-btn"
             aria-label="Add task"
-            onclick="openAddTaskDialog()"
+            onclick="openAddTaskDialog('to do')"
           >
             <span>Add task</span>
             <img
@@ -174,7 +174,7 @@
               <h2>To do</h2>
               <img
                 class="add-task-btn"
-                onclick="openAddTaskDialog()"
+                onclick="openAddTaskDialog('to do')"
                 tabindex="0"
                 aria-label="Add task button"
                 role="button"
@@ -205,7 +205,7 @@
               <h2>in progress</h2>
               <img
                 class="add-task-btn"
-                onclick="openAddTaskDialog()"
+                onclick="openAddTaskDialog('in progress')"
                 tabindex="0"
                 aria-label="Add task button"
                 role="button"
@@ -252,7 +252,7 @@
               <h2>Await feedback</h2>
               <img
                 class="add-task-btn"
-                onclick="openAddTaskDialog()"
+                onclick="openAddTaskDialog('await feedback')"
                 tabindex="0"
                 aria-label="Add task button"
                 role="button"
@@ -279,7 +279,7 @@
               <h2>Done</h2>
               <img
                 class="add-task-btn"
-                onclick="openAddTaskDialog()"
+                onclick="openAddTaskDialog('done')"
                 tabindex="0"
                 aria-label="Add task button"
                 role="button"
@@ -331,7 +331,7 @@
 
         <form
           aria-labelledby="add-task-headline"
-          onsubmit="addTask(event, 'to do', 'board')"
+          onsubmit="addTask(event, 'board')"
           id="task-form"
           class="task-form task-form--dialog"
           novalidate

@@ -263,7 +263,7 @@ input {
 
 .addtask-toast-msg {
   position: fixed;
-  top: calc(50dvh - 74px);
+  top: calc(50% - (74px / 2));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -277,9 +277,6 @@ input {
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   transform: translateY(100dvh);
   transition: var(--transition-default);
-}
-
-.addtask-toast-msg--add-task {
 }
 
 .addtask-toast-msg--dialog {

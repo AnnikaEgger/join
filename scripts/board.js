@@ -541,12 +541,15 @@ function removeHighlight(id) {
  *
  * @param {parameter} - No parameters are required for this function as it simply opens a predefined dialog element in the HTML.
  */
-function openAddTaskDialog() {
+
+function openAddTaskDialog(column) {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
   ADD_TASK_DIALOG.showModal();
   ADD_TASK_DIALOG.classList.add("show-dialog");
 
   initAddTask();
+
+  addTaskColumn = column;
 }
 
 /**
@@ -561,7 +564,7 @@ function closeAddTaskDialog() {
     ADD_TASK_DIALOG.close();
   }, 150);
 
-  // clearTask();
+  clearTask();
 }
 
 const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");

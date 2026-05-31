@@ -8,14 +8,19 @@
  * @param {string} page - The originating page context ("add task" or "board").
  * @returns {Promise<void>} Resolves once the task has been posted and UI actions have been triggered.
  */
-async function addTask(event, column, page) {
+
+let addTaskColumn;
+
+async function addTask(event, page) {
   const FORM = document.getElementById("task-form");
+
+  console.log(addTaskColumn);
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
     //  prevent default submit (page reload)
     event.preventDefault();
 
-    let task = taskJson(column);
+    let task = taskJson();
     await postTaskToFirebase(task);
 
     showAddtaskToastMsg();
@@ -33,18 +38,32 @@ async function addTask(event, column, page) {
 function completeTaskCreation(page) {
   setTimeout(() => {
     if (page === "add task") {
-      window.location.href = "../html/board.html";
+      redirectToBoard();
     } else if (page === "board") {
       closeAddTaskDialog();
+      reloadBoard();
     }
   }, 3000);
 }
+
+function reloadBoard() {
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
+}
+
+function redirectToBoard() {
+  setTimeout(() => {
+    window.location.href = "../html/board.html";
+  }, 250);
+}
+
 /**
  * Creates a JSON object containing all task data from form inputs.
  * @param {string} column - The target column for the task
  * @returns {Object} Task object with title, description, due_date, priority, assigned_contacts, category, subtasks, and column
  */
-function taskJson(column) {
+function taskJson() {
   const TITLE = document.getElementById("task-title").value;
   const DESCRIPTION = document.getElementById("task-description").value;
   const DUE_DATE = document.getElementById("task-due-date").value;
@@ -57,7 +76,7 @@ function taskJson(column) {
     assigned_contacts: assignedContacts,
     category: selectedCategory,
     subtasks: subtasksArr,
-    column: column,
+    column: addTaskColumn,
   };
 }
 
