@@ -6,14 +6,14 @@ const BASE_URL =
  * loading contacts and categories, and registering event handlers.
  * @async
  */
-async function initAddTask() {
+async function initAddTask(id) {
   addTaskColumn = "to do";
 
   contactsOptions = [];
   categoriesArr = [];
 
   disablePastDates();
-  renderPriority();
+  renderPriority(id);
 
   await getContacts();
   filteredContacts = contactsOptions;
@@ -128,24 +128,26 @@ let priority = "Medium";
  * Sets the task priority and updates the visual representation.
  * @param {string} prio - The priority level ("Urgent", "Medium", "Low")
  */
-function setPriority(prio) {
+function setPriority(prio, id) {
   priority = prio;
-  renderPriority();
+  renderPriority(id);
 }
 
 /**
  * Updates the priority button and SVG colors to reflect the current priority.
  */
-function renderPriority() {
-  stylePrioBtnsColor();
-  stylePrioSvgColors();
+function renderPriority(id) {
+  stylePrioBtnsColor(id);
+  stylePrioSvgColors(id);
 }
 
 /**
  * Applies active styling to the current priority button and removes it from others.
  */
-function stylePrioBtnsColor() {
-  let activeBtn = document.getElementById(priority.toLowerCase() + "-prio-btn");
+function stylePrioBtnsColor(id) {
+  let activeBtn = document.getElementById(
+    priority.toLowerCase() + "-prio-btn" + id,
+  );
 
   document.querySelectorAll(".prio-btn").forEach((btn) => {
     if (btn !== activeBtn) {
@@ -158,8 +160,10 @@ function stylePrioBtnsColor() {
 /**
  * Applies active styling to the current priority SVG and removes it from others.
  */
-function stylePrioSvgColors() {
-  let activeSvg = document.getElementById(priority.toLowerCase() + "-prio-svg");
+function stylePrioSvgColors(id) {
+  let activeSvg = document.getElementById(
+    priority.toLowerCase() + "-prio-svg" + id,
+  );
 
   document.querySelectorAll(".prio-svg").forEach((svg) => {
     if (svg !== activeSvg) {

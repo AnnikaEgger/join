@@ -29,7 +29,7 @@
     <script src="../scripts/add-task/add-task-task.js"></script>
     <script src="../scripts/add-task/add-task.js" defer></script>
   </head>
-  <body onload="initAddTask()">
+  <body onload="initAddTask('--add-task')">
     <section class="sidebar">
       <div class="sidebar-logo">
         <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />
@@ -194,14 +194,14 @@
                 <div id="task-priority" class="add-task-prio-btns-container">
                   <button
                     type="button"
-                    onclick="setPriority('Urgent')"
-                    id="urgent-prio-btn"
+                    onclick="setPriority('Urgent', '--add-task')"
+                    id="urgent-prio-btn--add-task"
                     class="prio-btn"
                     aria-label="set priority to urgent"
                   >
                     Urgent
                     <svg
-                      id="urgent-prio-svg"
+                      id="urgent-prio-svg--add-task"
                       class="prio-svg"
                       width="20"
                       height="15"
@@ -220,13 +220,13 @@
                     </svg></button
                   ><button
                     type="button"
-                    onclick="setPriority('Medium')"
-                    id="medium-prio-btn"
+                    onclick="setPriority('Medium', '--add-task')"
+                    id="medium-prio-btn--add-task"
                     class="prio-btn"
                     aria-label="set priority to medium"
                   >
                     Medium<svg
-                      id="medium-prio-svg"
+                      id="medium-prio-svg--add-task"
                       class="prio-svg"
                       width="20"
                       height="8"
@@ -245,13 +245,13 @@
                     </svg></button
                   ><button
                     type="button"
-                    onclick="setPriority('Low')"
-                    id="low-prio-btn"
+                    onclick="setPriority('Low', '--add-task')"
+                    id="low-prio-btn--add-task"
                     class="prio-btn"
                     aria-label="set priority to low"
                   >
                     Low<svg
-                      id="low-prio-svg"
+                      id="low-prio-svg--add-task"
                       class="prio-svg"
                       width="20"
                       height="15"
