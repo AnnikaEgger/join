@@ -98,7 +98,7 @@
         </section>
 
         <section id="contact-detail-view" class="contact-detail-view">
-            <div class="back-to-list-btn" onclick="closeContactDetails()">
+            <div class="back-to-list-btn" onclick="closeContactDetails()" onkeydown="handleBackKeyDown(event)" tabindex="0" role="button" aria-label="Back to contact list">
                 <img src="../assets/icons/blue-arrow-left.svg" alt="Back to list" />
             </div>
 
@@ -116,7 +116,7 @@
         <div class="add-contact-dialog" onclick="event.stopPropagation()">
 
             <div class="dialog-left">
-                <div class="dialog-close-btn-mobile" onclick="closeContactDialog()">
+                <div class="dialog-close-btn-mobile" onclick="closeContactDialog()" tabindex="0" role="button" aria-label="Cancel" onkeydown="handleDialogKeyDown(event)">
                     <img src="../assets/icons/close-icon.svg" alt="Close" />
                 </div>
 
@@ -132,7 +132,7 @@
 
             <div class="dialog-right">
 
-                <div class="dialog-close-btn" onclick="closeContactDialog()">
+                <div class="dialog-close-btn" onclick="closeContactDialog()" tabindex="0" role="button" aria-label="Close dialog" onkeydown="handleDialogKeyDown(event)">
                     <img src="../assets/icons/close-icon.svg" alt="Close" />
                 </div>
 

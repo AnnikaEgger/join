@@ -29,10 +29,10 @@ function generateDetailHTML(contact) {
             <div class="detail-name-section">
                 <h1>${contact.name}</h1>
                 <div class="edit-delete-section">
-                    <div onclick="openEditContact('${contact.id}')" class="contact-action">
+                    <div onclick="openEditContact('${contact.id}')" class="contact-action" onkeydown="handleEditKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Edit Contact">
                         <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
                     </div>
-                    <div onclick="deleteContact('${contact.id}')" class="contact-action">
+                    <div onclick="deleteContact('${contact.id}')" class="contact-action" onkeydown="handleDeleteKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Delete Contact">
                         <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
                     </div>
                 </div>
@@ -55,10 +55,10 @@ function generateDetailHTML(contact) {
 
         <div id="mobile-menu-container" class="mobile-menu-container" onclick="toggleMobileMenu()">
             <div class="mobile-menu-popup" onclick="event.stopPropagation()">
-                <div class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')">
+                <div class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')" onkeydown="handleEditKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Edit Contact">
                     <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
                 </div>
-                <div class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')">
+                <div class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')" onkeydown="handleDeleteKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Delete Contact">
                     <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
                 </div>
             </div>

@@ -90,6 +90,7 @@ function startDetailsAnimation() {
     setTimeout(() => {
         let view = document.getElementById('contact-detail-view');
         view.classList.add('show-detail');
+        setTimeout(focusBackButton, 100);
     }, 50);
 }
 
@@ -97,6 +98,9 @@ function toggleMobileMenu() {
     let menu = document.getElementById('mobile-menu-container');
     if (menu) {
         menu.classList.toggle('show-menu');
+        if (menu.classList.contains('show-menu')) {
+            delayMenuFocus();
+        }
     }
 }
 
@@ -115,6 +119,19 @@ function highlightContact(id) {
 function closeContactDetails() {
     let detailView = document.getElementById('contact-detail-view');
     detailView.classList.remove('show-detail');
+}
+
+function handleBackKeyDown(event) {
+    if (event.key === 'Enter') {
+        closeContactDetails();
+    }
+}
+
+function focusBackButton() {
+    let backBtn = document.querySelector('.back-to-list-btn');
+    if (backBtn) {
+        backBtn.focus();
+    }
 }
 
 async function createNewContact() {
@@ -224,12 +241,25 @@ function adaptCancelButtonToDelete(id) {
     }
 }
 
+function handleEditKeyDown(event, id) {
+    if (event.key === 'Enter') {
+        openEditContact(id);
+    }
+}
+
 function openContactDialog() {
     document.getElementById('add-contact-overlay').classList.add('show-overlay');
+    focusActiveCloseButton();
 }
 
 function closeContactDialog() {
     document.getElementById('add-contact-overlay').classList.remove('show-overlay');
+}
+
+function handleDialogKeyDown(event) {
+    if (event.key === 'Enter') {
+        closeContactDialog();
+    }
 }
 
 function prepareAddContactDialog() {
@@ -291,3 +321,26 @@ async function deleteContact(id) {
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
 }
+
+function handleDeleteKeyDown(event, id) {
+    if (event.key === 'Enter') {
+        deleteContact(id);
+    }
+}
+
+function focusActiveCloseButton() {
+    let isMobile = window.innerWidth <= 1024;
+    let selector = isMobile ? '.dialog-close-btn-mobile' : '.dialog-close-btn';
+    let closeBtn = document.querySelector(selector);
+    if (closeBtn) closeBtn.focus();
+}
+
+function focusFirstMenuAction() {
+    let firstAction = document.querySelector('.mobile-menu-popup .contact-action');
+    if (firstAction) firstAction.focus();
+}
+
+function delayMenuFocus() {
+    setTimeout(focusFirstMenuAction, 100);
+}
+
