@@ -345,6 +345,7 @@ footer nav a:hover {
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0;
 }
 
 .splash-logo-blue {
@@ -377,137 +378,6 @@ footer nav a:hover {
     to {
         opacity: 0;
     }
-}
-
-/* #endregion */
-
-/* #region splash mobile animation */
-
-@media screen and (max-width: 1024px) {
-    .splash-overlay {
-        background-color: var(--dark-blue);
-    }
-
-    .splash-logo-white {
-        opacity: 1;
-    }
-
-    .splash-logo-blue {
-        opacity: 0;
-    }
-
-    /* BG fade synchron mit Farbwechsel, sonst blaues Logo auf blauem BG = unsichtbar */
-    .splash-overlay.splash-active {
-        animation-delay: 0.9s;
-    }
-
-    .splash-overlay.splash-active .splash-logo-white {
-        animation: splash-color-out 0.4s ease-out forwards;
-        animation-delay: 0.9s;
-    }
-
-    .splash-overlay.splash-active .splash-logo-blue {
-        animation: splash-color-in 0.4s ease-out forwards;
-        animation-delay: 0.9s;
-    }
-
-    .splash-overlay.splash-active .splash-logo {
-        animation: splash-fly-mobile 0.8s ease-in-out forwards;
-        animation-delay: 0.9s;
-    }
-}
-
-@keyframes splash-color-out {
-    to { opacity: 0; }
-}
-
-@keyframes splash-color-in {
-    to { opacity: 1; }
-}
-
-@keyframes splash-fly-mobile {
-    to {
-        top: 24px;
-        left: 24px;
-        transform: translate(0, 0);
-        height: 64px;
-    }
-}
-
-/* #endregion */
-
-/* #region responsive */
-@media screen and (max-width: 1280px) {
-  :root {
-    --padding-lr: 64px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  :root {
-    --login-container-height: 475px;
-    --login-container-width: 400px;
-    --signup-container-height: 600px;
-    --signup-container-width: 400px;
-    --input-width: 100%;
-    --padding-lr: 24px;
-  }
-
-  .button-login {
-    font-size: 16px;
-  }
-
-  .join-logo-blue {
-    height: 100px;
-  }
-
-  .form-container {
-    padding: 32px 16px;
-  }
-
-  .button-login {
-    width: 180px;
-  }
-
-  .form-btn-section {
-    flex-direction: column;
-    gap: 24px;
-    border-radius: var(--border-radius-l);
-  }
-
-  .login-nav {
-    position: fixed;
-    width: calc(100% - max(var(--content-limitation), var(--padding-lr)) * 2);
-
-    display: flex;
-    justify-content: center;
-    /* padding: 0 max(var(--content-limitation), var(--padding-lr)); */
-    bottom: 120px;
-  }
-
-  .form-headline-container {
-    padding: 0px 16px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .join-logo-blue {
-    height: 64px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  :root {
-    --padding-lr: 16px;
-  }
-  .form-container {
-    width: calc(100% - max(var(--content-limitation), var(--padding-lr)) * 2);
-    left: max(var(--content-limitation), var(--padding-lr));
-  }
-
-  .form-headline-container {
-    padding: 0px 8px;
-  }
 }
 
 /* #endregion */
