@@ -536,6 +536,8 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+// #region Annika - bitte hier keine Funktionen reinschreiben wegen Merge Conflict :)
+
 /**
  * Opens the dialog for adding a new task.
  *
@@ -547,7 +549,7 @@ function openAddTaskDialog(column) {
   ADD_TASK_DIALOG.showModal();
   ADD_TASK_DIALOG.classList.add("show-dialog");
 
-  initAddTask("--dialog");
+  initAddTask("--add-task-dialog");
 
   addTaskColumn = column;
 }
@@ -564,7 +566,7 @@ function closeAddTaskDialog() {
     ADD_TASK_DIALOG.close();
   }, 150);
 
-  clearTask();
+  clearTask("--add-task-dialog");
 }
 
 const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
@@ -590,6 +592,25 @@ async function deleteTaskFromFirebase(taskId) {
   return (responseToJson = await response.json());
 }
 
+async function initEditTask(id) {
+  contactsOptions = [];
+  categoriesArr = [];
+  subtasksArr = [];
+
+  disablePastDates(id);
+
+  await getContacts();
+  filteredContacts = contactsOptions;
+  renderContactOptions(id);
+
+  await getCategories();
+  renderSelectedCategory(id);
+  renderCategories(id);
+
+  registerEnterHandlers(id);
+  addEventListeners(id);
+}
+
 async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
   TASK_DIALOG.classList.add("edit-task-dialog");
@@ -597,8 +618,12 @@ async function openTaskEditMode(taskId) {
   let task = await getTaskFromFirebase(taskId);
   console.log(task);
 
+  selectedCategory = task.category;
+
   TASK_DIALOG.innerHTML = taskEditModeTemplate(task);
   setPriority(task.priority, "--edit-task");
+  await initEditTask("--edit-task");
+  renderEditModeSubtasks(task);
 
   //  weitermachen bei contacts --> Funktionen umbauen mit id als Parameter
 }
@@ -607,3 +632,12 @@ async function getTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json");
   return await response.json();
 }
+
+function renderEditModeSubtasks(task) {
+  subtasksArr.push(...task.subtasks);
+  console.log(subtasksArr);
+
+  renderSubtasks("--edit-task");
+}
+
+// #endregion

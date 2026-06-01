@@ -4,19 +4,19 @@
  * @param {number} indexSubtask - The index of the subtask
  * @returns {string} HTML string for the subtask list item
  */
-function subtaskLiTemplate(subtaskText, indexSubtask) {
-  return `<li id="${"subtask-li-" + indexSubtask}" class="normal-li" tabindex="0" 
+function subtaskLiTemplate(subtaskText, indexSubtask, id) {
+  return `<li id="${"subtask-li-" + indexSubtask + id}" class="normal-li" tabindex="0" 
               data-index-subtask="${indexSubtask}"
-                ondblclick="openSubtaskEdit(${indexSubtask})"
+                ondblclick="openSubtaskEdit(${indexSubtask}, '${id}')"
               >
-            <p class="normal-li-p" id="${"subtask-text" + indexSubtask}">${subtaskText}</p>
+            <p class="normal-li-p" id="${"subtask-text" + indexSubtask + id}">${subtaskText}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >
               <button
                 type="button"
                 class="subtask-btn-left normal-li-edit-btn"
-                onclick="openSubtaskEdit(${indexSubtask})"
+                onclick="openSubtaskEdit(${indexSubtask}, '${id}')"
                 aria-label="edit subtask"
               >
                 <svg
@@ -36,7 +36,7 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
               <button
                 type="button"
                 class="subtask-btn-right normal-li-delete-btn"
-                onclick="deleteSubtask(${indexSubtask})"
+                onclick="deleteSubtask(${indexSubtask}, '${id}')"
                 aria-label="delete subtask"
 
               >
@@ -62,9 +62,9 @@ function subtaskLiTemplate(subtaskText, indexSubtask) {
  * @param {number} indexSubtask - The index of the subtask
  * @returns {string} HTML string for the editable subtask list item
  */
-function subtaskLiWithInputTemplate(indexSubtask) {
-  return ` <li id="${"subtask-li-" + indexSubtask}" class="li-with-input trigger-input-container" tabindex="0">
-            <input id="${"li-input" + indexSubtask}" type="text" value="${subtasksArr[indexSubtask]}" />
+function subtaskLiWithInputTemplate(indexSubtask, id) {
+  return ` <li id="${"subtask-li-" + indexSubtask + id}" class="li-with-input trigger-input-container" tabindex="0">
+            <input id="${"li-input" + indexSubtask + id}" type="text" value="${subtasksArr[indexSubtask]}" />
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >
@@ -72,7 +72,7 @@ function subtaskLiWithInputTemplate(indexSubtask) {
                 type="button"
                 class="subtask-btn-left"
                 id="delete-subtask-btn"
-                onclick="deleteSubtask(${indexSubtask})"
+                onclick="deleteSubtask(${indexSubtask}, '${id}')"
                 aria-label="delete subtask"
               >
                 <svg
@@ -91,7 +91,7 @@ function subtaskLiWithInputTemplate(indexSubtask) {
 
               <div class="subtask-btns-seperation-line"></div>
 
-              <button onclick="submitEditedSubtask(${indexSubtask})" class="subtask-btn-right" type="button" aria-label="edit subtask">
+              <button onclick="submitEditedSubtask(${indexSubtask}, '${id}')" class="subtask-btn-right" type="button" aria-label="edit subtask">
                 <svg
                   width="14"
                   height="14"
@@ -125,14 +125,15 @@ function contactOptionTemplate(
   initials,
   contactName,
   checkboxChecked,
+  id,
 ) {
   return `<li
-            id="contact-option-${indexContact}"
+            id="contact-option-${indexContact}${id}"
             data-index-contact="${indexContact}"
             role="option"
             onclick="selectContact(${
               indexContact
-            },'${filteredContacts[indexContact].id}', false)"
+            },'${filteredContacts[indexContact].id}', false, '${id}')"
             class="custom-select--option contact-option"
             tabindex="0"
            
@@ -149,11 +150,11 @@ function contactOptionTemplate(
                data-index-contact="${indexContact}"
                onclick="selectContact(${
                  indexContact
-               },'${filteredContacts[indexContact].id}', true)"
+               },'${filteredContacts[indexContact].id}', true, '${id}')"
                 type="checkbox"
                 aria-label="assign contact"
                 name=""
-                id="checkbox${indexContact}"
+                id="checkbox${indexContact}${id}"
                 value="${filteredContacts[indexContact].name}"
                 ${checkboxChecked ? "checked" : ""}
               />
@@ -178,13 +179,13 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
  * @param {number} indexCategory - The index of the category
  * @returns {string} HTML string for the category option
  */
-function categoryOptionTemplate(indexCategory) {
+function categoryOptionTemplate(indexCategory, id) {
   return `<li
             class="custom-select--option category-option"
-            id="category-option-${indexCategory}"
+            id="category-option-${indexCategory}${id}"
             data-index-category="${indexCategory}"
-            onclick="selectCategory('${categoriesArr[indexCategory].title}')"
-            onkeypress="selectCategory('${categoriesArr[indexCategory].title}')"
+            onclick="selectCategory('${categoriesArr[indexCategory].title}', '${id}')"
+            onkeypress="selectCategory('${categoriesArr[indexCategory].title}', '${id}')"
             tabindex="0"
           >
             ${categoriesArr[indexCategory].title}

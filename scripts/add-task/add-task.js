@@ -11,30 +11,35 @@ async function initAddTask(id) {
 
   contactsOptions = [];
   categoriesArr = [];
+  subtasksArr = [];
 
-  disablePastDates();
+  disablePastDates(id);
   renderPriority(id);
 
   await getContacts();
   filteredContacts = contactsOptions;
-  renderContactOptions();
+  renderContactOptions(id);
 
   await getCategories();
   selectedCategory = "Select task category";
-  renderSelectedCategory();
-  renderCategories();
+  renderSelectedCategory(id);
+  renderCategories(id);
 
-  registerEnterHandlers();
-  addEventListeners();
+  registerEnterHandlers(id);
+  addEventListeners(id);
 }
 
 /**
  * Closes a custom select dropdown by hiding options and resetting the arrow icon.
  * @param {string} selectName - The name of the select dropdown to close (e.g., "contacts", "category")
  */
-function closeCustomSelectDropdown(selectName) {
-  let options = document.getElementById("select-options" + "--" + selectName);
-  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+function closeCustomSelectDropdown(selectName, id) {
+  let options = document.getElementById(
+    "select-options" + "--" + selectName + id,
+  );
+  let arrow = document.getElementById(
+    "arrow-dropdown" + "--" + selectName + id,
+  );
 
   options.classList.add("display-none");
   options.setAttribute("inert", "");
@@ -46,25 +51,29 @@ function closeCustomSelectDropdown(selectName) {
  * @async
  * @param {string} selectName - The name of the select dropdown to toggle (e.g., "contacts", "category")
  */
-async function toggleCustomSelectDropdown(selectName) {
-  let options = document.getElementById("select-options" + "--" + selectName);
+async function toggleCustomSelectDropdown(selectName, id) {
+  let options = document.getElementById(
+    "select-options" + "--" + selectName + id,
+  );
 
   if (selectName === "contacts" && options.classList.contains("display-none")) {
-    renderContactOptions();
+    renderContactOptions(id);
   } else if (selectName === "category") {
-    handleCategories(options);
+    handleCategories(options, id);
   }
 
-  handleOptions(selectName);
-  handleArrow(selectName);
+  handleOptions(selectName, id);
+  handleArrow(selectName, id);
 }
 
 /**
  * Toggles the display-none class on the options container and manages inert attribute.
  * @param {string} selectName - The name of the select dropdown
  */
-function handleOptions(selectName) {
-  let options = document.getElementById("select-options" + "--" + selectName);
+function handleOptions(selectName, id) {
+  let options = document.getElementById(
+    "select-options" + "--" + selectName + id,
+  );
 
   options.classList.toggle("display-none");
   if (options.classList.contains("display-none")) {
@@ -78,8 +87,10 @@ function handleOptions(selectName) {
  * Toggles the rotate class on the dropdown arrow icon.
  * @param {string} selectName - The name of the select dropdown
  */
-function handleArrow(selectName) {
-  let arrow = document.getElementById("arrow-dropdown" + "--" + selectName);
+function handleArrow(selectName, id) {
+  let arrow = document.getElementById(
+    "arrow-dropdown" + "--" + selectName + id,
+  );
   arrow.classList.toggle("rotate");
 }
 
@@ -87,17 +98,19 @@ function handleArrow(selectName) {
  * Resets the category selection to the default state.
  * @param {HTMLElement} options - The options container element
  */
-function handleCategories(options) {
+function handleCategories(options, id) {
   selectedCategory = "Select task category";
-  renderSelectedCategory();
+  renderSelectedCategory(id);
 }
 
 /**
  * Stops event propagation if the contacts dropdown is open.
  * @param {Event} event - The click event
  */
-function handleStopPropagation(event) {
-  let options = document.getElementById("select-options" + "--" + "contacts");
+function handleStopPropagation(event, id) {
+  let options = document.getElementById(
+    "select-options" + "--" + "contacts" + id,
+  );
 
   if (!options.classList.contains("display-none")) {
     event.stopPropagation();
@@ -107,16 +120,16 @@ function handleStopPropagation(event) {
 /**
  * Opens the native date picker for the task due date input.
  */
-function showDatePicker() {
-  let dateInput = document.getElementById("task-due-date");
+function showDatePicker(id) {
+  let dateInput = document.getElementById("task-due-date" + id);
   dateInput.showPicker();
 }
 
 /**
  * Sets the minimum date on the date input to today, preventing selection of past dates.
  */
-function disablePastDates() {
-  document.getElementById("task-due-date").min = new Date()
+function disablePastDates(id) {
+  document.getElementById("task-due-date" + id).min = new Date()
     .toISOString()
     .split("T")[0];
 }
@@ -220,13 +233,15 @@ function fillCategoriesArray(categoriesObj) {
 /**
  * Renders all available categories in the category dropdown.
  */
-function renderCategories() {
-  const CATEGORIES_DIV = document.getElementById("select-options--category");
+function renderCategories(id) {
+  const CATEGORIES_DIV = document.getElementById(
+    "select-options--category" + id,
+  );
 
   CATEGORIES_DIV.innerHTML = "";
 
   for (let index = 0; index < categoriesArr.length; index++) {
-    CATEGORIES_DIV.innerHTML += categoryOptionTemplate(index);
+    CATEGORIES_DIV.innerHTML += categoryOptionTemplate(index, id);
   }
 }
 
@@ -234,24 +249,30 @@ function renderCategories() {
  * Updates the selected category and re-renders the selection.
  * @param {string} category - The category title to select
  */
-function selectCategory(category) {
+function selectCategory(category, id) {
   selectedCategory = category;
-  renderSelectedCategory();
+  renderSelectedCategory(id);
 }
 
 /**
  * Updates the display of the selected category and closes the dropdown if a valid selection is made.
  */
-function renderSelectedCategory() {
-  const SELECTED_CATEGORY = document.getElementById("selected-category");
+function renderSelectedCategory(id) {
+  const SELECTED_CATEGORY = document.getElementById("selected-category" + id);
   SELECTED_CATEGORY.innerText = selectedCategory;
-  const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
-  const TRIGGER = document.getElementById("custom-select-trigger-category");
+  const CATEGORIES_DROPDOWN = document.getElementById(
+    "categories-dropdown" + id,
+  );
+  const TRIGGER = document.getElementById(
+    "custom-select-trigger-category" + id,
+  );
   let focused = CATEGORIES_DROPDOWN.querySelector(":focus");
 
   if (selectedCategory !== "Select task category") {
-    closeCustomSelectDropdown("category");
-    focused.blur();
+    closeCustomSelectDropdown("category", id);
+    if (focused) {
+      focused.blur();
+    }
   }
 }
 
@@ -265,8 +286,8 @@ let skipFocusoutRender = false;
 /**
  * Clears the subtask input field and refocuses it.
  */
-function clearSubtaskInput() {
-  const SUBTASK_INPUT_REF = document.getElementById("subtask-input");
+function clearSubtaskInput(id) {
+  const SUBTASK_INPUT_REF = document.getElementById("subtask-input" + id);
   SUBTASK_INPUT_REF.value = "";
   SUBTASK_INPUT_REF.focus();
 }
@@ -274,45 +295,44 @@ function clearSubtaskInput() {
 /**
  * Adds a new subtask from the input field to the subtasks array and re-renders.
  */
-function addSubtask() {
-  const SUBTASK_INPUT = document.getElementById("subtask-input").value;
+function addSubtask(id) {
+  const SUBTASK_INPUT = document.getElementById("subtask-input" + id).value;
 
   if (SUBTASK_INPUT.length > 0) {
     subtasksArr.push(SUBTASK_INPUT);
-    renderSubtasks();
+    renderSubtasks(id);
+    clearSubtaskInput(id);
   }
 }
 
 /**
  * Renders all subtasks in the subtask list with edit and delete handlers.
  */
-function renderSubtasks() {
-  const SUBTASK_UL = document.getElementById("subtask-list");
-  const SUBTASK_INPUT_REF = document.getElementById("subtask-input");
+function renderSubtasks(id) {
+  const SUBTASK_UL = document.getElementById("subtask-list" + id);
+  const SUBTASK_INPUT_REF = document.getElementById("subtask-input" + id);
 
   SUBTASK_UL.innerHTML = "";
 
   for (let index = 0; index < subtasksArr.length; index++) {
-    SUBTASK_UL.innerHTML += subtaskLiTemplate(subtasksArr[index], index);
+    SUBTASK_UL.innerHTML += subtaskLiTemplate(subtasksArr[index], index, id);
 
-    registerEnterHandler("#subtask-li-" + index, () => {
-      openSubtaskEdit(index);
+    registerEnterHandler("#subtask-li-" + index + id, () => {
+      openSubtaskEdit(index, id);
     });
   }
-
-  SUBTASK_INPUT_REF.value = "";
 }
 
 /**
  * Re-renders a single subtask after editing.
  * @param {number} indexSubtask - The index of the subtask to render
  */
-function renderSingleSubtask(indexSubtask) {
-  let li = document.getElementById("subtask-li-" + indexSubtask);
-  li.outerHTML = subtaskLiTemplate(subtasksArr[indexSubtask], indexSubtask);
+function renderSingleSubtask(indexSubtask, id) {
+  let li = document.getElementById("subtask-li-" + indexSubtask + id);
+  li.outerHTML = subtaskLiTemplate(subtasksArr[indexSubtask], indexSubtask, id);
 
-  registerEnterHandler("#subtask-li-" + indexSubtask, () => {
-    openSubtaskEdit(indexSubtask);
+  registerEnterHandler("#subtask-li-" + indexSubtask + id, () => {
+    openSubtaskEdit(indexSubtask, id);
   });
 }
 
@@ -320,32 +340,32 @@ function renderSingleSubtask(indexSubtask) {
  * Opens a subtask for editing by replacing it with an input field.
  * @param {number} indexSubtask - The index of the subtask to edit
  */
-function openSubtaskEdit(indexSubtask) {
-  const li = document.getElementById("subtask-li-" + indexSubtask);
-  li.outerHTML = subtaskLiWithInputTemplate(indexSubtask);
+function openSubtaskEdit(indexSubtask, id) {
+  const li = document.getElementById("subtask-li-" + indexSubtask + id);
+  li.outerHTML = subtaskLiWithInputTemplate(indexSubtask, id);
 
-  registerEnterHandler("#li-input" + indexSubtask, () => {
-    submitEditedSubtask(indexSubtask);
+  registerEnterHandler("#li-input" + indexSubtask + id, () => {
+    submitEditedSubtask(indexSubtask, id);
   });
 
-  addSubtaskEditEventListener(indexSubtask);
-  focusSubtaskEditInput(indexSubtask);
+  addSubtaskEditEventListener(indexSubtask, id);
+  focusSubtaskEditInput(indexSubtask, id);
 }
 
 /**
  * Submits the edited subtask, updating or deleting it as needed.
  * @param {number} indexSubtask - The index of the subtask being edited
  */
-function submitEditedSubtask(indexSubtask) {
-  let edit = document.getElementById("li-input" + indexSubtask).value;
+function submitEditedSubtask(indexSubtask, id) {
+  let edit = document.getElementById("li-input" + indexSubtask + id).value;
 
   if (edit.length > 0) {
     subtasksArr.splice(indexSubtask, 1, edit);
     skipFocusoutRender = true;
-    renderSingleSubtask(indexSubtask);
+    renderSingleSubtask(indexSubtask, id);
     skipFocusoutRender = false;
   } else if (edit.length === 0) {
-    deleteSubtask(indexSubtask);
+    deleteSubtask(indexSubtask, id);
   }
 }
 
@@ -353,22 +373,22 @@ function submitEditedSubtask(indexSubtask) {
  * Deletes a subtask from the array and re-renders the list.
  * @param {number} indexSubtask - The index of the subtask to delete
  */
-function deleteSubtask(indexSubtask) {
+function deleteSubtask(indexSubtask, id) {
   subtasksArr.splice(indexSubtask, 1);
-  renderSubtasks();
+  renderSubtasks(id);
 }
 
 /**
  * Adds a focusout event listener to a subtask edit element.
  * @param {number} indexSubtask - The index of the subtask
  */
-function addSubtaskEditEventListener(indexSubtask) {
-  let li = document.getElementById("subtask-li-" + indexSubtask);
+function addSubtaskEditEventListener(indexSubtask, id) {
+  let li = document.getElementById("subtask-li-" + indexSubtask + id);
 
   li.addEventListener("focusout", (event) => {
     if (li.contains(event.relatedTarget)) return;
     if (skipFocusoutRender) return;
-    renderSingleSubtask(indexSubtask);
+    renderSingleSubtask(indexSubtask, id);
   });
 }
 
@@ -376,8 +396,8 @@ function addSubtaskEditEventListener(indexSubtask) {
  * Focuses the subtask edit input and places the cursor at the end.
  * @param {number} indexSubtask - The index of the subtask
  */
-function focusSubtaskEditInput(indexSubtask) {
-  let input = document.getElementById("li-input" + indexSubtask);
+function focusSubtaskEditInput(indexSubtask, id) {
+  let input = document.getElementById("li-input" + indexSubtask + id);
   input.focus();
   input.setSelectionRange(input.value.length, input.value.length);
 }

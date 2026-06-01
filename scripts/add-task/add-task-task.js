@@ -11,8 +11,8 @@
 
 let addTaskColumn;
 
-async function addTask(event, page) {
-  const FORM = document.getElementById("task-form");
+async function addTask(event, page, id) {
+  const FORM = document.getElementById("task-form" + id);
 
   console.log(addTaskColumn);
 
@@ -24,7 +24,7 @@ async function addTask(event, page) {
     await postTaskToFirebase(task);
 
     showAddtaskToastMsg();
-    clearTask();
+    clearTask(id);
     completeTaskCreation(page);
   }
 }
@@ -113,21 +113,21 @@ async function postTaskToFirebase(task) {
 /**
  * Clears all form inputs and resets task-related arrays to their initial state.
  */
-function clearTask() {
-  clearFormValues();
+function clearTask(id) {
+  clearFormValues(id);
   renderAssignedContacts();
-  renderSubtasks();
-  renderSelectedCategory();
-  renderPriority();
+  renderSubtasks(id);
+  renderSelectedCategory(id);
+  renderPriority(id);
 }
 
 /**
  * Clears all form field values and resets priority to default.
  */
-function clearFormValues() {
-  const TITLE = document.getElementById("task-title");
-  const DESCRIPTION = document.getElementById("task-description");
-  const DUE_DATE = document.getElementById("task-due-date");
+function clearFormValues(id) {
+  const TITLE = document.getElementById("task-title" + id);
+  const DESCRIPTION = document.getElementById("task-description" + id);
+  const DUE_DATE = document.getElementById("task-due-date" + id);
 
   TITLE.value = "";
   DESCRIPTION.value = "";
@@ -143,8 +143,8 @@ function clearFormValues() {
  * Validates a form input field based on its type.
  * @param {string} inputType - The type of input to validate ("title" or "due-date")
  */
-function checkInputValidity(inputType) {
-  const input = document.getElementById("task-" + inputType);
+function checkInputValidity(inputType, id) {
+  const input = document.getElementById("task-" + inputType + id);
 
   if (inputType == "title") {
     titleFormValidation(input);
