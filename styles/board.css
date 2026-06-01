@@ -200,6 +200,7 @@ hr {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   touch-action: auto;
+  word-break: break-word;
 }
 
 .card.dragging {
@@ -353,6 +354,12 @@ textarea,
 select,
 .add-task-btn-container {
   margin-bottom: 32px;
+}
+
+.task-dialog {
+  word-break: break-word;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .task-dialog-header {
