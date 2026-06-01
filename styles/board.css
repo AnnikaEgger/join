@@ -478,6 +478,7 @@ select,
   cursor: pointer;
   height: 27px;
   gap: 5px;
+  background-color: white;
 }
 
 .edit-task-btn {
@@ -489,6 +490,7 @@ select,
   cursor: pointer;
   height: 27px;
   gap: 5px;
+  background-color: white;
 }
 
 .delete-task-btn:hover {
