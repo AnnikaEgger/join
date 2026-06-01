@@ -310,8 +310,131 @@ footer nav a:hover {
     border: 1px solid #f04444;
 }
 
+
+/* #region splash animation */
+
+.splash-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--light-gray);
+    z-index: 9999;
+}
+
+.splash-overlay.splash-active {
+    display: block;
+    animation: splash-bg-fade 0.4s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+.splash-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 180px;
+}
+
+.splash-logo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: auto;
+}
+
+.splash-logo-white {
+    opacity: 0;
+}
+
+.splash-logo-blue {
+    opacity: 1;
+}
+
+.splash-overlay.splash-done {
+    display: none;
+}
+
 /* #endregion */
 
+/* #region splash desktop animation */
+
+.splash-overlay.splash-active .splash-logo {
+    animation: splash-fly 0.8s ease-in-out forwards;
+    animation-delay: 0.9s;
+}
+
+@keyframes splash-fly {
+    to {
+        top: 48px;
+        left: max(var(--content-limitation), 100px);
+        transform: translate(0, 0);
+        height: 120px;
+    }
+}
+
+@keyframes splash-bg-fade {
+    to {
+        opacity: 0;
+    }
+}
+
+/* #endregion */
+
+/* #region splash mobile animation */
+
+@media screen and (max-width: 1024px) {
+    .splash-overlay {
+        background-color: var(--dark-blue);
+    }
+
+    .splash-logo-white {
+        opacity: 1;
+    }
+
+    .splash-logo-blue {
+        opacity: 0;
+    }
+
+    /* BG fade synchron mit Farbwechsel, sonst blaues Logo auf blauem BG = unsichtbar */
+    .splash-overlay.splash-active {
+        animation-delay: 0.9s;
+    }
+
+    .splash-overlay.splash-active .splash-logo-white {
+        animation: splash-color-out 0.4s ease-out forwards;
+        animation-delay: 0.9s;
+    }
+
+    .splash-overlay.splash-active .splash-logo-blue {
+        animation: splash-color-in 0.4s ease-out forwards;
+        animation-delay: 0.9s;
+    }
+
+    .splash-overlay.splash-active .splash-logo {
+        animation: splash-fly-mobile 0.8s ease-in-out forwards;
+        animation-delay: 0.9s;
+    }
+}
+
+@keyframes splash-color-out {
+    to { opacity: 0; }
+}
+
+@keyframes splash-color-in {
+    to { opacity: 1; }
+}
+
+@keyframes splash-fly-mobile {
+    to {
+        top: 24px;
+        left: 24px;
+        transform: translate(0, 0);
+        height: 64px;
+    }
+}
+
+/* #endregion */
 
 /* #region responsive */
 @media screen and (max-width: 1280px) {
