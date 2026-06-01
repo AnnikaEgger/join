@@ -99,19 +99,28 @@ a {
 .sidebar-footer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 0 56px;
+  gap: 8px;
+  padding: 0;
 }
 
 .footer-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 56px;
   color: var(--color-text-light);
   font-size: 14px;
+  width: var(--sidebar-width);
   transition: var(--transition-default);
-  display: block;
+  cursor: pointer;
 }
 
 .footer-link:hover {
   color: var(--color-accent);
+}
+
+.footer-link.active {
+  background-color: var(--color-active-bg);
+  color: var(--color-white);
 }
 
 /* HEADER*/
@@ -181,6 +190,7 @@ a {
 .header-avatar:hover {
   background-color: var(--dark-blue);
 }
+
 .header-logo-mobile {
   display: none;
 }
@@ -194,10 +204,8 @@ a {
   padding-right: max(var(--content-limitation), 0px); */
 
   margin-top: var(--header-height);
-  margin-left: max(
-    var(--content-limitation) + var(--sidebar-width),
-    var(--sidebar-width)
-  );
+  margin-left: max(var(--content-limitation) + var(--sidebar-width),
+      var(--sidebar-width));
   margin-right: max(var(--content-limitation), 0px);
   padding: 48px 80px;
   min-height: calc(100vh - var(--header-height));
