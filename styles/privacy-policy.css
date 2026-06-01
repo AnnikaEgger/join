@@ -1,125 +1,85 @@
-/* --- 1. Haupt-Container mit Inhaltsbegrenzung auf 1440px --- */
-.main-content {
-  max-width: 1440px;
-  margin-left: 232px;
-  width: 100%;
-  padding: 50px;
-  box-sizing: border-box;
-  min-height: 100vh;
-  background-color: #ffffff;
-}
 
-/* --- 2. Styling für Textelemente --- */
-.main-content h1 {
-  font-size: 61px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  color: #2a3647;
-}
-
-.main-content h2 {
-  font-size: 27px;
-  margin-top: 35px;
-  margin-bottom: 15px;
-  color: #2a3647;
-}
-
-.main-content p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  color: #000000;
-}
-
-.main-content ul {
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-
-.main-content li {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-.privacy-contact-section {
-
-  padding: 25px;
-  border-radius: 10px;
-  margin-top: 40px;
-}
-
-.privacy-contact-section p {
-  line-height: 1.8;
-}
-
-/* --- Responsive Design for Privacy Page --- */
-@media screen and (max-width: 1024px) {
-  .privacy-container h1 {
-    font-size: 47px;
-  }
-
-  .main-content {
-    padding: 40px 24px;
-  }
-
-  /* --- NEW PRIVACY POLICY STYLES --- */
-
-  .privacy-container {
+.privacy-container {
     max-width: 1000px;
-  }
+}
 
-  .privacy-container h1 {
+.privacy-container h1 {
     font-size: 61px;
     font-weight: 700;
     margin-bottom: 40px;
     color: var(--dark-blue);
-  }
+}
 
-  .privacy-container h2 {
+.privacy-container h2 {
     font-size: 27px;
     margin-top: 35px;
     margin-bottom: 15px;
     color: var(--dark-blue);
-  }
+}
 
-  .privacy-container p,
-  .privacy-container li {
+.privacy-container p,
+.privacy-container li {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 15px;
-  }
+}
 
-  .privacy-container ul {
+.privacy-container ul {
     list-style: disc;
     margin-left: 20px;
-  }
+}
 
-  .privacy-contact-section {
+.privacy-contact-section {
     background-color: var(--light-gray);
     padding: 25px;
     border-radius: 10px;
     margin-top: 40px;
-  }
 }
 
-/* --- 3. Responsive Anpassungen (Mobile & Tablet) --- */
-@media (max-width: 1000px) {
-  .main-content {
-    padding: 40px 24px;
-    margin-left: 0;
-    margin-top: 80px;
-    max-width: 100%;
-  }
+
+/* ============ RESPONSIVE ============ */
+
+@media screen and (max-width: 1024px) {
+    .privacy-container h1 {
+        font-size: 47px; }
+    
+      .main-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+    
+
+
+@media screen and (max-width: 768px) {
+    .privacy-container h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+    .privacy-container h2 {
+        font-size: 24px;
+    }
 }
 
-@media (max-width: 768px) {
-  .main-content h1 {
-    font-size: 47px;
-    margin-bottom: 30px;
-  }
+@media screen and (max-width: 480px) {
+    .privacy-container h1 {
+        font-size: 36px;
+        margin-bottom: 24px;
+    }
+    .privacy-container h2 {
+        font-size: 22px;
+    }
+}
 
-  .main-content h2 {
-    font-size: 22px;
-  }
+@media screen and (max-width: 320px) {
+    .privacy-container h1 {
+        font-size: 28px;
+    }
+    .privacy-container h2 {
+        font-size: 20px;
+    }
+    .privacy-container p,
+    .privacy-container li {
+        font-size: 15px;
+    }
 }

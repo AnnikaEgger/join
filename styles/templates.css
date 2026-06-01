@@ -329,7 +329,12 @@ a {
     margin-left: max(var(--content-limitation), 0px);
     margin-bottom: var(--resp-navbar-height);
     padding-bottom: 40px;
-  }
+    
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+  
 
   /*   hide title and help  */
   .header-title {
