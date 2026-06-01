@@ -309,8 +309,6 @@ hr {
 
 .badge-container .profile-badge,
 .badge-container .profile-badge-plus {
-  width: 38px;
-  height: 38px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,8 +329,8 @@ hr {
   background-color: #ff7a00;
   color: white;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
