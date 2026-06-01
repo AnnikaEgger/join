@@ -345,6 +345,7 @@ footer nav a:hover {
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0;
 }
 
 .splash-logo-blue {
@@ -390,6 +391,7 @@ footer nav a:hover {
 
     .splash-logo-white {
         opacity: 1;
+        
     }
 
     .splash-logo-blue {
