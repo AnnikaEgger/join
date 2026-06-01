@@ -17,6 +17,7 @@ async function initAddTask(id) {
   renderPriority(id);
 
   await getContacts();
+  await getUsers();
   filteredContacts = contactsOptions;
   renderContactOptions(id);
 

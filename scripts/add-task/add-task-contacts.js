@@ -136,19 +136,20 @@ function getCurrentUser() {
  * Ensures the current user is the first contact in the filtered contacts array.
  */
 function ensureUserIsFirstInContactsArr() {
-  let user = getCurrentUser();
-  let userPartOfArr = filteredContacts.some(
-    (contact) => contact.name === user.name,
-  );
+  let currentUser = getCurrentUser();
+  // let userPartOfArr = filteredContacts.some(
+  //   (contact) => contact.name === user.name,
+  // );
 
-  if (!user || user.name === "Guest" || !userPartOfArr) return;
+  // if (!user || user.name === "Guest" || !userPartOfArr) return;
+  if (!currentUser || currentUser.name === "Guest") return;
 
   // filter user out of contacts arr
   filteredContacts = filteredContacts.filter(
-    (contact) => contact.name !== user.name,
+    (contact) => contact.name !== currentUser.name,
   );
 
-  filteredContacts.unshift(user);
+  filteredContacts.unshift(currentUser);
 }
 
 /**
@@ -175,26 +176,33 @@ async function getContacts() {
   }
 }
 
+async function getUsers() {
+  let response = await fetch(BASE_URL + "users" + ".json");
+  let usersObj = await response.json();
+
+  if (usersObj) {
+    fillContactsOptionsArray(usersObj);
+  }
+}
+
 /**
  * Populates the contactsOptions array with contacts from the Firebase response object.
  * @param {Object} contactsObj - The contacts object from Firebase
  */
-function fillContactsOptionsArray(contactsObj) {
-  let keysArr = Object.keys(contactsObj);
+function fillContactsOptionsArray(object) {
+  let keysArr = Object.keys(object);
 
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
 
     let contactData = {
       id: id,
-      color: contactsObj[id].color,
-      name: contactsObj[id].name,
+      color: object[id].color,
+      name: object[id].name,
     };
 
     contactsOptions.push(contactData);
   }
-
-  addUserToContactsOptionsArray();
 }
 
 /**

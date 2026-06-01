@@ -103,7 +103,7 @@ function generateEmptyBadgeHTML() {
   return '<span class="profile-badge">--</span>';
 }
 
-function taskEditModeTemplate(task) {
+function taskEditModeTemplate(task, taskId) {
   return `   <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
@@ -332,7 +332,7 @@ function taskEditModeTemplate(task) {
                 </div>
 
                 <div
-                  class="selected-contacts selected-contacts--add-task"
+                  class="selected-contacts"
                   id="selected-contacts-container--edit-task"
                 ></div>
               </div>
@@ -452,7 +452,8 @@ function taskEditModeTemplate(task) {
         >
           <div class="edit-task-ok-btn-wrapper">
             <button
-              type="submit"
+            onclick="submitEditedTask('${task.column}', '${taskId}')"
+              type="button"
               class="button bottom-btn bottom-btn--edit-task button-blue create-task-btn"
               aria-label="create task"
             >

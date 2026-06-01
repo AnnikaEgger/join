@@ -596,6 +596,7 @@ async function initEditTask(id) {
   contactsOptions = [];
   categoriesArr = [];
   subtasksArr = [];
+  assignedContacts = [];
 
   disablePastDates(id);
 
@@ -618,14 +619,13 @@ async function openTaskEditMode(taskId) {
   let task = await getTaskFromFirebase(taskId);
   console.log(task);
 
-  selectedCategory = task.category;
+  TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
 
-  TASK_DIALOG.innerHTML = taskEditModeTemplate(task);
+  selectedCategory = task.category;
   setPriority(task.priority, "--edit-task");
   await initEditTask("--edit-task");
+  renderAssignedContactsEditMode(task);
   renderEditModeSubtasks(task);
-
-  //  weitermachen bei contacts --> Funktionen umbauen mit id als Parameter
 }
 
 async function getTaskFromFirebase(taskId) {
@@ -634,10 +634,51 @@ async function getTaskFromFirebase(taskId) {
 }
 
 function renderEditModeSubtasks(task) {
-  subtasksArr.push(...task.subtasks);
-  console.log(subtasksArr);
+  if (task.subtasks) {
+    subtasksArr.push(...task.subtasks);
+    renderSubtasks("--edit-task");
+  }
+}
 
-  renderSubtasks("--edit-task");
+function renderAssignedContactsEditMode(task) {
+  if (task.assigned_contacts) {
+    assignedContacts.push(...task.assigned_contacts);
+    renderAssignedContacts("--edit-task");
+  }
+}
+
+async function submitEditedTask(column, taskId) {
+  await putEditedTaskToFirebase(column, taskId);
+  await loadTasks();
+  openTaskDialog(taskId);
+}
+
+async function putEditedTaskToFirebase(column, taskId) {
+  let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(collectEditedTaskData(column, taskId)),
+  });
+  return await response.json();
+}
+
+function collectEditedTaskData(column, taskId) {
+  const title = document.getElementById("task-title--edit-task").value;
+  const description = document.getElementById(
+    "task-description--edit-task",
+  ).value;
+  const dueDate = document.getElementById("task-due-date--edit-task").value;
+
+  return {
+    title: title,
+    description: description,
+    due_date: dueDate,
+    priority: priority,
+    assigned_contacts: assignedContacts,
+    category: selectedCategory,
+    subtasks: subtasksArr,
+    column: column,
+  };
 }
 
 // #endregion

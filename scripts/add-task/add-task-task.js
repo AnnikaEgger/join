@@ -20,7 +20,7 @@ async function addTask(event, page, id) {
     //  prevent default submit (page reload)
     event.preventDefault();
 
-    let task = taskJson();
+    let task = taskJson(id);
     await postTaskToFirebase(task);
 
     showAddtaskToastMsg();
@@ -63,10 +63,10 @@ function redirectToBoard() {
  * @param {string} column - The target column for the task
  * @returns {Object} Task object with title, description, due_date, priority, assigned_contacts, category, subtasks, and column
  */
-function taskJson() {
-  const TITLE = document.getElementById("task-title").value;
-  const DESCRIPTION = document.getElementById("task-description").value;
-  const DUE_DATE = document.getElementById("task-due-date").value;
+function taskJson(id) {
+  const TITLE = document.getElementById("task-title" + id).value;
+  const DESCRIPTION = document.getElementById("task-description" + id).value;
+  const DUE_DATE = document.getElementById("task-due-date" + id).value;
 
   return {
     title: TITLE,
@@ -115,7 +115,7 @@ async function postTaskToFirebase(task) {
  */
 function clearTask(id) {
   clearFormValues(id);
-  renderAssignedContacts();
+  renderAssignedContacts(id);
   renderSubtasks(id);
   renderSelectedCategory(id);
   renderPriority(id);
