@@ -316,6 +316,7 @@ a {
   .header-logo-mobile img {
     height: 50px;
     width: auto;
+    padding-left: 20px;
   }
 
   .header {
