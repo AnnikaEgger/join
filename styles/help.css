@@ -132,7 +132,10 @@
         font-size: 36px !important;
         margin-top: 48px !important;
     }
-    
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 }
 
 
