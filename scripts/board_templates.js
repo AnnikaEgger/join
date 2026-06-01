@@ -129,20 +129,20 @@ function taskEditModeTemplate(task) {
 
       <form
         aria-labelledby="add-task-headline"
-        onsubmit="addTask(event, 'add task')"
-        id="task-form"
+        onsubmit="addTask(event, 'add task', '--edit-task')"
+        id="task-form--edit-task"
         class="task-form task-form--edit-task"
         novalidate
       >
         <div class="add-task-inner-wrapper add-task-inner-wrapper--edit-task">
           <div class="add-task-container add-task-container-left">
             <section class="title-section">
-              <label class="label" for="task-title">Title</label>
+              <label class="label" for="task-title--edit-task">Title</label>
               <div class="required">
                 <input
-                  oninput="checkInputValidity('title')"
+                  oninput="checkInputValidity('title', '--edit-task')"
                   type="text"
-                  id="task-title"
+                  id="task-title--edit-task"
                   placeholder="Enter a title"
                   value="${task.title}"
                   required
@@ -151,23 +151,23 @@ function taskEditModeTemplate(task) {
             </section>
 
             <section class="description-section">
-              <label class="label" for="task-description">Description</label>
+              <label class="label" for="task-description--edit-task">Description</label>
               <textarea
-                id="task-description"
+                id="task-description--edit-task"
                 placeholder="Enter a description"
               >${task.description}</textarea>
             </section>
 
             <section class="due-date-section">
-              <label class="label" for="task-due-date">Due Date</label>
+              <label class="label" for="task-due-date--edit-task">Due Date</label>
               <div
                 class="required custom-select-input custom-select-input--date trigger-input-container"
                 tabindex="0"
               >
                 <input
-                  oninput="checkInputValidity('due-date')"
+                  oninput="checkInputValidity('due-date', '--edit-task')"
                   class="task-date-input"
-                  id="task-due-date"
+                  id="task-due-date--edit-task"
                   lang="en-GB"
                   type="date"
                   value="${task.due_date}"
@@ -176,7 +176,7 @@ function taskEditModeTemplate(task) {
                 <button
                   class="calendar-svg-btn"
                   type="button"
-                  onclick="showDatePicker()"
+                  onclick="showDatePicker('--edit-task')"
                   aria-label="pick date"
                 >
                   <svg
@@ -284,32 +284,32 @@ function taskEditModeTemplate(task) {
             </section>
 
             <section class="contacts-section">
-              <p class="label" id="contacts-label">Assigned to</p>
+              <p class="label" id="contacts-label--edit-task">Assigned to</p>
               <div class="select-wrapper">
                 <div
-                  aria-labelledby="contacts-label"
+                  aria-labelledby="contacts-label--edit-task"
                   class="custom-select custom-select--contacts"
-                  id="contacts-dropdown"
+                  id="contacts-dropdown--edit-task"
                 >
                   <div
                     role="combobox"
                     aria-haspopup="listbox"
-                    aria-owns="select-options--contacts"
-                    onclick="toggleCustomSelectDropdown('contacts')"
+                    aria-owns="select-options--contacts--edit-task"
+                    onclick="toggleCustomSelectDropdown('contacts', '--edit-task')"
                     class="custom-select--trigger custom-select-input trigger-input-container"
-                    id="custom-select-trigger-contacts"
+                    id="custom-select-trigger-contacts--edit-task"
                     tabindex="0"
                   >
                     <input
-                      oninput="handleContactsSearch()"
-                      onclick="handleStopPropagation(event)"
+                      oninput="handleContactsSearch('--edit-task')"
+                      onclick="handleStopPropagation(event, '--edit-task')"
                       class="search-contact-input"
-                      id="search-contact-input"
+                      id="search-contact-input--edit-task"
                       type="search"
                       placeholder="Select contacts to assign"
                       aria-label="select contacts to assign"
                       aria-autocomplete="list"
-                      aria-controls="select-options--contacts"
+                      aria-controls="select-options--contacts--edit-task"
                     />
                     <button
                       type="button"
@@ -317,7 +317,7 @@ function taskEditModeTemplate(task) {
                       class="custom-select--trigger--img-container"
                     >
                       <img
-                        id="arrow-dropdown--contacts"
+                        id="arrow-dropdown--contacts--edit-task"
                         src="../assets/icons/arrow-drop-down.svg"
                         alt="arrow down icon"
                       />
@@ -326,48 +326,48 @@ function taskEditModeTemplate(task) {
 
                   <ul
                     role="listbox"
-                    id="select-options--contacts"
+                    id="select-options--contacts--edit-task"
                     class="custom-select-options custom-select-options--contacts display-none"
                   ></ul>
                 </div>
 
                 <div
                   class="selected-contacts selected-contacts--add-task"
-                  id="selected-contacts-container"
+                  id="selected-contacts-container--edit-task"
                 ></div>
               </div>
             </section>
 
             <section class="category-section">
-              <p class="label" id="categories-label">Category</p>
+              <p class="label" id="categories-label--edit-task">Category</p>
               <div class="select-wrapper">
                 <div
                   class="custom-select custom-select--categories required"
-                  id="categories-dropdown"
+                  id="categories-dropdown--edit-task"
                 >
                   <div
                     role="combobox"
                     aria-haspopup="listbox"
-                    aria-owns="select-options--category"
-                    onclick="toggleCustomSelectDropdown('category')"
+                    aria-owns="select-options--category--edit-task"
+                    onclick="toggleCustomSelectDropdown('category', '--edit-task')"
                     class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-category"
+                    id="custom-select-trigger-category--edit-task"
                     tabindex="0"
                   >
-                    <span id="selected-category"></span>
+                    <span id="selected-category--edit-task"></span>
                     <button
                       type="button"
                       class="custom-select--trigger--img-container"
                     >
                       <img
-                        id="arrow-dropdown--category"
+                        id="arrow-dropdown--category--edit-task"
                         src="../assets/icons/arrow-drop-down.svg"
                         alt="arrow down icon"
                       />
                     </button>
                   </div>
                   <ul
-                    id="select-options--category"
+                    id="select-options--category--edit-task"
                     class="custom-select-options custom-select-options--categories display-none"
                   ></ul>
                 </div>
@@ -376,7 +376,7 @@ function taskEditModeTemplate(task) {
 
             <section class="subtask-section">
               <p class="label">Subtasks</p>
-              <div class="subtask-container" id="subtasks-container">
+              <div class="subtask-container">
                 <div
                   tabindex="0"
                   class="trigger-input-container custom-select-input"
@@ -384,7 +384,7 @@ function taskEditModeTemplate(task) {
                   <input
                     class="subtask-input"
                     type="text"
-                    id="subtask-input"
+                    id="subtask-input--edit-task"
                     placeholder="Add new subtask"
                     aria-label="add subtask"
                   />
@@ -392,8 +392,7 @@ function taskEditModeTemplate(task) {
                     <button
                       class="subtask-btn-left"
                       type="button"
-                      id="delete-subtask-btn"
-                      onclick="clearSubtaskInput()"
+                      onclick="clearSubtaskInput('--edit-task')"
                       aria-label="delete current input"
                     >
                       <svg
@@ -417,8 +416,7 @@ function taskEditModeTemplate(task) {
                     <button
                       class="subtask-btn-right"
                       type="button"
-                      id="save-subtask-btn"
-                      onclick="addSubtask()"
+                      onclick="addSubtask('--edit-task')"
                     >
                       <svg
                         width="14"
@@ -441,7 +439,7 @@ function taskEditModeTemplate(task) {
 
                 <ul
                   class="subtask-list"
-                  id="subtask-list"
+                  id="subtask-list--edit-task"
                   aria-label="subtask list"
                 ></ul>
               </div>
@@ -455,7 +453,6 @@ function taskEditModeTemplate(task) {
           <div class="edit-task-ok-btn-wrapper">
             <button
               type="submit"
-              id="create-task-btn"
               class="button bottom-btn bottom-btn--edit-task button-blue create-task-btn"
               aria-label="create task"
             >

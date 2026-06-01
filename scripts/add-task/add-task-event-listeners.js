@@ -14,36 +14,37 @@ function registerEnterHandler(selector, handler) {
 /**
  * Registers all Enter key handlers for form elements and dropdowns.
  */
-function registerEnterHandlers() {
+function registerEnterHandlers(id) {
   registerEnterHandler("#custom-select-trigger-contacts", () => {
-    toggleCustomSelectDropdown("contacts");
+    toggleCustomSelectDropdown("contacts", id);
   });
 
-  contactOptionsEnterHandlers();
-  contactOptionsCheckboxesEnterHandlers();
+  contactOptionsEnterHandlers(id);
+  contactOptionsCheckboxesEnterHandlers(id);
 
   registerEnterHandler("#custom-select-trigger-category", () => {
-    toggleCustomSelectDropdown("category");
+    toggleCustomSelectDropdown("category", id);
   });
-  categoryOptionsEnterHandlers();
+  categoryOptionsEnterHandlers(id);
 
-  registerEnterHandler("#subtask-input", addSubtask);
+  registerEnterHandler("#subtask-input" + id, () => addSubtask(id));
 }
 
 /**
  * Registers Enter key handlers for all contact options in the dropdown.
  */
-function contactOptionsEnterHandlers() {
+function contactOptionsEnterHandlers(id) {
   let contactOptions = document.querySelectorAll(".contact-option");
 
   contactOptions.forEach((option) => {
     registerEnterHandler(
-      "#contact-option-" + option.dataset.indexContact,
+      "#contact-option-" + option.dataset.indexContact + id,
       () => {
         selectContact(
           option.dataset.indexContact,
           filteredContacts[option.dataset.indexContact].id,
           false,
+          id,
         );
       },
     );
@@ -53,31 +54,35 @@ function contactOptionsEnterHandlers() {
 /**
  * Registers Enter key handlers for all contact option checkboxes in the dropdown.
  */
-function contactOptionsCheckboxesEnterHandlers() {
+function contactOptionsCheckboxesEnterHandlers(id) {
   let contactOptionsCheckboxes = document.querySelectorAll(
     ".contact-option-checkbox",
   );
   contactOptionsCheckboxes.forEach((checkbox) => {
-    registerEnterHandler("#checkbox" + checkbox.dataset.indexContact, () => {
-      selectContact(
-        checkbox.dataset.indexContact,
-        filteredContacts[checkbox.dataset.indexContact].id,
-        false,
-      );
-    });
+    registerEnterHandler(
+      "#checkbox" + checkbox.dataset.indexContact + id,
+      () => {
+        selectContact(
+          checkbox.dataset.indexContact,
+          filteredContacts[checkbox.dataset.indexContact].id,
+          false,
+          id,
+        );
+      },
+    );
   });
 }
 
 /**
  * Registers Enter key handlers for all category options in the dropdown.
  */
-function categoryOptionsEnterHandlers() {
+function categoryOptionsEnterHandlers(id) {
   let categoryOptions = document.querySelectorAll(".category-option");
   categoryOptions.forEach((option) => {
     registerEnterHandler(
-      "#category-option-" + option.dataset.indexCategory,
+      "#category-option-" + option.dataset.indexCategory + id,
       () => {
-        selectCategory(categoriesArr[option.dataset.indexCategory].title);
+        selectCategory(categoriesArr[option.dataset.indexCategory].title, id);
       },
     );
   });
@@ -86,32 +91,29 @@ function categoryOptionsEnterHandlers() {
 // #endregion
 
 // #region event listeners
-const TASK_FORM = document.getElementById("task-form");
-const CATEGORIES_DROPDOWN = document.getElementById("categories-dropdown");
-const CATEGORY_TRIGGER = document.getElementById(
-  "custom-select-trigger-category",
-);
-const CONTACTS_DROPDOWN = document.getElementById("contacts-dropdown");
 
 /**
  * Attaches event listeners to form and dropdown elements.
  */
-function addEventListeners() {
-  TASK_FORM.addEventListener("keydown", taskFormKeydownFunction);
-  TASK_FORM.addEventListener("submit", taskFormSubmitFunction);
-
-  CONTACTS_DROPDOWN.addEventListener(
-    "focusout",
-    contactsDropdownFocusOutFunction,
+function addEventListeners(id) {
+  const taskForm = document.getElementById("task-form" + id);
+  const contactsDropdown = document.getElementById("contacts-dropdown" + id);
+  const categoriesDropdown = document.getElementById(
+    "categories-dropdown" + id,
   );
 
-  CATEGORIES_DROPDOWN.addEventListener(
-    "click",
-    categoriesDropdownClickFunction,
+  taskForm.addEventListener("keydown", taskFormKeydownFunction);
+  taskForm.addEventListener("submit", () => taskFormSubmitFunction(event, id));
+
+  contactsDropdown.addEventListener("focusout", () =>
+    contactsDropdownFocusOutFunction(event, id),
   );
-  CATEGORIES_DROPDOWN.addEventListener(
-    "focusout",
-    categoriesDropdownFocusOutFunction,
+
+  categoriesDropdown.addEventListener("click", () =>
+    categoriesDropdownClickFunction(event, id),
+  );
+  categoriesDropdown.addEventListener("focusout", () =>
+    categoriesDropdownFocusOutFunction(event, id),
   );
 }
 
@@ -164,23 +166,31 @@ function handleKeyDownElement(el) {
  * Displays error messages and focuses invalid elements if needed.
  * @param {Event} event - The submit event
  */
-function taskFormSubmitFunction(event) {
-  const formIsValid = TASK_FORM.checkValidity();
+function taskFormSubmitFunction(event, id) {
+  const taskForm = event.target;
+  const formIsValid = taskForm.checkValidity();
   const categoryIsValid = selectedCategory !== "Select task category";
 
   if (!formIsValid || !categoryIsValid) {
     event.preventDefault();
     successfullSubmit = false;
     if (!formIsValid) {
-      handleInvalidSubmit();
+      handleInvalidSubmit(taskForm);
     }
 
     if (!categoryIsValid) {
-      addCategoryClasses();
+      addCategoryClasses(taskForm, id);
     }
 
     if (formIsValid && !categoryIsValid) {
-      focusInvalidElement(CATEGORY_TRIGGER);
+      // const categoryTrigger = taskForm.querySelector(
+      //   "#custom-select-trigger-category" + taskForm.id.slice(-1),
+      // );
+
+      const categoryTrigger = taskForm.querySelector(
+        "#custom-select-trigger-category" + id,
+      );
+      focusInvalidElement(categoryTrigger);
     }
   } else if (formIsValid && categoryIsValid) {
     successfullSubmit = true;
@@ -190,8 +200,8 @@ function taskFormSubmitFunction(event) {
 /**
  * Marks invalid form fields with error styling and focuses the first invalid element.
  */
-function handleInvalidSubmit() {
-  const invalidElements = TASK_FORM.querySelectorAll(":invalid");
+function handleInvalidSubmit(taskForm) {
+  const invalidElements = taskForm.querySelectorAll(":invalid");
 
   invalidElements.forEach((element) => {
     if (element.id !== "task-due-date") {
@@ -208,9 +218,17 @@ function handleInvalidSubmit() {
 /**
  * Adds error styling classes to the category dropdown.
  */
-function addCategoryClasses() {
-  CATEGORIES_DROPDOWN.classList.add("after");
-  CATEGORY_TRIGGER.classList.add("invalid");
+function addCategoryClasses(taskForm, id) {
+  // const id = taskForm.id.slice(-1);
+  const categoriesDropdown = document.getElementById(
+    "categories-dropdown" + id,
+  );
+  const categoryTrigger = document.getElementById(
+    "custom-select-trigger-category" + id,
+  );
+
+  categoriesDropdown.classList.add("after");
+  categoryTrigger.classList.add("invalid");
 }
 
 /**
@@ -228,39 +246,47 @@ function focusInvalidElement(element) {
 /**
  * Handles focusout event on the contacts dropdown, clearing the search and closing the dropdown.
  */
-function contactsDropdownFocusOutFunction() {
-  const nextFocused = event.relatedTarget;
-  const CONTACT_INPUT = document.getElementById("search-contact-input");
+function contactsDropdownFocusOutFunction(e, id) {
+  const nextFocused = e.relatedTarget;
+  const contactsDropdown = e.currentTarget;
+  const contactInput = document.getElementById("search-contact-input" + id);
 
-  if (!CONTACTS_DROPDOWN.contains(nextFocused)) {
-    CONTACT_INPUT.value = "";
-    let inputValue = CONTACT_INPUT.value;
+  if (!contactsDropdown.contains(nextFocused)) {
+    contactInput.value = "";
+    let inputValue = contactInput.value;
     filterContacts(inputValue);
-    closeCustomSelectDropdown("contacts");
+    closeCustomSelectDropdown("contacts", id);
   }
 }
 
 /**
  * Handles click event on the categories dropdown, managing error state visibility.
  */
-function categoriesDropdownClickFunction() {
+function categoriesDropdownClickFunction(e, id) {
+  const categoriesDropdown = e.currentTarget;
+  // const idDropdown = categoriesDropdown.id.slice(-1);
+  const categoryTrigger = document.getElementById(
+    "custom-select-trigger-category" + id,
+  );
+
   if (successfullSubmit == false) {
-    CATEGORIES_DROPDOWN.classList.add("after");
-    CATEGORY_TRIGGER.classList.add("invalid");
+    categoriesDropdown.classList.add("after");
+    categoryTrigger.classList.add("invalid");
   } else {
-    CATEGORIES_DROPDOWN.classList.remove("after");
-    CATEGORY_TRIGGER.classList.remove("invalid");
+    categoriesDropdown.classList.remove("after");
+    categoryTrigger.classList.remove("invalid");
   }
 }
 
 /**
  * Handles focusout event on the categories dropdown, closing it when focus leaves.
  */
-function categoriesDropdownFocusOutFunction() {
-  const nextFocused = event.relatedTarget;
+function categoriesDropdownFocusOutFunction(e, id) {
+  const nextFocused = e.relatedTarget;
+  const categoriesDropdown = e.currentTarget;
 
-  if (!CATEGORIES_DROPDOWN.contains(nextFocused)) {
-    closeCustomSelectDropdown("category");
+  if (!categoriesDropdown.contains(nextFocused)) {
+    closeCustomSelectDropdown("category", id);
   }
 }
 
