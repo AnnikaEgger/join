@@ -14,8 +14,6 @@ let addTaskColumn;
 async function addTask(event, page, id) {
   const FORM = document.getElementById("task-form" + id);
 
-  console.log(addTaskColumn);
-
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
     //  prevent default submit (page reload)
     event.preventDefault();
@@ -36,20 +34,14 @@ async function addTask(event, page, id) {
  * @param {string} page - The originating page context ("add task" or "board").
  */
 function completeTaskCreation(page) {
-  setTimeout(() => {
+  setTimeout(async () => {
     if (page === "add task") {
       redirectToBoard();
     } else if (page === "board") {
+      await loadTasks();
       closeAddTaskDialog();
-      reloadBoard();
     }
   }, 3000);
-}
-
-function reloadBoard() {
-  setTimeout(() => {
-    window.location.reload();
-  }, 300);
 }
 
 function redirectToBoard() {

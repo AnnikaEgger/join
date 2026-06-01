@@ -561,7 +561,7 @@ function openAddTaskDialog(column) {
  */
 function closeAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
-  ADD_TASK_DIALOG.classList.remove("show-dialog");
+  ADD_TASK_DIALOG.classList.remove("show-dialog", "edit-task-dialog");
   setTimeout(() => {
     ADD_TASK_DIALOG.close();
   }, 150);
@@ -580,8 +580,9 @@ async function deleteTask(taskId) {
   if (taskId.startsWith("default_task")) return;
 
   await deleteTaskFromFirebase(taskId);
+  await loadTasks();
   closeTaskDialog();
-  reloadBoard();
+  // reloadBoard();
 }
 
 async function deleteTaskFromFirebase(taskId) {
@@ -617,7 +618,6 @@ async function openTaskEditMode(taskId) {
   TASK_DIALOG.classList.add("edit-task-dialog");
 
   let task = await getTaskFromFirebase(taskId);
-  console.log(task);
 
   TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
 
@@ -650,6 +650,7 @@ function renderAssignedContactsEditMode(task) {
 async function submitEditedTask(column, taskId) {
   await putEditedTaskToFirebase(column, taskId);
   await loadTasks();
+  document.getElementById("taskDialog").classList.remove("edit-task-dialog");
   openTaskDialog(taskId);
 }
 

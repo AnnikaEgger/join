@@ -151,6 +151,10 @@ body:has(.add-task-dialog[open]) {
   margin-bottom: unset;
 }
 
+.add-task-dialog[open] {
+  /* overflow-y: scroll; */
+}
+
 .edit-task-dialog .add-task-container,
 .edit-task-dialog .add-task-prio-btns-container,
 .edit-task-dialog .select-wrapper,

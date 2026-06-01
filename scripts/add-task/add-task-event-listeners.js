@@ -15,14 +15,14 @@ function registerEnterHandler(selector, handler) {
  * Registers all Enter key handlers for form elements and dropdowns.
  */
 function registerEnterHandlers(id) {
-  registerEnterHandler("#custom-select-trigger-contacts", () => {
+  registerEnterHandler("#custom-select-trigger-contacts" + id, () => {
     toggleCustomSelectDropdown("contacts", id);
   });
 
   contactOptionsEnterHandlers(id);
   contactOptionsCheckboxesEnterHandlers(id);
 
-  registerEnterHandler("#custom-select-trigger-category", () => {
+  registerEnterHandler("#custom-select-trigger-category" + id, () => {
     toggleCustomSelectDropdown("category", id);
   });
   categoryOptionsEnterHandlers(id);
@@ -175,7 +175,7 @@ function taskFormSubmitFunction(event, id) {
     event.preventDefault();
     successfullSubmit = false;
     if (!formIsValid) {
-      handleInvalidSubmit(taskForm);
+      handleInvalidSubmit(taskForm, id);
     }
 
     if (!categoryIsValid) {
@@ -200,11 +200,11 @@ function taskFormSubmitFunction(event, id) {
 /**
  * Marks invalid form fields with error styling and focuses the first invalid element.
  */
-function handleInvalidSubmit(taskForm) {
+function handleInvalidSubmit(taskForm, id) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
 
   invalidElements.forEach((element) => {
-    if (element.id !== "task-due-date") {
+    if (element.id !== "task-due-date" + id) {
       element.classList.add("invalid");
       element.closest(".required").classList.add("after");
     } else {
