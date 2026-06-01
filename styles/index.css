@@ -310,81 +310,74 @@ footer nav a:hover {
     border: 1px solid #f04444;
 }
 
+
+/* #region splash animation */
+
+.splash-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--light-gray);
+    z-index: 9999;
+}
+
+.splash-overlay.splash-active {
+    display: block;
+    animation: splash-bg-fade 0.4s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+.splash-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 180px;
+}
+
+.splash-logo img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.splash-logo-white {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.splash-logo-blue {
+    opacity: 1;
+}
+
+.splash-overlay.splash-done {
+    display: none;
+}
+
 /* #endregion */
 
+/* #region splash desktop animation */
 
-/* #region responsive */
-@media screen and (max-width: 1280px) {
-  :root {
-    --padding-lr: 64px;
-  }
+.splash-overlay.splash-active .splash-logo {
+    animation: splash-fly 0.8s ease-in-out forwards;
+    animation-delay: 0.9s;
 }
 
-@media screen and (max-width: 1024px) {
-  :root {
-    --login-container-height: 475px;
-    --login-container-width: 400px;
-    --signup-container-height: 600px;
-    --signup-container-width: 400px;
-    --input-width: 100%;
-    --padding-lr: 24px;
-  }
-
-  .button-login {
-    font-size: 16px;
-  }
-
-  .join-logo-blue {
-    height: 100px;
-  }
-
-  .form-container {
-    padding: 32px 16px;
-  }
-
-  .button-login {
-    width: 180px;
-  }
-
-  .form-btn-section {
-    flex-direction: column;
-    gap: 24px;
-    border-radius: var(--border-radius-l);
-  }
-
-  .login-nav {
-    position: fixed;
-    width: calc(100% - max(var(--content-limitation), var(--padding-lr)) * 2);
-
-    display: flex;
-    justify-content: center;
-    /* padding: 0 max(var(--content-limitation), var(--padding-lr)); */
-    bottom: 120px;
-  }
-
-  .form-headline-container {
-    padding: 0px 16px;
-  }
+@keyframes splash-fly {
+    to {
+        top: 48px;
+        left: max(var(--content-limitation), 100px);
+        transform: translate(0, 0);
+        height: 120px;
+    }
 }
 
-@media screen and (max-width: 768px) {
-  .join-logo-blue {
-    height: 64px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  :root {
-    --padding-lr: 16px;
-  }
-  .form-container {
-    width: calc(100% - max(var(--content-limitation), var(--padding-lr)) * 2);
-    left: max(var(--content-limitation), var(--padding-lr));
-  }
-
-  .form-headline-container {
-    padding: 0px 8px;
-  }
+@keyframes splash-bg-fade {
+    to {
+        opacity: 0;
+    }
 }
 
 /* #endregion */

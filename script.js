@@ -25,6 +25,7 @@ function guestLogin() {
  * Initializes the login page.
  */
 function initLogin() {
+  initSplash()
   const form = document.getElementById("login-form");
   if (!form) return;
 
@@ -210,5 +211,20 @@ function togglePassword(inputId, toggleId) {
 function initPasswordToggle() {
   updatePasswordIcon("login-password", "toggle-login-password");
 }
+/**
+ * Runs splash animation once per session.
+ */
+function initSplash() {
+    const overlay = document.getElementById("splash-overlay");
+    if (!overlay) return;
 
+    if (sessionStorage.getItem("splashShown")) {
+        overlay.style.display = "none";
+        return;
+    }
+
+    sessionStorage.setItem("splashShown", "true");
+    overlay.classList.add("splash-active");
+    setTimeout(() => overlay.classList.add("splash-done"), 2200);
+}
 document.addEventListener("DOMContentLoaded", initLogin);

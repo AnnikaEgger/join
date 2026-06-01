@@ -11,20 +11,18 @@
 
 let addTaskColumn;
 
-async function addTask(event, page) {
-  const FORM = document.getElementById("task-form");
-
-  console.log(addTaskColumn);
+async function addTask(event, page, id) {
+  const FORM = document.getElementById("task-form" + id);
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
     //  prevent default submit (page reload)
     event.preventDefault();
 
-    let task = taskJson();
+    let task = taskJson(id);
     await postTaskToFirebase(task);
 
     showAddtaskToastMsg();
-    clearTask();
+    clearTask(id);
     completeTaskCreation(page);
   }
 }
@@ -36,20 +34,14 @@ async function addTask(event, page) {
  * @param {string} page - The originating page context ("add task" or "board").
  */
 function completeTaskCreation(page) {
-  setTimeout(() => {
+  setTimeout(async () => {
     if (page === "add task") {
       redirectToBoard();
     } else if (page === "board") {
+      await loadTasks();
       closeAddTaskDialog();
-      reloadBoard();
     }
   }, 3000);
-}
-
-function reloadBoard() {
-  setTimeout(() => {
-    window.location.reload();
-  }, 300);
 }
 
 function redirectToBoard() {
@@ -63,10 +55,10 @@ function redirectToBoard() {
  * @param {string} column - The target column for the task
  * @returns {Object} Task object with title, description, due_date, priority, assigned_contacts, category, subtasks, and column
  */
-function taskJson() {
-  const TITLE = document.getElementById("task-title").value;
-  const DESCRIPTION = document.getElementById("task-description").value;
-  const DUE_DATE = document.getElementById("task-due-date").value;
+function taskJson(id) {
+  const TITLE = document.getElementById("task-title" + id).value;
+  const DESCRIPTION = document.getElementById("task-description" + id).value;
+  const DUE_DATE = document.getElementById("task-due-date" + id).value;
 
   return {
     title: TITLE,
@@ -113,21 +105,21 @@ async function postTaskToFirebase(task) {
 /**
  * Clears all form inputs and resets task-related arrays to their initial state.
  */
-function clearTask() {
-  clearFormValues();
-  renderAssignedContacts();
-  renderSubtasks();
-  renderSelectedCategory();
-  renderPriority();
+function clearTask(id) {
+  clearFormValues(id);
+  renderAssignedContacts(id);
+  renderSubtasks(id);
+  renderSelectedCategory(id);
+  renderPriority(id);
 }
 
 /**
  * Clears all form field values and resets priority to default.
  */
-function clearFormValues() {
-  const TITLE = document.getElementById("task-title");
-  const DESCRIPTION = document.getElementById("task-description");
-  const DUE_DATE = document.getElementById("task-due-date");
+function clearFormValues(id) {
+  const TITLE = document.getElementById("task-title" + id);
+  const DESCRIPTION = document.getElementById("task-description" + id);
+  const DUE_DATE = document.getElementById("task-due-date" + id);
 
   TITLE.value = "";
   DESCRIPTION.value = "";
@@ -143,8 +135,8 @@ function clearFormValues() {
  * Validates a form input field based on its type.
  * @param {string} inputType - The type of input to validate ("title" or "due-date")
  */
-function checkInputValidity(inputType) {
-  const input = document.getElementById("task-" + inputType);
+function checkInputValidity(inputType, id) {
+  const input = document.getElementById("task-" + inputType + id);
 
   if (inputType == "title") {
     titleFormValidation(input);

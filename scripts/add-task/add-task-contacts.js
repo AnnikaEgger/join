@@ -8,9 +8,9 @@ let assignedContacts = [];
  * @param {string} contactId - The unique ID of the contact
  * @param {boolean} clickViaCheckbox - Whether the selection was triggered by clicking the checkbox
  */
-function selectContact(indexContact, contactId, clickViaCheckbox) {
-  handleContactSelection(indexContact, contactId, clickViaCheckbox);
-  renderAssignedContacts();
+function selectContact(indexContact, contactId, clickViaCheckbox, id) {
+  handleContactSelection(indexContact, contactId, clickViaCheckbox, id);
+  renderAssignedContacts(id);
 }
 
 /**
@@ -32,8 +32,8 @@ function checkIfContactAlreadyAssigned(contactId) {
  * @param {string} contactId - The unique ID of the contact
  * @param {boolean} clickViaCheckbox - Whether the action was triggered by the checkbox
  */
-function handleContactSelection(indexContact, contactId, clickViaCheckbox) {
-  let checkbox = document.getElementById("checkbox" + indexContact);
+function handleContactSelection(indexContact, contactId, clickViaCheckbox, id) {
+  let checkbox = document.getElementById("checkbox" + indexContact + id);
   let indexAssignedContact = checkIfContactAlreadyAssigned(contactId);
 
   // handle checkbox when selecting contact by not using the checkbox
@@ -59,10 +59,10 @@ function handleContactSelection(indexContact, contactId, clickViaCheckbox) {
  * Fetches and renders all available contact options in the dropdown.
  * @async
  */
-async function renderContactOptions() {
+async function renderContactOptions(id) {
   sortContactOptions();
-  document.getElementById("select-options--contacts").innerHTML = "";
-  renderContactOptionsList();
+  document.getElementById("select-options--contacts" + id).innerHTML = "";
+  renderContactOptionsList(id);
   contactOptionsEnterHandlers();
   contactOptionsCheckboxesEnterHandlers();
 }
@@ -78,7 +78,7 @@ function sortContactOptions() {
 /**
  * Renders the contact options list with avatars and names.
  */
-function renderContactOptionsList() {
+function renderContactOptionsList(id) {
   for (
     let indexContact = 0;
     indexContact < filteredContacts.length;
@@ -92,12 +92,13 @@ function renderContactOptionsList() {
       filteredContacts[indexContact],
     );
 
-    document.getElementById("select-options--contacts").innerHTML +=
+    document.getElementById("select-options--contacts" + id).innerHTML +=
       contactOptionTemplate(
         indexContact,
         contactInitials,
         contactName,
         checkboxChecked,
+        id,
       );
   }
 }
@@ -135,19 +136,20 @@ function getCurrentUser() {
  * Ensures the current user is the first contact in the filtered contacts array.
  */
 function ensureUserIsFirstInContactsArr() {
-  let user = getCurrentUser();
-  let userPartOfArr = filteredContacts.some(
-    (contact) => contact.name === user.name,
-  );
+  let currentUser = getCurrentUser();
+  // let userPartOfArr = filteredContacts.some(
+  //   (contact) => contact.name === user.name,
+  // );
 
-  if (!user || user.name === "Guest" || !userPartOfArr) return;
+  // if (!user || user.name === "Guest" || !userPartOfArr) return;
+  if (!currentUser || currentUser.name === "Guest") return;
 
   // filter user out of contacts arr
   filteredContacts = filteredContacts.filter(
-    (contact) => contact.name !== user.name,
+    (contact) => contact.name !== currentUser.name,
   );
 
-  filteredContacts.unshift(user);
+  filteredContacts.unshift(currentUser);
 }
 
 /**
@@ -174,26 +176,33 @@ async function getContacts() {
   }
 }
 
+async function getUsers() {
+  let response = await fetch(BASE_URL + "users" + ".json");
+  let usersObj = await response.json();
+
+  if (usersObj) {
+    fillContactsOptionsArray(usersObj);
+  }
+}
+
 /**
  * Populates the contactsOptions array with contacts from the Firebase response object.
  * @param {Object} contactsObj - The contacts object from Firebase
  */
-function fillContactsOptionsArray(contactsObj) {
-  let keysArr = Object.keys(contactsObj);
+function fillContactsOptionsArray(object) {
+  let keysArr = Object.keys(object);
 
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
 
     let contactData = {
       id: id,
-      color: contactsObj[id].color,
-      name: contactsObj[id].name,
+      color: object[id].color,
+      name: object[id].name,
     };
 
     contactsOptions.push(contactData);
   }
-
-  addUserToContactsOptionsArray();
 }
 
 /**
@@ -225,9 +234,9 @@ function getContactInitials(name) {
 /**
  * Renders the assigned contacts as avatar badges in the container.
  */
-function renderAssignedContacts() {
+function renderAssignedContacts(id) {
   const SELECTED_CONTACTS_DIV = document.getElementById(
-    "selected-contacts-container",
+    "selected-contacts-container" + id,
   );
 
   SELECTED_CONTACTS_DIV.innerHTML = "";
@@ -245,12 +254,12 @@ function renderAssignedContacts() {
 /**
  * Handles the contact search input by filtering contacts and re-rendering the dropdown.
  */
-function handleContactsSearch() {
+function handleContactsSearch(id) {
   let searchContactsInput = document.getElementById(
-    "search-contact-input",
+    "search-contact-input" + id,
   ).value;
   filterContacts(searchContactsInput);
-  renderContactOptions();
+  renderContactOptions(id);
 }
 
 /**

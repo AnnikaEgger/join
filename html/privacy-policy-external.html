@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../styles/assets.css" />
     <link rel="stylesheet" href="../styles/templates.css" />
     <link rel="stylesheet" href="../styles/privacy-policy.css" />
-    <script src="../scripts/header.js" defer></script>
   </head>
   <body>
     <section class="sidebar">
@@ -23,57 +22,29 @@
       <nav class="sidebar-nav">
         <ul class="nav-list">
           <li>
-            <a href="summary.html" class="nav-link">
-              <img class="nav-icon" src="../assets/icons/summary-icon.svg" alt="" />
-              <span>Summary</span>
+            <a href="../index.html" class="nav-link">
+              <span>Log in</span>
             </a>
           </li>
           <li>
-            <a href="add-task.html" class="nav-link">
-              <img class="nav-icon" src="../assets/icons/add-task-icon.svg" alt="" />
-              <span>Add Task</span>
+            <a href="privacy-policy-external.html" class="nav-link active">
+              <span>Privacy Policy</span>
             </a>
           </li>
           <li>
-            <a href="board.html" class="nav-link">
-              <img class="nav-icon" src="../assets/icons/board-icon.svg" alt="" />
-              <span>Board</span>
-            </a>
-          </li>
-          <li>
-            <a href="contacts.html" class="nav-link">
-              <img class="nav-icon" src="../assets/icons/contacts-icon.svg" alt="" />
-              <span>Contacts</span>
+            <a href="legal-notice-external.html" class="nav-link">
+              <span>Legal Notice</span>
             </a>
           </li>
         </ul>
       </nav>
-
-      <div class="sidebar-footer">
-        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-        <a href="legal-notice.html" class="footer-link">Legal notice</a>
-      </div>
     </section>
 
     <header class="header">
-      <a href="summary.html" class="header-logo-mobile">
+      <a href="../index.html" class="header-logo-mobile">
         <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
       </a>
       <h1 class="header-title">Kanban Project Management Tool</h1>
-      <div class="header-actions">
-        <a href="help.html" class="nav-link header-help-link">
-          <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
-        </a>
-        <div class="header-user-area">
-          <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
-          <div id="dropdown" class="dropdown-content d-none">
-            <a href="help.html" class="dropdown-help-link">Help</a>
-            <a href="legal-notice.html">Legal Notice</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a onclick="logout()">Log out</a>
-          </div>
-        </div>
-      </div>
     </header>
 
     <main class="main-content">

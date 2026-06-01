@@ -335,6 +335,9 @@
     .summary-cards.visible {
         opacity: 1;
     }
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;}
 }
 
 @media screen and (max-width: 768px) {
@@ -349,6 +352,7 @@
 }
 
 
+
 @media screen and (max-width: 425px) {
     .summary-greeting h2 {
         font-size: 32px;
@@ -357,6 +361,9 @@
     .summary-greeting p {
         font-size: 32px;
     }
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;}
 }
 
 @media screen and (max-width: 375px) {
@@ -367,6 +374,9 @@
     .summary-greeting p {
         font-size: 28px;
     }
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;}
 }
 
 @media screen and (max-width: 320px) {
@@ -376,5 +386,9 @@
 
     .summary-greeting p {
         font-size: 24px;
+    }
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }

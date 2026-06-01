@@ -536,6 +536,8 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+// #region Annika - bitte hier keine Funktionen reinschreiben wegen Merge Conflict :)
+
 /**
  * Opens the dialog for adding a new task.
  *
@@ -547,7 +549,7 @@ function openAddTaskDialog(column) {
   ADD_TASK_DIALOG.showModal();
   ADD_TASK_DIALOG.classList.add("show-dialog");
 
-  initAddTask("--dialog");
+  initAddTask("--add-task-dialog");
 
   addTaskColumn = column;
 }
@@ -559,12 +561,12 @@ function openAddTaskDialog(column) {
  */
 function closeAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
-  ADD_TASK_DIALOG.classList.remove("show-dialog");
+  ADD_TASK_DIALOG.classList.remove("show-dialog", "edit-task-dialog");
   setTimeout(() => {
     ADD_TASK_DIALOG.close();
   }, 150);
 
-  clearTask();
+  clearTask("--add-task-dialog");
 }
 
 const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
@@ -578,8 +580,9 @@ async function deleteTask(taskId) {
   if (taskId.startsWith("default_task")) return;
 
   await deleteTaskFromFirebase(taskId);
+  await loadTasks();
   closeTaskDialog();
-  reloadBoard();
+  // reloadBoard();
 }
 
 async function deleteTaskFromFirebase(taskId) {
@@ -590,20 +593,93 @@ async function deleteTaskFromFirebase(taskId) {
   return (responseToJson = await response.json());
 }
 
+async function initEditTask(id) {
+  contactsOptions = [];
+  categoriesArr = [];
+  subtasksArr = [];
+  assignedContacts = [];
+
+  disablePastDates(id);
+
+  await getContacts();
+  filteredContacts = contactsOptions;
+  renderContactOptions(id);
+
+  await getCategories();
+  renderSelectedCategory(id);
+  renderCategories(id);
+
+  registerEnterHandlers(id);
+  addEventListeners(id);
+}
+
 async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
   TASK_DIALOG.classList.add("edit-task-dialog");
 
   let task = await getTaskFromFirebase(taskId);
-  console.log(task);
 
-  TASK_DIALOG.innerHTML = taskEditModeTemplate(task);
+  TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
+
+  selectedCategory = task.category;
   setPriority(task.priority, "--edit-task");
-
-  //  weitermachen bei contacts --> Funktionen umbauen mit id als Parameter
+  await initEditTask("--edit-task");
+  renderAssignedContactsEditMode(task);
+  renderEditModeSubtasks(task);
 }
 
 async function getTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json");
   return await response.json();
 }
+
+function renderEditModeSubtasks(task) {
+  if (task.subtasks) {
+    subtasksArr.push(...task.subtasks);
+    renderSubtasks("--edit-task");
+  }
+}
+
+function renderAssignedContactsEditMode(task) {
+  if (task.assigned_contacts) {
+    assignedContacts.push(...task.assigned_contacts);
+    renderAssignedContacts("--edit-task");
+  }
+}
+
+async function submitEditedTask(column, taskId) {
+  await putEditedTaskToFirebase(column, taskId);
+  await loadTasks();
+  document.getElementById("taskDialog").classList.remove("edit-task-dialog");
+  openTaskDialog(taskId);
+}
+
+async function putEditedTaskToFirebase(column, taskId) {
+  let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(collectEditedTaskData(column, taskId)),
+  });
+  return await response.json();
+}
+
+function collectEditedTaskData(column, taskId) {
+  const title = document.getElementById("task-title--edit-task").value;
+  const description = document.getElementById(
+    "task-description--edit-task",
+  ).value;
+  const dueDate = document.getElementById("task-due-date--edit-task").value;
+
+  return {
+    title: title,
+    description: description,
+    due_date: dueDate,
+    priority: priority,
+    assigned_contacts: assignedContacts,
+    category: selectedCategory,
+    subtasks: subtasksArr,
+    column: column,
+  };
+}
+
+// #endregion

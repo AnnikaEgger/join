@@ -116,22 +116,22 @@
         <h1 class="add-task-headline add-task-headline--add-task">Add Task</h1>
         <form
           aria-labelledby="add-task-headline"
-          onsubmit="addTask(event, 'add task')"
-          id="task-form"
+          onsubmit="addTask(event, 'add task', '--add-task')"
+          id="task-form--add-task"
           class="task-form task-form--add-task"
           novalidate
         >
           <div class="add-task-inner-wrapper">
             <div class="add-task-container add-task-container-left">
               <section class="title-section">
-                <label class="label" for="task-title"
+                <label class="label" for="task-title--add-task"
                   >Title<span class="red">*</span></label
                 >
                 <div class="required">
                   <input
-                    oninput="checkInputValidity('title')"
+                    oninput="checkInputValidity('title', '--add-task')"
                     type="text"
-                    id="task-title"
+                    id="task-title--add-task"
                     placeholder="Enter a title"
                     required
                   />
@@ -139,15 +139,17 @@
               </section>
 
               <section class="description-section">
-                <label class="label" for="task-description">Description</label>
+                <label class="label" for="task-description--add-task"
+                  >Description</label
+                >
                 <textarea
-                  id="task-description"
+                  id="task-description--add-task"
                   placeholder="Enter a description"
                 ></textarea>
               </section>
 
               <section class="due-date-section">
-                <label class="label" for="task-due-date"
+                <label class="label" for="task-due-date--add-task"
                   >Due Date<span class="red">*</span></label
                 >
                 <div
@@ -155,9 +157,9 @@
                   tabindex="0"
                 >
                   <input
-                    oninput="checkInputValidity('due-date')"
+                    oninput="checkInputValidity('due-date', '--add-task')"
                     class="task-date-input"
-                    id="task-due-date"
+                    id="task-due-date--add-task"
                     lang="en-GB"
                     type="date"
                     required
@@ -165,7 +167,7 @@
                   <button
                     class="calendar-svg-btn"
                     type="button"
-                    onclick="showDatePicker()"
+                    onclick="showDatePicker('--add-task')"
                     aria-label="pick date"
                   >
                     <svg
@@ -273,32 +275,34 @@
               </section>
 
               <section class="contacts-section">
-                <p class="label" id="contacts-label">Assigned to</p>
+                <p class="label" id="contacts-label--add-task">Assigned to</p>
                 <div class="select-wrapper">
                   <div
-                    aria-labelledby="contacts-label"
+                    aria-labelledby="contacts-label--add-task"
                     class="custom-select custom-select--contacts"
-                    id="contacts-dropdown"
+                    id="contacts-dropdown--add-task"
                   >
                     <div
                       role="combobox"
                       aria-haspopup="listbox"
                       aria-owns="select-options--contacts"
-                      onclick="toggleCustomSelectDropdown('contacts')"
+                      onclick="
+                        toggleCustomSelectDropdown('contacts', '--add-task')
+                      "
                       class="custom-select--trigger custom-select-input trigger-input-container"
-                      id="custom-select-trigger-contacts"
+                      id="custom-select-trigger-contacts--add-task"
                       tabindex="0"
                     >
                       <input
-                        oninput="handleContactsSearch()"
-                        onclick="handleStopPropagation(event)"
+                        oninput="handleContactsSearch('--add-task')"
+                        onclick="handleStopPropagation(event, '--add-task')"
                         class="search-contact-input"
-                        id="search-contact-input"
+                        id="search-contact-input--add-task"
                         type="search"
                         placeholder="Select contacts to assign"
                         aria-label="select contacts to assign"
                         aria-autocomplete="list"
-                        aria-controls="select-options--contacts"
+                        aria-controls="select-options--contacts--add-task"
                       />
                       <button
                         type="button"
@@ -306,7 +310,7 @@
                         class="custom-select--trigger--img-container"
                       >
                         <img
-                          id="arrow-dropdown--contacts"
+                          id="arrow-dropdown--contacts--add-task"
                           src="../assets/icons/arrow-drop-down.svg"
                           alt="arrow down icon"
                         />
@@ -315,50 +319,52 @@
 
                     <ul
                       role="listbox"
-                      id="select-options--contacts"
+                      id="select-options--contacts--add-task"
                       class="custom-select-options custom-select-options--contacts display-none"
                     ></ul>
                   </div>
 
                   <div
                     class="selected-contacts selected-contacts--add-task"
-                    id="selected-contacts-container"
+                    id="selected-contacts-container--add-task"
                   ></div>
                 </div>
               </section>
 
               <section class="category-section">
-                <p class="label" id="categories-label">
+                <p class="label" id="categories-label--add-task">
                   Category<span class="red">*</span>
                 </p>
                 <div class="select-wrapper">
                   <div
                     class="custom-select custom-select--categories required"
-                    id="categories-dropdown"
+                    id="categories-dropdown--add-task"
                   >
                     <div
                       role="combobox"
                       aria-haspopup="listbox"
-                      aria-owns="select-options--category"
-                      onclick="toggleCustomSelectDropdown('category')"
+                      aria-owns="select-options--category--add-task"
+                      onclick="
+                        toggleCustomSelectDropdown('category', '--add-task')
+                      "
                       class="custom-select--trigger custom-select-input"
-                      id="custom-select-trigger-category"
+                      id="custom-select-trigger-category--add-task"
                       tabindex="0"
                     >
-                      <span id="selected-category"></span>
+                      <span id="selected-category--add-task"></span>
                       <button
                         type="button"
                         class="custom-select--trigger--img-container"
                       >
                         <img
-                          id="arrow-dropdown--category"
+                          id="arrow-dropdown--category--add-task"
                           src="../assets/icons/arrow-drop-down.svg"
                           alt="arrow down icon"
                         />
                       </button>
                     </div>
                     <ul
-                      id="select-options--category"
+                      id="select-options--category--add-task"
                       class="custom-select-options custom-select-options--categories display-none"
                     ></ul>
                   </div>
@@ -367,7 +373,7 @@
 
               <section class="subtask-section">
                 <p class="label">Subtasks</p>
-                <div class="subtask-container" id="subtasks-container">
+                <div class="subtask-container">
                   <div
                     tabindex="0"
                     class="trigger-input-container custom-select-input"
@@ -375,7 +381,7 @@
                     <input
                       class="subtask-input"
                       type="text"
-                      id="subtask-input"
+                      id="subtask-input--add-task"
                       placeholder="Add new subtask"
                       aria-label="add subtask"
                     />
@@ -384,7 +390,7 @@
                         class="subtask-btn-left"
                         type="button"
                         id="delete-subtask-btn"
-                        onclick="clearSubtaskInput()"
+                        onclick="clearSubtaskInput('--add-task')"
                         aria-label="delete current input"
                       >
                         <svg
@@ -408,8 +414,7 @@
                       <button
                         class="subtask-btn-right"
                         type="button"
-                        id="save-subtask-btn"
-                        onclick="addSubtask()"
+                        onclick="addSubtask('--add-task')"
                       >
                         <svg
                           width="14"
@@ -432,7 +437,7 @@
 
                   <ul
                     class="subtask-list"
-                    id="subtask-list"
+                    id="subtask-list--add-task"
                     aria-label="subtask list"
                   ></ul>
                 </div>
@@ -449,7 +454,7 @@
           >
             <div class="bottom-btns-wrapper">
               <button
-                onclick="clearTask()"
+                onclick="clearTask('--add-task')"
                 type="reset"
                 id="clear-task-btn"
                 class="button bottom-btn bottom-btn--add-task button-white button-white--add-task"
