@@ -570,6 +570,11 @@ function closeAddTaskDialog() {
   clearTask("--add-task-dialog");
 }
 
+/**
+ * Closes the add task dialog when clicking directly on the backdrop background.
+ *
+ * @param {*} - No parameters are required for this function as it directly interacts with the add task dialog element in the HTML to set up an event listener for clicks on the backdrop.
+ */
 const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
 ADD_TASK_DIALOG.addEventListener("click", (event) => {
   if (event.target === ADD_TASK_DIALOG) {
@@ -577,6 +582,11 @@ ADD_TASK_DIALOG.addEventListener("click", (event) => {
   }
 });
 
+/**
+ * Deletes a task from Firebase and updates the UI.
+ *
+ * @param {string} taskId - The ID of the task to delete.
+ */
 async function deleteTask(taskId) {
   if (taskId.startsWith("default_task")) return;
 
@@ -586,6 +596,12 @@ async function deleteTask(taskId) {
   // reloadBoard();
 }
 
+/**
+ * Sends a DELETE request to Firebase to remove a specific task.
+ * 
+ * @param {string} taskId - The ID of the task to delete from Firebase.
+ * @returns {Object} The response from Firebase after attempting to delete the task.
+ */
 async function deleteTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
     method: "DELETE",
@@ -594,6 +610,11 @@ async function deleteTaskFromFirebase(taskId) {
   return (responseToJson = await response.json());
 }
 
+/**
+ * Initializes the edit task functionality.
+ * 
+ * @param {string} id - The ID of the task to edit.
+ */
 async function initEditTask(id) {
   contactsOptions = [];
   categoriesArr = [];
@@ -614,6 +635,11 @@ async function initEditTask(id) {
   addEventListeners(id);
 }
 
+/**
+ * Opens the edit mode for a specific task.
+ * 
+ * @param {string} taskId - The ID of the task to edit.
+ */
 async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
 
@@ -628,11 +654,22 @@ async function openTaskEditMode(taskId) {
   renderEditModeSubtasks(task);
 }
 
+/**
+ * Retrieves a task from Firebase.
+ * 
+ * @param {string} taskId - The ID of the task to retrieve.
+ * @returns {Object} The task data from Firebase.
+ */
 async function getTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json");
   return await response.json();
 }
 
+/**
+ * Renders the subtasks for the edit mode.
+ * 
+ * @param {Object} task - The task object containing subtasks.
+ */
 function renderEditModeSubtasks(task) {
   if (task.subtasks) {
     subtasksArr.push(...task.subtasks);
@@ -640,19 +677,37 @@ function renderEditModeSubtasks(task) {
   }
 }
 
+/**
+ * Renders the assigned contacts for the edit mode.
+ * 
+ * @param {Object} task - The task object containing assigned contacts.
+ */
 function renderAssignedContactsEditMode(task) {
   if (task.assigned_contacts) {
     assignedContacts.push(...task.assigned_contacts);
     renderAssignedContacts("--edit-task");
   }
 }
-
+  
+/**
+ * Submits the edited task data to Firebase.
+ * 
+ * @param {string} column - The column to which the task belongs.
+ * @param {string} taskId - The ID of the task to edit.
+ */
 async function submitEditedTask(column, taskId) {
   await putEditedTaskToFirebase(column, taskId);
   await loadTasks();
   openTaskDialog(taskId);
 }
 
+/**
+ * Sends a PUT request to Firebase to update a specific task.
+ * 
+ * @param {string} column - The column to which the task belongs.
+ * @param {string} taskId - The ID of the task to update.
+ * @returns {Object} The response from Firebase after attempting to update the task.
+ */
 async function putEditedTaskToFirebase(column, taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
     method: "PUT",
@@ -662,6 +717,13 @@ async function putEditedTaskToFirebase(column, taskId) {
   return await response.json();
 }
 
+/**
+ * Collects the edited task data for submission to Firebase.
+ * 
+ * @param {string} column - The column to which the task belongs.
+ * @param {string} taskId - The ID of the task being edited.
+ * @returns {Object} The edited task data.
+ */
 function collectEditedTaskData(column, taskId) {
   const title = document.getElementById("task-title--edit-task").value;
   const description = document.getElementById(
