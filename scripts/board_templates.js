@@ -52,12 +52,14 @@ function generateTaskDialogHTML(todo, catColor, id) {
           <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
           <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
           <section class="dialog-footer">
-                  <button onclick="deleteTask('${id}')">
-                      <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                  <button class="delete-task-btn" onclick="deleteTask('${id}')">
+                      <img class="icon-default" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                      <img src="../assets/icons/delete-hover-btn.svg" class="icon-hover">
                   </button>
                   <hr class="dialog-footer-hr">
-                  <button onclick="openTaskEditMode('${id}')">
-                      <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+                  <button class="edit-task-btn" onclick="openTaskEditMode('${id}')">
+                      <img class="icon-default" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+                      <img src="../assets/icons/edit-hover-btn.svg" class="icon-hover">
                   </button>
           </section>
         </div>
