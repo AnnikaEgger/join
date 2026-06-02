@@ -270,6 +270,7 @@ function openTaskDialog(id) {
  */
 function closeTaskDialog() {
   document.getElementById("taskDialog").close();
+  updateHTML();
 }
 
 /**
@@ -327,12 +328,17 @@ function renderDialogSubtasks(todo, id) {
  */
 function toggleSubtask(todoId, subtaskIndex) {
   let todo = todos.find((t) => t.id === todoId);
-  if (todo && todo.subtasks) {
+  if (todo && todo.subtasks) { //
     let subtasksArray = Array.isArray(todo.subtasks)
       ? todo.subtasks
       : Object.values(todo.subtasks);
+
     if (subtasksArray[subtaskIndex]) {
       subtasksArray[subtaskIndex].done = !subtasksArray[subtaskIndex].done;
+
+      let isDone = subtasksArray[subtaskIndex].done;
+      saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone);
+
       updateHTML();
     }
   }
@@ -688,7 +694,7 @@ function renderAssignedContactsEditMode(task) {
     renderAssignedContacts("--edit-task");
   }
 }
-  
+
 /**
  * Submits the edited task data to Firebase.
  * 

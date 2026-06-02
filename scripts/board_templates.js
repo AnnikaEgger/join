@@ -75,11 +75,17 @@ function generateDialogContactsHTML(name, color, initials) {
 }
 
 function generateDialogSubtasksHTML(todoId, index, title, isChecked) {
+  let checkboxId = `subtask-${todoId}-${index}`;
   return `
         <div class="dialog-subtask-row">
-            <input type="checkbox" id="subtask-${index}" ${isChecked} 
+            <input type="checkbox" id="${checkboxId}" ${isChecked} 
                    onclick="toggleSubtask('${todoId}', ${index})">
-            <label for="subtask-${index}">${title}</label>
+            
+            <label for="${checkboxId}" class="custom-subtask-checkbox">
+                <img src="../assets/icons/checkbox-rect.svg" class="cb-empty" alt="Unchecked">
+                <img src="../assets/icons/checkbox.svg" class="cb-checked" alt="Checked">
+                <span class="subtask-title-text">${title}</span>
+            </label>
         </div>`;
 }
 
