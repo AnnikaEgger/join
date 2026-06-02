@@ -38,27 +38,29 @@ function generateTaskDialogHTML(todo, catColor, id) {
   let subtasksListHTML = renderDialogSubtasks(todo, id);
   let prioIconHTML = getPrioIconHTML(todo);
   return `
-        <div class="task-dialog-header">
-            <span class="category-field-dialog" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
-            <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
+      <div class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed" id="content-wrapper--task-dialog">
+          <div class="task-dialog-header">
+              <span class="category-field-dialog" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
+              <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
+          </div>
+          <h1 class="dialog-task-title">${todo["title"]}</h1>
+          <p class="dialog-description">${todo["description"] || ""}</p>
+          <div class="dialog-prio-date">
+              <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo["due_date"] || "No date"}</div>
+              <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo["priority"] || "Low"} ${prioIconHTML}</div>
+          </div>
+          <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
+          <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
+          <section class="dialog-footer">
+                  <button onclick="deleteTask('${id}')">
+                      <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                  </button>
+                  <hr class="dialog-footer-hr">
+                  <button onclick="openTaskEditMode('${id}')">
+                      <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+                  </button>
+          </section>
         </div>
-        <h1 class="dialog-task-title">${todo["title"]}</h1>
-        <p class="dialog-description">${todo["description"] || ""}</p>
-        <div class="dialog-prio-date">
-            <div class="dialog-prio-row"><p class="dialog-text-label">Due date:</p> ${todo["due_date"] || "No date"}</div>
-            <div class="dialog-prio-row"><p class="dialog-text-label">Priority:</p> ${todo["priority"] || "Low"} ${prioIconHTML}</div>
-        </div>
-        <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
-        <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
-        <section class="dialog-footer">
-                <button onclick="deleteTask('${id}')">
-                    <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
-                </button>
-                <hr class="dialog-footer-hr">
-                <button onclick="openTaskEditMode('${id}')">
-                    <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
-                </button>
-        </section>
      `;
 }
 
@@ -104,7 +106,9 @@ function generateEmptyBadgeHTML() {
 }
 
 function taskEditModeTemplate(task, taskId) {
-  return `   <div class="edit-task-closing-btn-wrapper">
+  return ` 
+      <div class="content-wrapper-task-dialog content-wrapper-task-dialog--edit" id="content-wrapper--task-dialog">
+    <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
           onclick="closeAddTaskDialog()"
@@ -202,7 +206,7 @@ function taskEditModeTemplate(task, taskId) {
           <div class="add-task-container add-task-container-right">
             <section class="prio-section">
               <p class="label">Priority</p>
-              <div id="task-priority" class="add-task-prio-btns-container">
+              <div id="task-priority" class="add-task-prio-btns-container add-task-prio-btns-container--edit-task">
                 <button
                   type="button"
                   onclick="setPriority('Urgent', '--edit-task')"
@@ -447,9 +451,7 @@ function taskEditModeTemplate(task, taskId) {
           </div>
         </div>
 
-        <div
-          class="add-task-bottom-btns-container add-task-bottom-btns-container--edit-task"
-        >
+  
           <div class="edit-task-ok-btn-wrapper">
             <button
             onclick="submitEditedTask('${task.column}', '${taskId}')"
@@ -472,7 +474,6 @@ function taskEditModeTemplate(task, taskId) {
                 />
               </svg>
             </button>
-          </div>
         </div>
       </form>`;
 }

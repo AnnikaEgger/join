@@ -93,7 +93,7 @@
 
 /* #region dialog scrollbar */
 
-.add-task-dialog {
+.content-wrapper--dialog {
   --sb-track-color: #ffffff;
   --sb-thumb-color: #a8a8a8;
   --sb-size: 16px;
