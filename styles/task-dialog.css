@@ -5,21 +5,34 @@
 }
 
 .task-dialog {
-  /* display: flex; */
   position: fixed;
   border: none;
-  border-radius: 50px;
-  padding: 40px;
   background-color: white;
   color: black;
-  width: 90%;
-  height: 900px;
-  max-width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   z-index: 999;
+  overflow-y: hidden;
+
+  max-width: 500px;
+  width: 90%;
+  height: fit-content;
+  max-height: 85vh;
+  border-radius: 30px;
+  transition:
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
+  animation: slideOutCentered 0.3s ease-in forwards;
+}
+
+.content-wrapper-task-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 85vh;
+  height: 900px;
 }
 
 body:has(.example-dialog[open]),
@@ -51,29 +64,12 @@ body:has(.add-task-dialog[open]) {
   }
 }
 
-.task-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  max-width: 500px;
-  height: fit-content;
-  max-height: 85vh;
-  overflow-y: scroll;
-  background-color: white;
-  border: none;
-  border-radius: 30px;
-  padding: var(--task-dialog-padding);
-  box-sizing: border-box;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-  transition:
-    display 0.3s allow-discrete,
-    overlay 0.3s allow-discrete;
-  animation: slideOutCentered 0.3s ease-in forwards;
-}
-
 .task-dialog[open] {
   animation: slideInCentered 0.3s ease-out forwards;
+}
+
+.content-wrapper-task-dialog--detailed {
+  padding: var(--task-dialog-padding);
 }
 
 .dialog-contact-row {
@@ -144,25 +140,22 @@ body:has(.add-task-dialog[open]) {
 
 /* #region task dialog edit mode */
 
-.edit-task-dialog {
+.content-wrapper-task-dialog--edit {
   padding: 0 var(--task-dialog-padding);
 }
+
 .task-dialog textarea {
   margin-bottom: unset;
 }
 
-.add-task-dialog[open] {
-  /* overflow-y: scroll; */
-}
-
-.edit-task-dialog .add-task-container,
-.edit-task-dialog .add-task-prio-btns-container,
-.edit-task-dialog .select-wrapper,
-.edit-task-dialog .subtask-container,
-.edit-task-dialog input,
-.edit-task-dialog textarea,
-.edit-task-dialog .custom-select-input,
-.edit-task-dialog .custom-select {
+.content-wrapper-task-dialog--edit .add-task-container,
+.content-wrapper-task-dialog--edit .add-task-prio-btns-container,
+.content-wrapper-task-dialog--edit .select-wrapper,
+.content-wrapper-task-dialog--edit .subtask-container,
+.content-wrapper-task-dialog--edit input,
+.content-wrapper-task-dialog--edit textarea,
+.content-wrapper-task-dialog--edit .custom-select-input,
+.content-wrapper-task-dialog--edit .custom-select {
   width: 100%;
 }
 
@@ -198,5 +191,36 @@ body:has(.add-task-dialog[open]) {
   display: flex;
   justify-content: end;
 }
+
+/* #region dialog scrollbar */
+
+.content-wrapper-task-dialog {
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #a8a8a8;
+  --sb-size: 16px;
+}
+
+.content-wrapper-task-dialog::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.content-wrapper-task-dialog::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 8px;
+}
+
+.content-wrapper-task-dialog::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 8px;
+  border: 4px solid #ffffff;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .content-wrapper-task-dialog {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+/* #endregion */
 
 /* #endregion */

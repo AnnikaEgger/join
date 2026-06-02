@@ -105,7 +105,8 @@ hr {
 
 .add-task-btn:hover {
   cursor: pointer;
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
+    brightness(95%) contrast(88%);
 }
 
 .custom-checkbox {
@@ -318,7 +319,7 @@ hr {
   box-sizing: border-box;
 }
 
-.badge-container> :not(:first-child) {
+.badge-container > :not(:first-child) {
   margin-left: -12px;
   border: 1px solid #ffffff;
 }
@@ -377,8 +378,6 @@ select,
 
 .task-dialog {
   word-break: break-word;
-  max-height: 80vh;
-  overflow-y: auto;
 }
 
 .task-dialog-header {
@@ -492,11 +491,13 @@ select,
 }
 
 .delete-task-btn:hover {
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
+    brightness(95%) contrast(88%);
 }
 
 .edit-task-btn:hover {
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
+    brightness(95%) contrast(88%);
 }
 
 @media (max-width: 1200px) {

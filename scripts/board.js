@@ -561,7 +561,11 @@ function openAddTaskDialog(column) {
  */
 function closeAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
-  ADD_TASK_DIALOG.classList.remove("show-dialog", "edit-task-dialog");
+  const CONTENT_WRAPPER = document.getElementById(
+    "content-wrapper--add-task-dialog",
+  );
+  ADD_TASK_DIALOG.classList.remove("show-dialog");
+  CONTENT_WRAPPER.classList.remove("edit-task-dialog");
   setTimeout(() => {
     ADD_TASK_DIALOG.close();
   }, 150);
@@ -615,7 +619,6 @@ async function initEditTask(id) {
 
 async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
-  TASK_DIALOG.classList.add("edit-task-dialog");
 
   let task = await getTaskFromFirebase(taskId);
 
@@ -650,7 +653,6 @@ function renderAssignedContactsEditMode(task) {
 async function submitEditedTask(column, taskId) {
   await putEditedTaskToFirebase(column, taskId);
   await loadTasks();
-  document.getElementById("taskDialog").classList.remove("edit-task-dialog");
   openTaskDialog(taskId);
 }
 

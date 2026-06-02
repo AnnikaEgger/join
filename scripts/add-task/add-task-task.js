@@ -47,7 +47,7 @@ function completeTaskCreation(page) {
 function redirectToBoard() {
   setTimeout(() => {
     window.location.href = "../html/board.html";
-  }, 250);
+  }, 200);
 }
 
 /**
