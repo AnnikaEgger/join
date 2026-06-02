@@ -206,7 +206,7 @@ function taskEditModeTemplate(task, taskId) {
           <div class="add-task-container add-task-container-right">
             <section class="prio-section">
               <p class="label">Priority</p>
-              <div id="task-priority" class="add-task-prio-btns-container">
+              <div id="task-priority" class="add-task-prio-btns-container add-task-prio-btns-container--edit-task">
                 <button
                   type="button"
                   onclick="setPriority('Urgent', '--edit-task')"
@@ -451,9 +451,7 @@ function taskEditModeTemplate(task, taskId) {
           </div>
         </div>
 
-        <div
-          class="add-task-bottom-btns-container add-task-bottom-btns-container--edit-task"
-        >
+  
           <div class="edit-task-ok-btn-wrapper">
             <button
             onclick="submitEditedTask('${task.column}', '${taskId}')"
@@ -476,8 +474,6 @@ function taskEditModeTemplate(task, taskId) {
                 />
               </svg>
             </button>
-          </div>
-        </div>
         </div>
       </form>`;
 }

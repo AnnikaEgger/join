@@ -561,11 +561,8 @@ function openAddTaskDialog(column) {
  */
 function closeAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
-  const CONTENT_WRAPPER = document.getElementById(
-    "content-wrapper--add-task-dialog",
-  );
+
   ADD_TASK_DIALOG.classList.remove("show-dialog");
-  CONTENT_WRAPPER.classList.remove("edit-task-dialog");
   setTimeout(() => {
     ADD_TASK_DIALOG.close();
   }, 150);
