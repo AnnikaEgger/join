@@ -1,0 +1,187 @@
+@media (max-width: 1200px) {
+  .main-content {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .head-text {
+    font-size: 52px;
+  }
+
+  .board-header {
+    gap: 10px;
+  }
+
+  .input-field {
+    width: 150px;
+  }
+
+  .task-titles {
+    gap: 15px;
+  }
+
+  .task-lanes {
+    min-width: 200px;
+  }
+
+  .empty-card-container {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .task-title {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1125px) {
+  .main-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .head-text {
+    font-size: 44px;
+  }
+
+  .search-and-add-section {
+    gap: 10px;
+  }
+
+  .input-field {
+    width: 150px;
+    font-size: 16px;
+  }
+
+  .task-titles {
+    gap: 10px;
+  }
+
+  .task-lanes {
+    min-width: 180px;
+  }
+
+  .add-btn {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+
+  .card {
+    width: 180px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+
+  .task-titles {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .card-container {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 10px;
+    height: auto !important;
+    align-items: flex-start;
+  }
+
+  .card {
+    width: 200px;
+    margin-bottom: 0 !important;
+  }
+
+  .empty-card-container {
+    height: 45px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 768px) {
+  .board-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .search-and-add-section {
+    width: 100%;
+    height: 38px;
+    flex-direction: column-reverse;
+  }
+
+  .search-task-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .add-btn {
+    display: none;
+  }
+
+  .board-header-mobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .second-add-btn {
+    display: flex;
+  }
+
+  .task-lanes {
+    min-width: 100%;
+  }
+
+  .input-field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .head-text {
+    font-size: 40px;
+  }
+
+  .search-and-add-section {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .card-container {
+    height: 200px;
+  }
+}
+
+@media (max-width: 375px) {
+  .head-text {
+    font-size: 36px;
+  }
+
+  .main-content {
+    padding: 0 16px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .dialog-title {
+    font-size: 40px;
+  }
+
+  .dialog-task-title {
+    font-size: 36px;
+  }
+
+  .dialog-description {
+    font-size: 16px;
+  }
+}
