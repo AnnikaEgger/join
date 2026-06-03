@@ -113,6 +113,10 @@
     .help-finale {
         font-size: 42px !important;
     }
+    .help-page {
+    max-width: 1014px;
+    padding: 0;
+    margin: 0 auto;}
 }
 
 
@@ -178,7 +182,7 @@
         font-size: 32px;
     }
     .help-page p {
-        font-size: 14px;
+        font-size: 16px;
     }
     .help-page h2 {
         font-size: 18px;
@@ -209,7 +213,7 @@
         font-size: 28px;
     }
     .help-page p {
-        font-size: 13px;
+        font-size: 16px;
     }
     .help-page h2 {
         font-size: 17px;
@@ -230,7 +234,7 @@
         font-size: 24px;
     }
     .help-page p {
-        font-size: 12px;
+        font-size: 16px;
         line-height: 1.5;
     }
     .help-page h2 {

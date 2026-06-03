@@ -176,11 +176,24 @@ async function handleSignup(event) {
     return;
   }
 
-  await saveUser(userData);
+ await saveUser(userData);
+  loginAfterSignup(userData);
   showSuccessToast();
   setTimeout(() => {
-    window.location.href = "../index.html";
+    window.location.href = "../html/summary.html";
   }, 2000);
+}
+/**
+ * Logs the user in after sign-up by saving to localStorage (without password).
+ * @param {Object} user
+ */
+function loginAfterSignup(user) {
+  const userData = {
+    name: user.name,
+    email: user.email,
+    color: user.color,
+  };
+  localStorage.setItem("currentUser", JSON.stringify(userData));
 }
 
 /**
