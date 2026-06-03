@@ -268,8 +268,9 @@ function renderDialogContacts(todo) {
     return "<p>No one assigned</p>";
   return todo["assigned_contacts"]
     .map((contact) => {
-      let name =
-        typeof contact === "string" ? contact : contact.name || "Unknown";
+      // let name =
+      //   typeof contact === "string" ? contact : contact.name || "Unknown";
+      let name = getAssignedContactName(contact);
       let color = contact.color || "#2A3647";
       let initials = name
         .split(" ")
@@ -279,6 +280,19 @@ function renderDialogContacts(todo) {
       return generateDialogContactsHTML(name, color, initials);
     })
     .join("");
+}
+
+function getAssignedContactName(contact) {
+  let name;
+  let user = getCurrentUser();
+
+  if (user && user.name !== "Guest" && contact.name === user.name) {
+    name = user.name + " (You)";
+  } else {
+    name = typeof contact === "string" ? contact : contact.name || "Unknown";
+  }
+
+  return name;
 }
 
 /**

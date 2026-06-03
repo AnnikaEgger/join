@@ -1,5 +1,5 @@
 const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
+  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 
 const ICON_LOCK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`;
 
@@ -25,7 +25,7 @@ function guestLogin() {
  * Initializes the login page.
  */
 function initLogin() {
-  initSplash()
+  initSplash();
   const form = document.getElementById("login-form");
   if (!form) return;
 
@@ -142,7 +142,7 @@ async function handleLogin(event) {
  * @returns {Promise<Array>}
  */
 async function loadAllUsers() {
-  const response = await fetch(BASE_URL + "/users.json");
+  const response = await fetch(BASE_URL + "users.json");
   const data = await response.json();
   if (!data) return [];
   return Object.values(data);
@@ -215,16 +215,43 @@ function initPasswordToggle() {
  * Runs splash animation once per session.
  */
 function initSplash() {
-    const overlay = document.getElementById("splash-overlay");
-    if (!overlay) return;
+  const overlay = document.getElementById("splash-overlay");
+  if (!overlay) return;
 
-    if (sessionStorage.getItem("splashShown")) {
-        overlay.style.display = "none";
-        return;
-    }
+  if (sessionStorage.getItem("splashShown")) {
+    overlay.style.display = "none";
+    return;
+  }
 
-    sessionStorage.setItem("splashShown", "true");
-    overlay.classList.add("splash-active");
-    setTimeout(() => overlay.classList.add("splash-done"), 2200);
+  sessionStorage.setItem("splashShown", "true");
+  overlay.classList.add("splash-active");
+  setTimeout(() => overlay.classList.add("splash-done"), 2200);
 }
 document.addEventListener("DOMContentLoaded", initLogin);
+
+function enableAllPointerEvents(id) {
+  let elementId;
+
+  if (id === "--add-task") {
+    elementId = "body--add-task";
+  } else if (id === "--add-task-dialog") {
+    elementId = "content-wrapper--add-task-dialog";
+  } else if (id === "--board") {
+    elementId = "body--board";
+  } else if (id === "taskDialog") {
+    elementId = "content-wrapper--task-dialog";
+  }
+
+  const element = document.getElementById(elementId);
+  element.classList.remove("disabled-ui");
+}
+
+function disableButtonWhileLoading(buttonId) {
+  let button = document.getElementById(buttonId);
+  button.disabled = true;
+}
+
+function enableButton(buttonId) {
+  let button = document.getElementById(buttonId);
+  button.disabled = false;
+}

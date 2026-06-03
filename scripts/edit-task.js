@@ -50,9 +50,15 @@ ADD_TASK_DIALOG.addEventListener("click", (event) => {
  * @param {string} taskId - The ID of the task to delete.
  */
 async function deleteTask(taskId) {
+  disableButtonWhileLoading("delete-task-btn");
+  disableButtonWhileLoading("edit-task-btn");
+
   await deleteTaskFromFirebase(taskId);
   await loadTasks();
   closeTaskDialog();
+
+  enableButton("delete-task-btn");
+  enableButton("edit-task-btn");
 }
 
 /**
@@ -103,6 +109,9 @@ async function initEditTask(id) {
  * @param {string} taskId - The ID of the task to edit.
  */
 async function openTaskEditMode(taskId) {
+  disableButtonWhileLoading("edit-task-btn");
+  disableButtonWhileLoading("delete-task-btn");
+
   const TASK_DIALOG = document.getElementById("taskDialog");
 
   let task = await getTaskFromFirebase(taskId);
@@ -161,6 +170,10 @@ function renderAssignedContactsEditMode(task) {
  * @param {string} taskId - The ID of the task to edit.
  */
 async function submitEditedTask(event, column, defaultTask, taskId) {
+  disableButtonWhileLoading("task-edit-ok-btn");
+
+  console.log("submit function triggered!!");
+
   const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();
 

@@ -192,7 +192,7 @@ function taskFormSubmitFunction(event, id) {
       const categoryTrigger = taskForm.querySelector(
         "#custom-select-trigger-category" + id,
       );
-      focusInvalidElement(categoryTrigger);
+      focusInvalidElement(categoryTrigger, taskForm);
     }
   } else if (formIsValid && categoryIsValid) {
     successfullSubmit = true;

@@ -60,24 +60,6 @@ input::placeholder {
   border: 1px solid var(--red-invalid) !important;
 }
 
-/* .custom-select-with-after:focus-within::after {
-  content: "This field is required";
-  font-size: 16px;
-  color: red;
-  position: absolute;
-  bottom: -20px;
-  left: 5px;
-}
-
-.input-with-after:focus-within::after {
-  content: "This field is required";
-  font-size: 16px;
-  color: red;
-  position: absolute;
-  bottom: -20px;
-  left: 5px;
-} */
-
 .after:focus-within::after {
   content: "This field is required";
   font-size: 16px;
@@ -265,6 +247,45 @@ textarea::placeholder {
 button {
   cursor: pointer;
   border: unset;
+}
+
+button:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.button-blue:disabled:hover,
+.button-blue:disabled:active,
+.button-blue:disabled:focus,
+.button-blue:disabled:focus-visible {
+  background-color: var(--dark-blue);
+  transform: none;
+  box-shadow: none;
+}
+
+.button-white:disabled:hover,
+.button-white:disabled:active,
+.button-white:disabled:focus,
+.button-white:disabled:focus-visible {
+  transform: none;
+  box-shadow: none;
+  outline: none;
+  border: 1px solid var(--dark-blue);
+}
+
+.task-dialog-btn:disabled:hover,
+.task-dialog-btn:disabled:active,
+.task-dialog-btn:disabled:focus,
+.task-dialog-btn:disabled:focus-visible {
+  color: var(--dark-blue);
+  font-weight: normal;
+}
+
+.task-dialog-btn:disabled:hover svg path,
+.task-dialog-btn:disabled:active svg path,
+.task-dialog-btn:disabled:focus svg path,
+.task-dialog-btn:disabled:focus-visible svg path {
+  fill: var(--dark-blue);
 }
 
 .button {

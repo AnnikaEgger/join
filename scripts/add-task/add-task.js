@@ -1,5 +1,5 @@
-const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
+// const BASE_URL =
+//   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * Initializes the add-task page by disabling past dates, setting default priority,
@@ -32,33 +32,6 @@ async function initAddTask(id) {
   enableAllPointerEvents(id);
 }
 
-// function disableAllPointerEvents(id) {
-//   let elementId;
-
-//   if (id === "--edit-task") {
-//     elementId = "content-wrapper--task-dialog";
-//   }
-
-//   const element = document.getElementById(elementId);
-//   element.classList.add("disabled-ui");
-// }
-
-function enableAllPointerEvents(id) {
-  let elementId;
-
-  if (id === "--add-task") {
-    elementId = "body--add-task";
-  } else if (id === "--add-task-dialog") {
-    elementId = "content-wrapper--add-task-dialog";
-  } else if (id === "--board") {
-    elementId = "body--board";
-  } else if (id === "taskDialog") {
-    elementId = "content-wrapper--task-dialog";
-  }
-
-  const element = document.getElementById(elementId);
-  element.classList.remove("disabled-ui");
-}
 /**
  * Closes a custom select dropdown by hiding options and resetting the arrow icon.
  * @param {string} selectName - The name of the select dropdown to close (e.g., "contacts", "category")

@@ -42,6 +42,7 @@
       href="../styles/board-media-query.css"
     />
 
+    <script src="../script.js" defer></script>
     <script src="../scripts/board-templates.js"></script>
     <script src="../scripts/edit-task.js" defer></script>
     <script src="../scripts/board.js" defer></script>
@@ -753,7 +754,7 @@
               <button
                 onclick="closeAddTaskDialog()"
                 type="button"
-                id="cancel-task-btn"
+                id="cancel-task-btn--add-task-dialog"
                 class="button bottom-btn bottom-btn--board button-white button-white--dialog"
                 aria-label="clear task form"
               >
@@ -777,7 +778,7 @@
               </button>
               <button
                 type="submit"
-                id="create-task-btn"
+                id="create-task-btn--add-task-dialog"
                 class="button bottom-btn bottom-btn--board button-blue create-task-btn"
                 aria-label="create task"
               >

@@ -12,6 +12,14 @@
 let addTaskColumn;
 
 async function addTask(event, page, id) {
+  if (id === "--add-task") {
+    disableButtonWhileLoading("clear-task-btn" + id);
+  } else if (id === "--add-task-dialog") {
+    disableButtonWhileLoading("cancel-task-btn" + id);
+  }
+
+  disableButtonWhileLoading("create-task-btn" + id);
+
   const FORM = document.getElementById("task-form" + id);
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
@@ -27,6 +35,14 @@ async function addTask(event, page, id) {
     clearTask(id);
     completeTaskCreation(page);
   }
+
+  if (id === "--add-task") {
+    enableButton("clear-task-btn" + id);
+  } else if (id === "--add-task-dialog") {
+    enableButton("cancel-task-btn" + id);
+  }
+
+  enableButton("create-task-btn" + id);
 }
 
 /**
