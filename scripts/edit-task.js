@@ -115,7 +115,6 @@ async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
 
   let task = await getTaskFromFirebase(taskId);
-  console.log(task);
 
   TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
   addTaskFormEventListeners("--edit-task");
@@ -171,8 +170,6 @@ function renderAssignedContactsEditMode(task) {
  */
 async function submitEditedTask(event, column, defaultTask, taskId) {
   disableButtonWhileLoading("task-edit-ok-btn");
-
-  console.log("submit function triggered!!");
 
   const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();

@@ -123,7 +123,7 @@ function taskEditModeTemplate(task, taskId) {
     <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
-          onclick="closeTaskDialog()"
+          onclick="openTaskDialog('${taskId}')"
         >
           <svg
             width="13"

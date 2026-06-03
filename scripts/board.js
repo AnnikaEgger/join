@@ -269,8 +269,6 @@ function renderDialogContacts(todo) {
     return "<p>No one assigned</p>";
   return todo["assigned_contacts"]
     .map((contact) => {
-      // let name =
-      //   typeof contact === "string" ? contact : contact.name || "Unknown";
       let name = getAssignedContactName(contact);
       let color = contact.color || "#2A3647";
       let initials = name
@@ -544,7 +542,7 @@ function removeHighlight(id) {
 
 /**
  * Tries to lock the screen orientation to portrait mode on mobile devices.
- * 
+ *
  * @param {*} - No parameters are required for this function as it directly interacts with the Screen Orientation API to attempt to lock the orientation when the board page is initialized.
  */
 function lockScreenOrientation() {

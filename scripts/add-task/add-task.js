@@ -10,6 +10,7 @@ async function initAddTask(id) {
   addTaskColumn = "to do";
 
   contactsOptions = [];
+  assignedContacts = [];
   categoriesArr = [];
   subtasksArr = [];
 
@@ -307,7 +308,7 @@ function addSubtask(id) {
   };
 
   if (SUBTASK_INPUT.length > 0) {
-    subtasksArr.push(subtaskObj);
+    subtasksArr.push({ ...subtaskObj });
     renderSubtasks(id);
     clearSubtaskInput(id);
   }
@@ -350,11 +351,7 @@ function renderSingleSubtask(indexSubtask, id) {
  */
 function openSubtaskEdit(indexSubtask, id) {
   const li = document.getElementById("subtask-li-" + indexSubtask + id);
-  li.outerHTML = subtaskLiWithInputTemplate(
-    subtasksArr[indexSubtask],
-    indexSubtask,
-    id,
-  );
+  li.outerHTML = subtaskLiWithInputTemplate(indexSubtask, id);
 
   registerEnterHandler("#li-input" + indexSubtask + id, () => {
     submitEditedSubtask(indexSubtask, id);
