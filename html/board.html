@@ -35,6 +35,12 @@
     />
     <link rel="stylesheet" type="text/css" href="../styles/task-dialog.css" />
     <link rel="stylesheet" type="text/css" href="../styles/board.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/board-dialogs.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/board-media-query.css"
+    />
 
     <script src="../scripts/board_templates.js"></script>
     <script src="../scripts/board.js" defer></script>
@@ -204,7 +210,19 @@
 
     <main class="main-content">
       <section class="board-header">
-        <h1 class="head-text">Board</h1>
+        <div class="board-header-mobile">
+          <h1 class="head-text">Board</h1>
+          <button
+            class="second-add-btn"
+            aria-label="Add task"
+            onclick="openAddTaskDialog('to do')"
+          >
+            <img
+              src="../assets/icons/white_plus_button.svg"
+              alt="white plus icon"
+            />
+          </button>
+        </div>
         <div class="search-and-add-section">
           <div class="search-task-container">
             <input
@@ -222,7 +240,6 @@
               alt="search icon"
             />
           </div>
-
           <button
             class="add-btn"
             aria-label="Add task"
@@ -781,7 +798,7 @@
       </div>
 
       <div
-        id="addtask-toast-msg--add-task-dialog"
+        id="addtask-toast-msg"
         class="addtask-toast-msg addtask-toast-msg--dialog"
       >
         <p>Task added to board</p>
