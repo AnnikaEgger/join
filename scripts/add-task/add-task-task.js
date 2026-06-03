@@ -21,7 +21,7 @@ async function addTask(event, page, id) {
     let task = taskJson(id);
     await postTaskToFirebase(task);
 
-    showAddtaskToastMsg();
+    showAddtaskToastMsg(id);
     clearTask(id);
     completeTaskCreation(page);
   }
@@ -67,16 +67,29 @@ function taskJson(id) {
     priority: priority,
     assigned_contacts: assignedContacts,
     category: selectedCategory,
-    subtasks: subtasksArr,
+    subtasks: getSubtasksJson(),
     column: addTaskColumn,
+    default_task: false,
   };
+}
+
+function getSubtasksJson() {
+  let subtasksJson = [];
+
+  for (let index = 0; index < subtasksArr.length; index++) {
+    subtasksJson.push({
+      title: subtasksArr[index],
+      done: false,
+    });
+  }
+  return subtasksJson;
 }
 
 /**
  * Displays a toast notification message for task creation and hides it after 3 seconds.
  */
-function showAddtaskToastMsg() {
-  const TOAST_MSG = document.getElementById("addtask-toast-msg");
+function showAddtaskToastMsg(id) {
+  const TOAST_MSG = document.getElementById("addtask-toast-msg" + id);
 
   TOAST_MSG.classList.add("display-toast-msg");
   setTimeout(() => {

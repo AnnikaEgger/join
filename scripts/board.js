@@ -31,6 +31,8 @@ let currentDraggedElement;
  */
 async function loadTasks() {
   todos = [];
+  // await ensureAllDefaultTasksAreInBoard();
+
   let response = await fetch(
     "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
   );
@@ -603,6 +605,7 @@ async function initEditTask(id) {
   disablePastDates(id);
 
   await getContacts();
+  await getUsers();
   filteredContacts = contactsOptions;
   renderContactOptions(id);
 
@@ -648,9 +651,15 @@ function renderAssignedContactsEditMode(task) {
 }
 
 async function submitEditedTask(column, taskId) {
-  await putEditedTaskToFirebase(column, taskId);
-  await loadTasks();
-  openTaskDialog(taskId);
+  const TASK_FORM = document.getElementById("task-form--edit-task");
+  if (
+    TASK_FORM.checkValidity() &&
+    selectedCategory !== "Select task category"
+  ) {
+    await putEditedTaskToFirebase(column, taskId);
+    await loadTasks();
+    openTaskDialog(taskId);
+  }
 }
 
 async function putEditedTaskToFirebase(column, taskId) {
@@ -679,6 +688,283 @@ function collectEditedTaskData(column, taskId) {
     subtasks: subtasksArr,
     column: column,
   };
+}
+
+// const tasks = {
+//   default_task_1: {
+//     default_task: true,
+//     title: "Implement JWT-based authentication for API",
+//     description:
+//       "Build a secure authentication system using JWT, including token generation, validation, and protected routes for backend services.",
+//     due_date: "2026-06-12",
+//     priority: "Urgent",
+//     assigned_contacts: [
+//       { id: "c2", color: "#FF5EB3", name: "Anja Schulz" },
+//       { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
+//       { id: "c4", color: "#9327FF", name: "David Eisenberg" },
+//     ],
+//     category: "Technical Task",
+//     subtasks: [
+//       { title: "Define authentication flow and token strategy", done: false },
+//       { title: "Implement JWT generation on login", done: false },
+//       { title: "Add middleware for route protection", done: false },
+//       { title: "Write API tests for auth endpoints", done: false },
+//     ],
+//     column: "to do",
+//   },
+
+//   default_task_2: {
+//     default_task: true,
+//     title: "Redesign analytics dashboard for improved usability",
+//     description:
+//       "Improve layout, usability, and responsiveness of the analytics dashboard with a focus on clearer data visualization and better UX structure.",
+//     due_date: "2026-06-18",
+//     priority: "Medium",
+//     assigned_contacts: [
+//       { id: "c5", color: "#FCBE2D", name: "Eva Fischer" },
+//       { id: "c3", color: "#6E52FF", name: "Benedikt Ziegler" },
+//       { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
+//       { id: "c8", color: "#FF4646", name: "Tatjana Wolf" },
+//     ],
+//     category: "User Story",
+//     subtasks: [
+//       { title: "Analyze current dashboard pain points", done: false },
+//       { title: "Create updated UI wireframes", done: false },
+//       { title: "Redesign layout for responsiveness", done: false },
+//       { title: "Validate improvements with stakeholder feedback", done: false },
+//     ],
+//     column: "in progress",
+//   },
+
+//   default_task_3: {
+//     default_task: true,
+//     title: "Fix intermittent payment gateway transaction failures",
+//     description:
+//       "Investigate and resolve unstable transaction behavior in the checkout process affecting payment success rate.",
+//     due_date: "2026-06-08",
+//     priority: "Urgent",
+//     assigned_contacts: [
+//       { id: "c22", color: "#FCBE2D", name: "Anton Meyer" },
+//       { id: "c7", color: "#462F8A", name: "Marcel Bauer" },
+//     ],
+//     category: "Technical Task",
+//     subtasks: [
+//       { title: "Reproduce issue in staging environment", done: true },
+//       { title: "Analyze payment service logs", done: true },
+//       { title: "Implement and deploy hotfix", done: false },
+//     ],
+//     column: "await feedback",
+//   },
+
+//   default_task_4: {
+//     default_task: true,
+//     title: "Increase unit test coverage for user service",
+//     description:
+//       "Expand automated test coverage for user service including validation rules, edge cases, and error handling scenarios.",
+//     due_date: "2026-06-05",
+//     priority: "Low",
+//     assigned_contacts: [{ id: "c9", color: "#462F8A", name: "Norbert Kiess" }],
+//     category: "Technical Task",
+//     subtasks: [
+//       { title: "Set up and configure test framework", done: true },
+//       { title: "Write core unit tests for user creation", done: true },
+//       { title: "Add edge case coverage", done: false },
+//     ],
+//     column: "done",
+//   },
+
+//   default_task_5: {
+//     default_task: true,
+//     title: "Optimize CI/CD pipeline performance and reliability",
+//     description:
+//       "Improve build speed and deployment efficiency by optimizing pipeline steps and introducing caching mechanisms.",
+//     due_date: "2026-06-20",
+//     priority: "Medium",
+//     assigned_contacts: [
+//       { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
+//       { id: "c4", color: "#9327FF", name: "David Eisenberg" },
+//       { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
+//     ],
+//     category: "Technical Task",
+//     subtasks: [
+//       { title: "Identify pipeline bottlenecks", done: false },
+//       { title: "Optimize build steps", done: false },
+//       { title: "Introduce dependency caching", done: false },
+//       { title: "Measure performance improvements", done: false },
+//     ],
+//     column: "to do",
+//   },
+// };
+
+const tasks = [
+  {
+    default_task: true,
+    title: "Implement JWT-based authentication for API",
+    description:
+      "Build a secure authentication system using JWT, including token generation, validation, and protected routes for backend services.",
+    due_date: "2026-06-12",
+    priority: "Urgent",
+    assigned_contacts: [
+      { id: "c2", color: "#FF5EB3", name: "Anja Schulz" },
+      { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
+      { id: "c4", color: "#9327FF", name: "David Eisenberg" },
+    ],
+    category: "Technical Task",
+    subtasks: [
+      { title: "Define authentication flow and token strategy", done: false },
+      { title: "Implement JWT generation on login", done: false },
+      { title: "Add middleware for route protection", done: false },
+      { title: "Write API tests for auth endpoints", done: false },
+    ],
+    column: "to do",
+  },
+
+  {
+    default_task: true,
+    title: "Redesign analytics dashboard for improved usability",
+    description:
+      "Improve layout, usability, and responsiveness of the analytics dashboard with a focus on clearer data visualization and better UX structure.",
+    due_date: "2026-06-18",
+    priority: "Medium",
+    assigned_contacts: [
+      { id: "c5", color: "#FCBE2D", name: "Eva Fischer" },
+      { id: "c3", color: "#6E52FF", name: "Benedikt Ziegler" },
+      { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
+      { id: "c8", color: "#FF4646", name: "Tatjana Wolf" },
+    ],
+    category: "User Story",
+    subtasks: [
+      { title: "Analyze current dashboard pain points", done: false },
+      { title: "Create updated UI wireframes", done: false },
+      { title: "Redesign layout for responsiveness", done: false },
+      { title: "Validate improvements with stakeholder feedback", done: false },
+    ],
+    column: "in progress",
+  },
+
+  {
+    default_task: true,
+    title: "Fix intermittent payment gateway transaction failures",
+    description:
+      "Investigate and resolve unstable transaction behavior in the checkout process affecting payment success rate.",
+    due_date: "2026-06-08",
+    priority: "Urgent",
+    assigned_contacts: [
+      { id: "c22", color: "#FCBE2D", name: "Anton Meyer" },
+      { id: "c7", color: "#462F8A", name: "Marcel Bauer" },
+    ],
+    category: "Technical Task",
+    subtasks: [
+      { title: "Reproduce issue in staging environment", done: true },
+      { title: "Analyze payment service logs", done: true },
+      { title: "Implement and deploy hotfix", done: false },
+    ],
+    column: "await feedback",
+  },
+
+  {
+    default_task: true,
+    title: "Increase unit test coverage for user service",
+    description:
+      "Expand automated test coverage for user service including validation rules, edge cases, and error handling scenarios.",
+    due_date: "2026-06-05",
+    priority: "Low",
+    assigned_contacts: [{ id: "c9", color: "#462F8A", name: "Norbert Kiess" }],
+    category: "Technical Task",
+    subtasks: [
+      { title: "Set up and configure test framework", done: true },
+      { title: "Write core unit tests for user creation", done: true },
+      { title: "Add edge case coverage", done: false },
+    ],
+    column: "done",
+  },
+
+  {
+    default_task: true,
+    title: "Optimize CI/CD pipeline performance and reliability",
+    description:
+      "Improve build speed and deployment efficiency by optimizing pipeline steps and introducing caching mechanisms.",
+    due_date: "2026-06-20",
+    priority: "Medium",
+    assigned_contacts: [
+      { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
+      { id: "c4", color: "#9327FF", name: "David Eisenberg" },
+      { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
+    ],
+    category: "Technical Task",
+    subtasks: [
+      { title: "Identify pipeline bottlenecks", done: false },
+      { title: "Optimize build steps", done: false },
+      { title: "Introduce dependency caching", done: false },
+      { title: "Measure performance improvements", done: false },
+    ],
+    column: "to do",
+  },
+];
+
+let defaultTasks = [];
+
+async function getDefaultTasksFromFirebase() {
+  defaultTasks = [];
+
+  let response = await fetch(BASE_URL + "default_tasks" + ".json");
+  let responseToJson = await response.json();
+  console.log(responseToJson);
+  defaultTasks.push(...responseToJson);
+}
+
+async function postDefaultTasksIntoTasksInFirebase() {
+  for (let index = 0; index < defaultTasks.length; index++) {
+    let response = await fetch(BASE_URL + "tasks" + ".json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(defaultTasks[index]),
+    });
+  }
+}
+
+async function deleteExistingDefaultTasksInTasks() {
+  let response = await fetch(BASE_URL + "tasks" + ".json");
+  let responseToJson = await response.json();
+
+  console.log(responseToJson);
+
+  for (let index = 0; index < responseToJson.length; index++) {
+    const element = responseToJson[index];
+    console.log(element);
+    if (element.default_task) {
+      // await deleteTaskFromFirebase(element.id);
+    }
+  }
+}
+
+async function getFirebaseTasks() {
+  let response = await fetch(BASE_URL + "tasks" + ".json");
+  let tasksObj = await response.json();
+}
+
+// function fillTasksOptionsArray(tasksObj) {
+//    let keysArr = Object.keys(tasksObj);
+
+//   for (let i = 0; i < keysArr.length; i++) {
+//     let id = keysArr[i];
+
+//     let taskData = {
+//       id: id,
+//       color: tasksObj[id].color,
+//       name: tasksObj[id].name,
+//     };
+
+//     firebaseTasks.push(taskData);
+//   }
+// }
+
+// let firebaseTasks = [];
+
+async function ensureAllDefaultTasksAreInBoard() {
+  await deleteExistingDefaultTasksInTasks();
+  // await getDefaultTasksFromFirebase();
+  // await postDefaultTasksIntoTasksInFirebase();
 }
 
 // #endregion
