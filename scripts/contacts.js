@@ -138,7 +138,7 @@ async function createNewContact() {
     if (!isContactFormValid()) {
         return;
     }
-    
+
     let name = document.querySelector('.icon-name').value;
     let email = document.querySelector('.icon-mail').value;
     let phone = document.querySelector('.icon-phone').value;
@@ -172,6 +172,15 @@ async function finalizeAddition() {
 
 function resetForm() {
     document.querySelector('.contact-form').reset();
+
+    const fields = ['name', 'email', 'phone'];
+    for (let i = 0; i < fields.length; i++) {
+        let input = document.getElementById(`contact-${fields[i]}--validator`);
+        let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
+        
+        if (input) input.classList.remove('input-error');
+        if (errorSpan) errorSpan.innerText = "";
+    }
 }
 
 function getRandomColor() {
@@ -393,27 +402,45 @@ function checkContactInputValidity(inputType) {
 }
 
 function validateContactName(input) {
+    const errorSpan = document.getElementById('contact-name--error');
+    
     if (input.value.trim() === "") {
         input.classList.add('input-error');
+        if (errorSpan) errorSpan.innerText = "This field is required.";
     } else {
         input.classList.remove('input-error');
+        if (errorSpan) errorSpan.innerText = "";
     }
 }
 
 function validateContactEmail(input) {
+    const errorSpan = document.getElementById('contact-email--error');
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(input.value.trim())) {
+    
+    if (input.value.trim() === "") {
         input.classList.add('input-error');
+        if (errorSpan) errorSpan.innerText = "This field is required.";
+    } else if (!emailPattern.test(input.value.trim())) {
+        input.classList.add('input-error');
+        if (errorSpan) errorSpan.innerText = "Please enter a valid email address (e.g., user@example.com).";
     } else {
         input.classList.remove('input-error');
+        if (errorSpan) errorSpan.innerText = "";
     }
 }
 
 function validateContactPhone(input) {
+    const errorSpan = document.getElementById('contact-phone--error');
     let phonePattern = /^[0-9+\s\-\/]+$/;
-    if (input.value.trim() === "" || !phonePattern.test(input.value.trim())) {
+    
+    if (input.value.trim() === "") {
         input.classList.add('input-error');
+        if (errorSpan) errorSpan.innerText = "This field is required.";
+    } else if (!phonePattern.test(input.value.trim())) {
+        input.classList.add('input-error');
+        if (errorSpan) errorSpan.innerText = "Please enter a valid phone number (digits only).";
     } else {
         input.classList.remove('input-error');
+        if (errorSpan) errorSpan.innerText = "";
     }
 }

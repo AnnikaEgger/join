@@ -182,8 +182,11 @@
                     <form class="contact-form" novalidate onsubmit="createNewContact(); return false;">
                         <div class="input-container">
                             <input type="text" id="contact-name--validator" oninput="checkContactInputValidity('name')" placeholder="Name" required class="contact-input icon-name" />
+                            <span id="contact-name--error" class="error-message"></span>
                             <input type="email" id="contact-email--validator" oninput="checkContactInputValidity('email')" placeholder="Email" required class="contact-input icon-mail" />
+                            <span id="contact-email--error" class="error-message"></span>
                             <input type="tel" id="contact-phone--validator" oninput="checkContactInputValidity('phone')" placeholder="Phone" required class="contact-input icon-phone" />
+                            <span id="contact-phone--error" class="error-message"></span>
                         </div>
 
                         <div class="dialog-buttons">
