@@ -35,6 +35,12 @@
     />
     <link rel="stylesheet" type="text/css" href="../styles/task-dialog.css" />
     <link rel="stylesheet" type="text/css" href="../styles/board.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/board-dialogs.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/board-media-query.css"
+    />
 
     <script src="../scripts/board_templates.js"></script>
     <script src="../scripts/board.js" defer></script>
@@ -49,7 +55,7 @@
     <script src="../scripts/header.js" defer></script>
   </head>
 
-  <body onload="loadTasks()">
+  <body onload="initBoard()">
     <!-- SIDEBAR  -->
     <section class="sidebar">
       <div class="sidebar-logo">
@@ -204,7 +210,19 @@
 
     <main class="main-content">
       <section class="board-header">
-        <h1 class="head-text">Board</h1>
+        <div class="board-header-mobile">
+          <h1 class="head-text">Board</h1>
+          <button
+            class="second-add-btn"
+            aria-label="Add task"
+            onclick="openAddTaskDialog('to do')"
+          >
+            <img
+              src="../assets/icons/white_plus_button.svg"
+              alt="white plus icon"
+            />
+          </button>
+        </div>
         <div class="search-and-add-section">
           <div class="search-task-container">
             <input
@@ -222,25 +240,40 @@
               alt="search icon"
             />
           </div>
-
-        <button class="add-btn" aria-label="Add task" onclick="openAddTaskDialog('to do')">
-          <span>Add task</span>
-          <img src="../assets/icons/white_plus_button.svg" alt="white plus icon" />
-        </button>
-      </div>
-    </section>
-    <div id="search-message" class="search-message"></div>
-    <section class="board-section">
-      <div class="task-titles">
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>To do</h2>
-            <button>
-              <img class="add-task-btn" onclick="openAddTaskDialog('to do')" aria-label="Add task button"
-                role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
-          </div>
-          <div id="to do" class="card-container" ondrop="
+          <button
+            class="add-btn"
+            aria-label="Add task"
+            onclick="openAddTaskDialog('to do')"
+          >
+            <span>Add task</span>
+            <img
+              src="../assets/icons/white_plus_button.svg"
+              alt="white plus icon"
+            />
+          </button>
+        </div>
+      </section>
+      <div id="search-message" class="search-message"></div>
+      <section class="board-section">
+        <div class="task-titles">
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>To do</h2>
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('to do')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="to do"
+              class="card-container"
+              ondrop="
                 moveTo('to do');
                 removeHighlight('to do');
               "
@@ -248,18 +281,27 @@
               ondragover="
                 allowDrop(event);
                 highlight('to do');
-              ">
+              "
+            ></div>
           </div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>in progress</h2>
-            <button>
-              <img class="add-task-btn" onclick="openAddTaskDialog('in progress')"
-                aria-label="Add task button" role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
-          </div>
-          <div id="in progress" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>in progress</h2>
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('in progress')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="in progress"
+              class="card-container"
+              ondrop="
                 moveTo('in progress');
                 removeHighlight('in progress');
               "
@@ -267,18 +309,27 @@
               ondragover="
                 allowDrop(event);
                 highlight('in progress');
-              ">
+              "
+            ></div>
           </div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>Await feedback</h2>
-            <button>
-              <img class="add-task-btn" onclick="openAddTaskDialog('await feedback')"
-                aria-label="Add task button" role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
-          </div>
-          <div id="await feedback" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>Await feedback</h2>
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('await feedback')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="await feedback"
+              class="card-container"
+              ondrop="
                 moveTo('await feedback');
                 removeHighlight('await feedback');
               "
@@ -286,17 +337,27 @@
               ondragover="
                 allowDrop(event);
                 highlight('await feedback');
-              "></div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>Done</h2>
-            <button>
-              <img class="add-task-btn" onclick="openAddTaskDialog('done')" aria-label="Add task button"
-                role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
+              "
+            ></div>
           </div>
-          <div id="done" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>Done</h2>
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('done')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="done"
+              class="card-container"
+              ondrop="
                 moveTo('done');
                 removeHighlight('done');
               "

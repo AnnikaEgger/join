@@ -183,10 +183,6 @@ function taskFormSubmitFunction(event, id) {
     }
 
     if (formIsValid && !categoryIsValid) {
-      // const categoryTrigger = taskForm.querySelector(
-      //   "#custom-select-trigger-category" + taskForm.id.slice(-1),
-      // );
-
       const categoryTrigger = taskForm.querySelector(
         "#custom-select-trigger-category" + id,
       );

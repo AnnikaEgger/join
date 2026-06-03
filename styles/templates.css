@@ -96,11 +96,15 @@ a {
 .nav-link.active svg path {
   fill: var(--color-white);
 }
+.nav-link span {
+  white-space: nowrap;
+}
 
 .nav-icon {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  
 }
 
 .sidebar-footer {
@@ -176,6 +180,12 @@ a {
 
 .header-help:hover {
   color: var(--color-accent);
+}
+.header-help-link:hover .nav-icon {
+  transform: scale(1.15);
+}
+.header-help-link .nav-icon {
+  transition: transform 0.1s ease-in-out;
 }
 
 .header-avatar {
@@ -316,6 +326,7 @@ a {
     justify-content: space-around;
     align-items: center;
     gap: 0;
+    
   }
 
   .nav-link {
@@ -324,6 +335,8 @@ a {
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 16px;
+    justify-content: center;
+    text-align: center;
   }
 
   .nav-icon {

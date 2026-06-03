@@ -299,8 +299,13 @@ function clearSubtaskInput(id) {
 function addSubtask(id) {
   const SUBTASK_INPUT = document.getElementById("subtask-input" + id).value;
 
+  const subtaskObj = {
+    title: SUBTASK_INPUT,
+    done: false,
+  };
+
   if (SUBTASK_INPUT.length > 0) {
-    subtasksArr.push(SUBTASK_INPUT);
+    subtasksArr.push(subtaskObj);
     renderSubtasks(id);
     clearSubtaskInput(id);
   }
@@ -343,7 +348,11 @@ function renderSingleSubtask(indexSubtask, id) {
  */
 function openSubtaskEdit(indexSubtask, id) {
   const li = document.getElementById("subtask-li-" + indexSubtask + id);
-  li.outerHTML = subtaskLiWithInputTemplate(indexSubtask, id);
+  li.outerHTML = subtaskLiWithInputTemplate(
+    subtasksArr[indexSubtask],
+    indexSubtask,
+    id,
+  );
 
   registerEnterHandler("#li-input" + indexSubtask + id, () => {
     submitEditedSubtask(indexSubtask, id);
@@ -361,7 +370,7 @@ function submitEditedSubtask(indexSubtask, id) {
   let edit = document.getElementById("li-input" + indexSubtask + id).value;
 
   if (edit.length > 0) {
-    subtasksArr.splice(indexSubtask, 1, edit);
+    subtasksArr.splice(indexSubtask, 1, { title: edit, done: false });
     skipFocusoutRender = true;
     renderSingleSubtask(indexSubtask, id);
     skipFocusoutRender = false;

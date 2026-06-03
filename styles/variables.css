@@ -5,6 +5,8 @@
   --light-blue: #29abe2;
   --light-gray: #f6f7f8;
   --gray: #a8a8a8;
+
+  --red-invalid: rgba(230, 0, 38, 1);
 }
 
 :root {
