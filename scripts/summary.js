@@ -5,6 +5,7 @@ const BASE_URL =
  * Initializes the summary page. Sets greeting, loads tasks, runs mobile animation.
  */
 async function initSummary() {
+  lockScreenOrientation(); 
   const user = getCurrentUser();
   updateGreeting(user);
   await loadSummaryData();
@@ -119,5 +120,12 @@ function formatDeadline(dateString) {
     day: "numeric",
   });
 }
-
+/**
+ * Tries to lock the screen orientation to portrait mode on mobile devices.
+ */
+function lockScreenOrientation() {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("portrait-primary").catch(() => {});
+  }
+}
 document.addEventListener("DOMContentLoaded", initSummary);
