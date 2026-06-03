@@ -84,6 +84,8 @@ html, body {
     border-radius: 10px;
     transition: var(--transition-default);
     width: 100%;
+    min-width: 0;
+    text-align: left;
 }
 
 .contact-item:hover {
@@ -124,6 +126,7 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .contact-detail-view {
