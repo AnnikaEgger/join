@@ -96,7 +96,7 @@ function getSubtasksJson() {
 
   for (let index = 0; index < subtasksArr.length; index++) {
     subtasksJson.push({
-      title: subtasksArr[index],
+      title: subtasksArr[index].title,
       done: false,
     });
   }
