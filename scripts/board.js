@@ -134,7 +134,7 @@ function generateProgressBarHTML(todo) {
  */
 function generateAssignedBadgesHTML(todo) {
   let assigned = todo["assigned_contacts"] || [];
-  if (assigned.length === 0) return "";
+  if (assigned.length === 0) return generateEmptyBadgeHTML();
   let contactsList = Array.isArray(assigned)
     ? assigned
     : Object.values(assigned);
