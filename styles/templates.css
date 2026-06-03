@@ -104,6 +104,7 @@ a {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  
 }
 
 .sidebar-footer {
@@ -179,6 +180,12 @@ a {
 
 .header-help:hover {
   color: var(--color-accent);
+}
+.header-help-link:hover .nav-icon {
+  transform: scale(1.15);
+}
+.header-help-link .nav-icon {
+  transition: transform 0.1s ease-in-out;
 }
 
 .header-avatar {
