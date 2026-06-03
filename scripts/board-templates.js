@@ -461,7 +461,7 @@ function taskEditModeTemplate(task, taskId) {
   
           <div class="edit-task-ok-btn-wrapper">
             <button
-            onclick="submitEditedTask('${task.column}', '${taskId}')"
+            onclick="submitEditedTask('${task}, '${taskId}')"
               type="submit"
               class="button bottom-btn bottom-btn--edit-task button-blue create-task-btn"
               aria-label="create task"
