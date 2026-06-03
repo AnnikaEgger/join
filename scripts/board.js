@@ -7,9 +7,14 @@ let currentDraggedElement;
  *
  * @param {*} - No parameters are required for this function as it directly interacts with the global `todos` array and updates the HTML content of the board.
  */
+
+async function initBoard() {
+  await ensureAllDefaultTasksAreInBoard();
+  loadTasks();
+}
+
 async function loadTasks() {
   todos = [];
-  // await ensureAllDefaultTasksAreInBoard();
 
   let response = await fetch(
     "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
@@ -306,7 +311,8 @@ function renderDialogSubtasks(todo, id) {
  */
 function toggleSubtask(todoId, subtaskIndex) {
   let todo = todos.find((t) => t.id === todoId);
-  if (todo && todo.subtasks) { //
+  if (todo && todo.subtasks) {
+    //
     let subtasksArray = Array.isArray(todo.subtasks)
       ? todo.subtasks
       : Object.values(todo.subtasks);
@@ -572,17 +578,14 @@ ADD_TASK_DIALOG.addEventListener("click", (event) => {
  * @param {string} taskId - The ID of the task to delete.
  */
 async function deleteTask(taskId) {
-  if (taskId.startsWith("default_task")) return;
-
   await deleteTaskFromFirebase(taskId);
   await loadTasks();
   closeTaskDialog();
-  // reloadBoard();
 }
 
 /**
  * Sends a DELETE request to Firebase to remove a specific task.
- * 
+ *
  * @param {string} taskId - The ID of the task to delete from Firebase.
  * @returns {Object} The response from Firebase after attempting to delete the task.
  */
@@ -596,7 +599,7 @@ async function deleteTaskFromFirebase(taskId) {
 
 /**
  * Initializes the edit task functionality.
- * 
+ *
  * @param {string} id - The ID of the task to edit.
  */
 async function initEditTask(id) {
@@ -622,7 +625,7 @@ async function initEditTask(id) {
 
 /**
  * Opens the edit mode for a specific task.
- * 
+ *
  * @param {string} taskId - The ID of the task to edit.
  */
 async function openTaskEditMode(taskId) {
@@ -641,7 +644,7 @@ async function openTaskEditMode(taskId) {
 
 /**
  * Retrieves a task from Firebase.
- * 
+ *
  * @param {string} taskId - The ID of the task to retrieve.
  * @returns {Object} The task data from Firebase.
  */
@@ -652,7 +655,7 @@ async function getTaskFromFirebase(taskId) {
 
 /**
  * Renders the subtasks for the edit mode.
- * 
+ *
  * @param {Object} task - The task object containing subtasks.
  */
 function renderEditModeSubtasks(task) {
@@ -664,7 +667,7 @@ function renderEditModeSubtasks(task) {
 
 /**
  * Renders the assigned contacts for the edit mode.
- * 
+ *
  * @param {Object} task - The task object containing assigned contacts.
  */
 function renderAssignedContactsEditMode(task) {
@@ -676,7 +679,7 @@ function renderAssignedContactsEditMode(task) {
 
 /**
  * Submits the edited task data to Firebase.
- * 
+ *
  * @param {string} column - The column to which the task belongs.
  * @param {string} taskId - The ID of the task to edit.
  */
@@ -694,23 +697,23 @@ async function submitEditedTask(column, taskId) {
 
 /**
  * Sends a PUT request to Firebase to update a specific task.
- * 
+ *
  * @param {string} column - The column to which the task belongs.
  * @param {string} taskId - The ID of the task to update.
  * @returns {Object} The response from Firebase after attempting to update the task.
  */
 async function putEditedTaskToFirebase(column, taskId) {
-  let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
+  let task = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(collectEditedTaskData(column, taskId)),
   });
-  return await response.json();
+  return await task.json();
 }
 
 /**
  * Collects the edited task data for submission to Firebase.
- * 
+ *
  * @param {string} column - The column to which the task belongs.
  * @param {string} taskId - The ID of the task being edited.
  * @returns {Object} The edited task data.
@@ -731,11 +734,12 @@ function collectEditedTaskData(column, taskId) {
     category: selectedCategory,
     subtasks: subtasksArr,
     column: column,
+    default_task: false,
   };
 }
 
-// const tasks = {
-//   default_task_1: {
+// const tasks = [
+//   {
 //     default_task: true,
 //     title: "Implement JWT-based authentication for API",
 //     description:
@@ -757,7 +761,7 @@ function collectEditedTaskData(column, taskId) {
 //     column: "to do",
 //   },
 
-//   default_task_2: {
+//   {
 //     default_task: true,
 //     title: "Redesign analytics dashboard for improved usability",
 //     description:
@@ -780,7 +784,7 @@ function collectEditedTaskData(column, taskId) {
 //     column: "in progress",
 //   },
 
-//   default_task_3: {
+//   {
 //     default_task: true,
 //     title: "Fix intermittent payment gateway transaction failures",
 //     description:
@@ -800,7 +804,7 @@ function collectEditedTaskData(column, taskId) {
 //     column: "await feedback",
 //   },
 
-//   default_task_4: {
+//   {
 //     default_task: true,
 //     title: "Increase unit test coverage for user service",
 //     description:
@@ -817,7 +821,7 @@ function collectEditedTaskData(column, taskId) {
 //     column: "done",
 //   },
 
-//   default_task_5: {
+//   {
 //     default_task: true,
 //     title: "Optimize CI/CD pipeline performance and reliability",
 //     description:
@@ -838,113 +842,7 @@ function collectEditedTaskData(column, taskId) {
 //     ],
 //     column: "to do",
 //   },
-// };
-
-const tasks = [
-  {
-    default_task: true,
-    title: "Implement JWT-based authentication for API",
-    description:
-      "Build a secure authentication system using JWT, including token generation, validation, and protected routes for backend services.",
-    due_date: "2026-06-12",
-    priority: "Urgent",
-    assigned_contacts: [
-      { id: "c2", color: "#FF5EB3", name: "Anja Schulz" },
-      { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
-      { id: "c4", color: "#9327FF", name: "David Eisenberg" },
-    ],
-    category: "Technical Task",
-    subtasks: [
-      { title: "Define authentication flow and token strategy", done: false },
-      { title: "Implement JWT generation on login", done: false },
-      { title: "Add middleware for route protection", done: false },
-      { title: "Write API tests for auth endpoints", done: false },
-    ],
-    column: "to do",
-  },
-
-  {
-    default_task: true,
-    title: "Redesign analytics dashboard for improved usability",
-    description:
-      "Improve layout, usability, and responsiveness of the analytics dashboard with a focus on clearer data visualization and better UX structure.",
-    due_date: "2026-06-18",
-    priority: "Medium",
-    assigned_contacts: [
-      { id: "c5", color: "#FCBE2D", name: "Eva Fischer" },
-      { id: "c3", color: "#6E52FF", name: "Benedikt Ziegler" },
-      { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
-      { id: "c8", color: "#FF4646", name: "Tatjana Wolf" },
-    ],
-    category: "User Story",
-    subtasks: [
-      { title: "Analyze current dashboard pain points", done: false },
-      { title: "Create updated UI wireframes", done: false },
-      { title: "Redesign layout for responsiveness", done: false },
-      { title: "Validate improvements with stakeholder feedback", done: false },
-    ],
-    column: "in progress",
-  },
-
-  {
-    default_task: true,
-    title: "Fix intermittent payment gateway transaction failures",
-    description:
-      "Investigate and resolve unstable transaction behavior in the checkout process affecting payment success rate.",
-    due_date: "2026-06-08",
-    priority: "Urgent",
-    assigned_contacts: [
-      { id: "c22", color: "#FCBE2D", name: "Anton Meyer" },
-      { id: "c7", color: "#462F8A", name: "Marcel Bauer" },
-    ],
-    category: "Technical Task",
-    subtasks: [
-      { title: "Reproduce issue in staging environment", done: true },
-      { title: "Analyze payment service logs", done: true },
-      { title: "Implement and deploy hotfix", done: false },
-    ],
-    column: "await feedback",
-  },
-
-  {
-    default_task: true,
-    title: "Increase unit test coverage for user service",
-    description:
-      "Expand automated test coverage for user service including validation rules, edge cases, and error handling scenarios.",
-    due_date: "2026-06-05",
-    priority: "Low",
-    assigned_contacts: [{ id: "c9", color: "#462F8A", name: "Norbert Kiess" }],
-    category: "Technical Task",
-    subtasks: [
-      { title: "Set up and configure test framework", done: true },
-      { title: "Write core unit tests for user creation", done: true },
-      { title: "Add edge case coverage", done: false },
-    ],
-    column: "done",
-  },
-
-  {
-    default_task: true,
-    title: "Optimize CI/CD pipeline performance and reliability",
-    description:
-      "Improve build speed and deployment efficiency by optimizing pipeline steps and introducing caching mechanisms.",
-    due_date: "2026-06-20",
-    priority: "Medium",
-    assigned_contacts: [
-      { id: "c6", color: "#1FD7C1", name: "Emmanuel Mauer" },
-      { id: "c4", color: "#9327FF", name: "David Eisenberg" },
-      { id: "c10", color: "#1FD7C1", name: "Yvonne Müller" },
-    ],
-    category: "Technical Task",
-    subtasks: [
-      { title: "Identify pipeline bottlenecks", done: false },
-      { title: "Optimize build steps", done: false },
-      { title: "Introduce dependency caching", done: false },
-      { title: "Measure performance improvements", done: false },
-    ],
-    column: "to do",
-  },
-];
+// ];
 
 let defaultTasks = [];
 
@@ -953,7 +851,6 @@ async function getDefaultTasksFromFirebase() {
 
   let response = await fetch(BASE_URL + "default_tasks" + ".json");
   let responseToJson = await response.json();
-  console.log(responseToJson);
   defaultTasks.push(...responseToJson);
 }
 
@@ -967,48 +864,21 @@ async function postDefaultTasksIntoTasksInFirebase() {
   }
 }
 
-async function deleteExistingDefaultTasksInTasks() {
+async function deleteExistingDefaultTasksInTasksInFirebase() {
   let response = await fetch(BASE_URL + "tasks" + ".json");
   let responseToJson = await response.json();
 
-  console.log(responseToJson);
-
-  for (let index = 0; index < responseToJson.length; index++) {
-    const element = responseToJson[index];
-    console.log(element);
-    if (element.default_task) {
-      // await deleteTaskFromFirebase(element.id);
+  Object.entries(responseToJson).forEach(async ([id, task]) => {
+    if (task.default_task) {
+      await deleteTaskFromFirebase(id);
     }
-  }
+  });
 }
-
-async function getFirebaseTasks() {
-  let response = await fetch(BASE_URL + "tasks" + ".json");
-  let tasksObj = await response.json();
-}
-
-// function fillTasksOptionsArray(tasksObj) {
-//    let keysArr = Object.keys(tasksObj);
-
-//   for (let i = 0; i < keysArr.length; i++) {
-//     let id = keysArr[i];
-
-//     let taskData = {
-//       id: id,
-//       color: tasksObj[id].color,
-//       name: tasksObj[id].name,
-//     };
-
-//     firebaseTasks.push(taskData);
-//   }
-// }
-
-// let firebaseTasks = [];
 
 async function ensureAllDefaultTasksAreInBoard() {
-  await deleteExistingDefaultTasksInTasks();
-  // await getDefaultTasksFromFirebase();
-  // await postDefaultTasksIntoTasksInFirebase();
+  await deleteExistingDefaultTasksInTasksInFirebase();
+  await getDefaultTasksFromFirebase();
+  await postDefaultTasksIntoTasksInFirebase();
 }
 
 // #endregion
