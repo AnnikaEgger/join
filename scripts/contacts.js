@@ -121,12 +121,6 @@ function closeContactDetails() {
     detailView.classList.remove('show-detail');
 }
 
-function handleBackKeyDown(event) {
-    if (event.key === 'Enter') {
-        closeContactDetails();
-    }
-}
-
 function focusBackButton() {
     let backBtn = document.querySelector('.back-to-list-btn');
     if (backBtn) {
@@ -177,7 +171,7 @@ function resetForm() {
     for (let i = 0; i < fields.length; i++) {
         let input = document.getElementById(`contact-${fields[i]}--validator`);
         let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
-        
+
         if (input) input.classList.remove('input-error');
         if (errorSpan) errorSpan.innerText = "";
     }
@@ -254,23 +248,24 @@ function adaptCancelButtonToDelete(id) {
     }
 }
 
-function handleEditKeyDown(event, id) {
-    if (event.key === 'Enter') {
-        openEditContact(id);
-    }
-}
-
 function openContactDialog() {
-    document.getElementById('add-contact-overlay').classList.add('show-overlay');
+    const dialog = document.getElementById('add-contact-dialog');
+    if (dialog) {
+        dialog.showModal();
+    }
     focusActiveCloseButton();
 }
 
 function closeContactDialog() {
-    document.getElementById('add-contact-overlay').classList.remove('show-overlay');
+    const dialog = document.getElementById('add-contact-dialog');
+    if (dialog) {
+        dialog.close();
+    }
 }
 
-function handleDialogKeyDown(event) {
-    if (event.key === 'Enter') {
+function closeContactDialogOutside(event) {
+    const dialog = document.getElementById('add-contact-dialog');
+    if (event.target === dialog) {
         closeContactDialog();
     }
 }
@@ -302,7 +297,7 @@ function resetCancelButton() {
 
 async function saveEditedContact() {
     if (!isContactFormValid()) {
-        return; 
+        return;
     }
 
     let name = document.querySelector('.icon-name').value;
@@ -337,12 +332,6 @@ async function deleteContact(id) {
 
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
-}
-
-function handleDeleteKeyDown(event, id) {
-    if (event.key === 'Enter') {
-        deleteContact(id);
-    }
 }
 
 function focusActiveCloseButton() {
@@ -403,7 +392,7 @@ function checkContactInputValidity(inputType) {
 
 function validateContactName(input) {
     const errorSpan = document.getElementById('contact-name--error');
-    
+
     if (input.value.trim() === "") {
         input.classList.add('input-error');
         if (errorSpan) errorSpan.innerText = "This field is required.";
@@ -416,7 +405,7 @@ function validateContactName(input) {
 function validateContactEmail(input) {
     const errorSpan = document.getElementById('contact-email--error');
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (input.value.trim() === "") {
         input.classList.add('input-error');
         if (errorSpan) errorSpan.innerText = "This field is required.";
@@ -432,7 +421,7 @@ function validateContactEmail(input) {
 function validateContactPhone(input) {
     const errorSpan = document.getElementById('contact-phone--error');
     let phonePattern = /^[0-9+\s\-\/]+$/;
-    
+
     if (input.value.trim() === "") {
         input.classList.add('input-error');
         if (errorSpan) errorSpan.innerText = "This field is required.";

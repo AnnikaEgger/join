@@ -10,13 +10,13 @@ function generateContactHTML(contact) {
     let initials = getInitials(contact.name);
 
     return `
-        <div id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
+        <button type="button" id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
             <div class="contact-avatar" style="background-color: ${contact.color}">${initials}</div>
             <div class="contact-info-short">
                 <span class="contact-name">${contact.name}</span>
                 <span class="contact-email">${contact.email}</span>
             </div>
-        </div>`;
+        </button>`;
 }
 
 function generateDetailHTML(contact) {
@@ -29,12 +29,12 @@ function generateDetailHTML(contact) {
             <div class="detail-name-section">
                 <h1>${contact.name}</h1>
                 <div class="edit-delete-section">
-                    <div onclick="openEditContact('${contact.id}')" class="contact-action" onkeydown="handleEditKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Edit Contact">
+                    <button onclick="openEditContact('${contact.id}')" class="contact-action" type="button" aria-label="Edit Contact">
                         <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
-                    </div>
-                    <div onclick="deleteContact('${contact.id}')" class="contact-action" onkeydown="handleDeleteKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Delete Contact">
+                    </button>
+                    <button onclick="deleteContact('${contact.id}')" class="contact-action" type="button" aria-label="Delete Contact">
                         <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -55,12 +55,12 @@ function generateDetailHTML(contact) {
 
         <div id="mobile-menu-container" class="mobile-menu-container" onclick="toggleMobileMenu()">
             <div class="mobile-menu-popup" onclick="event.stopPropagation()">
-                <div class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')" onkeydown="handleEditKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Edit Contact">
+                <button type="button" class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')" aria-label="Edit Contact">
                     <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
-                </div>
-                <div class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')" onkeydown="handleDeleteKeyDown(event, '${contact.id}')" tabindex="0" role="button" aria-label="Delete Contact">
+                </button>
+                <button type="button" class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')" aria-label="Delete Contact">
                     <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
-                </div>
+                </button>
             </div>
         </div>
 

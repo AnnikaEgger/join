@@ -50,7 +50,8 @@ html, body {
 }
 
 .contact-list {
-    overflow-y: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-grow: 1;
     width: 100%;
     margin-right: 0; 
@@ -75,12 +76,16 @@ html, body {
 .contact-item {
     display: flex;
     align-items: center;
+    background: none;
+    border: none;
     gap: 24px;
     padding: 12px 24px; 
     cursor: pointer;
     border-radius: 10px;
     transition: var(--transition-default);
     width: 100%;
+    min-width: 0;
+    text-align: left;
 }
 
 .contact-item:hover {
@@ -103,6 +108,7 @@ html, body {
 .contact-info-short {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     min-width: 0;
     flex-grow: 1;
 }
@@ -120,6 +126,7 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .contact-detail-view {
@@ -216,6 +223,7 @@ html, body {
 .contact-action {
     display: flex;
     align-items: center;
+    background: none;
     gap: 8px;
     font-size: 16px;
     cursor: pointer;

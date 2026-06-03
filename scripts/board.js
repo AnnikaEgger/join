@@ -26,6 +26,7 @@ async function loadTasks() {
     fillTasksArray(data);
   }
   initDialogCloseOnClickOutside();
+  lockScreenOrientation();
   updateHTML();
 }
 
@@ -328,7 +329,6 @@ function renderDialogSubtasks(todo, id) {
 function toggleSubtask(todoId, subtaskIndex) {
   let todo = todos.find((t) => t.id === todoId);
   if (todo && todo.subtasks) {
-    //
     let subtasksArray = Array.isArray(todo.subtasks)
       ? todo.subtasks
       : Object.values(todo.subtasks);
@@ -540,4 +540,15 @@ function highlight(id) {
  */
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
+}
+
+/**
+ * Tries to lock the screen orientation to portrait mode on mobile devices.
+ * 
+ * @param {*} - No parameters are required for this function as it directly interacts with the Screen Orientation API to attempt to lock the orientation when the board page is initialized.
+ */
+function lockScreenOrientation() {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("portrait-primary").catch(() => {});
+  }
 }
