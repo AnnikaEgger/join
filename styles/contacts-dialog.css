@@ -16,12 +16,19 @@
     overflow: hidden;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     margin: auto;
-    transform: translateX(100vw);
-    transition: transform 0.3s ease-out;
 }
 
 .add-contact-dialog[open] {
-    transform: translateX(0);
+    animation: slideInDialog 0.3s ease-out;
+}
+
+@keyframes slideInDialog {
+    from {
+        transform: translateX(100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 .add-contact-dialog::backdrop {
