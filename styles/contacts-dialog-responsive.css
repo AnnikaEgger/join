@@ -1,8 +1,8 @@
 @media (max-width: 1024px) {
     .add-contact-dialog {
         flex-direction: column;
-        width: 95dvw;
-        height: calc(100dvh - 85px - 85px);
+        width: 65dvw;
+        height: calc(90dvh - 85px - 85px);
         max-height: none;
         border-radius: 30px;
         margin: auto;
@@ -63,8 +63,8 @@
     }
 
     .default-avatar {
-        width: 100px;
-        height: 100px;
+        width: 95px;
+        height: 95px;
     }
 
     .dialog-right {
@@ -84,7 +84,7 @@
 
     .dialog-avatar-container {
         position: absolute;
-        top: -60px;
+        top: -50px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 5;
@@ -102,6 +102,7 @@
 @media (max-width: 768px) {
     .add-contact-dialog {
         min-height: 500px;
+        width: 80dvw;
     }
 
     .dialog-left-content h1 {
@@ -132,9 +133,16 @@
     }
 }
 
+@media (max-width: 550px) {
+    .add-contact-dialog {
+        width: 90dvw;
+    }
+}
+
 @media (max-width: 425px) {
     .add-contact-dialog {
         min-height: 375px;
+        width: 95dvw;
     }
 
     .dialog-left {
@@ -202,5 +210,17 @@
     .btn-create img {
         width: 14px;
         height: 10px;
+    }
+}
+
+@media (max-width: 375px) {
+    .dialog-avatar-container {
+        top: -40px;
+    }
+
+    .default-avatar {
+        width: 75px;
+        height: 75px;
+        font-size: 28px;
     }
 }

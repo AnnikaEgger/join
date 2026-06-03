@@ -2,11 +2,21 @@ const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.
 let contacts = [];
 let currentEditingId = null;
 
+/**
+ * Initializes the application by loading and rendering contacts.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function init() {
     await loadContacts();
     renderContactList();
 }
 
+/**
+ * Loads contacts from the database and sorts them alphabetically.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function loadContacts() {
     contacts = [];
     let response = await fetch(BASE_URL);
@@ -18,6 +28,10 @@ async function loadContacts() {
     }
 }
 
+/**
+ * Converts the raw database object into an array and assigns IDs.
+ * @param {Object} contactsObj - Raw contacts object from the database.
+ */
 function fillContactsArray(contactsObj) {
     let keys = Object.keys(contactsObj);
 
@@ -29,6 +43,9 @@ function fillContactsArray(contactsObj) {
     }
 }
 
+/**
+ * Renders the grouped contact list into the DOM.
+ */
 function renderContactList() {
     let content = document.getElementById('contact-list');
     content.innerHTML = '';
@@ -46,6 +63,11 @@ function renderContactList() {
     }
 }
 
+/**
+ * Generates uppercase initials from a name.
+ * @param {string} name - Full name of the contact.
+ * @returns {string} Initials (e.g., "JD").
+ */
 function getInitials(name) {
     let firstLetter = name.charAt(0);
     let spaceIndex = name.indexOf(' ');
@@ -58,6 +80,10 @@ function getInitials(name) {
     return (firstLetter + secondLetter).toUpperCase();
 }
 
+/**
+ * Opens, renders, and animates the detailed view of a contact.
+ * @param {string} id - Unique contact ID.
+ */
 function showContactDetails(id) {
     highlightContact(id);
     let contact = findContactById(id);
@@ -69,6 +95,11 @@ function showContactDetails(id) {
     }
 }
 
+/**
+ * Finds a contact object in the local array by its ID.
+ * @param {string} id - Unique contact ID.
+ * @returns {Object|null} The contact object, or null if not found.
+ */
 function findContactById(id) {
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i].id === id) return contacts[i];
@@ -76,16 +107,26 @@ function findContactById(id) {
     return null;
 }
 
+/**
+ * Resets the detail view class to prepare for the slide-in animation.
+ */
 function prepareDetailsAnimation() {
     let view = document.getElementById('contact-detail-view');
     view.classList.remove('show-detail');
 }
 
+/**
+ * Renders the detailed HTML view of a contact.
+ * @param {Object} contact - The contact object.
+ */
 function renderDetails(contact) {
     let content = document.getElementById('contact-detail-content');
     content.innerHTML = generateDetailHTML(contact);
 }
 
+/**
+ * Triggers the slide-in animation for the detail view.
+ */
 function startDetailsAnimation() {
     setTimeout(() => {
         let view = document.getElementById('contact-detail-view');
@@ -94,6 +135,9 @@ function startDetailsAnimation() {
     }, 50);
 }
 
+/**
+ * Toggles the visibility of the mobile action menu.
+ */
 function toggleMobileMenu() {
     let menu = document.getElementById('mobile-menu-container');
     if (menu) {
@@ -104,6 +148,10 @@ function toggleMobileMenu() {
     }
 }
 
+/**
+ * Highlights the selected contact card in the list.
+ * @param {string} id - Unique contact ID.
+ */
 function highlightContact(id) {
     let allCards = document.getElementsByClassName('contact-item');
     for (let i = 0; i < allCards.length; i++) {
@@ -116,11 +164,17 @@ function highlightContact(id) {
     }
 }
 
+/**
+ * Closes the contact detail view.
+ */
 function closeContactDetails() {
     let detailView = document.getElementById('contact-detail-view');
     detailView.classList.remove('show-detail');
 }
 
+/**
+ * Focuses the mobile back button for better accessibility.
+ */
 function focusBackButton() {
     let backBtn = document.querySelector('.back-to-list-btn');
     if (backBtn) {
@@ -128,6 +182,11 @@ function focusBackButton() {
     }
 }
 
+/**
+ * Validates, creates, saves, and displays a new contact.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function createNewContact() {
     if (!isContactFormValid()) {
         return;
@@ -147,6 +206,12 @@ async function createNewContact() {
     showSuccessBanner();
 }
 
+/**
+ * Saves a new contact to the database.
+ * @async
+ * @param {Object} contact - The contact data object.
+ * @returns {Promise<string>} The generated database ID.
+ */
 async function postContact(contact) {
     let url = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
     let response = await fetch(url, {
@@ -159,11 +224,19 @@ async function postContact(contact) {
     return data.name;
 }
 
+/**
+ * Closes the dialog and reloads the contact application state.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function finalizeAddition() {
     closeContactDialog();
     await init();
 }
 
+/**
+ * Resets the form inputs and clears all validation errors.
+ */
 function resetForm() {
     document.querySelector('.contact-form').reset();
 
@@ -177,6 +250,10 @@ function resetForm() {
     }
 }
 
+/**
+ * Returns a random color string from the predefined palette.
+ * @returns {string} Hex color code.
+ */
 function getRandomColor() {
     let colors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
 
@@ -184,6 +261,9 @@ function getRandomColor() {
     return colors[randomIndex];
 }
 
+/**
+ * Displays the success confirmation banner temporarily.
+ */
 function showSuccessBanner() {
     let banner = document.getElementById('success-banner');
 
@@ -194,6 +274,10 @@ function showSuccessBanner() {
     }, 3000);
 }
 
+/**
+ * Opens the dialog populated with contact data for editing.
+ * @param {string} id - Unique contact ID.
+ */
 function openEditContact(id) {
     currentEditingId = id;
     let contact = findContactById(id);
@@ -206,6 +290,10 @@ function openEditContact(id) {
     }
 }
 
+/**
+ * Sets the dialog avatar color and initials based on the contact.
+ * @param {Object} contact - The contact object.
+ */
 function updateDialogAvatar(contact) {
     let avatarContainer = document.querySelector('.default-avatar');
     let initials = getInitials(contact.name);
@@ -213,18 +301,29 @@ function updateDialogAvatar(contact) {
     avatarContainer.innerHTML = initials;
 }
 
+/**
+ * Resets the dialog avatar to the default placeholder.
+ */
 function resetDialogAvatar() {
     let avatarContainer = document.querySelector('.default-avatar');
     avatarContainer.style.backgroundColor = '#D1D1D1';
     avatarContainer.innerHTML = `<img src="../assets/icons/person-white.svg" alt="Avatar" />`;
 }
 
+/**
+ * Fills the form input fields with contact data.
+ * @param {Object} contact - The contact object.
+ */
 function fillFormFields(contact) {
     document.querySelector('.icon-name').value = contact.name;
     document.querySelector('.icon-mail').value = contact.email;
     document.querySelector('.icon-phone').value = contact.phone;
 }
 
+/**
+ * Changes the dialog texts and submit behavior for editing a contact.
+ * @param {string} id - Unique contact ID.
+ */
 function adaptDialogForEdit(id) {
     document.querySelector('.dialog-left h1').innerHTML = 'Edit Contact';
 
@@ -239,6 +338,10 @@ function adaptDialogForEdit(id) {
     adaptCancelButtonToDelete(id);
 }
 
+/**
+ * Changes the form cancel button into a delete button.
+ * @param {string} id - Unique contact ID.
+ */
 function adaptCancelButtonToDelete(id) {
     let cancelBtn = document.querySelector('.btn-cancel');
     cancelBtn.innerHTML = `Delete`;
@@ -248,6 +351,9 @@ function adaptCancelButtonToDelete(id) {
     }
 }
 
+/**
+ * Opens the contact dialog modal.
+ */
 function openContactDialog() {
     const dialog = document.getElementById('add-contact-dialog');
     if (dialog) {
@@ -256,6 +362,9 @@ function openContactDialog() {
     focusActiveCloseButton();
 }
 
+/**
+ * Closes the contact dialog modal.
+ */
 function closeContactDialog() {
     const dialog = document.getElementById('add-contact-dialog');
     if (dialog) {
@@ -263,6 +372,10 @@ function closeContactDialog() {
     }
 }
 
+/**
+ * Closes the dialog if a click occurs outside of it (on the backdrop).
+ * @param {MouseEvent} event - The click event.
+ */
 function closeContactDialogOutside(event) {
     const dialog = document.getElementById('add-contact-dialog');
     if (event.target === dialog) {
@@ -270,6 +383,9 @@ function closeContactDialogOutside(event) {
     }
 }
 
+/**
+ * Prepares and opens the dialog for creating a new contact.
+ */
 function prepareAddContactDialog() {
     currentEditingId = null;
     resetForm();
@@ -289,12 +405,20 @@ function prepareAddContactDialog() {
     openContactDialog();
 }
 
+/**
+ * Resets the dialog cancel button to its default behavior.
+ */
 function resetCancelButton() {
     let btnCancel = document.querySelector('.btn-cancel');
     btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
     btnCancel.onclick = closeContactDialog;
 }
 
+/**
+ * Validates and saves changes made to an edited contact.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function saveEditedContact() {
     if (!isContactFormValid()) {
         return;
@@ -312,6 +436,12 @@ async function saveEditedContact() {
     showContactDetails(currentEditingId);
 }
 
+/**
+ * Updates an existing contact in the database.
+ * @async
+ * @param {Object} contact - The updated contact data.
+ * @returns {Promise<void>}
+ */
 async function putContact(contact) {
     let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${currentEditingId}.json`;
     await fetch(url, {
@@ -321,6 +451,12 @@ async function putContact(contact) {
     });
 }
 
+/**
+ * Deletes a contact from the database by its ID.
+ * @async
+ * @param {string} id - Unique contact ID.
+ * @returns {Promise<void>}
+ */
 async function deleteContact(id) {
     let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${id}.json`;
 
@@ -334,6 +470,9 @@ async function deleteContact(id) {
     await init();
 }
 
+/**
+ * Focuses the appropriate close button depending on screen size.
+ */
 function focusActiveCloseButton() {
     let isMobile = window.innerWidth <= 1024;
     let selector = isMobile ? '.dialog-close-btn-mobile' : '.dialog-close-btn';
@@ -341,11 +480,17 @@ function focusActiveCloseButton() {
     if (closeBtn) closeBtn.focus();
 }
 
+/**
+ * Focuses the first button inside the mobile menu pop-up.
+ */
 function focusFirstMenuAction() {
     let firstAction = document.querySelector('.mobile-menu-popup .contact-action');
     if (firstAction) firstAction.focus();
 }
 
+/**
+ * Delays the focus handling for the mobile menu to ensure smooth execution.
+ */
 function delayMenuFocus() {
     setTimeout(focusFirstMenuAction, 100);
 }
@@ -390,6 +535,10 @@ function checkContactInputValidity(inputType) {
     }
 }
 
+/**
+ * Validates the name input field and updates its error status.
+ * @param {HTMLInputElement} input - The name input element.
+ */
 function validateContactName(input) {
     const errorSpan = document.getElementById('contact-name--error');
 
@@ -402,6 +551,10 @@ function validateContactName(input) {
     }
 }
 
+/**
+ * Validates the email input field structure and updates its error status.
+ * @param {HTMLInputElement} input - The email input element.
+ */
 function validateContactEmail(input) {
     const errorSpan = document.getElementById('contact-email--error');
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -418,6 +571,10 @@ function validateContactEmail(input) {
     }
 }
 
+/**
+ * Validates the phone input field format and updates its error status.
+ * @param {HTMLInputElement} input - The phone input element.
+ */
 function validateContactPhone(input) {
     const errorSpan = document.getElementById('contact-phone--error');
     let phonePattern = /^[0-9+\s\-\/]+$/;
