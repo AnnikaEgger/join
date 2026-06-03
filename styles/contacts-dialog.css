@@ -6,11 +6,11 @@
     border: none;
     padding: 0;
     background-color: var(--color-white);
-    width: 90%;
+    width: 85%;
     max-width: 1200px;
     height: auto;
     min-height: 600px;
-    max-height: 90dvh;
+    max-height: 60dvh;
     border-radius: 30px;
     display: flex;
     overflow: hidden;
