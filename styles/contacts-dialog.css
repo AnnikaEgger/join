@@ -149,7 +149,7 @@
 .input-container {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 8px;
 }
 
 .contact-input {
@@ -175,6 +175,17 @@
 
 .icon-phone {
     background-image: url('../assets/icons/call.svg');
+}
+
+.contact-input.input-error {
+    border: 1px solid var(--red-invalid)
+}
+
+.error-message {
+    color: var(--red-invalid);
+    font-size: 14px;
+    display: block;
+    text-align: left;
 }
 
 .dialog-buttons {

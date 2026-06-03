@@ -21,7 +21,9 @@ async function addTask(event, page, id) {
     let task = taskJson(id);
     await postTaskToFirebase(task);
 
-    showAddtaskToastMsg(id);
+    if (id !== "--edit-task") {
+      showAddtaskToastMsg(id);
+    }
     clearTask(id);
     completeTaskCreation(page);
   }
