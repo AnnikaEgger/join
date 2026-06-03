@@ -91,7 +91,7 @@ a {
 }
 
 .nav-link.active svg path {
-  color: var(--color-white);
+  fill: var(--color-white);
 }
 
 .nav-icon {
