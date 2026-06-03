@@ -263,8 +263,11 @@ a {
   }
 
   .sidebar-footer {
-    padding: 0 24px;
     text-align: center;
+  }
+
+  .footer-link {
+    padding: 12px 36px;
   }
 }
 

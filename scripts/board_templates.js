@@ -32,7 +32,6 @@ function generateProgressHTML(done, total, percentage) {
     `;
 }
 
-// delete und edit Button als img/ svg + span
 function generateTaskDialogHTML(todo, catColor, id) {
   let contactsListHTML = renderDialogContacts(todo);
   let subtasksListHTML = renderDialogSubtasks(todo, id);
@@ -52,12 +51,14 @@ function generateTaskDialogHTML(todo, catColor, id) {
           <div class="dialog-assigned-section"><p class="dialog-text-label">Assigned To:</p><div class="dialog-contacts-container">${contactsListHTML}</div></div>
           <div class="dialog-subtasks-section"><p class="dialog-text-label">Subtasks:</p><div class="dialog-subtasks-container">${subtasksListHTML}</div></div>
           <section class="dialog-footer">
-                  <button onclick="deleteTask('${id}')">
-                      <img class="delete-task-btn" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                  <button class="delete-task-btn" onclick="deleteTask('${id}')">
+                      <img class="icon-default" src="/assets/icons/delete-btn.svg" alt="Delete Task Icon">
+                      <img src="../assets/icons/delete-hover-btn.svg" class="icon-hover">
                   </button>
                   <hr class="dialog-footer-hr">
-                  <button onclick="openTaskEditMode('${id}')">
-                      <img class="edit-task-btn" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+                  <button class="edit-task-btn" onclick="openTaskEditMode('${id}')">
+                      <img class="icon-default" src="/assets/icons/edit-btn.svg" alt="Edit Task Icon">
+                      <img src="../assets/icons/edit-hover-btn.svg" class="icon-hover">
                   </button>
           </section>
         </div>
@@ -73,11 +74,17 @@ function generateDialogContactsHTML(name, color, initials) {
 }
 
 function generateDialogSubtasksHTML(todoId, index, title, isChecked) {
+  let checkboxId = `subtask-${todoId}-${index}`;
   return `
         <div class="dialog-subtask-row">
-            <input type="checkbox" id="subtask-${index}" ${isChecked} 
+            <input type="checkbox" id="${checkboxId}" ${isChecked} 
                    onclick="toggleSubtask('${todoId}', ${index})">
-            <label for="subtask-${index}">${title}</label>
+            
+            <label for="${checkboxId}" class="custom-subtask-checkbox">
+                <img src="../assets/icons/checkbox-rect.svg" class="cb-empty" alt="Unchecked">
+                <img src="../assets/icons/checkbox.svg" class="cb-checked" alt="Checked">
+                <span class="subtask-title-text">${title}</span>
+            </label>
         </div>`;
 }
 

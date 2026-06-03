@@ -173,15 +173,16 @@
           <div class="task-lanes">
             <div class="task-title">
               <h2>To do</h2>
-              <img
-                class="add-task-btn"
-                onclick="openAddTaskDialog('to do')"
-                tabindex="0"
-                aria-label="Add task button"
-                role="button"
-                src="../assets/icons/plus_button.svg"
-                alt="plus button"
-              />
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('to do')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
             </div>
             <div
               id="to do"
@@ -195,24 +196,21 @@
                 allowDrop(event);
                 highlight('to do');
               "
-            >
-              <!-- <div class="empty-card-container">
-                            <p>No tasks To do</p>
-                        </div> -->
-            </div>
+            ></div>
           </div>
           <div class="task-lanes">
             <div class="task-title">
               <h2>in progress</h2>
-              <img
-                class="add-task-btn"
-                onclick="openAddTaskDialog('in progress')"
-                tabindex="0"
-                aria-label="Add task button"
-                role="button"
-                src="../assets/icons/plus_button.svg"
-                alt="plus button"
-              />
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('in progress')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
             </div>
             <div
               id="in progress"
@@ -226,40 +224,21 @@
                 allowDrop(event);
                 highlight('in progress');
               "
-            >
-              <!-- <div draggable="true" class="card">
-                            <span class="category-field">User Story</span>
-                            <h3 class="card-text">TestCard</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-                            <div class="progress-container">
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 50%;"></div>
-                                </div>
-                                <label class="progress-label" for="progressBar">1/2 Subtasks</label>
-                            </div>
-                            <div class="card-footer">
-                                <div class="badge-container">
-                                    <span class="profile-badge">LW</span>
-                                    <span class="profile-badge-2">AE</span>
-                                    <span class="profile-badge-3">CN</span>
-                                </div>
-                                <img src="../assets/icons/low-prio-icon.svg" alt="low priority icon">
-                            </div>
-                        </div> -->
-            </div>
+            ></div>
           </div>
           <div class="task-lanes">
             <div class="task-title">
               <h2>Await feedback</h2>
-              <img
-                class="add-task-btn"
-                onclick="openAddTaskDialog('await feedback')"
-                tabindex="0"
-                aria-label="Add task button"
-                role="button"
-                src="../assets/icons/plus_button.svg"
-                alt="plus button"
-              />
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('await feedback')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
             </div>
             <div
               id="await feedback"
@@ -278,15 +257,16 @@
           <div class="task-lanes">
             <div class="task-title">
               <h2>Done</h2>
-              <img
-                class="add-task-btn"
-                onclick="openAddTaskDialog('done')"
-                tabindex="0"
-                aria-label="Add task button"
-                role="button"
-                src="../assets/icons/plus_button.svg"
-                alt="plus button"
-              />
+              <button>
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('done')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
             </div>
             <div
               id="done"
@@ -732,7 +712,7 @@
       </div>
 
       <div
-        id="addtask-toast-msg--add-task-dialog"
+        id="addtask-toast-msg"
         class="addtask-toast-msg addtask-toast-msg--dialog"
       >
         <p>Task added to board</p>

@@ -105,8 +105,7 @@ hr {
 
 .add-task-btn:hover {
   cursor: pointer;
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
-    brightness(95%) contrast(88%);
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
 }
 
 .custom-checkbox {
@@ -319,7 +318,7 @@ hr {
   box-sizing: border-box;
 }
 
-.badge-container > :not(:first-child) {
+.badge-container> :not(:first-child) {
   margin-left: -12px;
   border: 1px solid #ffffff;
 }
@@ -378,6 +377,10 @@ select,
 
 .task-dialog {
   word-break: break-word;
+}
+
+.task-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .task-dialog-header {
@@ -490,14 +493,62 @@ select,
   background-color: white;
 }
 
-.delete-task-btn:hover {
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
-    brightness(95%) contrast(88%);
+.delete-task-btn .icon-hover,
+.edit-task-btn .icon-hover {
+  display: none;
 }
 
+.delete-task-btn:hover,
 .edit-task-btn:hover {
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
-    brightness(95%) contrast(88%);
+  color: #29abe2;
+  filter: none;
+}
+
+.delete-task-btn:hover .icon-default,
+.edit-task-btn:hover .icon-default {
+  display: none;
+}
+
+.delete-task-btn:hover .icon-hover,
+.edit-task-btn:hover .icon-hover {
+  display: inline-block;
+}
+
+.dialog-subtask-row input[type="checkbox"] {
+    display: none;
+}
+
+.custom-subtask-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    color: #000000;
+}
+
+.custom-subtask-checkbox img {
+    width: 17px;
+    height: 17px;
+}
+
+.custom-subtask-checkbox .cb-checked {
+    display: none;
+    height: 22px;
+    width: 22px;
+}
+
+.custom-subtask-checkbox .cb-empty {
+    display: inline-block;
+}
+
+.dialog-subtask-row input[type="checkbox"]:checked + .custom-subtask-checkbox .cb-empty {
+    display: none;
+}
+
+.dialog-subtask-row input[type="checkbox"]:checked + .custom-subtask-checkbox .cb-checked {
+    display: inline-block;
 }
 
 @media (max-width: 1200px) {

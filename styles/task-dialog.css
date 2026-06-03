@@ -23,9 +23,9 @@
   max-height: 85vh;
   border-radius: 30px;
   transition:
-    display 0.3s allow-discrete,
-    overlay 0.3s allow-discrete;
-  animation: slideOutCentered 0.3s ease-in forwards;
+    display 0.15s allow-discrete,
+    overlay 0.15s allow-discrete;
+  animation: slideOutCentered 0.15s ease-in forwards;
 }
 
 .content-wrapper-task-dialog {
@@ -67,7 +67,7 @@ body:has(.add-task-dialog[open]) {
 }
 
 .task-dialog[open] {
-  animation: slideInCentered 0.3s ease-out forwards;
+  animation: slideInCentered 0.15s ease-out forwards;
 }
 
 .content-wrapper-task-dialog--detailed {
