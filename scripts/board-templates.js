@@ -109,7 +109,7 @@ function generateOverflowBadgeHTML(count) {
 }
 
 function generateEmptyBadgeHTML() {
-  return '<span class="profile-badge">--</span>';
+  return '<span class="profile-empty-badge">--</span>';
 }
 
 function taskEditModeTemplate(task, taskId) {
