@@ -4,12 +4,12 @@
  * @param {number} indexSubtask - The index of the subtask
  * @returns {string} HTML string for the subtask list item
  */
-function subtaskLiTemplate(subtaskText, indexSubtask, id) {
+function subtaskLiTemplate(subtask, indexSubtask, id) {
   return `<li id="${"subtask-li-" + indexSubtask + id}" class="normal-li" tabindex="0" 
               data-index-subtask="${indexSubtask}"
                 ondblclick="openSubtaskEdit(${indexSubtask}, '${id}')"
               >
-            <p class="normal-li-p" id="${"subtask-text" + indexSubtask + id}">${subtaskText}</p>
+            <p class="normal-li-p" id="${"subtask-text" + indexSubtask + id}">${subtask.title}</p>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >
@@ -64,7 +64,7 @@ function subtaskLiTemplate(subtaskText, indexSubtask, id) {
  */
 function subtaskLiWithInputTemplate(indexSubtask, id) {
   return ` <li id="${"subtask-li-" + indexSubtask + id}" class="li-with-input trigger-input-container" tabindex="0">
-            <input id="${"li-input" + indexSubtask + id}" type="text" value="${subtasksArr[indexSubtask]}" />
+            <input id="${"li-input" + indexSubtask + id}" type="text" value="${subtasksArr[indexSubtask].title}" />
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >
