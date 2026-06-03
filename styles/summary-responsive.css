@@ -16,7 +16,7 @@
     }
 
     .summary-greeting h2 {
-        font-size: 42px;
+        font-size: 39px;
     }
 
     .summary-greeting p {
@@ -29,7 +29,7 @@
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     .summary-title h1 {
         font-size: 47px;
     }
@@ -346,12 +346,6 @@
     }
 
 }
-
-.summary-greeting p {
-    font-size: 40px;
-}
-
-
 
 @media screen and (max-width: 425px) {
     .summary-greeting h2 {
