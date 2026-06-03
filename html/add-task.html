@@ -29,7 +29,11 @@
     <script src="../scripts/add-task/add-task-task.js"></script>
     <script src="../scripts/add-task/add-task.js" defer></script>
   </head>
-  <body onload="initAddTask('--add-task')">
+  <body
+    id="body--add-task"
+    onload="initAddTask('--add-task')"
+    class="disabled-ui"
+  >
     <section class="sidebar">
       <div class="sidebar-logo">
         <img src="/assets/icons/join-logo-white.svg" alt="Join Logo" />

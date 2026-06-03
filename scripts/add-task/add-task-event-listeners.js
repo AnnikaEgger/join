@@ -102,8 +102,7 @@ function addEventListeners(id) {
     "categories-dropdown" + id,
   );
 
-  taskForm.addEventListener("keydown", taskFormKeydownFunction);
-  taskForm.addEventListener("submit", () => taskFormSubmitFunction(event, id));
+  addTaskFormEventListeners(id);
 
   contactsDropdown.addEventListener("focusout", () =>
     contactsDropdownFocusOutFunction(event, id),
@@ -115,6 +114,13 @@ function addEventListeners(id) {
   categoriesDropdown.addEventListener("focusout", () =>
     categoriesDropdownFocusOutFunction(event, id),
   );
+}
+
+function addTaskFormEventListeners(id) {
+  const taskForm = document.getElementById("task-form" + id);
+
+  taskForm.addEventListener("keydown", taskFormKeydownFunction);
+  taskForm.addEventListener("submit", () => taskFormSubmitFunction(event, id));
 }
 
 /**

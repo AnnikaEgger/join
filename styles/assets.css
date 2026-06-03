@@ -4,6 +4,11 @@
   --input-width-mobile-small: 364px;
 }
 
+.disabled-ui * {
+  pointer-events: none;
+  opacity: 0.9;
+}
+
 input,
 textarea {
   outline: none;

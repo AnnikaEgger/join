@@ -93,6 +93,8 @@ async function initEditTask(id) {
 
   registerEnterHandlers(id);
   addEventListeners(id);
+
+  enableAllPointerEvents("taskDialog");
 }
 
 /**
@@ -104,8 +106,10 @@ async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
 
   let task = await getTaskFromFirebase(taskId);
+  console.log(task);
 
   TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
+  addTaskFormEventListeners("--edit-task");
 
   selectedCategory = task.category;
   setPriority(task.priority, "--edit-task");
@@ -122,6 +126,7 @@ async function openTaskEditMode(taskId) {
  */
 async function getTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json");
+
   return await response.json();
 }
 
@@ -155,13 +160,15 @@ function renderAssignedContactsEditMode(task) {
  * @param {string} column - The column to which the task belongs.
  * @param {string} taskId - The ID of the task to edit.
  */
-async function submitEditedTask(task, taskId) {
+async function submitEditedTask(event, column, defaultTask, taskId) {
   const TASK_FORM = document.getElementById("task-form--edit-task");
+  event.preventDefault();
+
   if (
     TASK_FORM.checkValidity() &&
     selectedCategory !== "Select task category"
   ) {
-    await putEditedTaskToFirebase(task, taskId);
+    await putEditedTaskToFirebase(column, defaultTask, taskId);
     await loadTasks();
     openTaskDialog(taskId);
   }
@@ -174,11 +181,11 @@ async function submitEditedTask(task, taskId) {
  * @param {string} taskId - The ID of the task to update.
  * @returns {Object} The response from Firebase after attempting to update the task.
  */
-async function putEditedTaskToFirebase(task, taskId) {
-  let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
+async function putEditedTaskToFirebase(column, defaultTask, taskId) {
+  let task = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(collectEditedTaskData(task, taskId)),
+    body: JSON.stringify(collectEditedTaskData(column, defaultTask, taskId)),
   });
   return await task.json();
 }
@@ -190,7 +197,7 @@ async function putEditedTaskToFirebase(task, taskId) {
  * @param {string} taskId - The ID of the task being edited.
  * @returns {Object} The edited task data.
  */
-function collectEditedTaskData(task, taskId) {
+function collectEditedTaskData(column, defaultTask, taskId) {
   const title = document.getElementById("task-title--edit-task").value;
   const description = document.getElementById(
     "task-description--edit-task",
@@ -205,8 +212,8 @@ function collectEditedTaskData(task, taskId) {
     assigned_contacts: assignedContacts,
     category: selectedCategory,
     subtasks: subtasksArr,
-    column: task.column,
-    default_task: task.default_task,
+    column: column,
+    default_task: defaultTask,
   };
 }
 

@@ -56,7 +56,7 @@
     <script src="../scripts/header.js" defer></script>
   </head>
 
-  <body onload="initBoard()">
+  <body id="body--board" onload="initBoard()" class="disabled-ui">
     <!-- SIDEBAR  -->
     <section class="sidebar">
       <div class="sidebar-logo">
@@ -374,7 +374,10 @@
     </main>
 
     <dialog id="addTaskDialog" class="add-task-dialog">
-      <div class="content-wrapper content-wrapper--dialog">
+      <div
+        id="content-wrapper--add-task-dialog"
+        class="content-wrapper content-wrapper--dialog disabled-ui"
+      >
         <h2 class="add-task-headline add-task-headline--dialog">Add Task</h2>
         <button
           class="add-task-dialog-closing-btn"
@@ -799,7 +802,7 @@
       </div>
 
       <div
-        id="addtask-toast-msg"
+        id="addtask-toast-msg--add-task-dialog"
         class="addtask-toast-msg addtask-toast-msg--dialog"
       >
         <p>Task added to board</p>

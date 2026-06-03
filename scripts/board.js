@@ -11,6 +11,7 @@ let currentDraggedElement;
 async function initBoard() {
   await ensureAllDefaultTasksAreInBoard();
   loadTasks();
+  enableAllPointerEvents("--board");
 }
 
 async function loadTasks() {
@@ -244,6 +245,7 @@ function openTaskDialog(id) {
   let catColor = getCategoryColor(todo.category);
   dialog.innerHTML = generateTaskDialogHTML(todo, catColor, id);
   dialog.showModal();
+  enableAllPointerEvents("taskDialog");
 }
 
 /**

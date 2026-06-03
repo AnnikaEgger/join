@@ -37,7 +37,7 @@ function generateTaskDialogHTML(todo, catColor, id) {
   let subtasksListHTML = renderDialogSubtasks(todo, id);
   let prioIconHTML = getPrioIconHTML(todo);
   return `
-      <div class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed" id="content-wrapper--task-dialog">
+      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed disabled-ui" id="content-wrapper--task-dialog">
           <div class="task-dialog-header">
               <span class="category-field-dialog" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
               <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
@@ -114,7 +114,7 @@ function generateEmptyBadgeHTML() {
 
 function taskEditModeTemplate(task, taskId) {
   return ` 
-      <div class="content-wrapper-task-dialog content-wrapper-task-dialog--edit" id="content-wrapper--task-dialog">
+      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--edit disabled-ui" id="content-wrapper--task-dialog">
     <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
@@ -140,7 +140,7 @@ function taskEditModeTemplate(task, taskId) {
 
       <form
         aria-labelledby="add-task-headline"
-        onsubmit="addTask(event, 'add task', '--edit-task')"
+        onsubmit="submitEditedTask(event, '${task.column}', '${task.default_task}', '${taskId}')"
         id="task-form--edit-task"
         class="task-form task-form--edit-task"
         novalidate
@@ -461,7 +461,6 @@ function taskEditModeTemplate(task, taskId) {
   
           <div class="edit-task-ok-btn-wrapper">
             <button
-            onclick="submitEditedTask('${task}, '${taskId}')"
               type="submit"
               class="button bottom-btn bottom-btn--edit-task button-blue create-task-btn"
               aria-label="create task"
