@@ -212,7 +212,7 @@ function handleInvalidSubmit(taskForm, id) {
     }
   });
 
-  focusInvalidElement(invalidElements[0]);
+  focusInvalidElement(invalidElements[0], taskForm);
 }
 
 /**
@@ -235,12 +235,15 @@ function addCategoryClasses(taskForm, id) {
  * Focuses an element and scrolls it into view with smooth behavior.
  * @param {HTMLElement} element - The element to focus
  */
-function focusInvalidElement(element) {
+function focusInvalidElement(element, taskForm) {
   element.focus();
-  element.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
+
+  if (taskForm && taskForm.id === "task-form--add-task") {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
 }
 
 /**

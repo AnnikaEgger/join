@@ -167,4 +167,14 @@
   .low-active {
     font-weight: 600;
   }
+
+  .addtask-toast-msg {
+    padding: 16px 16px;
+    font-size: 18px;
+    width: 250px;
+  }
+
+  .addtask-toast-msg--dialog {
+    left: calc(50% - (250px / 2));
+  }
 }

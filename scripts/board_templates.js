@@ -118,7 +118,7 @@ function taskEditModeTemplate(task, taskId) {
     <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
-          onclick="closeAddTaskDialog()"
+          onclick="closeTaskDialog()"
         >
           <svg
             width="13"
@@ -462,7 +462,7 @@ function taskEditModeTemplate(task, taskId) {
           <div class="edit-task-ok-btn-wrapper">
             <button
             onclick="submitEditedTask('${task.column}', '${taskId}')"
-              type="button"
+              type="submit"
               class="button bottom-btn bottom-btn--edit-task button-blue create-task-btn"
               aria-label="create task"
             >

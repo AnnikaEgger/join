@@ -90,6 +90,10 @@ a {
   color: var(--color-white);
 }
 
+.nav-link.active svg path {
+  color: var(--color-white);
+}
+
 .nav-icon {
   width: 24px;
   height: 24px;
@@ -204,8 +208,10 @@ a {
   padding-right: max(var(--content-limitation), 0px); */
 
   margin-top: var(--header-height);
-  margin-left: max(var(--content-limitation) + var(--sidebar-width),
-      var(--sidebar-width));
+  margin-left: max(
+    var(--content-limitation) + var(--sidebar-width),
+    var(--sidebar-width)
+  );
   margin-right: max(var(--content-limitation), 0px);
   padding: 48px 80px;
   min-height: calc(100vh - var(--header-height));
@@ -340,10 +346,10 @@ a {
     margin-left: max(var(--content-limitation), 0px);
     margin-bottom: var(--resp-navbar-height);
     padding-bottom: 40px;
-    
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   /*   hide title and help  */
   .header-title {
     display: none;
