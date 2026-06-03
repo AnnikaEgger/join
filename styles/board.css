@@ -323,6 +323,10 @@ hr {
   border: 1px solid #ffffff;
 }
 
+.badge-container:empty {
+  display: none;
+}
+
 .profile-badge {
   position: relative;
   right: 15px;
@@ -515,40 +519,40 @@ select,
 }
 
 .dialog-subtask-row input[type="checkbox"] {
-    display: none;
+  display: none;
 }
 
 .custom-subtask-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 16px;
-    color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  color: #000000;
 }
 
 .custom-subtask-checkbox img {
-    width: 17px;
-    height: 17px;
+  width: 17px;
+  height: 17px;
 }
 
 .custom-subtask-checkbox .cb-checked {
-    display: none;
-    height: 22px;
-    width: 22px;
+  display: none;
+  height: 22px;
+  width: 22px;
 }
 
 .custom-subtask-checkbox .cb-empty {
-    display: inline-block;
+  display: inline-block;
 }
 
-.dialog-subtask-row input[type="checkbox"]:checked + .custom-subtask-checkbox .cb-empty {
-    display: none;
+.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-empty {
+  display: none;
 }
 
-.dialog-subtask-row input[type="checkbox"]:checked + .custom-subtask-checkbox .cb-checked {
-    display: inline-block;
+.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-checked {
+  display: inline-block;
 }
 
 @media (max-width: 1200px) {
