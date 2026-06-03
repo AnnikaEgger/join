@@ -5,11 +5,12 @@
         height: calc(100dvh - 85px - 85px);
         max-height: none;
         border-radius: 30px;
+        margin: auto;
         transform: translateY(100vh);
         transition: transform 0.3s ease-out;
     }
 
-    .add-contact-overlay.show-overlay .add-contact-dialog {
+    .add-contact-dialog[open] {
         transform: translateY(0);
     }
 
@@ -30,6 +31,8 @@
     .dialog-close-btn-mobile {
         display: flex;
         position: absolute;
+        background: none;
+        border: none;
         top: 24px;
         right: 24px;
         cursor: pointer;

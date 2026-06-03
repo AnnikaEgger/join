@@ -55,6 +55,8 @@
     .back-to-list-btn {
         display: flex;
         position: absolute;
+        background: none;
+        border: none;
         top: 42px;
         right: 24px;
         cursor: pointer;
