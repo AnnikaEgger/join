@@ -32,7 +32,6 @@ function generateProgressHTML(done, total, percentage) {
     `;
 }
 
-// delete und edit Button als img/ svg + span
 function generateTaskDialogHTML(todo, catColor, id) {
   let contactsListHTML = renderDialogContacts(todo);
   let subtasksListHTML = renderDialogSubtasks(todo, id);

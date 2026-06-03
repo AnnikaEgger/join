@@ -1,26 +1,4 @@
-let todos = [
-  /* {
-    'id': 0,
-    'title': 'dialog',
-    'description': 'with a nice',
-    'category': 'toDo'
-}, {
-    'id': 1,
-    'title': 'footer',
-    'description': 'make the footer shiny and nice',
-    'column': 'inProgress'
-}, {
-    'id': 2,
-    'title': 'headline',
-    'description': 'make the headline wow',
-    'column': 'awaitFeedback'
-}, {
-    'id': 3,
-    'title': 'main content',
-    'description': 'write the main content for the page and make it look good',
-    'column': 'done'
-} */
-];
+let todos = [];
 
 let currentDraggedElement;
 
@@ -147,20 +125,19 @@ function generateProgressBarHTML(todo) {
 
 /**
  * Generates HTML badges for assigned contacts (max 4, 5th becomes +X).
+ * Returns an empty string if no contacts are assigned.
  *
  * @param {Object} todo - The current todo object from Firebase.
- * @return {string} The HTML string containing all profile badges.
+ * @return {string} The HTML string containing all profile badges or an empty string.
  */
 function generateAssignedBadgesHTML(todo) {
   let assigned = todo["assigned_contacts"] || [];
-  if (assigned.length === 0) return generateEmptyBadgeHTML();
-
+    if (assigned.length === 0) return "";
   let contactsList = Array.isArray(assigned)
     ? assigned
     : Object.values(assigned);
   let renderedContacts = contactsList.slice(0, 4);
   let extraCount = contactsList.length - 4;
-
   let html = renderedContacts
     .map((name) => {
       let initials = getTaskInitials(name);
@@ -168,7 +145,6 @@ function generateAssignedBadgesHTML(todo) {
       return generateSingleBadgeHTML(initials, color);
     })
     .join("");
-
   if (extraCount > 0) html += generateOverflowBadgeHTML(extraCount);
   return html;
 }
