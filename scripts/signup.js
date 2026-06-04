@@ -30,7 +30,9 @@ const ERROR_TO_INPUT = {
  */
 function initSignup() {
   const inputs = document.querySelectorAll("#signup-form input");
-  inputs.forEach((input) => input.addEventListener("input", validateForm));
+  inputs.forEach((input) =>
+  input.addEventListener("input", clearAllSignupErrors),
+);
 
   document
     .getElementById("signup-form")
@@ -49,25 +51,7 @@ function initSignup() {
     );
 }
 
-/**
- * Validates all fields and enables/disables submit button.
- */
-function validateForm() {
-  const name = document.getElementById("signup-name").value.trim();
-  const email = document.getElementById("signup-email").value.trim();
-  const password = document.getElementById("signup-password").value;
-  const confirm = document.getElementById("signup-confirm-password").value;
-  const checkbox = document.getElementById("signup-checkbox").checked;
 
-  const isValid =
-    checkName(name) &&
-    checkEmail(email) &&
-    checkPassword(password) &&
-    checkConfirmPassword(password, confirm) &&
-    checkbox;
-
-  document.getElementById("signup-btn").disabled = !isValid;
-}
 
 /**
  * Validates the name field.
@@ -158,13 +142,57 @@ function clearError(errorId) {
   const inputId = ERROR_TO_INPUT[errorId];
   if (inputId) document.getElementById(inputId)?.classList.remove("invalid");
 }
+/**
+ * Validates all fields on submit. Shows errors for invalid fields + checkbox.
+ * @returns {boolean}
+ */
+function validateSignupForm() {
+  const name = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const password = document.getElementById("signup-password").value;
+  const confirm = document.getElementById("signup-confirm-password").value;
+  const checkbox = document.getElementById("signup-checkbox").checked;
 
+  const nameValid = checkName(name);
+  const emailValid = checkEmail(email);
+  const passwordValid = checkPassword(password);
+  const confirmValid = checkConfirmPassword(password, confirm);
+  const checkboxValid = checkCheckbox(checkbox);
+
+  return nameValid && emailValid && passwordValid && confirmValid && checkboxValid;
+}
+
+/**
+ * Validates the privacy checkbox.
+ * @param {boolean} checked
+ * @returns {boolean}
+ */
+function checkCheckbox(checked) {
+  if (!checked) {
+    showError("error-checkbox", "Please accept the Privacy Policy");
+    return false;
+  }
+  clearError("error-checkbox");
+  return true;
+}
+
+/**
+ * Clears all sign-up error messages.
+ */
+function clearAllSignupErrors() {
+  clearError("error-name");
+  clearError("error-email");
+  clearError("error-password");
+  clearError("error-confirm");
+  clearError("error-checkbox");
+}
 /**
  * Handles submit: checks duplicate email, saves user, shows toast.
  * @param {Event} event
  */
 async function handleSignup(event) {
   event.preventDefault();
+  if (!validateSignupForm()) return;
   document.getElementById("signup-btn").disabled = true;
 
   const userData = collectFormData();
@@ -183,6 +211,7 @@ async function handleSignup(event) {
     window.location.href = "../html/summary.html";
   }, 2000);
 }
+
 /**
  * Logs the user in after sign-up by saving to localStorage (without password).
  * @param {Object} user
