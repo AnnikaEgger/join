@@ -2,9 +2,6 @@
   display: flex;
   flex-direction: column;
   background-color: #f6f7f8;
-  /* margin-left: calc(max(var(--content-limitation), 0px) + var(--sidebar-width)); */
-  /* margin-right: var(--content-limitation); */
-  /* margin-top: var(--header-height); */
   max-width: 1920px;
   padding: 0 64px;
   box-sizing: border-box;
@@ -365,7 +362,6 @@ hr {
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
-
   border: 1px dashed rgb(167, 167, 167);
   border-radius: 10px;
 }
@@ -389,33 +385,4 @@ textarea,
 select,
 .add-task-btn-container {
   margin-bottom: 32px;
-}
-
-#landscape-warning {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #2A3647;
-  color: white;
-  z-index: 99999;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  text-align: center;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-@media screen and (max-width: 950px) and (orientation: landscape) {
-  #landscape-warning {
-    display: flex !important;
-  }
-
-  body {
-    overflow: hidden !important;
-  }
 }
