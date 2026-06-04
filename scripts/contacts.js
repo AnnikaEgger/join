@@ -64,23 +64,6 @@ function renderContactList() {
 }
 
 /**
- * Generates uppercase initials from a name.
- * @param {string} name - Full name of the contact.
- * @returns {string} Initials (e.g., "JD").
- */
-function getInitials(name) {
-    let firstLetter = name.charAt(0);
-    let spaceIndex = name.indexOf(' ');
-    let secondLetter = '';
-
-    if (spaceIndex !== -1) {
-        secondLetter = name.charAt(spaceIndex + 1);
-    }
-
-    return (firstLetter + secondLetter).toUpperCase();
-}
-
-/**
  * Opens, renders, and animates the detailed view of a contact.
  * @param {string} id - Unique contact ID.
  */
@@ -173,16 +156,6 @@ function closeContactDetails() {
 }
 
 /**
- * Focuses the mobile back button for better accessibility.
- */
-function focusBackButton() {
-    let backBtn = document.querySelector('.back-to-list-btn');
-    if (backBtn) {
-        backBtn.focus();
-    }
-}
-
-/**
  * Validates, creates, saves, and displays a new contact.
  * @async
  * @returns {Promise<void>}
@@ -248,30 +221,6 @@ function resetForm() {
         if (input) input.classList.remove('input-error');
         if (errorSpan) errorSpan.innerText = "";
     }
-}
-
-/**
- * Returns a random color string from the predefined palette.
- * @returns {string} Hex color code.
- */
-function getRandomColor() {
-    let colors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
-
-    let randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-}
-
-/**
- * Displays the success confirmation banner temporarily.
- */
-function showSuccessBanner() {
-    let banner = document.getElementById('success-banner');
-
-    banner.classList.add('show-banner');
-
-    setTimeout(() => {
-        banner.classList.remove('show-banner');
-    }, 3000);
 }
 
 /**
@@ -344,13 +293,14 @@ function adaptDialogForEdit(id) {
  */
 function adaptCancelButtonToDelete(id) {
     let cancelBtn = document.querySelector('.btn-cancel');
-    cancelBtn.innerHTML = `Delete`;
-    cancelBtn.onclick = async function () {
-        await deleteContact(id);
-        closeContactDialog();
+    if (cancelBtn) {
+        cancelBtn.innerHTML = `Delete`;
+        cancelBtn.onclick = async function () {
+            await deleteContact(id);
+            closeContactDialog();
+        };
     }
 }
-
 /**
  * Opens the contact dialog modal.
  */
@@ -370,6 +320,7 @@ function closeContactDialog() {
     if (dialog) {
         dialog.close();
     }
+    resetCancelButton(); 
 }
 
 /**
@@ -410,10 +361,11 @@ function prepareAddContactDialog() {
  */
 function resetCancelButton() {
     let btnCancel = document.querySelector('.btn-cancel');
-    btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
-    btnCancel.onclick = closeContactDialog;
+    if (btnCancel) {
+        btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
+        btnCancel.onclick = closeContactDialog; 
+    }
 }
-
 /**
  * Validates and saves changes made to an edited contact.
  * @async
@@ -468,125 +420,4 @@ async function deleteContact(id) {
 
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
-}
-
-/**
- * Focuses the appropriate close button depending on screen size.
- */
-function focusActiveCloseButton() {
-    let isMobile = window.innerWidth <= 1024;
-    let selector = isMobile ? '.dialog-close-btn-mobile' : '.dialog-close-btn';
-    let closeBtn = document.querySelector(selector);
-    if (closeBtn) closeBtn.focus();
-}
-
-/**
- * Focuses the first button inside the mobile menu pop-up.
- */
-function focusFirstMenuAction() {
-    let firstAction = document.querySelector('.mobile-menu-popup .contact-action');
-    if (firstAction) firstAction.focus();
-}
-
-/**
- * Delays the focus handling for the mobile menu to ensure smooth execution.
- */
-function delayMenuFocus() {
-    setTimeout(focusFirstMenuAction, 100);
-}
-
-/**
- * Checks all contact fields simultaneously (essential for submitting the form).
- * @returns {boolean} - True, if all fields are valid.
- */
-function isContactFormValid() {
-    checkContactInputValidity('name');
-    checkContactInputValidity('email');
-    checkContactInputValidity('phone');
-
-    const nameInput = document.getElementById('contact-name--validator');
-    const emailInput = document.getElementById('contact-email--validator');
-    const phoneInput = document.getElementById('contact-phone--validator');
-
-    if (nameInput.classList.contains('input-error') ||
-        emailInput.classList.contains('input-error') ||
-        phoneInput.classList.contains('input-error')) {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * 
-Main function for validating the contact input fields.
- * @param {string} inputType - the type of the field ('name', 'email', 'phone')
- */
-function checkContactInputValidity(inputType) {
-    const input = document.getElementById(`contact-${inputType}--validator`);
-    if (!input) return;
-
-    if (inputType === 'name') {
-        validateContactName(input);
-    } else if (inputType === 'email') {
-        validateContactEmail(input);
-    } else if (inputType === 'phone') {
-        validateContactPhone(input);
-    }
-}
-
-/**
- * Validates the name input field and updates its error status.
- * @param {HTMLInputElement} input - The name input element.
- */
-function validateContactName(input) {
-    const errorSpan = document.getElementById('contact-name--error');
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
-}
-
-/**
- * Validates the email input field structure and updates its error status.
- * @param {HTMLInputElement} input - The email input element.
- */
-function validateContactEmail(input) {
-    const errorSpan = document.getElementById('contact-email--error');
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else if (!emailPattern.test(input.value.trim())) {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "Please enter a valid email address (e.g., user@example.com).";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
-}
-
-/**
- * Validates the phone input field format and updates its error status.
- * @param {HTMLInputElement} input - The phone input element.
- */
-function validateContactPhone(input) {
-    const errorSpan = document.getElementById('contact-phone--error');
-    let phonePattern = /^[0-9+\s\-\/]+$/;
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else if (!phonePattern.test(input.value.trim())) {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "Please enter a valid phone number (digits only).";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
 }
