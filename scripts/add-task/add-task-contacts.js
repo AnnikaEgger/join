@@ -1,3 +1,12 @@
+/**
+ * add-task-contacts.js
+ * Handles contact selection, filtering, rendering, and loading for the add task workflow.
+ */
+
+/**
+ * @typedef {{id: string, name: string, color: string}} Contact
+ */
+
 let contactsOptions = [];
 let filteredContacts = [];
 let assignedContacts = [];
@@ -7,6 +16,7 @@ let assignedContacts = [];
  * @param {number} indexContact - The index of the contact in the filtered contacts list
  * @param {string} contactId - The unique ID of the contact
  * @param {boolean} clickViaCheckbox - Whether the selection was triggered by clicking the checkbox
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function selectContact(indexContact, contactId, clickViaCheckbox, id) {
   handleContactSelection(indexContact, contactId, clickViaCheckbox, id);
@@ -27,16 +37,16 @@ function checkIfContactAlreadyAssigned(contactId) {
 }
 
 /**
- * Manages the selection or deselection of a contact, updating checkboxes and assigned contacts.
+ * Manages contact selection or deselection, updating checkbox state and assigned contacts.
  * @param {number} indexContact - The index of the contact
  * @param {string} contactId - The unique ID of the contact
  * @param {boolean} clickViaCheckbox - Whether the action was triggered by the checkbox
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleContactSelection(indexContact, contactId, clickViaCheckbox, id) {
   let checkbox = document.getElementById("checkbox" + indexContact + id);
   let indexAssignedContact = checkIfContactAlreadyAssigned(contactId);
 
-  // handle checkbox when selecting contact by not using the checkbox
   if (!clickViaCheckbox) {
     if (checkbox.checked == true) {
       checkbox.checked = false;
@@ -58,6 +68,7 @@ function handleContactSelection(indexContact, contactId, clickViaCheckbox, id) {
 /**
  * Fetches and renders all available contact options in the dropdown.
  * @async
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 async function renderContactOptions(id) {
   sortContactOptions();
@@ -77,6 +88,7 @@ function sortContactOptions() {
 
 /**
  * Renders the contact options list with avatars and names.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function renderContactOptionsList(id) {
   for (
@@ -137,10 +149,17 @@ function getCurrentUser() {
  */
 function ensureUserIsFirstInContactsArr() {
   let currentUser = getCurrentUser();
+  const userPartOfFilteredContacts = filteredContacts.some(
+    (contact) => contact.name === currentUser.name,
+  );
 
-  if (!currentUser || currentUser.name === "Guest") return;
+  if (
+    !currentUser ||
+    currentUser.name === "Guest" ||
+    !userPartOfFilteredContacts
+  )
+    return;
 
-  // filter user out of contacts arr
   filteredContacts = filteredContacts.filter(
     (contact) => contact.name !== currentUser.name,
   );
@@ -150,7 +169,7 @@ function ensureUserIsFirstInContactsArr() {
 
 /**
  * Checks if a contact is assigned by comparing contact names.
- * @param {Object} contact - The contact object to check
+ * @param {Contact} contact - The contact object to check
  * @returns {boolean} True if the contact is assigned, false otherwise
  */
 function checkIfContactAssigned(contact) {
@@ -172,6 +191,10 @@ async function getContacts() {
   }
 }
 
+/**
+ * Fetches all users from Firebase and populates the contactsOptions array.
+ * @async
+ */
 async function getUsers() {
   let response = await fetch(BASE_URL + "users" + ".json");
   let usersObj = await response.json();
@@ -229,6 +252,7 @@ function getContactInitials(name) {
 
 /**
  * Renders the assigned contacts as avatar badges in the container.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function renderAssignedContacts(id) {
   const SELECTED_CONTACTS_DIV = document.getElementById(
@@ -249,6 +273,7 @@ function renderAssignedContacts(id) {
 
 /**
  * Handles the contact search input by filtering contacts and re-rendering the dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleContactsSearch(id) {
   let searchContactsInput = document.getElementById(

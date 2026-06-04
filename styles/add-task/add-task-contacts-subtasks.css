@@ -23,6 +23,7 @@ input[type="checkbox"] {
 .custom-select {
   width: var(--input-width);
   position: relative;
+  color: black;
 }
 
 .custom-select-options {

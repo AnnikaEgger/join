@@ -78,31 +78,24 @@ main {
 .form-input-email {
   background-image: url("../assets/icons/mail.svg");
 }
-/* Das ist ein einzeiliger Kommentar 
-.form-input-password {
-  background-image: url("../assets/icons/lock.svg");
-}
 
-.form-input-confirm-password {
-  background-image: url("../assets/icons/lock.svg");
-}
-*/
 .input-fields-login {
   display: flex;
   flex-direction: column;
+  margin-bottom: 32px;
 }
 
 .input-fields-signup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 32px;
 }
 
 .input-wrapper-login-email {
   margin-bottom: 18px;
 }
 .input-wrapper-login-password {
-  margin-bottom: 26px;
+  margin-bottom: 0px;
 }
 
 /* #endregion */
@@ -186,6 +179,14 @@ main {
 
 .accept-privacy-container {
   display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.accept-container {
+  display: flex;
   align-items: center;
   gap: 12px;
 }
@@ -244,10 +245,6 @@ footer {
   width: var(--input-width);
 }
 
-.input-wrapper input {
-  width: 100%;
-}
-
 .error-msg {
   color: #f04444;
   font-size: 14px;
@@ -273,6 +270,7 @@ footer {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.4s ease-out;
   z-index: 999;
+  text-align: center;
 }
 
 .success-toast.show {
@@ -284,7 +282,6 @@ footer {
 
 .input-with-icon {
   position: relative;
-  width: 100%;
 }
 
 .password-toggle {
@@ -312,14 +309,6 @@ footer {
 .password-toggle.non-clickable {
   cursor: default;
   pointer-events: none;
-}
-
-.form-input.invalid {
-  border: 1px solid #f04444;
-}
-
-.form-input.invalid:focus {
-  border: 1px solid #f04444;
 }
 
 /* #endregion */
