@@ -1,7 +1,5 @@
 :root {
-  --login-container-height: 450px;
   --login-container-width: 650px;
-  --signup-container-height: 630px;
   --signup-container-width: 600px;
   --padding-lr: 100px;
   --padding-tb: 48px;
@@ -9,11 +7,12 @@
 }
 
 body {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--light-gray);
+  gap: 24px;
 }
 
 /* #region header */
@@ -23,9 +22,8 @@ header {
   padding: var(--padding-tb) max(var(--content-limitation), var(--padding-lr));
 }
 
-header nav {
+.login-nav {
   display: flex;
-  align-self: flex-start;
   align-items: center;
   gap: 32px;
 }
@@ -92,7 +90,6 @@ main {
 .input-fields-login {
   display: flex;
   flex-direction: column;
-  /* gap: 18px; */
 }
 
 .input-fields-signup {
@@ -112,12 +109,10 @@ main {
 
 /* #region form (log in/ sign up) */
 .form-container {
-  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 32px; */
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
   border-radius: var(--border-radius-l);
   background-color: white;
@@ -125,22 +120,17 @@ main {
 
 .login-container {
   width: var(--login-container-width);
-  top: calc(50dvh - var(--login-container-height) / 2);
-  left: calc(50dvw - var(--login-container-width) / 2);
   padding: 48px;
 }
 
 .signup-container {
   width: var(--signup-container-width);
-  top: calc(50dvh - var(--signup-container-height) / 2);
-  left: calc(50dvw - var(--signup-container-width) / 2);
   padding: 48px;
   gap: 32px;
 }
 
 .form-headline-container {
   align-items: center;
-  gap: 10px;
   width: 100%;
 }
 
@@ -174,6 +164,7 @@ main {
   align-items: center;
   justify-self: center;
   gap: 10px;
+  padding-left: 16px;
 }
 
 .h1-underline {
@@ -195,9 +186,8 @@ main {
 
 .accept-privacy-container {
   display: flex;
+  align-items: center;
   gap: 12px;
-  /* margin-top: 18px; */
-  /* margin-bottom: 32px; */
 }
 
 .accept-privacy-container p {
@@ -213,24 +203,35 @@ main {
 /* #region footer */
 footer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
   margin: var(--padding-tb) var(--padding-lr);
 }
 
-footer nav a {
+.footer-nav {
+  display: flex;
+  align-items: center;
+}
+
+.footer-nav a {
   color: #d1d1d1;
   text-decoration: none;
 }
 
-footer nav {
+.footer-nav {
   display: flex;
   gap: 32px;
 }
 
-footer nav a:hover {
+.footer-nav a:hover {
   color: var(--light-blue);
   font-weight: 700;
+}
+
+.login-nav--mobile {
+  display: none;
 }
 
 /* #endregion */
