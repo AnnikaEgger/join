@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/.json";
+const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 let contacts = [];
 let currentEditingId = null;
 
@@ -9,6 +9,7 @@ let currentEditingId = null;
  */
 async function init() {
     await loadContacts();
+    await loadAllUsers();
     renderContactList();
 }
 
@@ -19,11 +20,11 @@ async function init() {
  */
 async function loadContacts() {
     contacts = [];
-    let response = await fetch(BASE_URL);
+    let response = await fetch(BASE_URL + "contacts" + ".json");
     let data = await response.json();
 
-    if (data && data.contacts) {
-        fillContactsArray(data.contacts);
+    if (data) {
+        fillContactsArray(data);
         contacts.sort((a, b) => a.name.localeCompare(b.name));
     }
 }
@@ -39,9 +40,26 @@ function fillContactsArray(contactsObj) {
         let id = keys[i];
         let contactData = contactsObj[id];
         contactData.id = id;
+        if (!contactData.phone) { contactData.phone = ""; }
         contacts.push(contactData);
     }
 }
+
+/**
+ * Loads all registered users from the database and adds them to the contacts list.
+ * @async
+ * @returns {Promise<void>}
+ */
+async function loadAllUsers() {
+    let response = await fetch("https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users.json");
+    let usersObj = await response.json();
+
+    if (usersObj) {
+        fillContactsArray(usersObj);
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
+    }
+}
+
 
 /**
  * Renders the grouped contact list into the DOM.
@@ -266,7 +284,7 @@ function resetDialogAvatar() {
 function fillFormFields(contact) {
     document.querySelector('.icon-name').value = contact.name;
     document.querySelector('.icon-mail').value = contact.email;
-    document.querySelector('.icon-phone').value = contact.phone;
+    document.querySelector('.icon-phone').value = contact.phone || "";
 }
 
 /**
@@ -320,7 +338,7 @@ function closeContactDialog() {
     if (dialog) {
         dialog.close();
     }
-    resetCancelButton(); 
+    resetCancelButton();
 }
 
 /**
@@ -363,7 +381,7 @@ function resetCancelButton() {
     let btnCancel = document.querySelector('.btn-cancel');
     if (btnCancel) {
         btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
-        btnCancel.onclick = closeContactDialog; 
+        btnCancel.onclick = closeContactDialog;
     }
 }
 /**
