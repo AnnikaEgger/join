@@ -133,7 +133,12 @@
     margin: 24px var(--padding-lr);
   }
 
-  .accept-privacy-container p {
+  .accept-privacy-container p,
+  span {
+    text-align: center;
+  }
+
+  .accept-privacy-container .error-msg {
     text-align: center;
   }
 }

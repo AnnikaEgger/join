@@ -169,8 +169,6 @@ function renderAssignedContactsEditMode(task) {
  * @param {string} taskId - The ID of the task to edit.
  */
 async function submitEditedTask(event, column, defaultTask, taskId) {
-  disableButtonWhileLoading("task-edit-ok-btn");
-
   const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();
 
@@ -178,6 +176,7 @@ async function submitEditedTask(event, column, defaultTask, taskId) {
     TASK_FORM.checkValidity() &&
     selectedCategory !== "Select task category"
   ) {
+    disableButtonWhileLoading("task-edit-ok-btn");
     await putEditedTaskToFirebase(column, defaultTask, taskId);
     await loadTasks();
     openTaskDialog(taskId);
@@ -358,7 +357,7 @@ async function deleteExistingDefaultTasksInTasksInFirebase() {
   let responseToJson = await response.json();
 
   Object.entries(responseToJson).forEach(async ([id, task]) => {
-    if (task.default_task) {
+    if (task.default_task === true) {
       await deleteTaskFromFirebase(id);
     }
   });

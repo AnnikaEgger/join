@@ -137,8 +137,16 @@ function getCurrentUser() {
  */
 function ensureUserIsFirstInContactsArr() {
   let currentUser = getCurrentUser();
+  const userPartOfFilteredContacts = filteredContacts.some(
+    (contact) => contact.name === currentUser.name,
+  );
 
-  if (!currentUser || currentUser.name === "Guest") return;
+  if (
+    !currentUser ||
+    currentUser.name === "Guest" ||
+    !userPartOfFilteredContacts
+  )
+    return;
 
   // filter user out of contacts arr
   filteredContacts = filteredContacts.filter(

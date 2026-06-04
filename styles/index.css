@@ -102,7 +102,7 @@ main {
   margin-bottom: 18px;
 }
 .input-wrapper-login-password {
-  margin-bottom: 26px;
+  margin-bottom: 0px;
 }
 
 /* #endregion */
@@ -186,6 +186,13 @@ main {
 
 .accept-privacy-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.accept-container {
+  display: flex;
   align-items: center;
   gap: 12px;
 }
@@ -254,6 +261,10 @@ footer {
   min-height: 14px;
   padding-left: 4px;
   text-align: left;
+}
+
+.error-msg-login-general {
+  margin-bottom: 24px;
 }
 
 /* #endregion */

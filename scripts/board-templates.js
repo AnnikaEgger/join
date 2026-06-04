@@ -145,7 +145,7 @@ function taskEditModeTemplate(task, taskId) {
 
       <form
         aria-labelledby="add-task-headline"
-        onsubmit="submitEditedTask(event, '${task.column}', '${task.default_task}', '${taskId}')"
+        onsubmit="submitEditedTask(event, '${task.column}', ${task.default_task}, '${taskId}')"
         id="task-form--edit-task"
         class="task-form task-form--edit-task"
         novalidate
