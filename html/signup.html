@@ -60,7 +60,6 @@
               type="text"
               required
             />
-            <!-- <span class="error-msg" id="error-name"></span> -->
           </div>
 
           <div
@@ -76,31 +75,29 @@
               type="email"
               required
             />
-            <!-- <span class="error-msg" id="error-email"></span> -->
           </div>
 
           <div
             class="input-wrapper required input-with-icon"
             data-message="Password must be at least 6 characters"
           >
-            <!-- <div class="input-with-icon"> -->
-            <input
-              oninput="checkInputValidity('password')"
-              class="form-input form-input-password"
-              id="signup-password"
-              placeholder="Password"
-              type="password"
-              required
-              minlength="6"
-            />
-            <button
-              type="button"
-              class="password-toggle"
-              id="toggle-password"
-              onclick="togglePassword('signup-password', 'toggle-password')"
-            ></button>
-            <!-- </div> -->
-            <!-- <span class="error-msg" id="error-password"></span> -->
+            <div class="input-with-icon">
+              <input
+                oninput="checkInputValidity('password')"
+                class="form-input form-input-password"
+                id="signup-password"
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                id="toggle-password"
+                onclick="togglePassword('signup-password', 'toggle-password')"
+              ></button>
+            </div>
           </div>
 
           <div
@@ -126,7 +123,6 @@
                 "
               ></button>
             </div>
-            <!-- <span class="error-msg" id="error-confirm"></span> -->
           </div>
         </section>
 
@@ -135,7 +131,6 @@
           id="signup-checkbox-container"
           class="accept-privacy-container required"
         >
-          <!-- <div class="accept-container"> -->
           <div class="checkbox-container">
             <input
               oninput="checkInputValidity('privacy-checkbox')"
@@ -150,8 +145,6 @@
             I accept the
             <a href="../html/privacy-policy-external.html">Privacy Policy</a>
           </p>
-          <!-- </div> -->
-          <!-- <span class="error-msg" id="error-checkbox"></span> -->
         </div>
 
         <button

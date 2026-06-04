@@ -82,6 +82,7 @@ main {
 .input-fields-login {
   display: flex;
   flex-direction: column;
+  margin-bottom: 32px;
 }
 
 .input-fields-signup {
@@ -244,20 +245,12 @@ footer {
   width: var(--input-width);
 }
 
-.input-wrapper input {
-  width: 100%;
-}
-
 .error-msg {
   color: #f04444;
   font-size: 14px;
   min-height: 14px;
   padding-left: 4px;
   text-align: left;
-}
-
-.error-msg-login-general {
-  margin-bottom: 24px;
 }
 
 /* #endregion */
@@ -289,7 +282,6 @@ footer {
 
 .input-with-icon {
   position: relative;
-  width: 100%;
 }
 
 .password-toggle {
