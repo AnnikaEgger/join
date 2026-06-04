@@ -32,7 +32,7 @@ function initSignup() {
   const inputs = document.querySelectorAll("#signup-form input");
   inputs.forEach((input) =>
   input.addEventListener("input", clearAllSignupErrors),
-);
+);//
 
   document
     .getElementById("signup-form")
@@ -53,6 +53,7 @@ function initSignup() {
 
 
 
+
 /**
  * Validates the name field.
  * @param {string} name
@@ -60,7 +61,7 @@ function initSignup() {
  */
 function checkName(name) {
   if (name.length === 0) {
-    clearError("error-name");
+    showError("error-name", "Please enter your name");
     return false;
   }
   clearError("error-name");
@@ -74,7 +75,7 @@ function checkName(name) {
  */
 function checkEmail(email) {
   if (email.length === 0) {
-    clearError("error-email");
+    showError("error-email", "Please enter your email");
     return false;
   }
   if (!email.includes("@") || !email.includes(".")) {
@@ -92,7 +93,7 @@ function checkEmail(email) {
  */
 function checkPassword(password) {
   if (password.length === 0) {
-    clearError("error-password");
+    showError("error-password", "Please enter a password");
     return false;
   }
   if (password.length < 6) {
@@ -111,7 +112,7 @@ function checkPassword(password) {
  */
 function checkConfirmPassword(password, confirm) {
   if (confirm.length === 0) {
-    clearError("error-confirm");
+    showError("error-confirm", "Please confirm your password");
     return false;
   }
   if (password !== confirm) {
@@ -121,6 +122,8 @@ function checkConfirmPassword(password, confirm) {
   clearError("error-confirm");
   return true;
 }
+
+
 
 /**
  * Shows an error message and marks the input as invalid.
