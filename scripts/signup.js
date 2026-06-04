@@ -178,32 +178,10 @@ async function handleSignup(event) {
 
  await saveUser(userData);
   loginAfterSignup(userData);
-  await saveAsContact(userData);
   showSuccessToast();
   setTimeout(() => {
     window.location.href = "../html/summary.html";
   }, 2000);
-}
-/**
- * Saves the new user as a contact (shared contacts list).
- * Format must match contacts/ (name, email, phone, color).
- * @param {Object} user
- */
-async function saveAsContact(user) {
-  const contact = {
-    name: user.name,
-    email: user.email,
-    phone: "",
-    color: user.color,
-  };
-  try {
-    await fetch(BASE_URL + "/contacts.json", {
-      method: "POST",
-      body: JSON.stringify(contact),
-    });
-  } catch (error) {
-
-  }
 }
 /**
  * Logs the user in after sign-up by saving to localStorage (without password).
