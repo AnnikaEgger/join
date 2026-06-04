@@ -1,53 +1,56 @@
 @media screen and (max-width: 1024px) {
-    .splash-overlay {
-        background-color: var(--dark-blue);
-    }
+  .splash-overlay {
+    background-color: var(--dark-blue);
+  }
 
-    .splash-logo-white {
-        opacity: 1;
-        
-    }
+  .splash-logo-white {
+    opacity: 1;
+  }
 
-    .splash-logo-blue {
-        opacity: 0;
-    }
+  .splash-logo-blue {
+    opacity: 0;
+  }
 
-    /* BG fade synchron mit Farbwechsel, sonst blaues Logo auf blauem BG = unsichtbar */
-    .splash-overlay.splash-active {
-        animation-delay: 0.9s;
-    }
+  /* BG fade synchron mit Farbwechsel, sonst blaues Logo auf blauem BG = unsichtbar */
+  .splash-overlay.splash-active {
+    animation-delay: 0.9s;
+  }
 
-    .splash-overlay.splash-active .splash-logo-white {
-        animation: splash-color-out 0.4s ease-out forwards;
-        animation-delay: 0.9s;
-    }
+  .splash-overlay.splash-active .splash-logo-white {
+    animation: splash-color-out 0.4s ease-out forwards;
+    animation-delay: 0.9s;
+  }
 
-    .splash-overlay.splash-active .splash-logo-blue {
-        animation: splash-color-in 0.4s ease-out forwards;
-        animation-delay: 0.9s;
-    }
+  .splash-overlay.splash-active .splash-logo-blue {
+    animation: splash-color-in 0.4s ease-out forwards;
+    animation-delay: 0.9s;
+  }
 
-    .splash-overlay.splash-active .splash-logo {
-        animation: splash-fly-mobile 0.8s ease-in-out forwards;
-        animation-delay: 0.9s;
-    }
+  .splash-overlay.splash-active .splash-logo {
+    animation: splash-fly-mobile 0.8s ease-in-out forwards;
+    animation-delay: 0.9s;
+  }
 }
 
 @keyframes splash-color-out {
-    to { opacity: 0; }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes splash-color-in {
-    to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes splash-fly-mobile {
-    to {
-        top: 24px;
-        left: 24px;
-        transform: translate(0, 0);
-        height: 64px;
-    }
+  to {
+    top: 24px;
+    left: 24px;
+    transform: translate(0, 0);
+    height: 64px;
+  }
 }
 
 /* #endregion */
@@ -109,6 +112,10 @@
 @media screen and (max-width: 768px) {
   .join-logo-blue {
     height: 64px;
+  }
+
+  .signup-container {
+    padding: 24px;
   }
 }
 

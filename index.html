@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Log in</title>
-    <link rel="icon" href="./assets/icons/join-logo-white.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="./assets/icons/join-logo-white.svg"
+      type="image/svg+xml"
+    />
 
     <script src="./script.js" defer></script>
 
@@ -13,21 +17,35 @@
     <link rel="stylesheet" href="./styles/fonts.css" />
     <link rel="stylesheet" href="./styles/assets.css" />
     <link rel="stylesheet" href="./styles/index.css" />
-    <link rel="stylesheet" href="./styles/index-responsive.css"/>
+    <link rel="stylesheet" href="./styles/index-responsive.css" />
   </head>
   <body>
     <div id="splash-overlay" class="splash-overlay">
-    <div class="splash-logo">
-        <img class="splash-logo-blue" src="./assets/icons/join-logo-blue.svg" alt="Join Logo" />
-        <img class="splash-logo-white" src="./assets/icons/join-logo-white.svg" alt="" />
+      <div class="splash-logo">
+        <img
+          class="splash-logo-blue"
+          src="./assets/icons/join-logo-blue.svg"
+          alt="Join Logo"
+        />
+        <img
+          class="splash-logo-white"
+          src="./assets/icons/join-logo-white.svg"
+          alt=""
+        />
+      </div>
     </div>
-</div>
     <header>
-      <img class="join-logo-blue" src="./assets/icons/join-logo-blue.svg" alt="logo" />
+      <img
+        class="join-logo-blue"
+        src="./assets/icons/join-logo-blue.svg"
+        alt="logo"
+      />
       <nav class="login-nav">
-        <a class="not-a-user-link" href="#">Not a join user?</a>
+        <p class="not-a-user-text" href="#">Not a join user?</p>
         <a href="./html/signup.html">
-          <button class="button button-blue button-signup-small">Sign up</button>
+          <button class="button button-blue button-signup-small">
+            Sign up
+          </button>
         </a>
       </nav>
     </header>
@@ -42,15 +60,32 @@
         </div>
 
         <section class="input-fields input-fields-login">
-          <div class="input-wrapper">
-            <input placeholder="Email" class="form-input form-input-email" id="login-email" type="email" />
+          <div class="input-wrapper input-wrapper-login-email">
+            <input
+              placeholder="Email"
+              class="form-input form-input-email"
+              id="login-email"
+              type="email"
+            />
             <span class="error-msg" id="error-login-email"></span>
           </div>
 
-          <div class="input-wrapper">
+          <div class="input-wrapper input-wrapper-login-password">
             <div class="input-with-icon">
-              <input placeholder="Password" class="form-input form-input-password" id="login-password" type="password" />
-              <button type="button" class="password-toggle" id="toggle-login-password" onclick="togglePassword('login-password', 'toggle-login-password')"></button>
+              <input
+                placeholder="Password"
+                class="form-input form-input-password"
+                id="login-password"
+                type="password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                id="toggle-login-password"
+                onclick="
+                  togglePassword('login-password', 'toggle-login-password')
+                "
+              ></button>
             </div>
             <span class="error-msg" id="error-login-password"></span>
           </div>
@@ -59,17 +94,29 @@
         </section>
 
         <section class="form-btn-section">
-          <button type="submit" class="button button-login button-blue" id="login-btn">Log in</button>
-          <button type="button" class="button button-login button-white" onclick="guestLogin()">Guest Log in</button>
+          <button
+            type="submit"
+            class="button button-login button-blue"
+            id="login-btn"
+          >
+            Log in
+          </button>
+          <button
+            type="button"
+            class="button button-login button-white"
+            onclick="guestLogin()"
+          >
+            Guest Log in
+          </button>
         </section>
       </form>
     </main>
 
     <footer>
-  <nav>
-    <a href="./html/privacy-policy-external.html">Privacy Policy</a>
-    <a href="./html/legal-notice-external.html">Legal Notice</a>
-  </nav>
-</footer>
+      <nav>
+        <a href="./html/privacy-policy-external.html">Privacy Policy</a>
+        <a href="./html/legal-notice-external.html">Legal Notice</a>
+      </nav>
+    </footer>
   </body>
 </html>
