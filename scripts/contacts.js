@@ -407,13 +407,15 @@ async function saveEditedContact() {
 }
 
 /**
- * Updates an existing contact in the database.
+ * Updates an existing contact or user in the database.
  * @async
- * @param {Object} contact - The updated contact data.
- * @returns {Promise<void>}
+ * @param {Object} contact - The updated data object.
  */
 async function putContact(contact) {
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${currentEditingId}.json`;
+    let isUser = await checkIfIdIsUser(currentEditingId);
+    let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+
     await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -422,20 +424,29 @@ async function putContact(contact) {
 }
 
 /**
- * Deletes a contact from the database by its ID.
+ * Deletes a contact or user from the database depending on its origin.
  * @async
- * @param {string} id - Unique contact ID.
- * @returns {Promise<void>}
+ * @param {string} id - Unique contact or user ID.
  */
 async function deleteContact(id) {
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts/${id}.json`;
+    let isUser = await checkIfIdIsUser(id);
+    let path = isUser ? `users/${id}` : `contacts/${id}`;
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
 
-    await fetch(url, {
-        method: "DELETE"
-    });
-
+    await fetch(url, { method: "DELETE" });
     closeContactDetails();
-
     document.getElementById('contact-detail-content').innerHTML = '';
     await init();
+}
+
+/**
+ * Checks if a specific ID belongs to a registered user.
+ * @async
+ * @param {string} id - The ID to check.
+ * @returns {Promise<boolean>} True if the ID is a user.
+ */
+async function checkIfIdIsUser(id) {
+    let response = await fetch(`https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users/${id}.json`);
+    let data = await response.json();
+    return data !== null;
 }
