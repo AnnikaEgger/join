@@ -171,6 +171,7 @@ function saveCurrentUser(user) {
     name: user.name,
     id: user.id,
     email: user.email,
+    phone: "",
     color: user.color,
   };
   localStorage.setItem("currentUser", JSON.stringify(userData));

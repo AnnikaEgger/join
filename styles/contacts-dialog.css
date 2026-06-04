@@ -12,13 +12,13 @@
     min-height: 600px;
     max-height: 60dvh;
     border-radius: 30px;
-    display: flex;
     overflow: hidden;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     margin: auto;
 }
 
 .add-contact-dialog[open] {
+    display: flex;
     animation: slideInDialog 0.3s ease-out;
 }
 
@@ -34,6 +34,7 @@
 .add-contact-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.3);
 }
+
 .dialog-left {
     background-color: var(--dark-blue);
     width: 460px;

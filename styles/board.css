@@ -1,7 +1,7 @@
 .main-content {
   display: flex;
   flex-direction: column;
-
+  background-color: #f6f7f8;
   max-width: 1920px;
   padding: 0 64px;
   box-sizing: border-box;
@@ -363,7 +363,6 @@ hr {
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
-
   border: 1px dashed rgb(167, 167, 167);
   border-radius: 10px;
 }
