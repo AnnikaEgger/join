@@ -1,16 +1,18 @@
 /**
- * Adds a new task to the specified column after validating the form and category selection.
- * If validation passes, the task is posted to Firebase, a toast is shown, the form is cleared,
- * and task creation is completed for the current page.
- * @async
- * @param {Event} event - The submit event triggered by the form.
- * @param {string} column - The target column for the task ("to do", "in progress", "await feedback", "done").
- * @param {string} page - The originating page context ("add task" or "board").
- * @returns {Promise<void>} Resolves once the task has been posted and UI actions have been triggered.
+ * add-task-task.js
+ * Handles task creation, form submission, validation, and task data preparation.
  */
 
 let addTaskColumn;
 
+/**
+ * Adds a new task after validating the form and category selection.
+ * @async
+ * @param {Event} event - The submit event triggered by the form.
+ * @param {string} page - The originating page context ("add task" or "board").
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {Promise<void>} Resolves once the task has been posted and UI actions are triggered.
+ */
 async function addTask(event, page, id) {
   if (id === "--add-task") {
     disableButtonWhileLoading("clear-task-btn" + id);
@@ -23,7 +25,6 @@ async function addTask(event, page, id) {
   const FORM = document.getElementById("task-form" + id);
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
-    //  prevent default submit (page reload)
     event.preventDefault();
 
     let task = taskJson(id);
@@ -46,9 +47,7 @@ async function addTask(event, page, id) {
 }
 
 /**
- * Completes the task creation flow after a brief delay.
- * Redirects to the board page when creating a task from the add-task page,
- * or closes the add-task dialog when running from the board.
+ * Completes task creation by redirecting or refreshing the board after a short delay.
  * @param {string} page - The originating page context ("add task" or "board").
  */
 function completeTaskCreation(page) {
@@ -62,6 +61,9 @@ function completeTaskCreation(page) {
   }, 3000);
 }
 
+/**
+ * Redirects to the board page after a short delay.
+ */
 function redirectToBoard() {
   setTimeout(() => {
     window.location.href = "../html/board.html";
@@ -69,9 +71,9 @@ function redirectToBoard() {
 }
 
 /**
- * Creates a JSON object containing all task data from form inputs.
- * @param {string} column - The target column for the task
- * @returns {Object} Task object with title, description, due_date, priority, assigned_contacts, category, subtasks, and column
+ * Creates a task object from the current form inputs.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {Object} The task object ready for Firebase submission.
  */
 function taskJson(id) {
   const TITLE = document.getElementById("task-title" + id).value;
@@ -91,6 +93,10 @@ function taskJson(id) {
   };
 }
 
+/**
+ * Builds the subtasks array for the task object.
+ * @returns {Array<Object>} The subtasks JSON array
+ */
 function getSubtasksJson() {
   let subtasksJson = [];
 
@@ -105,6 +111,7 @@ function getSubtasksJson() {
 
 /**
  * Displays a toast notification message for task creation and hides it after 3 seconds.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function showAddtaskToastMsg(id) {
   const TOAST_MSG = document.getElementById("addtask-toast-msg" + id);
@@ -119,7 +126,7 @@ function showAddtaskToastMsg(id) {
  * Sends the task object to Firebase as a POST request.
  * @async
  * @param {Object} task - The task object to post
- * @returns {Promise<Object>} The response from Firebase containing the new task ID
+ * @returns {Promise<Object>} The Firebase response JSON
  */
 async function postTaskToFirebase(task) {
   let response = await fetch(BASE_URL + "tasks.json", {
@@ -135,6 +142,7 @@ async function postTaskToFirebase(task) {
 
 /**
  * Clears all form inputs and resets task-related arrays to their initial state.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function clearTask(id) {
   clearFormValues(id);
@@ -146,6 +154,7 @@ function clearTask(id) {
 
 /**
  * Clears all form field values and resets priority to default.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function clearFormValues(id) {
   const TITLE = document.getElementById("task-title" + id);
@@ -165,6 +174,7 @@ function clearFormValues(id) {
 /**
  * Validates a form input field based on its type.
  * @param {string} inputType - The type of input to validate ("title" or "due-date")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function checkInputValidity(inputType, id) {
   const input = document.getElementById("task-" + inputType + id);
@@ -178,7 +188,7 @@ function checkInputValidity(inputType, id) {
 }
 
 /**
- * Validates the title input and applies or removes the invalid styling.
+ * Validates the title input and applies or removes invalid styling.
  * @param {HTMLInputElement} input - The title input element
  */
 function titleFormValidation(input) {
@@ -192,7 +202,7 @@ function titleFormValidation(input) {
 }
 
 /**
- * Validates the due date input and applies or removes the invalid styling.
+ * Validates the due date input and applies or removes invalid styling.
  * @param {HTMLInputElement} input - The due date input element
  */
 function dueDateFormValidation(input) {

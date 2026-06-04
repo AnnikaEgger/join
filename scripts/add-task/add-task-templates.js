@@ -1,7 +1,13 @@
 /**
+ * add-task-templates.js
+ * Provides HTML template generators for add-task subtasks, contact options, and categories.
+ */
+
+/**
  * Generates HTML for a subtask list item with edit and delete buttons.
- * @param {string} subtaskText - The text content of the subtask
+ * @param {Object} subtask - The subtask object containing title and status
  * @param {number} indexSubtask - The index of the subtask
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the subtask list item
  */
 function subtaskLiTemplate(subtask, indexSubtask, id) {
@@ -60,6 +66,7 @@ function subtaskLiTemplate(subtask, indexSubtask, id) {
 /**
  * Generates HTML for a subtask list item with an input field for editing.
  * @param {number} indexSubtask - The index of the subtask
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the editable subtask list item
  */
 function subtaskLiWithInputTemplate(indexSubtask, id) {
@@ -118,6 +125,7 @@ function subtaskLiWithInputTemplate(indexSubtask, id) {
  * @param {string} initials - The contact's initials
  * @param {string} contactName - The contact's full name
  * @param {boolean} checkboxChecked - Whether the contact is already assigned
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the contact option
  */
 function contactOptionTemplate(
@@ -166,6 +174,7 @@ function contactOptionTemplate(
  * Generates HTML for an assigned contact avatar badge.
  * @param {number} indexAssignedContact - The index of the assigned contact
  * @param {string} initials - The contact's initials
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the contact avatar badge
  */
 function contactAvatarTemplate(indexAssignedContact, initials) {
@@ -177,6 +186,7 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
 /**
  * Generates HTML for a category option in the category dropdown.
  * @param {number} indexCategory - The index of the category
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the category option
  */
 function categoryOptionTemplate(indexCategory, id) {

@@ -1,3 +1,8 @@
+/**
+ * add-task-event-listeners.js
+ * Manages keyboard and form event listeners for the add task workflow.
+ */
+
 const enterHandlers = new Map();
 let successfullSubmit;
 
@@ -5,7 +10,7 @@ let successfullSubmit;
 /**
  * Registers a keyboard handler for a specific element selector.
  * @param {string} selector - The CSS selector to match
- * @param {Function} handler - The callback function to execute on Enter key
+ * @param {() => void} handler - The callback function to execute on Enter key
  */
 function registerEnterHandler(selector, handler) {
   enterHandlers.set(selector, handler);
@@ -13,6 +18,7 @@ function registerEnterHandler(selector, handler) {
 
 /**
  * Registers all Enter key handlers for form elements and dropdowns.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function registerEnterHandlers(id) {
   registerEnterHandler("#custom-select-trigger-contacts" + id, () => {
@@ -32,6 +38,7 @@ function registerEnterHandlers(id) {
 
 /**
  * Registers Enter key handlers for all contact options in the dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function contactOptionsEnterHandlers(id) {
   let contactOptions = document.querySelectorAll(".contact-option");
@@ -53,6 +60,7 @@ function contactOptionsEnterHandlers(id) {
 
 /**
  * Registers Enter key handlers for all contact option checkboxes in the dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function contactOptionsCheckboxesEnterHandlers(id) {
   let contactOptionsCheckboxes = document.querySelectorAll(
@@ -75,6 +83,7 @@ function contactOptionsCheckboxesEnterHandlers(id) {
 
 /**
  * Registers Enter key handlers for all category options in the dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function categoryOptionsEnterHandlers(id) {
   let categoryOptions = document.querySelectorAll(".category-option");
@@ -94,6 +103,7 @@ function categoryOptionsEnterHandlers(id) {
 
 /**
  * Attaches event listeners to form and dropdown elements.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function addEventListeners(id) {
   const taskForm = document.getElementById("task-form" + id);
@@ -116,6 +126,10 @@ function addEventListeners(id) {
   );
 }
 
+/**
+ * Adds submit and keydown listeners to the task form.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ */
 function addTaskFormEventListeners(id) {
   const taskForm = document.getElementById("task-form" + id);
 
@@ -171,6 +185,7 @@ function handleKeyDownElement(el) {
  * Validates form submission, checking form validity and category selection.
  * Displays error messages and focuses invalid elements if needed.
  * @param {Event} event - The submit event
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function taskFormSubmitFunction(event, id) {
   const taskForm = event.target;
@@ -201,6 +216,8 @@ function taskFormSubmitFunction(event, id) {
 
 /**
  * Marks invalid form fields with error styling and focuses the first invalid element.
+ * @param {HTMLFormElement} taskForm - The form being validated
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleInvalidSubmit(taskForm, id) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
@@ -219,9 +236,10 @@ function handleInvalidSubmit(taskForm, id) {
 
 /**
  * Adds error styling classes to the category dropdown.
+ * @param {HTMLFormElement} taskForm - The form containing the category dropdown
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function addCategoryClasses(taskForm, id) {
-  // const id = taskForm.id.slice(-1);
   const categoriesDropdown = document.getElementById(
     "categories-dropdown" + id,
   );
@@ -236,6 +254,7 @@ function addCategoryClasses(taskForm, id) {
 /**
  * Focuses an element and scrolls it into view with smooth behavior.
  * @param {HTMLElement} element - The element to focus
+ * @param {HTMLFormElement} taskForm - The form containing the field
  */
 function focusInvalidElement(element, taskForm) {
   element.focus();

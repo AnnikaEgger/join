@@ -2,9 +2,15 @@
 //   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
+ * add-task.js
+ * Handles initialization, custom dropdown behavior, priority selection, and category loading.
+ */
+
+/**
  * Initializes the add-task page by disabling past dates, setting default priority,
  * loading contacts and categories, and registering event handlers.
  * @async
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 async function initAddTask(id) {
   addTaskColumn = "to do";
@@ -36,6 +42,7 @@ async function initAddTask(id) {
 /**
  * Closes a custom select dropdown by hiding options and resetting the arrow icon.
  * @param {string} selectName - The name of the select dropdown to close (e.g., "contacts", "category")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function closeCustomSelectDropdown(selectName, id) {
   let options = document.getElementById(
@@ -54,6 +61,7 @@ function closeCustomSelectDropdown(selectName, id) {
  * Toggles the visibility of a custom select dropdown, rendering fresh options if needed.
  * @async
  * @param {string} selectName - The name of the select dropdown to toggle (e.g., "contacts", "category")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 async function toggleCustomSelectDropdown(selectName, id) {
   let options = document.getElementById(
@@ -71,8 +79,9 @@ async function toggleCustomSelectDropdown(selectName, id) {
 }
 
 /**
- * Toggles the display-none class on the options container and manages inert attribute.
+ * Toggles the display-none class on the options container and manages the inert attribute.
  * @param {string} selectName - The name of the select dropdown
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleOptions(selectName, id) {
   let options = document.getElementById(
@@ -90,6 +99,7 @@ function handleOptions(selectName, id) {
 /**
  * Toggles the rotate class on the dropdown arrow icon.
  * @param {string} selectName - The name of the select dropdown
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleArrow(selectName, id) {
   let arrow = document.getElementById(
@@ -101,6 +111,7 @@ function handleArrow(selectName, id) {
 /**
  * Resets the category selection to the default state.
  * @param {HTMLElement} options - The options container element
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleCategories(options, id) {
   selectedCategory = "Select task category";
@@ -110,6 +121,7 @@ function handleCategories(options, id) {
 /**
  * Stops event propagation if the contacts dropdown is open.
  * @param {Event} event - The click event
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function handleStopPropagation(event, id) {
   let options = document.getElementById(
@@ -123,6 +135,7 @@ function handleStopPropagation(event, id) {
 
 /**
  * Opens the native date picker for the task due date input.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function showDatePicker(id) {
   let dateInput = document.getElementById("task-due-date" + id);
@@ -131,6 +144,7 @@ function showDatePicker(id) {
 
 /**
  * Sets the minimum date on the date input to today, preventing selection of past dates.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function disablePastDates(id) {
   document.getElementById("task-due-date" + id).min = new Date()
@@ -142,8 +156,9 @@ function disablePastDates(id) {
 let priority = "Medium";
 
 /**
- * Sets the task priority and updates the visual representation.
+ * Sets the task priority and updates the UI representation.
  * @param {string} prio - The priority level ("Urgent", "Medium", "Low")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function setPriority(prio, id) {
   priority = prio;
@@ -152,6 +167,7 @@ function setPriority(prio, id) {
 
 /**
  * Updates the priority button and SVG colors to reflect the current priority.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function renderPriority(id) {
   stylePrioBtnsColor(id);
@@ -159,7 +175,8 @@ function renderPriority(id) {
 }
 
 /**
- * Applies active styling to the current priority button and removes it from others.
+ * Applies active styling to the current priority button and removes it from the others.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function stylePrioBtnsColor(id) {
   let activeBtn = document.getElementById(
@@ -175,7 +192,8 @@ function stylePrioBtnsColor(id) {
 }
 
 /**
- * Applies active styling to the current priority SVG and removes it from others.
+ * Applies active styling to the current priority SVG and removes it from the others.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function stylePrioSvgColors(id) {
   let activeSvg = document.getElementById(
@@ -236,6 +254,7 @@ function fillCategoriesArray(categoriesObj) {
 
 /**
  * Renders all available categories in the category dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function renderCategories(id) {
   const CATEGORIES_DIV = document.getElementById(

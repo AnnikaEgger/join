@@ -11,7 +11,6 @@
     opacity: 0;
   }
 
-  /* BG fade synchron mit Farbwechsel, sonst blaues Logo auf blauem BG = unsichtbar */
   .splash-overlay.splash-active {
     animation-delay: 0.9s;
   }
@@ -53,9 +52,6 @@
   }
 }
 
-/* #endregion */
-
-/* #region responsive */
 @media screen and (max-width: 1280px) {
   :root {
     --padding-lr: 64px;
@@ -141,6 +137,12 @@
   .accept-privacy-container .error-msg {
     text-align: center;
   }
-}
 
-/* #endregion */
+  .accept-privacy-container {
+    margin-top: 8px;
+  }
+
+  .input-fields-signup {
+    gap: 40px;
+  }
+}

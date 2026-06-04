@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../styles/index.css" />
     <link rel="stylesheet" href="../styles/index-responsive.css" />
   </head>
-  <body>
+  <body onload="initSignup()">
     <header>
       <img
         class="join-logo-blue"
@@ -29,7 +29,12 @@
     </header>
 
     <main>
-      <form class="form-container signup-container" id="signup-form" novalidate>
+      <form
+        onsubmit="submitSignupForm(event)"
+        class="form-container signup-container"
+        id="signup-form"
+        novalidate
+      >
         <div class="form-headline-container form-headline-container-signup">
           <a href="../index.html">
             <button type="button" class="blue-arrow-left-btn">
@@ -43,51 +48,74 @@
         </div>
 
         <section class="input-fields input-fields-signup">
-          <div class="input-wrapper">
+          <div
+            class="input-wrapper required"
+            data-message="Please enter a name"
+          >
             <input
+              oninput="checkInputValidity('name')"
               class="form-input form-input-name"
               id="signup-name"
               placeholder="Name"
               type="text"
+              required
             />
-            <span class="error-msg" id="error-name"></span>
+            <!-- <span class="error-msg" id="error-name"></span> -->
           </div>
 
-          <div class="input-wrapper">
+          <div
+            id="input-wrapper--signup-mail"
+            class="input-wrapper required"
+            data-message="Please enter a valid email"
+          >
             <input
+              oninput="checkInputValidity('email')"
               class="form-input form-input-email"
               id="signup-email"
               placeholder="Email"
               type="email"
+              required
             />
-            <span class="error-msg" id="error-email"></span>
+            <!-- <span class="error-msg" id="error-email"></span> -->
           </div>
 
-          <div class="input-wrapper">
-            <div class="input-with-icon">
-              <input
-                class="form-input form-input-password"
-                id="signup-password"
-                placeholder="Password"
-                type="password"
-              />
-              <button
-                type="button"
-                class="password-toggle"
-                id="toggle-password"
-                onclick="togglePassword('signup-password', 'toggle-password')"
-              ></button>
-            </div>
-            <span class="error-msg" id="error-password"></span>
+          <div
+            class="input-wrapper required input-with-icon"
+            data-message="Password must be at least 6 characters"
+          >
+            <!-- <div class="input-with-icon"> -->
+            <input
+              oninput="checkInputValidity('password')"
+              class="form-input form-input-password"
+              id="signup-password"
+              placeholder="Password"
+              type="password"
+              required
+              minlength="6"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              id="toggle-password"
+              onclick="togglePassword('signup-password', 'toggle-password')"
+            ></button>
+            <!-- </div> -->
+            <!-- <span class="error-msg" id="error-password"></span> -->
           </div>
 
-          <div class="input-wrapper">
+          <div
+            class="input-wrapper required"
+            data-message="Your passwords don't match. Please try again."
+          >
             <div class="input-with-icon">
               <input
+                oninput="checkInputValidity('confirm-password')"
                 class="form-input form-input-confirm-password"
                 id="signup-confirm-password"
                 placeholder="Confirm Password"
                 type="password"
+                required
+                minlength="6"
               />
               <button
                 type="button"
@@ -98,25 +126,32 @@
                 "
               ></button>
             </div>
-            <span class="error-msg" id="error-confirm"></span>
+            <!-- <span class="error-msg" id="error-confirm"></span> -->
           </div>
         </section>
 
-        <div class="accept-privacy-container">
-          <div class="accept-container">
-            <div class="checkbox-container">
-              <input
-                class="accept-checkbox"
-                type="checkbox"
-                id="signup-checkbox"
-              />
-            </div>
-            <p>
-              I accept the
-              <a href="../html/privacy-policy-external.html">Privacy Policy</a>
-            </p>
+        <div
+          data-message="Please accept the privacy policy"
+          id="signup-checkbox-container"
+          class="accept-privacy-container required"
+        >
+          <!-- <div class="accept-container"> -->
+          <div class="checkbox-container">
+            <input
+              oninput="checkInputValidity('privacy-checkbox')"
+              id="signup-privacy-checkbox"
+              class="accept-checkbox"
+              type="checkbox"
+              id="signup-checkbox"
+              required
+            />
           </div>
-          <span class="error-msg" id="error-checkbox"></span>
+          <p>
+            I accept the
+            <a href="../html/privacy-policy-external.html">Privacy Policy</a>
+          </p>
+          <!-- </div> -->
+          <!-- <span class="error-msg" id="error-checkbox"></span> -->
         </div>
 
         <button

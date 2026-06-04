@@ -69,6 +69,24 @@ input::placeholder {
   left: 5px;
 }
 
+.signup-after:focus-within::after {
+  content: attr(data-message);
+  font-size: 16px;
+  color: var(--red-invalid);
+  position: absolute;
+  bottom: -20px;
+  left: 5px;
+}
+
+.signup-checkbox-after:focus-within::after {
+  content: attr(data-message);
+  font-size: 16px;
+  color: var(--red-invalid);
+  position: absolute;
+  bottom: -20px;
+  align-self: center;
+}
+
 /* #endregion */
 
 /* #region custom checkbox */
@@ -326,7 +344,6 @@ button:disabled {
 
 .button-white {
   color: var(--dark-blue);
-  /* background-color: var(--light-gray); */
   background-color: inherit;
   border: 1px solid var(--dark-blue);
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
@@ -355,6 +372,21 @@ button:disabled {
 @media screen and (max-width: 1024px) {
   input:not([type="checkbox"]) {
     padding: 10px 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signup-after:focus-within::after {
+    top: 45px;
+  }
+
+  .signup-checkbox-after:focus-within::after {
+    bottom: -35px;
+    text-align: center;
+  }
+
+  .accept-privacy-container {
+    margin-bottom: 16px;
   }
 }
 
