@@ -78,7 +78,6 @@ a {
   color: var(--color-text-light);
   cursor: pointer;
   transition: var(--transition-default);
-  
 }
 .nav-bottom-start {
   margin-top: auto;
@@ -205,7 +204,6 @@ a {
 
 /*  MAIN CONTENT */
 .main-content {
-
   margin-top: var(--header-height);
   margin-left: max(
     var(--content-limitation) + var(--sidebar-width),
