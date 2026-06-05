@@ -32,7 +32,7 @@ function generateDetailHTML(contact) {
                     <button onclick="openEditContact('${contact.id}')" class="contact-action" type="button" aria-label="Edit Contact">
                         <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
                     </button>
-                    <button onclick="deleteContact('${contact.id}')" class="contact-action" type="button" aria-label="Delete Contact">
+                    <button onclick="deleteContact('${contact.id}', event)" class="contact-action" type="button" aria-label="Delete Contact">
                         <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
                     </button>
                 </div>
@@ -58,7 +58,7 @@ function generateDetailHTML(contact) {
                 <button type="button" class="contact-action" onclick="toggleMobileMenu(); openEditContact('${contact.id}')" aria-label="Edit Contact">
                     <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
                 </button>
-                <button type="button" class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}')" aria-label="Delete Contact">
+                <button type="button" class="contact-action" onclick="toggleMobileMenu(); deleteContact('${contact.id}', event)" aria-label="Delete Contact">
                     <img src="../assets/icons/delete-icon.svg" alt="Delete"> Delete
                 </button>
             </div>

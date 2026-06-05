@@ -244,7 +244,8 @@ async function putContact(contact) {
  * @async
  * @param {string} id - Unique contact or user ID.
  */
-async function deleteContact(id) {
+async function deleteContact(id, event) {
+  if (event) event.currentTarget.disabled = true;
   let isUser = await checkIfIdIsUser(id);
   let path = isUser ? `users/${id}` : `contacts/${id}`;
   let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;

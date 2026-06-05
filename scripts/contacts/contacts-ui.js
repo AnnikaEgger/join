@@ -115,8 +115,8 @@ function adaptCancelButtonToDelete(id) {
     let cancelBtn = document.querySelector('.btn-cancel');
     if (cancelBtn) {
         cancelBtn.innerHTML = `Delete`;
-        cancelBtn.onclick = async function () {
-            await deleteContact(id);
+        cancelBtn.onclick = async function (event) {
+            await deleteContact(id, event);
             closeContactDialog();
         };
     }
