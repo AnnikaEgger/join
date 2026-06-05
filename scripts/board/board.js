@@ -7,6 +7,7 @@ let currentDraggedElement;
 async function initBoard() {
   await ensureAllDefaultTasksAreInBoard();
   await loadTasks();
+  guardPage();
   enableAllPointerEvents("--board");
 }
 
@@ -26,6 +27,7 @@ async function loadTasks() {
   }
   initDialogCloseOnClickOutside();
   lockScreenOrientation();
+  initGlobalDragSettings();
   updateHTML();
 }
 
@@ -222,13 +224,13 @@ let startX, startY;
  * @param {string} id - The ID of the task being dragged, used to identify which task is being moved during the drag and drop operation.
  */
 function startDragging(event, id) {
-  currentDraggedElement = id; //
-  let card = event.target.closest(".card"); //
+  currentDraggedElement = id;
+  let card = event.target.closest(".card");
 
-  if (event.type === "touchstart") { //
+  if (event.type === "touchstart") {
     initMobileTouch(event, card);
-  } else if (card) { //
-    card.classList.add("dragging"); //
+  } else if (card) {
+    card.classList.add("dragging");
   } //
 }
 
@@ -239,15 +241,15 @@ function startDragging(event, id) {
  * @param {parameter} card - The card element being dragged.
  */
 function initMobileTouch(event, card) {
-  startX = event.touches[0].clientX; //
-  startY = event.touches[0].clientY; //
+  startX = event.touches[0].clientX;
+  startY = event.touches[0].clientY;
   isLongPress = false; //
 
-  touchTimeout = setTimeout(() => { //
+  touchTimeout = setTimeout(() => {
     isLongPress = true; //
     activateMobileDragStyle(card);
-    if (navigator.vibrate) navigator.vibrate(50); //
-  }, 200); //
+    if (navigator.vibrate) navigator.vibrate(50);
+  }, 200);
 }
 
 /**
@@ -257,18 +259,46 @@ function initMobileTouch(event, card) {
  */
 function activateMobileDragStyle(card) {
   if (card) { //
-    card.classList.add("dragging"); //
-    card.style.pointerEvents = "none"; //
-  } //
+    card.classList.add("dragging");
+    card.style.pointerEvents = "none";
+  }
 }
 
 /**
- * Allows a drop effect during native HTML5 desktop drag and drop operations.
- *
- * @param {parameter} ev - The drag over event.
+ * Allows drop and triggers auto-scroll on desktop during dragging.
+ * 
+ * @param {parameter} ev - The drag over event, which is used to allow dropping of the dragged element and to trigger automatic scrolling of the page when dragging near the edges of the viewport on desktop devices.
  */
 function allowDrop(ev) {
   ev.preventDefault();
+}
+
+/**
+ * Checks mouse position and scrolls if near top or bottom.
+ * 
+ * @param {number} clientY - The current vertical position of the mouse cursor, used to determine if the window should automatically scroll when dragging a task near the edges of the viewport on desktop devices.
+ */
+function handleDesktopScroll(clientY) {
+  const threshold = 120;
+  const speed = 50;
+
+  if (clientY < threshold) {
+    window.scrollBy(0, -speed);
+  } else if (clientY > window.innerHeight - threshold) {
+    window.scrollBy(0, speed);
+  }
+}
+
+/**
+ * Prevents the red "blocked" cursor globally while dragging.
+ * 
+ * This function adds an event listener for the "dragover" event on the entire document, which prevents the default behavior that would show a "blocked" cursor when dragging elements over non-droppable areas. It also calls the `handleDesktopScroll` function to enable automatic scrolling when dragging near the edges of the viewport on desktop devices.
+ */
+function initGlobalDragSettings() {
+  document.addEventListener("dragover", (ev) => {
+    ev.preventDefault();
+    handleDesktopScroll(ev.clientY);
+  });
 }
 
 /**
@@ -324,7 +354,7 @@ function handleMobileHighlight(x, y) {
  * @param {number} clientY - The current vertical position of the finger.
  */
 function checkAutoScroll(clientY) {
-  let speed = 90;
+  let speed = 100;
   let threshold = 100;
 
   if (clientY < threshold) {
