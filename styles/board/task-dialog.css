@@ -33,7 +33,6 @@
   flex-direction: column;
   overflow-y: scroll;
   max-height: 85vh;
-  height: 900px;
   width: 100%;
 }
 

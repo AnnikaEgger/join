@@ -147,7 +147,7 @@ a {
   padding: 0 40px;
   padding-left: max(var(--content-limitation), 120px);
   padding-right: max(var(--content-limitation), 40px);
-  z-index: 10;
+  z-index: 1000;
 }
 
 .header-title {
