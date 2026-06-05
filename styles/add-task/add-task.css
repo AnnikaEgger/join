@@ -71,6 +71,7 @@ input {
   gap: 8px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.1s ease-in;
+  color: black;
 }
 
 .prio-btn:hover {
