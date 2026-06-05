@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/contacts/contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/contacts/contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let contacts = [];
+let currentEditingId = null;
+
+/**
+ * Initializes the application by loading and rendering contacts.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function init() {
+  guardPage();
+  await loadContacts();
+  await loadAllUsers();
+  renderContactList();
+
+  enableAllPointerEvents("--contacts");
+}
+
+/**
+ * Loads contacts from the database and sorts them alphabetically.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function loadContacts() {
+  contacts = [];
+  let response = await fetch(BASE_URL + "contacts" + ".json");
+  let data = await response.json();
+  if (data) {
+    fillContactsArray(data);
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+  }
+}
+
+/**
+ * Converts the raw database object into an array and assigns IDs.
+ * @param {Object} contactsObj - Raw contacts object from the database.
+ */
+function fillContactsArray(contactsObj) {
+  let keys = Object.keys(contactsObj);
+  for (let i = 0; i &lt; keys.length; i++) {
+    let id = keys[i];
+    let contactData = contactsObj[id];
+    contactData.id = id;
+    if (!contactData.phone) {
+      contactData.phone = "-";
+    }
+    contacts.push(contactData);
+  }
+}
+
+/**
+ * Loads all registered users from the database and adds them to the contacts list.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function loadAllUsers() {
+  let response = await fetch(
+    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users.json",
+  );
+  let usersObj = await response.json();
+  if (usersObj) {
+    fillContactsArray(usersObj);
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+  }
+}
+
+/**
+ * Renders the grouped contact list into the DOM.
+ */
+function renderContactList() {
+  let content = document.getElementById("contact-list");
+  content.innerHTML = "";
+  let currentLetter = "";
+  for (let i = 0; i &lt; contacts.length; i++) {
+    let contact = contacts[i];
+    let firstLetter = contact.name.charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      content.innerHTML += renderLetterHeader(currentLetter);
+    }
+    content.innerHTML += generateContactHTML(contact);
+  }
+}
+
+/**
+ * Opens, renders, and animates the detailed view of a contact.
+ * @param {string} id - Unique contact ID.
+ */
+function showContactDetails(id) {
+  highlightContact(id);
+  let contact = findContactById(id);
+  if (contact) {
+    prepareDetailsAnimation();
+    renderDetails(contact);
+    startDetailsAnimation();
+  }
+}
+
+/**
+ * Finds a contact object in the local array by its ID.
+ * @param {string} id - Unique contact ID.
+ * @returns {Object|null} The contact object, or null if not found.
+ */
+function findContactById(id) {
+  for (let i = 0; i &lt; contacts.length; i++) {
+    if (contacts[i].id === id) return contacts[i];
+  }
+  return null;
+}
+
+/**
+ * Validates, creates, saves, and displays a new contact.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function createNewContact() {
+  if (!isContactFormValid()) return;
+  disableButtonWhileLoading('btn-submit-contact');
+  let name = document.querySelector(".icon-name").value;
+  let email = document.querySelector(".icon-mail").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let color = getRandomColor();
+  let newContact = { name, email, phone, color };
+  let newId = await postContact(newContact);
+  await finalizeAddition();
+  showContactDetails(newId);
+  showSuccessBanner();
+  enableButton('btn-submit-contact');
+}
+
+/**
+ * Saves a new contact to the database.
+ * @async
+ * @param {Object} contact - The contact data object.
+ * @returns {Promise&lt;string>} The generated database ID.
+ */
+async function postContact(contact) {
+  let url =
+    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(contact),
+  });
+  let data = await response.json();
+  return data.name;
+}
+
+/**
+ * Closes the dialog and reloads the contact application state.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function finalizeAddition() {
+  closeContactDialog();
+  await init();
+}
+
+/**
+ * Resets the form inputs and clears all validation errors.
+ */
+function resetForm() {
+  document.querySelector(".contact-form").reset();
+  const fields = ["name", "email", "phone"];
+  for (let i = 0; i &lt; fields.length; i++) {
+    let input = document.getElementById(`contact-${fields[i]}--validator`);
+    let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
+    if (input) input.classList.remove("input-error");
+    if (errorSpan) errorSpan.innerText = "";
+  }
+}
+
+/**
+ * Opens the dialog populated with contact data for editing.
+ * @param {string} id - Unique contact ID.
+ */
+function openEditContact(id) {
+  currentEditingId = id;
+  let contact = findContactById(id);
+  if (contact) {
+    updateDialogAvatar(contact);
+    fillFormFields(contact);
+    adaptDialogForEdit(id);
+    openContactDialog();
+  }
+}
+
+/**
+ * Prepares and opens the dialog for creating a new contact.
+ */
+function prepareAddContactDialog() {
+  currentEditingId = null;
+  resetForm();
+  resetDialogAvatar();
+  document.querySelector(".dialog-left h1").innerHTML = "Add contact";
+  let btnCreate = document.querySelector(".btn-create");
+  btnCreate.innerHTML = `Create contact &lt;img src="../assets/icons/check.svg" alt="Check">`;
+  document.querySelector(".contact-form").onsubmit = function () {
+    createNewContact();
+    return false;
+  };
+  resetCancelButton();
+  openContactDialog();
+}
+
+/**
+ * Validates and saves changes made to an edited contact.
+ * @async
+ * @returns {Promise&lt;void>}
+ */
+async function saveEditedContact() {
+  if (!isContactFormValid()) return;
+  disableButtonWhileLoading('btn-submit-contact');
+  let name = document.querySelector(".icon-name").value;
+  let email = document.querySelector(".icon-mail").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let contact = findContactById(currentEditingId);
+  let updatedContact = { name, email, phone, color: contact.color };
+  await putContact(updatedContact);
+  await finalizeAddition();
+  showContactDetails(currentEditingId);
+  enableButton('btn-submit-contact');
+}
+
+/**
+ * Updates an existing contact or user in the database without losing properties.
+ * @async
+ * @param {Object} contact - The updated fields.
+ */
+async function putContact(contact) {
+    let isUser = await checkIfIdIsUser(currentEditingId);
+    let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+    if (isUser) {
+        let response = await fetch(url);
+        let currentDBUser = await response.json();
+        Object.assign(currentDBUser, contact);
+        contact = currentDBUser;
+    }
+    await fetch(url, { method: "PUT", body: JSON.stringify(contact) });
+}
+/**
+ * Deletes a contact or user from the database depending on its origin.
+ * @async
+ * @param {string} id - Unique contact or user ID.
+ */
+async function deleteContact(id, event) {
+  if (event) event.currentTarget.disabled = true;
+  let isUser = await checkIfIdIsUser(id);
+  let path = isUser ? `users/${id}` : `contacts/${id}`;
+  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  await fetch(url, { method: "DELETE" });
+  closeContactDetails();
+  document.getElementById("contact-detail-content").innerHTML = "";
+  await init();
+}
+
+/**
+ * Checks if a specific ID belongs to a registered user.
+ * @async
+ * @param {string} id - The ID to check.
+ * @returns {Promise&lt;boolean>} True if the ID is a user.
+ */
+async function checkIfIdIsUser(id) {
+  let response = await fetch(
+    `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users/${id}.json`,
+  );
+  let data = await response.json();
+  return data !== null;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ADD_TASK_DIALOG">ADD_TASK_DIALOG</a></li><li><a href="global.html#BASE_URL">BASE_URL</a></li><li><a href="global.html#ERROR_TO_INPUT">ERROR_TO_INPUT</a></li><li><a href="global.html#ICON_EYE_OFF">ICON_EYE_OFF</a></li><li><a href="global.html#ICON_EYE_ON">ICON_EYE_ON</a></li><li><a href="global.html#ICON_LOCK">ICON_LOCK</a></li><li><a href="global.html#activateMobileDragStyle">activateMobileDragStyle</a></li><li><a href="global.html#adaptCancelButtonToDelete">adaptCancelButtonToDelete</a></li><li><a href="global.html#adaptDialogForEdit">adaptDialogForEdit</a></li><li><a href="global.html#addCategoryClasses">addCategoryClasses</a></li><li><a href="global.html#addEventListeners">addEventListeners</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addSubtaskEditEventListener">addSubtaskEditEventListener</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskColumn">addTaskColumn</a></li><li><a href="global.html#addTaskFormEventListeners">addTaskFormEventListeners</a></li><li><a href="global.html#addUserToContactsOptionsArray">addUserToContactsOptionsArray</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#categoriesDropdownClickFunction">categoriesDropdownClickFunction</a></li><li><a href="global.html#categoriesDropdownFocusOutFunction">categoriesDropdownFocusOutFunction</a></li><li><a href="global.html#categoryOptionTemplate">categoryOptionTemplate</a></li><li><a href="global.html#categoryOptionsEnterHandlers">categoryOptionsEnterHandlers</a></li><li><a href="global.html#checkAutoScroll">checkAutoScroll</a></li><li><a href="global.html#checkConfirmPassword">checkConfirmPassword</a></li><li><a href="global.html#checkContactInputValidity">checkContactInputValidity</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#checkIfAssignedContactStillExists">checkIfAssignedContactStillExists</a></li><li><a href="global.html#checkIfContactAlreadyAssigned">checkIfContactAlreadyAssigned</a></li><li><a href="global.html#checkIfContactAssigned">checkIfContactAssigned</a></li><li><a href="global.html#checkIfIdIsUser">checkIfIdIsUser</a></li><li><a href="global.html#checkInputValidity">checkInputValidity</a></li><li><a href="global.html#checkLoginEmail">checkLoginEmail</a></li><li><a href="global.html#checkLoginPassword">checkLoginPassword</a></li><li><a href="global.html#checkSearchNoMatches">checkSearchNoMatches</a></li><li><a href="global.html#clearAllLoginErrors">clearAllLoginErrors</a></li><li><a href="global.html#clearError">clearError</a></li><li><a href="global.html#clearFormValues">clearFormValues</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeAddTaskDialog">closeAddTaskDialog</a></li><li><a href="global.html#closeContactDetails">closeContactDetails</a></li><li><a href="global.html#closeContactDialog">closeContactDialog</a></li><li><a href="global.html#closeContactDialogOutside">closeContactDialogOutside</a></li><li><a href="global.html#closeCustomSelectDropdown">closeCustomSelectDropdown</a></li><li><a href="global.html#closeDropdownOnOutsideClick">closeDropdownOnOutsideClick</a></li><li><a href="global.html#closeTaskDialog">closeTaskDialog</a></li><li><a href="global.html#collectEditedTaskData">collectEditedTaskData</a></li><li><a href="global.html#collectFormData">collectFormData</a></li><li><a href="global.html#collectValidAssignedContacts">collectValidAssignedContacts</a></li><li><a href="global.html#completeTaskCreation">completeTaskCreation</a></li><li><a href="global.html#contactAvatarTemplate">contactAvatarTemplate</a></li><li><a href="global.html#contactOptionTemplate">contactOptionTemplate</a></li><li><a href="global.html#contactOptionsCheckboxesEnterHandlers">contactOptionsCheckboxesEnterHandlers</a></li><li><a href="global.html#contactOptionsEnterHandlers">contactOptionsEnterHandlers</a></li><li><a href="global.html#contactsDropdownFocusOutFunction">contactsDropdownFocusOutFunction</a></li><li><a href="global.html#countByStatus">countByStatus</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#delayMenuFocus">delayMenuFocus</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteExistingDefaultTasksInTasksInFirebase">deleteExistingDefaultTasksInTasksInFirebase</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#deleteTaskFromFirebase">deleteTaskFromFirebase</a></li><li><a href="global.html#disableButtonWhileLoading">disableButtonWhileLoading</a></li><li><a href="global.html#disablePastDates">disablePastDates</a></li><li><a href="global.html#drawCategoryContent">drawCategoryContent</a></li><li><a href="global.html#dueDateFormValidation">dueDateFormValidation</a></li><li><a href="global.html#enableAllPointerEvents">enableAllPointerEvents</a></li><li><a href="global.html#enableButton">enableButton</a></li><li><a href="global.html#ensureAllDefaultTasksAreInBoard">ensureAllDefaultTasksAreInBoard</a></li><li><a href="global.html#ensureUserIsFirstInContactsArr">ensureUserIsFirstInContactsArr</a></li><li><a href="global.html#enterHandlers">enterHandlers</a></li><li><a href="global.html#fillCategoriesArray">fillCategoriesArray</a></li><li><a href="global.html#fillContactsArray">fillContactsArray</a></li><li><a href="global.html#fillContactsOptionsArray">fillContactsOptionsArray</a></li><li><a href="global.html#fillFormFields">fillFormFields</a></li><li><a href="global.html#fillTasksArray">fillTasksArray</a></li><li><a href="global.html#filterContacts">filterContacts</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#filterTodosForCategory">filterTodosForCategory</a></li><li><a href="global.html#finalizeAddition">finalizeAddition</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#findMatchingUser">findMatchingUser</a></li><li><a href="global.html#finishSignup">finishSignup</a></li><li><a href="global.html#focusActiveCloseButton">focusActiveCloseButton</a></li><li><a href="global.html#focusBackButton">focusBackButton</a></li><li><a href="global.html#focusFirstMenuAction">focusFirstMenuAction</a></li><li><a href="global.html#focusInvalidElement">focusInvalidElement</a></li><li><a href="global.html#focusSubtaskEditInput">focusSubtaskEditInput</a></li><li><a href="global.html#formatDeadline">formatDeadline</a></li><li><a href="global.html#generateAssignedBadgesHTML">generateAssignedBadgesHTML</a></li><li><a href="global.html#generateProgressBarHTML">generateProgressBarHTML</a></li><li><a href="global.html#getAssignedContactName">getAssignedContactName</a></li><li><a href="global.html#getCategories">getCategories</a></li><li><a href="global.html#getCategoryColor">getCategoryColor</a></li><li><a href="global.html#getContactColor">getContactColor</a></li><li><a href="global.html#getContactInitials">getContactInitials</a></li><li><a href="global.html#getContactName">getContactName</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#getDefaultTasksFromFirebase">getDefaultTasksFromFirebase</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getPrioIconHTML">getPrioIconHTML</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasksJson">getSubtasksJson</a></li><li><a href="global.html#getTaskFromFirebase">getTaskFromFirebase</a></li><li><a href="global.html#getTaskInitials">getTaskInitials</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#guardPage">guardPage</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handleArrow">handleArrow</a></li><li><a href="global.html#handleCategories">handleCategories</a></li><li><a href="global.html#handleContactSelection">handleContactSelection</a></li><li><a href="global.html#handleContactsSearch">handleContactsSearch</a></li><li><a href="global.html#handleDesktopScroll">handleDesktopScroll</a></li><li><a href="global.html#handleInvalidCheckbox">handleInvalidCheckbox</a></li><li><a href="global.html#handleInvalidSubmit">handleInvalidSubmit</a></li><li><a href="global.html#handleInvalidTaskform">handleInvalidTaskform</a></li><li><a href="global.html#handleKeyDownElement">handleKeyDownElement</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleMobileHighlight">handleMobileHighlight</a></li><li><a href="global.html#handleOptions">handleOptions</a></li><li><a href="global.html#handleStopPropagation">handleStopPropagation</a></li><li><a href="global.html#handleTouchMove">handleTouchMove</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTask">initAddTask</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initCategories">initCategories</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initDialogCloseOnClickOutside">initDialogCloseOnClickOutside</a></li><li><a href="global.html#initEditTask">initEditTask</a></li><li><a href="global.html#initGlobalDragSettings">initGlobalDragSettings</a></li><li><a href="global.html#initHeader">initHeader</a></li><li><a href="global.html#initLogin">initLogin</a></li><li><a href="global.html#initMobileTouch">initMobileTouch</a></li><li><a href="global.html#initPasswordToggle">initPasswordToggle</a></li><li><a href="global.html#initPasswordToggles">initPasswordToggles</a></li><li><a href="global.html#initSignup">initSignup</a></li><li><a href="global.html#initSplash">initSplash</a></li><li><a href="global.html#initSummary">initSummary</a></li><li><a href="global.html#isContactFormValid">isContactFormValid</a></li><li><a href="global.html#loadAllUsers">loadAllUsers</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadSummaryData">loadSummaryData</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#lockScreenOrientation">lockScreenOrientation</a></li><li><a href="global.html#loginAfterSignup">loginAfterSignup</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#openAddTaskDialog">openAddTaskDialog</a></li><li><a href="global.html#openContactDialog">openContactDialog</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openSubtaskEdit">openSubtaskEdit</a></li><li><a href="global.html#openTaskDialog">openTaskDialog</a></li><li><a href="global.html#openTaskEditMode">openTaskEditMode</a></li><li><a href="global.html#postContact">postContact</a></li><li><a href="global.html#postDefaultTasksIntoTasksInFirebase">postDefaultTasksIntoTasksInFirebase</a></li><li><a href="global.html#postTaskToFirebase">postTaskToFirebase</a></li><li><a href="global.html#prepareAddContactDialog">prepareAddContactDialog</a></li><li><a href="global.html#prepareDetailsAnimation">prepareDetailsAnimation</a></li><li><a href="global.html#putAssignedContacts">putAssignedContacts</a></li><li><a href="global.html#putContact">putContact</a></li><li><a href="global.html#putEditedTaskToFirebase">putEditedTaskToFirebase</a></li><li><a href="global.html#redirectToBoard">redirectToBoard</a></li><li><a href="global.html#registerEnterHandler">registerEnterHandler</a></li><li><a href="global.html#registerEnterHandlers">registerEnterHandlers</a></li><li><a href="global.html#removeHighlight">removeHighlight</a></li><li><a href="global.html#renderAssignedContacts">renderAssignedContacts</a></li><li><a href="global.html#renderAssignedContactsEditMode">renderAssignedContactsEditMode</a></li><li><a href="global.html#renderCategories">renderCategories</a></li><li><a href="global.html#renderCategory">renderCategory</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#renderContactOptions">renderContactOptions</a></li><li><a href="global.html#renderContactOptionsList">renderContactOptionsList</a></li><li><a href="global.html#renderDetails">renderDetails</a></li><li><a href="global.html#renderDialogContacts">renderDialogContacts</a></li><li><a href="global.html#renderDialogSubtasks">renderDialogSubtasks</a></li><li><a href="global.html#renderEditModeSubtasks">renderEditModeSubtasks</a></li><li><a href="global.html#renderMetrics">renderMetrics</a></li><li><a href="global.html#renderPriority">renderPriority</a></li><li><a href="global.html#renderSelectedCategory">renderSelectedCategory</a></li><li><a href="global.html#renderSingleBadges">renderSingleBadges</a></li><li><a href="global.html#renderSingleSubtask">renderSingleSubtask</a></li><li><a href="global.html#renderStatusCounts">renderStatusCounts</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#renderUrgentSection">renderUrgentSection</a></li><li><a href="global.html#resetCancelButton">resetCancelButton</a></li><li><a href="global.html#resetDialogAvatar">resetDialogAvatar</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#runMobileGreetingAnimation">runMobileGreetingAnimation</a></li><li><a href="global.html#saveCurrentUser">saveCurrentUser</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveSubtaskStatusToFirebase">saveSubtaskStatusToFirebase</a></li><li><a href="global.html#saveUser">saveUser</a></li><li><a href="global.html#selectCategory">selectCategory</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#setPriority">setPriority</a></li><li><a href="global.html#showAddtaskToastMsg">showAddtaskToastMsg</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showDatePicker">showDatePicker</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showSuccessBanner">showSuccessBanner</a></li><li><a href="global.html#showSuccessToast">showSuccessToast</a></li><li><a href="global.html#sortContactOptions">sortContactOptions</a></li><li><a href="global.html#startDetailsAnimation">startDetailsAnimation</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopDragging">stopDragging</a></li><li><a href="global.html#stylePrioBtnsColor">stylePrioBtnsColor</a></li><li><a href="global.html#stylePrioSvgColors">stylePrioSvgColors</a></li><li><a href="global.html#submitEditedSubtask">submitEditedSubtask</a></li><li><a href="global.html#submitEditedTask">submitEditedTask</a></li><li><a href="global.html#submitSignupForm">submitSignupForm</a></li><li><a href="global.html#subtaskLiTemplate">subtaskLiTemplate</a></li><li><a href="global.html#subtaskLiWithInputTemplate">subtaskLiWithInputTemplate</a></li><li><a href="global.html#taskFormKeydownFunction">taskFormKeydownFunction</a></li><li><a href="global.html#taskFormSubmitFunction">taskFormSubmitFunction</a></li><li><a href="global.html#taskJson">taskJson</a></li><li><a href="global.html#titleFormValidation">titleFormValidation</a></li><li><a href="global.html#toggleCustomSelectDropdown">toggleCustomSelectDropdown</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleMobileMenu">toggleMobileMenu</a></li><li><a href="global.html#togglePassword">togglePassword</a></li><li><a href="global.html#toggleSubtask">toggleSubtask</a></li><li><a href="global.html#updateDialogAvatar">updateDialogAvatar</a></li><li><a href="global.html#updateGreeting">updateGreeting</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateHeaderAvatar">updateHeaderAvatar</a></li><li><a href="global.html#updatePasswordIcon">updatePasswordIcon</a></li><li><a href="global.html#updateTaskInFirebase">updateTaskInFirebase</a></li><li><a href="global.html#validateContactEmail">validateContactEmail</a></li><li><a href="global.html#validateContactName">validateContactName</a></li><li><a href="global.html#validateContactPhone">validateContactPhone</a></li><li><a href="global.html#validateLoginForm">validateLoginForm</a></li><li><a href="global.html#validateSignupEmail">validateSignupEmail</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Fri Jun 05 2026 17:15:13 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

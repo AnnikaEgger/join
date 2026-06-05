@@ -421,12 +421,3 @@ function highlight(id) {
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
-
-/**
- * Tries to lock the screen orientation to portrait mode on mobile devices.
- */
-function lockScreenOrientation() {
-  if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock("portrait-primary").catch(() => {});
-  }
-}
