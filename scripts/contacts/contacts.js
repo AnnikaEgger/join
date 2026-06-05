@@ -113,18 +113,21 @@ function findContactById(id) {
  * @returns {Promise<void>}
  */
 async function createNewContact() {
-  if (!isContactFormValid()) return;
-  disableButtonWhileLoading('btn-submit-contact');
-  let name = document.querySelector(".icon-name").value;
-  let email = document.querySelector(".icon-mail").value;
-  let phone = document.querySelector(".icon-phone").value;
-  let color = getRandomColor();
-  let newContact = { name, email, phone, color };
-  let newId = await postContact(newContact);
-  await finalizeAddition();
-  showContactDetails(newId);
-  showSuccessBanner();
-  enableButton('btn-submit-contact');
+    if (!isContactFormValid()) return;
+    let emailInput = document.getElementById("contact-email--validator");
+    if (isEmailAlreadyUsed(emailInput.value)) {
+        emailInput.classList.add("input-error");
+        document.getElementById("contact-email--error").innerText = "This email is already in use!";
+        return;
+    }
+    disableButtonWhileLoading('btn-submit-contact');  
+    let name = document.querySelector(".icon-name").value;
+    let phone = document.querySelector(".icon-phone").value;
+    let newId = await postContact({ name, email: emailInput.value, phone, color: getRandomColor() });
+    await finalizeAddition();
+    showContactDetails(newId);
+    showSuccessBanner();
+    enableButton('btn-submit-contact');
 }
 
 /**
@@ -143,6 +146,21 @@ async function postContact(contact) {
   });
   let data = await response.json();
   return data.name;
+}
+
+/**
+ * Checks if an email already exists in the local contacts array.
+ * @param {string} email - The email to check.
+ * @param {string|null} excludeId - An optional ID to ignore (for editing).
+ * @returns {boolean} True if the email is already taken.
+ */
+function isEmailAlreadyUsed(email, excludeId = null) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].email === email && contacts[i].id !== excludeId) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -208,17 +226,21 @@ function prepareAddContactDialog() {
  * @returns {Promise<void>}
  */
 async function saveEditedContact() {
-  if (!isContactFormValid()) return;
-  disableButtonWhileLoading('btn-submit-contact');
-  let name = document.querySelector(".icon-name").value;
-  let email = document.querySelector(".icon-mail").value;
-  let phone = document.querySelector(".icon-phone").value;
-  let contact = findContactById(currentEditingId);
-  let updatedContact = { name, email, phone, color: contact.color };
-  await putContact(updatedContact);
-  await finalizeAddition();
-  showContactDetails(currentEditingId);
-  enableButton('btn-submit-contact');
+    if (!isContactFormValid()) return;
+    let emailInput = document.getElementById("contact-email--validator");
+    if (isEmailAlreadyUsed(emailInput.value, currentEditingId)) {
+        emailInput.classList.add("input-error");
+        document.getElementById("contact-email--error").innerText = "This email is already in use!";
+        return;
+    }
+    disableButtonWhileLoading('btn-submit-contact');
+    let name = document.querySelector(".icon-name").value;
+    let phone = document.querySelector(".icon-phone").value;
+    let contact = findContactById(currentEditingId);
+    await putContact({ name, email: emailInput.value, phone, color: contact.color });
+    await finalizeAddition();
+    showContactDetails(currentEditingId);
+    enableButton('btn-submit-contact');
 }
 
 /**
