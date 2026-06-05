@@ -264,6 +264,8 @@ function enableAllPointerEvents(id) {
     elementId = "body--board";
   } else if (id === "taskDialog") {
     elementId = "content-wrapper--task-dialog";
+  } else if (id === "--contacts") {
+    elementId = "body--contacts";
   }
 
   const element = document.getElementById(elementId);
@@ -286,4 +288,34 @@ function disableButtonWhileLoading(buttonId) {
 function enableButton(buttonId) {
   let button = document.getElementById(buttonId);
   button.disabled = false;
+}
+
+/**
+ * Tries to lock the screen orientation to portrait mode on mobile devices.
+ */
+function lockScreenOrientation() {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("portrait-primary").catch(() => {});
+  }
+}
+
+/**
+ * Page Protection: Checks upon page load whether a user exists
+ * in localStorage. If not, redirects to the login page.
+ * Executed automatically as an IIFE during script load.
+ */
+function guardPage() {
+  const stored = localStorage.getItem("currentUser");
+
+  if (!stored) {
+    window.location.href = "../index.html";
+    return;
+  }
+
+  try {
+    JSON.parse(stored);
+  } catch (e) {
+    localStorage.removeItem("currentUser");
+    window.location.href = "../index.html";
+  }
 }

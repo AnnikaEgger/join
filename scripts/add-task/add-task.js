@@ -13,6 +13,8 @@
  * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 async function initAddTask(id) {
+  guardPage();
+
   addTaskColumn = "to do";
 
   contactsOptions = [];

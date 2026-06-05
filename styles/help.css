@@ -103,12 +103,15 @@
   .help-title-row h1 {
     font-size: 55px;
   }
+
   .help-page h2 {
     font-size: 25px;
   }
+
   .help-finale {
     font-size: 42px !important;
   }
+
   .help-page {
     max-width: 1014px;
     padding: 0;
@@ -120,17 +123,21 @@
   .help-title-row h1 {
     font-size: 47px;
   }
+
   .help-page p {
     font-size: 18px;
   }
+
   .help-page h2 {
     font-size: 22px;
     margin: 36px 0 20px 0;
   }
+
   .help-finale {
     font-size: 36px !important;
     margin-top: 48px !important;
   }
+
   .main-content {
     padding-left: 16px;
     padding-right: 16px;
@@ -141,27 +148,34 @@
   .help-title-row h1 {
     font-size: 40px;
   }
+
   .help-page p {
     font-size: 16px;
     line-height: 1.6;
   }
+
   .help-page h2 {
     font-size: 20px;
   }
+
   .help-finale {
     font-size: 30px !important;
   }
+
   .help-intro {
     margin-bottom: 32px;
   }
+
   .help-steps li {
     gap: 12px;
     margin-bottom: 24px;
   }
+
   .help-steps li::before,
   .help-steps h3 {
     font-size: 18px;
   }
+
   .back-arrow img {
     width: 28px;
   }
@@ -171,26 +185,33 @@
   .help-title-row h1 {
     font-size: 32px;
   }
+
   .help-page p {
     font-size: 16px;
   }
+
   .help-page h2 {
     font-size: 18px;
     margin: 28px 0 16px 0;
   }
+
   .help-finale {
     font-size: 24px !important;
   }
+
   .help-steps li {
     gap: 8px;
   }
+
   .help-steps li::before,
   .help-steps h3 {
     font-size: 16px;
   }
+
   .back-arrow img {
     width: 24px;
   }
+
   .back-arrow {
     padding: 4px;
   }
@@ -200,15 +221,19 @@
   .help-title-row h1 {
     font-size: 28px;
   }
+
   .help-page p {
     font-size: 16px;
   }
+
   .help-page h2 {
     font-size: 17px;
   }
+
   .help-finale {
     font-size: 22px !important;
   }
+
   .help-steps li::before,
   .help-steps h3 {
     font-size: 15px;
@@ -219,24 +244,30 @@
   .help-title-row h1 {
     font-size: 24px;
   }
+
   .help-page p {
     font-size: 16px;
     line-height: 1.5;
   }
+
   .help-page h2 {
     font-size: 16px;
     margin: 24px 0 12px 0;
   }
+
   .help-finale {
     font-size: 20px !important;
   }
+
   .help-steps li {
     margin-bottom: 16px;
   }
+
   .help-steps li::before,
   .help-steps h3 {
     font-size: 14px;
   }
+
   .back-arrow img {
     width: 20px;
   }

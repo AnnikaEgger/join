@@ -1,4 +1,3 @@
-const BASE_URL = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
 let contacts = [];
 let currentEditingId = null;
 
@@ -8,9 +7,11 @@ let currentEditingId = null;
  * @returns {Promise<void>}
  */
 async function init() {
-    await loadContacts();
-    await loadAllUsers();
-    renderContactList();
+  await loadContacts();
+  await loadAllUsers();
+  renderContactList();
+
+  enableAllPointerEvents("--contacts");
 }
 
 /**
@@ -19,13 +20,13 @@ async function init() {
  * @returns {Promise<void>}
  */
 async function loadContacts() {
-    contacts = [];
-    let response = await fetch(BASE_URL + "contacts" + ".json");
-    let data = await response.json();
-    if (data) {
-        fillContactsArray(data);
-        contacts.sort((a, b) => a.name.localeCompare(b.name));
-    }
+  contacts = [];
+  let response = await fetch(BASE_URL + "contacts" + ".json");
+  let data = await response.json();
+  if (data) {
+    fillContactsArray(data);
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+  }
 }
 
 /**
@@ -33,14 +34,16 @@ async function loadContacts() {
  * @param {Object} contactsObj - Raw contacts object from the database.
  */
 function fillContactsArray(contactsObj) {
-    let keys = Object.keys(contactsObj);
-    for (let i = 0; i < keys.length; i++) {
-        let id = keys[i];
-        let contactData = contactsObj[id];
-        contactData.id = id;
-        if (!contactData.phone) { contactData.phone = ""; }
-        contacts.push(contactData);
+  let keys = Object.keys(contactsObj);
+  for (let i = 0; i < keys.length; i++) {
+    let id = keys[i];
+    let contactData = contactsObj[id];
+    contactData.id = id;
+    if (!contactData.phone) {
+      contactData.phone = "";
     }
+    contacts.push(contactData);
+  }
 }
 
 /**
@@ -49,30 +52,32 @@ function fillContactsArray(contactsObj) {
  * @returns {Promise<void>}
  */
 async function loadAllUsers() {
-    let response = await fetch("https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users.json");
-    let usersObj = await response.json();
-    if (usersObj) {
-        fillContactsArray(usersObj);
-        contacts.sort((a, b) => a.name.localeCompare(b.name));
-    }
+  let response = await fetch(
+    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users.json",
+  );
+  let usersObj = await response.json();
+  if (usersObj) {
+    fillContactsArray(usersObj);
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+  }
 }
 
 /**
  * Renders the grouped contact list into the DOM.
  */
 function renderContactList() {
-    let content = document.getElementById('contact-list');
-    content.innerHTML = '';
-    let currentLetter = '';
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        let firstLetter = contact.name.charAt(0).toUpperCase();
-        if (firstLetter !== currentLetter) {
-            currentLetter = firstLetter;
-            content.innerHTML += renderLetterHeader(currentLetter);
-        }
-        content.innerHTML += generateContactHTML(contact);
+  let content = document.getElementById("contact-list");
+  content.innerHTML = "";
+  let currentLetter = "";
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
+    let firstLetter = contact.name.charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      content.innerHTML += renderLetterHeader(currentLetter);
     }
+    content.innerHTML += generateContactHTML(contact);
+  }
 }
 
 /**
@@ -80,13 +85,13 @@ function renderContactList() {
  * @param {string} id - Unique contact ID.
  */
 function showContactDetails(id) {
-    highlightContact(id);
-    let contact = findContactById(id);
-    if (contact) {
-        prepareDetailsAnimation();
-        renderDetails(contact);
-        startDetailsAnimation();
-    }
+  highlightContact(id);
+  let contact = findContactById(id);
+  if (contact) {
+    prepareDetailsAnimation();
+    renderDetails(contact);
+    startDetailsAnimation();
+  }
 }
 
 /**
@@ -95,10 +100,10 @@ function showContactDetails(id) {
  * @returns {Object|null} The contact object, or null if not found.
  */
 function findContactById(id) {
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i].id === id) return contacts[i];
-    }
-    return null;
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].id === id) return contacts[i];
+  }
+  return null;
 }
 
 /**
@@ -107,16 +112,16 @@ function findContactById(id) {
  * @returns {Promise<void>}
  */
 async function createNewContact() {
-    if (!isContactFormValid()) return;
-    let name = document.querySelector('.icon-name').value;
-    let email = document.querySelector('.icon-mail').value;
-    let phone = document.querySelector('.icon-phone').value;
-    let color = getRandomColor();
-    let newContact = { name, email, phone, color };
-    let newId = await postContact(newContact);
-    await finalizeAddition();
-    showContactDetails(newId);
-    showSuccessBanner();
+  if (!isContactFormValid()) return;
+  let name = document.querySelector(".icon-name").value;
+  let email = document.querySelector(".icon-mail").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let color = getRandomColor();
+  let newContact = { name, email, phone, color };
+  let newId = await postContact(newContact);
+  await finalizeAddition();
+  showContactDetails(newId);
+  showSuccessBanner();
 }
 
 /**
@@ -126,14 +131,15 @@ async function createNewContact() {
  * @returns {Promise<string>} The generated database ID.
  */
 async function postContact(contact) {
-    let url = "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
-    let response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact)
-    });
-    let data = await response.json();
-    return data.name;
+  let url =
+    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(contact),
+  });
+  let data = await response.json();
+  return data.name;
 }
 
 /**
@@ -142,22 +148,22 @@ async function postContact(contact) {
  * @returns {Promise<void>}
  */
 async function finalizeAddition() {
-    closeContactDialog();
-    await init();
+  closeContactDialog();
+  await init();
 }
 
 /**
  * Resets the form inputs and clears all validation errors.
  */
 function resetForm() {
-    document.querySelector('.contact-form').reset();
-    const fields = ['name', 'email', 'phone'];
-    for (let i = 0; i < fields.length; i++) {
-        let input = document.getElementById(`contact-${fields[i]}--validator`);
-        let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
-        if (input) input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
+  document.querySelector(".contact-form").reset();
+  const fields = ["name", "email", "phone"];
+  for (let i = 0; i < fields.length; i++) {
+    let input = document.getElementById(`contact-${fields[i]}--validator`);
+    let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
+    if (input) input.classList.remove("input-error");
+    if (errorSpan) errorSpan.innerText = "";
+  }
 }
 
 /**
@@ -165,32 +171,32 @@ function resetForm() {
  * @param {string} id - Unique contact ID.
  */
 function openEditContact(id) {
-    currentEditingId = id;
-    let contact = findContactById(id);
-    if (contact) {
-        updateDialogAvatar(contact);
-        fillFormFields(contact);
-        adaptDialogForEdit(id);
-        openContactDialog();
-    }
+  currentEditingId = id;
+  let contact = findContactById(id);
+  if (contact) {
+    updateDialogAvatar(contact);
+    fillFormFields(contact);
+    adaptDialogForEdit(id);
+    openContactDialog();
+  }
 }
 
 /**
  * Prepares and opens the dialog for creating a new contact.
  */
 function prepareAddContactDialog() {
-    currentEditingId = null;
-    resetForm();
-    resetDialogAvatar();
-    document.querySelector('.dialog-left h1').innerHTML = "Add contact";
-    let btnCreate = document.querySelector('.btn-create');
-    btnCreate.innerHTML = `Create contact <img src="../assets/icons/check.svg" alt="Check">`;
-    document.querySelector('.contact-form').onsubmit = function () {
-        createNewContact();
-        return false;
-    }
-    resetCancelButton();
-    openContactDialog();
+  currentEditingId = null;
+  resetForm();
+  resetDialogAvatar();
+  document.querySelector(".dialog-left h1").innerHTML = "Add contact";
+  let btnCreate = document.querySelector(".btn-create");
+  btnCreate.innerHTML = `Create contact <img src="../assets/icons/check.svg" alt="Check">`;
+  document.querySelector(".contact-form").onsubmit = function () {
+    createNewContact();
+    return false;
+  };
+  resetCancelButton();
+  openContactDialog();
 }
 
 /**
@@ -199,15 +205,15 @@ function prepareAddContactDialog() {
  * @returns {Promise<void>}
  */
 async function saveEditedContact() {
-    if (!isContactFormValid()) return;
-    let name = document.querySelector('.icon-name').value;
-    let email = document.querySelector('.icon-mail').value;
-    let phone = document.querySelector('.icon-phone').value;
-    let contact = findContactById(currentEditingId);
-    let updatedContact = { name, email, phone, color: contact.color };
-    await putContact(updatedContact);
-    await finalizeAddition();
-    showContactDetails(currentEditingId);
+  if (!isContactFormValid()) return;
+  let name = document.querySelector(".icon-name").value;
+  let email = document.querySelector(".icon-mail").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let contact = findContactById(currentEditingId);
+  let updatedContact = { name, email, phone, color: contact.color };
+  await putContact(updatedContact);
+  await finalizeAddition();
+  showContactDetails(currentEditingId);
 }
 
 /**
@@ -216,14 +222,16 @@ async function saveEditedContact() {
  * @param {Object} contact - The updated data object.
  */
 async function putContact(contact) {
-    let isUser = await checkIfIdIsUser(currentEditingId);
-    let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
-    await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact)
-    });
+  let isUser = await checkIfIdIsUser(currentEditingId);
+  let path = isUser
+    ? `users/${currentEditingId}`
+    : `contacts/${currentEditingId}`;
+  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  await fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(contact),
+  });
 }
 
 /**
@@ -232,13 +240,13 @@ async function putContact(contact) {
  * @param {string} id - Unique contact or user ID.
  */
 async function deleteContact(id) {
-    let isUser = await checkIfIdIsUser(id);
-    let path = isUser ? `users/${id}` : `contacts/${id}`;
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
-    await fetch(url, { method: "DELETE" });
-    closeContactDetails();
-    document.getElementById('contact-detail-content').innerHTML = '';
-    await init();
+  let isUser = await checkIfIdIsUser(id);
+  let path = isUser ? `users/${id}` : `contacts/${id}`;
+  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  await fetch(url, { method: "DELETE" });
+  closeContactDetails();
+  document.getElementById("contact-detail-content").innerHTML = "";
+  await init();
 }
 
 /**
@@ -248,7 +256,9 @@ async function deleteContact(id) {
  * @returns {Promise<boolean>} True if the ID is a user.
  */
 async function checkIfIdIsUser(id) {
-    let response = await fetch(`https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users/${id}.json`);
-    let data = await response.json();
-    return data !== null;
+  let response = await fetch(
+    `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users/${id}.json`,
+  );
+  let data = await response.json();
+  return data !== null;
 }

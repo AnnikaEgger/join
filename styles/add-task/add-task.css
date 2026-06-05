@@ -135,14 +135,18 @@ input {
 }
 
 .p-required--add-task {
-  position: absolute;
-  top: 610px;
-  left: 0;
+  position: fixed;
+  top: 90dvh;
+  transform: translateY(100%);
+  left: calc(
+    var(--sidebar-width) +
+      ((100dvw - var(--sidebar-width) - var(--width-content-wrapper)) / 2)
+  );
 }
 
 .add-task-bottom-btns-container--add-task {
   position: fixed;
-  top: 850px;
+  top: 90dvh;
   left: calc(
     var(--sidebar-width) + ((100dvw - var(--sidebar-width)) / 2) +
       (var(--width-content-wrapper) / 2)
