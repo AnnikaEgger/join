@@ -178,3 +178,17 @@
     left: calc(50% - (250px / 2));
   }
 }
+
+@media screen and (min-height: 950px) and (min-width: 1024px) {
+  .add-task-bottom-btns-container--add-task {
+    top: 850px;
+  }
+
+  .bottom-btns-wrapper--add-task {
+    margin-bottom: 24px;
+  }
+
+  .p-required--add-task {
+    top: 850px;
+  }
+}
