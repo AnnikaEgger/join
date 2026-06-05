@@ -5,7 +5,7 @@
   max-width: 1920px;
   padding: 0 64px;
   box-sizing: border-box;
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
 }
 
 .head-text {
@@ -390,8 +390,8 @@ select,
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background-color: #2a3647;
   color: white;
   z-index: 99999;
@@ -413,3 +413,4 @@ select,
     overflow: hidden !important;
   }
 }
+

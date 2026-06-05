@@ -20,7 +20,7 @@
   max-width: 525px;
   width: 90dvw;
   height: fit-content;
-  max-height: 85vh;
+  max-height: 85dvh;
   border-radius: 30px;
   transition:
     display 0.15s allow-discrete,
@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  max-height: 85vh;
+  max-height: 85dvh;
   width: 100%;
 }
 
@@ -289,3 +289,4 @@ body:has(.add-task-dialog[open]) {
 }
 
 /* #endregion */
+

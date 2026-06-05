@@ -264,7 +264,7 @@ footer {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 100vh);
+  transform: translate(-50%, 100dvh);
   background-color: var(--dark-blue);
   color: white;
   padding: 24px 48px;
@@ -387,3 +387,4 @@ footer {
 }
 
 /* #endregion */
+

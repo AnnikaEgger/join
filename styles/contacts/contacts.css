@@ -286,5 +286,5 @@ html, body {
 }
 
 .success-banner.show-banner {
-    transform: translateX(-45vw);
+    transform: translateX(-45dvw);
 }

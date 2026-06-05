@@ -40,7 +40,7 @@ function generateTaskDialogHTML(todo, catColor, id) {
       <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed disabled-ui" id="content-wrapper--task-dialog">
           <div class="task-dialog-header">
               <span class="category-field-dialog" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
-              <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="/assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
+              <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="../assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
           </div>
           <h1 class="dialog-task-title">${todo["title"]}</h1>
           <p class="dialog-description">${todo["description"] || ""}</p>

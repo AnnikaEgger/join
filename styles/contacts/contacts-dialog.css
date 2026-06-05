@@ -24,7 +24,7 @@
 
 @keyframes slideInDialog {
     from {
-        transform: translateX(100vw);
+        transform: translateX(100dvw);
     }
     to {
         transform: translateX(0);
