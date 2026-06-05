@@ -43,6 +43,8 @@
 
   .form-container {
     padding: 32px 16px;
+    position: unset;
+    transform: translate(0, 0);
   }
 
   .button-login {

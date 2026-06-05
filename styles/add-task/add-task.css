@@ -2,9 +2,6 @@
   --textarea-height: 120px;
   --transition-default: all 100ms ease-in-out;
 
-  --light-gray2: #d1d1d1;
-  --light-orange: #ffa800;
-
   --width-content-wrapper: calc(var(--input-width) * 2 + 32px * 2 + 1px);
   --padding-lr-big: 80px;
   --padding-lr-medium: 48px;

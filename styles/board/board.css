@@ -130,11 +130,6 @@ hr {
   background-color: #2a3647;
 }
 
-:root {
-  --light-gray2: #d1d1d1;
-  --light-orange: #ffa800;
-}
-
 .board-section {
   display: flex;
   margin-top: 20px;
