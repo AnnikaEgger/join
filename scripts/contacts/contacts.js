@@ -114,6 +114,7 @@ function findContactById(id) {
  */
 async function createNewContact() {
   if (!isContactFormValid()) return;
+  disableButtonWhileLoading('btn-submit-contact');  
   let name = document.querySelector(".icon-name").value;
   let email = document.querySelector(".icon-mail").value;
   let phone = document.querySelector(".icon-phone").value;
@@ -123,6 +124,7 @@ async function createNewContact() {
   await finalizeAddition();
   showContactDetails(newId);
   showSuccessBanner();
+  enableButton('btn-submit-contact');
 }
 
 /**
@@ -207,6 +209,7 @@ function prepareAddContactDialog() {
  */
 async function saveEditedContact() {
   if (!isContactFormValid()) return;
+  disableButtonWhileLoading('btn-submit-contact');
   let name = document.querySelector(".icon-name").value;
   let email = document.querySelector(".icon-mail").value;
   let phone = document.querySelector(".icon-phone").value;
@@ -215,6 +218,7 @@ async function saveEditedContact() {
   await putContact(updatedContact);
   await finalizeAddition();
   showContactDetails(currentEditingId);
+  enableButton('btn-submit-contact');
 }
 
 /**
