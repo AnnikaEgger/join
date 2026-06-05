@@ -161,15 +161,15 @@
 }
 
 .icon-name {
-    background-image: url('../assets/icons/person.svg');
+    background-image: url('../../assets/icons/person.svg');
 }
 
 .icon-mail {
-    background-image: url('../assets/icons/mail.svg');
+    background-image: url('../../assets/icons/mail.svg');
 }
 
 .icon-phone {
-    background-image: url('../assets/icons/call.svg');
+    background-image: url('../../assets/icons/call.svg');
 }
 
 .contact-input.input-error {
