@@ -41,7 +41,7 @@ function fillContactsArray(contactsObj) {
     let contactData = contactsObj[id];
     contactData.id = id;
     if (!contactData.phone) {
-      contactData.phone = "";
+      contactData.phone = "-";
     }
     contacts.push(contactData);
   }
@@ -114,7 +114,7 @@ function findContactById(id) {
  */
 async function createNewContact() {
   if (!isContactFormValid()) return;
-  disableButtonWhileLoading('btn-submit-contact');  
+  disableButtonWhileLoading('btn-submit-contact');
   let name = document.querySelector(".icon-name").value;
   let email = document.querySelector(".icon-mail").value;
   let phone = document.querySelector(".icon-phone").value;
@@ -222,23 +222,22 @@ async function saveEditedContact() {
 }
 
 /**
- * Updates an existing contact or user in the database.
+ * Updates an existing contact or user in the database without losing properties.
  * @async
- * @param {Object} contact - The updated data object.
+ * @param {Object} contact - The updated fields.
  */
 async function putContact(contact) {
-  let isUser = await checkIfIdIsUser(currentEditingId);
-  let path = isUser
-    ? `users/${currentEditingId}`
-    : `contacts/${currentEditingId}`;
-  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
-  await fetch(url, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(contact),
-  });
+    let isUser = await checkIfIdIsUser(currentEditingId);
+    let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
+    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+    if (isUser) {
+        let response = await fetch(url);
+        let currentDBUser = await response.json();
+        Object.assign(currentDBUser, contact);
+        contact = currentDBUser;
+    }
+    await fetch(url, { method: "PUT", body: JSON.stringify(contact) });
 }
-
 /**
  * Deletes a contact or user from the database depending on its origin.
  * @async
