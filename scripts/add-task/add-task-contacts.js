@@ -303,3 +303,62 @@ function filterContacts(inputValue) {
 }
 
 // #endregion
+
+/**
+ * Checks every task and removes assigned contacts that no longer exist.
+ * @async
+ */
+async function checkIfAssignedContactStillExists() {
+  let response = await fetch(BASE_URL + "tasks.json");
+  let tasks = await response.json();
+
+  contactsOptions = [];
+
+  await getContacts();
+  await getUsers();
+
+  Object.entries(tasks).forEach(([taskId, task]) => {
+    if (task.assigned_contacts) {
+      collectValidAssignedContacts(task, taskId);
+    }
+  });
+}
+
+/**
+ * Filters a task's assigned contacts to only those that still exist in contactsOptions.
+ * @param {Object} task - The task object containing assigned contacts
+ * @param {string} taskId - The ID of the task being checked
+ */
+function collectValidAssignedContacts(task, taskId) {
+  let assignedTaskContacts = [];
+
+  for (const contact of Object.values(task.assigned_contacts || {})) {
+    const exists = contactsOptions.some((c) => c.id === contact.id);
+
+    if (exists) {
+      assignedTaskContacts.push(contact);
+    }
+  }
+
+  putAssignedContacts(taskId, assignedTaskContacts);
+}
+
+/**
+ * Writes the filtered assigned contacts back to the task in Firebase.
+ * @async
+ * @param {string} taskId - The ID of the task to update
+ * @param {Array<Object>} assignedTaskContacts - The filtered array of assigned contacts
+ */
+async function putAssignedContacts(taskId, assignedTaskContacts) {
+  let response = await fetch(
+    BASE_URL + "tasks/" + taskId + "/assigned_contacts.json",
+
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(assignedTaskContacts),
+    },
+  );
+}

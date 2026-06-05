@@ -17,6 +17,8 @@ async function initBoard() {
 async function loadTasks() {
   todos = [];
 
+  await checkIfAssignedContactStillExists();
+
   let response = await fetch(
     "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
   );
@@ -219,7 +221,7 @@ let startX, startY;
 
 /**
  * Handles the start of a drag operation, including both mouse and touch events. For touch events, it initiates a long press detection to differentiate between scrolling and dragging on mobile devices.
- * 
+ *
  * @param {parameter} event - The drag start event, which can be either a mouse or touch event.
  * @param {string} id - The ID of the task being dragged, used to identify which task is being moved during the drag and drop operation.
  */
@@ -258,7 +260,8 @@ function initMobileTouch(event, card) {
  * @param {parameter} card - The card element for which to activate drag style.
  */
 function activateMobileDragStyle(card) {
-  if (card) { //
+  if (card) {
+    //
     card.classList.add("dragging");
     card.style.pointerEvents = "none";
   }
@@ -266,7 +269,7 @@ function activateMobileDragStyle(card) {
 
 /**
  * Allows drop and triggers auto-scroll on desktop during dragging.
- * 
+ *
  * @param {parameter} ev - The drag over event, which is used to allow dropping of the dragged element and to trigger automatic scrolling of the page when dragging near the edges of the viewport on desktop devices.
  */
 function allowDrop(ev) {
@@ -275,7 +278,7 @@ function allowDrop(ev) {
 
 /**
  * Checks mouse position and scrolls if near top or bottom.
- * 
+ *
  * @param {number} clientY - The current vertical position of the mouse cursor, used to determine if the window should automatically scroll when dragging a task near the edges of the viewport on desktop devices.
  */
 function handleDesktopScroll(clientY) {
@@ -291,7 +294,7 @@ function handleDesktopScroll(clientY) {
 
 /**
  * Prevents the red "blocked" cursor globally while dragging.
- * 
+ *
  * This function adds an event listener for the "dragover" event on the entire document, which prevents the default behavior that would show a "blocked" cursor when dragging elements over non-droppable areas. It also calls the `handleDesktopScroll` function to enable automatic scrolling when dragging near the edges of the viewport on desktop devices.
  */
 function initGlobalDragSettings() {
@@ -424,6 +427,6 @@ function removeHighlight(id) {
  */
 function lockScreenOrientation() {
   if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock("portrait-primary").catch(() => { });
+    screen.orientation.lock("portrait-primary").catch(() => {});
   }
 }

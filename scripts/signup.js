@@ -165,6 +165,7 @@ let userTriedToSubmit = false;
  * @param {string} inputId - The base input identifier without the "signup-" prefix
  */
 function checkInputValidity(inputId) {
+  initPasswordToggles();
   if (!userTriedToSubmit) return;
 
   const input = document.getElementById("signup" + "-" + inputId);
