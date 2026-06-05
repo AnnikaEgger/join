@@ -7,6 +7,7 @@ let currentEditingId = null;
  * @returns {Promise<void>}
  */
 async function init() {
+  guardPage();
   await loadContacts();
   await loadAllUsers();
   renderContactList();
