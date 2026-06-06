@@ -1,11 +1,12 @@
 /**
  * edit-task.js
- * Handles edit task dialog behavior, Firebase task updates, and default task synchronization.
+ * Handles the edit task dialog, task update flow, and synchronization of default task templates.
  */
 
 /**
- * Opens the dialog for adding a new task and initializes the add task dialog state.
- * @param {string} column - The task column to assign when the task is created.
+ * Opens the dialog for adding a new task and initializes the add task state.
+ * @param {string} column - The column where the new task should be created.
+ * @returns {void}
  */
 function openAddTaskDialog(column) {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
@@ -13,12 +14,12 @@ function openAddTaskDialog(column) {
   ADD_TASK_DIALOG.classList.add("show-dialog");
 
   initAddTask("--add-task-dialog");
-
   addTaskColumn = column;
 }
 
 /**
- * Closes the dialog for adding a new task.
+ * Closes the add task dialog and clears the form state.
+ * @returns {void}
  */
 function closeAddTaskDialog() {
   const ADD_TASK_DIALOG = document.getElementById("addTaskDialog");
@@ -42,8 +43,9 @@ ADD_TASK_DIALOG.addEventListener("click", (event) => {
 });
 
 /**
- * Deletes a task from Firebase and updates the board display.
+ * Deletes a task from Firebase, refreshes the board, and closes the dialog.
  * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<void>}
  */
 async function deleteTask(taskId) {
   disableButtonWhileLoading("delete-task-btn");
@@ -58,9 +60,9 @@ async function deleteTask(taskId) {
 }
 
 /**
- * Sends a DELETE request to Firebase to remove a specific task.
- * @param {string} taskId - The ID of the task to delete from Firebase.
- * @returns {Promise<Object>} The Firebase response JSON.
+ * Deletes a specific task entry from Firebase.
+ * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<Object>} The Firebase response payload.
  */
 async function deleteTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
@@ -71,8 +73,9 @@ async function deleteTaskFromFirebase(taskId) {
 }
 
 /**
- * Initializes the edit task dialog state and loads contacts and categories.
- * @param {string} id - The identifier suffix for the current form or dialog instance
+ * Resets edit-mode state and initializes related dialog components.
+ * @param {string} id - The dialog identifier suffix.
+ * @returns {Promise<void>}
  */
 async function initEditTask(id) {
   contactsOptions = [];
@@ -92,8 +95,9 @@ async function initEditTask(id) {
 }
 
 /**
- * Loads contact data for the edit task dialog.
- * @param {string} id - The identifier suffix for the current form or dialog instance
+ * Loads contacts and user data for the edit task dialog.
+ * @param {string} id - The dialog identifier suffix.
+ * @returns {Promise<void>}
  */
 async function initContacts(id) {
   await getContacts();
@@ -103,8 +107,9 @@ async function initContacts(id) {
 }
 
 /**
- * Loads category data for the edit task dialog.
- * @param {string} id - The identifier suffix for the current form or dialog instance
+ * Loads categories and renders the selected category for edit mode.
+ * @param {string} id - The dialog identifier suffix.
+ * @returns {Promise<void>}
  */
 async function initCategories(id) {
   await getCategories();
@@ -113,8 +118,9 @@ async function initCategories(id) {
 }
 
 /**
- * Opens edit mode for a specific task and renders the edit form.
+ * Opens the task edit dialog, populates fields, and initializes edit mode.
  * @param {string} taskId - The ID of the task to edit.
+ * @returns {Promise<void>}
  */
 async function openTaskEditMode(taskId) {
   disableButtonWhileLoading("edit-task-btn");
@@ -135,9 +141,9 @@ async function openTaskEditMode(taskId) {
 }
 
 /**
- * Retrieves a task from Firebase.
- * @param {string} taskId - The ID of the task to retrieve.
- * @returns {Promise<Object>} The task data from Firebase.
+ * Retrieves a task object from Firebase by its ID.
+ * @param {string} taskId - The ID of the task to fetch.
+ * @returns {Promise<Object>} The retrieved task object.
  */
 async function getTaskFromFirebase(taskId) {
   let response = await fetch(BASE_URL + "/tasks/" + taskId + ".json");
@@ -145,8 +151,9 @@ async function getTaskFromFirebase(taskId) {
 }
 
 /**
- * Renders the subtasks for the edit mode and updates the subtasks array.
- * @param {Object} task - The task object containing subtasks.
+ * Renders subtasks into edit mode and updates local subtask state.
+ * @param {Object} task - The task object with subtasks.
+ * @returns {void}
  */
 function renderEditModeSubtasks(task) {
   if (task.subtasks) {
@@ -156,8 +163,9 @@ function renderEditModeSubtasks(task) {
 }
 
 /**
- * Renders the assigned contacts for the edit mode.
- * @param {Object} task - The task object containing assigned contacts.
+ * Renders assigned contacts for task edit mode from the current task.
+ * @param {Object} task - The task object with assigned contacts.
+ * @returns {void}
  */
 function renderAssignedContactsEditMode(task) {
   if (task.assigned_contacts) {
@@ -167,13 +175,21 @@ function renderAssignedContactsEditMode(task) {
 }
 
 /**
- * Submits the edited task data to Firebase after validation.
- * @param {Event} event - The submit event triggered by the edit form.
+ * Handles edit task form submission and sends changes to Firebase.
+ * @param {Event} event - The submit event from the edit form.
  * @param {string} column - The column to which the task belongs.
  * @param {boolean} defaultTask - Whether the task is a default task.
- * @param {string} taskId - The ID of the task to edit.
+ * @param {string} taskId - The ID of the task being edited.
+ * @param {string} templateId - The template identifier for the task.
+ * @returns {Promise<void>}
  */
-async function submitEditedTask(event, column, defaultTask, taskId) {
+async function submitEditedTask(
+  event,
+  column,
+  defaultTask,
+  taskId,
+  templateId,
+) {
   const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();
 
@@ -182,36 +198,45 @@ async function submitEditedTask(event, column, defaultTask, taskId) {
     selectedCategory !== "Select task category"
   ) {
     disableButtonWhileLoading("task-edit-ok-btn");
-    await putEditedTaskToFirebase(column, defaultTask, taskId);
+    await putEditedTaskToFirebase(column, defaultTask, taskId, templateId);
     await loadTasks();
     openTaskDialog(taskId);
   }
 }
 
 /**
- * Sends a PUT request to Firebase to update a specific task.
+ * Updates a task record in Firebase using PUT.
  * @param {string} column - The column to which the task belongs.
  * @param {boolean} defaultTask - Whether the task is a default task.
- * @param {string} taskId - The ID of the task to update.
- * @returns {Promise<Object>} The Firebase response JSON.
+ * @param {string} taskId - The ID of the task being updated.
+ * @param {string} templateId - The template identifier for the task.
+ * @returns {Promise<Object>} The Firebase response payload.
  */
-async function putEditedTaskToFirebase(column, defaultTask, taskId) {
+async function putEditedTaskToFirebase(
+  column,
+  defaultTask,
+  taskId,
+  templateId,
+) {
   let task = await fetch(BASE_URL + "/tasks/" + taskId + ".json", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(collectEditedTaskData(column, defaultTask, taskId)),
+    body: JSON.stringify(
+      collectEditedTaskData(column, defaultTask, taskId, templateId),
+    ),
   });
   return await task.json();
 }
 
 /**
- * Collects the edited task data for submission to Firebase.
+ * Builds the edited task payload from the edit form values.
  * @param {string} column - The column to which the task belongs.
  * @param {boolean} defaultTask - Whether the task is a default task.
  * @param {string} taskId - The ID of the task being edited.
- * @returns {Object} The edited task data.
+ * @param {string} templateId - The template identifier for the task.
+ * @returns {Object} The task payload ready for Firebase.
  */
-function collectEditedTaskData(column, defaultTask, taskId) {
+function collectEditedTaskData(column, defaultTask, taskId, templateId) {
   const title = document.getElementById("task-title--edit-task").value;
   const description = document.getElementById(
     "task-description--edit-task",
@@ -228,58 +253,143 @@ function collectEditedTaskData(column, defaultTask, taskId) {
     subtasks: subtasksArr,
     column: column,
     default_task: defaultTask,
+    template_id: templateId,
   };
 }
 
-let defaultTasks = [];
-
 /**
- * Loads default tasks from Firebase into the local defaultTasks array.
- * @async
+ * Loads default task templates from Firebase.
+ * @returns {Promise<Object>} The default task template data.
  */
-async function getDefaultTasksFromFirebase() {
-  defaultTasks = [];
-
+async function getDefaultTasksTemplates() {
   let response = await fetch(BASE_URL + "default_tasks" + ".json");
   let responseToJson = await response.json();
-  defaultTasks.push(...responseToJson);
+
+  return responseToJson;
 }
 
 /**
- * Posts all loaded default tasks into the tasks collection in Firebase.
- * @async
+ * Loads all tasks from Firebase and returns entries for default tasks.
+ * @returns {Promise<Array<[string, Object]>>} An array of [taskId, task] pairs.
  */
-async function postDefaultTasksIntoTasksInFirebase() {
-  for (let index = 0; index < defaultTasks.length; index++) {
-    await fetch(BASE_URL + "tasks" + ".json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(defaultTasks[index]),
-    });
+async function getDefaultTasksFromBoard() {
+  let response = await fetch(BASE_URL + "tasks" + ".json");
+  let tasks = await response.json();
+
+  const defaultTasksBoard = Object.entries(tasks).filter(
+    ([taskId, task]) => task.default_task === true,
+  );
+
+  return defaultTasksBoard;
+}
+
+/**
+ * Finds which default task templates are missing from the board.
+ * @returns {Promise<void>}
+ */
+async function getMissingDefaultTasks() {
+  const defaultTasksBoard = await getDefaultTasksFromBoard();
+
+  const requiredIds = [
+    "template1",
+    "template2",
+    "template3",
+    "template4",
+    "template5",
+  ];
+
+  const existingIds = defaultTasksBoard.map(
+    ([taskId, task]) => task.template_id,
+  );
+
+  let missingDefaultTasksIds = requiredIds.filter(
+    (requiredId) => !existingIds.includes(requiredId),
+  );
+
+  postMissingDefaultTasks(missingDefaultTasksIds);
+}
+
+/**
+ * Posts missing default task templates as new tasks in Firebase.
+ * @param {Array<string>} missingDefaultTasksIds - Template IDs to create.
+ * @returns {Promise<void>}
+ */
+async function postMissingDefaultTasks(missingDefaultTasksIds) {
+  let defaultTasksTemplates = await getDefaultTasksTemplates();
+
+  for (const missingTemplateId of missingDefaultTasksIds) {
+    const template = defaultTasksTemplates.find(
+      (templateTask) => templateTask.template_id === missingTemplateId,
+    );
+
+    if (template) {
+      await postTask(template);
+    }
   }
 }
 
 /**
- * Deletes all existing default tasks in the tasks collection in Firebase.
- * @async
+ * Creates a new task entry in Firebase.
+ * @param {Object} task - The task payload to post.
+ * @returns {Promise<void>}
  */
-async function deleteExistingDefaultTasksInTasksInFirebase() {
-  let response = await fetch(BASE_URL + "tasks" + ".json");
-  let responseToJson = await response.json();
-
-  Object.entries(responseToJson).forEach(async ([id, task]) => {
-    if (task.default_task === true) {
-      await deleteTaskFromFirebase(id);
-    }
+async function postTask(task) {
+  await fetch(BASE_URL + "tasks" + ".json", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(task),
   });
 }
 
 /**
- * Ensures all default tasks are present in the board by refreshing the default tasks set.
- * @async
+ * Updates existing default tasks on the board to match current templates.
+ * @returns {Promise<void>}
+ */
+async function patchExistingDefaultTasks() {
+  const defaultTasksBoard = await getDefaultTasksFromBoard();
+  const defaultTasksTemplates = await getDefaultTasksTemplates();
+
+  for (const [taskId, task] of defaultTasksBoard) {
+    const template = defaultTasksTemplates.find(
+      (template) => template.template_id === task.template_id,
+    );
+
+    if (template) {
+      await patchDefaultTask(taskId, template);
+    }
+  }
+}
+
+/**
+ * Patches a default task with template data.
+ * @param {string} taskId - The ID of the board task to patch.
+ * @param {Object} template - The template used to update the task.
+ * @returns {Promise<void>}
+ */
+async function patchDefaultTask(taskId, template) {
+  await fetch(BASE_URL + `tasks/${taskId}.json`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: template.title,
+      description: template.description,
+      subtasks: template.subtasks,
+      category: template.category,
+    }),
+  });
+
+  let response = await fetch(BASE_URL + `tasks/${taskId}.json`);
+  console.log(await response.json());
+}
+
+/**
+ * Ensures default task templates are present and synchronized on the board.
+ * @returns {Promise<void>}
  */
 async function ensureAllDefaultTasksAreInBoard() {
-  await deleteExistingDefaultTasksInTasksInFirebase();
-  await getDefaultTasksFromFirebase();
-  await postDefaultTasksIntoTasksInFirebase();
+  await getDefaultTasksTemplates();
+  await getMissingDefaultTasks();
+  await patchExistingDefaultTasks();
 }
