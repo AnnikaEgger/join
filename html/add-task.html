@@ -169,7 +169,11 @@
 
       <div class="header-actions">
         <a href="help.html" class="nav-link header-help-link">
-          <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="" />
+          <img
+            class="nav-icon"
+            src="../assets/icons/help-logo.svg"
+            alt="help icon"
+          />
         </a>
 
         <div class="header-user-area">
@@ -191,7 +195,12 @@
 
     <main class="main-content main-content--add-task">
       <div class="content-wrapper content-wrapper--add-task">
-        <h1 class="add-task-headline add-task-headline--add-task">Add Task</h1>
+        <h1
+          id="add-task-headline"
+          class="add-task-headline add-task-headline--add-task"
+        >
+          Add Task
+        </h1>
         <form
           aria-labelledby="add-task-headline"
           onsubmit="addTask(event, 'add task', '--add-task')"
