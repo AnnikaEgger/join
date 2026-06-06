@@ -319,3 +319,7 @@ function guardPage() {
     window.location.href = "../index.html";
   }
 }
+
+function initHelpPrivacyPolicyLegalNotice() {
+  guardPage();
+}

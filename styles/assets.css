@@ -24,6 +24,11 @@ textarea:focus,
   border: 1px solid var(--light-blue);
 }
 
+.brand {
+  color: var(--light-blue);
+  font-weight: 400;
+}
+
 /* #region input */
 
 input {

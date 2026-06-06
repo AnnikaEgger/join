@@ -1,11 +1,9 @@
-const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
-
 /**
  * Initializes the summary page. Sets greeting, loads tasks, runs mobile animation.
  */
 async function initSummary() {
-  lockScreenOrientation(); 
+  guardPage();
+  lockScreenOrientation();
   const user = getCurrentUser();
   updateGreeting(user);
   await loadSummaryData();
@@ -57,7 +55,7 @@ function runMobileGreetingAnimation() {
  * Loads all tasks from Firebase.
  */
 async function loadSummaryData() {
-  const response = await fetch(BASE_URL + "/tasks.json");
+  const response = await fetch(BASE_URL + "tasks.json");
   const data = await response.json();
   if (data) renderMetrics(data);
 }
@@ -78,12 +76,23 @@ function renderMetrics(tasks) {
  */
 function renderStatusCounts(arr) {
   document.getElementById("count-board").textContent = arr.length;
-  document.getElementById("count-todo").textContent = countByStatus(arr, "to do");
-  document.getElementById("count-progress").textContent = countByStatus(arr, "in progress");
-  document.getElementById("count-feedback").textContent = countByStatus(arr, "await feedback");
-  document.getElementById("count-done").textContent = countByStatus(arr, "done");
+  document.getElementById("count-todo").textContent = countByStatus(
+    arr,
+    "to do",
+  );
+  document.getElementById("count-progress").textContent = countByStatus(
+    arr,
+    "in progress",
+  );
+  document.getElementById("count-feedback").textContent = countByStatus(
+    arr,
+    "await feedback",
+  );
+  document.getElementById("count-done").textContent = countByStatus(
+    arr,
+    "done",
+  );
 }
-
 
 /**
  * Counts tasks by column value.
@@ -92,7 +101,7 @@ function renderStatusCounts(arr) {
  * @returns {number} Count
  */
 function countByStatus(arr, column) {
-  return arr.filter(t => t.column === column).length;
+  return arr.filter((t) => t.column === column).length;
 }
 
 /**
@@ -100,10 +109,10 @@ function countByStatus(arr, column) {
  * @param {Array} arr - All tasks
  */
 function renderUrgentSection(arr) {
-  const urgent = arr.filter(t => t.priority === "urgent");
+  const urgent = arr.filter((t) => t.priority === "Urgent");
   document.getElementById("count-urgent").textContent = urgent.length;
   if (urgent.length > 0) {
-    const date = urgent.map(t => t.due_date).sort()[0];
+    const date = urgent.map((t) => t.due_date).sort()[0];
     document.getElementById("deadline-date").textContent = formatDeadline(date);
   }
 }

@@ -277,7 +277,10 @@ body {
 
 .contact-item-active {
   background-color: var(--dark-blue) !important;
-  color: white !important;
+}
+
+.contact-item-active .contact-name {
+  color: white;
 }
 
 .success-banner {

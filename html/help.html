@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="../styles/help.css" />
     <link rel="stylesheet" href="../styles/variables.css" />
     <script src="../scripts/header.js" defer></script>
+    <script src="../script.js"></script>
   </head>
-  <body>
+  <body onload="initHelpPrivacyPolicyLegalNotice()">
     <!-- SIDEBAR -->
     <section class="sidebar">
       <div class="sidebar-logo">
@@ -280,5 +281,9 @@
         <h2 class="help-finale">Enjoy using Join!</h2>
       </article>
     </main>
+
+    <div id="landscape-warning">
+      Please rotate your device to portrait mode to use the board optimally! 📱
+    </div>
   </body>
 </html>

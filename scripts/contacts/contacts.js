@@ -8,6 +8,7 @@ let currentEditingId = null;
  */
 async function init() {
   guardPage();
+
   await loadContacts();
   await loadAllUsers();
   renderContactList();
@@ -113,21 +114,27 @@ function findContactById(id) {
  * @returns {Promise<void>}
  */
 async function createNewContact() {
-    if (!isContactFormValid()) return;
-    let emailInput = document.getElementById("contact-email--validator");
-    if (isEmailAlreadyUsed(emailInput.value)) {
-        emailInput.classList.add("input-error");
-        document.getElementById("contact-email--error").innerText = "This email is already in use!";
-        return;
-    }
-    disableButtonWhileLoading('btn-submit-contact');  
-    let name = document.querySelector(".icon-name").value;
-    let phone = document.querySelector(".icon-phone").value;
-    let newId = await postContact({ name, email: emailInput.value, phone, color: getRandomColor() });
-    await finalizeAddition();
-    showContactDetails(newId);
-    showSuccessBanner();
-    enableButton('btn-submit-contact');
+  if (!isContactFormValid()) return;
+  let emailInput = document.getElementById("contact-email--validator");
+  if (isEmailAlreadyUsed(emailInput.value)) {
+    emailInput.classList.add("input-error");
+    document.getElementById("contact-email--error").innerText =
+      "This email is already in use!";
+    return;
+  }
+  disableButtonWhileLoading("btn-submit-contact");
+  let name = document.querySelector(".icon-name").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let newId = await postContact({
+    name,
+    email: emailInput.value,
+    phone,
+    color: getRandomColor(),
+  });
+  await finalizeAddition();
+  showContactDetails(newId);
+  showSuccessBanner();
+  enableButton("btn-submit-contact");
 }
 
 /**
@@ -155,12 +162,12 @@ async function postContact(contact) {
  * @returns {boolean} True if the email is already taken.
  */
 function isEmailAlreadyUsed(email, excludeId = null) {
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i].email === email && contacts[i].id !== excludeId) {
-            return true;
-        }
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].email === email && contacts[i].id !== excludeId) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 /**
@@ -226,21 +233,27 @@ function prepareAddContactDialog() {
  * @returns {Promise<void>}
  */
 async function saveEditedContact() {
-    if (!isContactFormValid()) return;
-    let emailInput = document.getElementById("contact-email--validator");
-    if (isEmailAlreadyUsed(emailInput.value, currentEditingId)) {
-        emailInput.classList.add("input-error");
-        document.getElementById("contact-email--error").innerText = "This email is already in use!";
-        return;
-    }
-    disableButtonWhileLoading('btn-submit-contact');
-    let name = document.querySelector(".icon-name").value;
-    let phone = document.querySelector(".icon-phone").value;
-    let contact = findContactById(currentEditingId);
-    await putContact({ name, email: emailInput.value, phone, color: contact.color });
-    await finalizeAddition();
-    showContactDetails(currentEditingId);
-    enableButton('btn-submit-contact');
+  if (!isContactFormValid()) return;
+  let emailInput = document.getElementById("contact-email--validator");
+  if (isEmailAlreadyUsed(emailInput.value, currentEditingId)) {
+    emailInput.classList.add("input-error");
+    document.getElementById("contact-email--error").innerText =
+      "This email is already in use!";
+    return;
+  }
+  disableButtonWhileLoading("btn-submit-contact");
+  let name = document.querySelector(".icon-name").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let contact = findContactById(currentEditingId);
+  await putContact({
+    name,
+    email: emailInput.value,
+    phone,
+    color: contact.color,
+  });
+  await finalizeAddition();
+  showContactDetails(currentEditingId);
+  enableButton("btn-submit-contact");
 }
 
 /**
@@ -249,16 +262,18 @@ async function saveEditedContact() {
  * @param {Object} contact - The updated fields.
  */
 async function putContact(contact) {
-    let isUser = await checkIfIdIsUser(currentEditingId);
-    let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
-    let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
-    if (isUser) {
-        let response = await fetch(url);
-        let currentDBUser = await response.json();
-        Object.assign(currentDBUser, contact);
-        contact = currentDBUser;
-    }
-    await fetch(url, { method: "PUT", body: JSON.stringify(contact) });
+  let isUser = await checkIfIdIsUser(currentEditingId);
+  let path = isUser
+    ? `users/${currentEditingId}`
+    : `contacts/${currentEditingId}`;
+  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  if (isUser) {
+    let response = await fetch(url);
+    let currentDBUser = await response.json();
+    Object.assign(currentDBUser, contact);
+    contact = currentDBUser;
+  }
+  await fetch(url, { method: "PUT", body: JSON.stringify(contact) });
 }
 /**
  * Deletes a contact or user from the database depending on its origin.

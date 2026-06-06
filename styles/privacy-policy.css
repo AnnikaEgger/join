@@ -44,6 +44,15 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  .li-nav-link--privacy-policy-resp {
+    height: 100%;
+    padding: 4px;
+  }
+
+  .li-nav-link--privacy-policy-resp a {
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -63,6 +72,14 @@
   }
   .privacy-container h2 {
     font-size: 22px;
+  }
+
+  .nav-login-item {
+    padding-left: 8px;
+  }
+
+  .nav-link {
+    padding: 8px;
   }
 }
 

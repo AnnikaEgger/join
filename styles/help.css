@@ -57,11 +57,6 @@
   margin: 48px 0 24px 0;
 }
 
-.brand {
-  color: var(--light-blue);
-  font-weight: 400;
-}
-
 .help-steps {
   list-style: none;
   counter-reset: help-counter;

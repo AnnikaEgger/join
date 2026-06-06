@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="../styles/templates.css" />
     <link rel="stylesheet" href="../styles/privacy-policy.css" />
     <script src="../scripts/header.js" defer></script>
+    <script src="../script.js" defer></script>
   </head>
-  <body>
+  <body onload="initHelpPrivacyPolicyLegalNotice()">
     <section class="sidebar">
       <div class="sidebar-logo">
         <img src="../assets/icons/join-logo-white.svg" alt="Join Logo" />
@@ -200,5 +201,9 @@
         </section>
       </div>
     </main>
+
+    <div id="landscape-warning">
+      Please rotate your device to portrait mode to use the board optimally! 📱
+    </div>
   </body>
 </html>
