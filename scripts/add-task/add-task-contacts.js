@@ -318,7 +318,13 @@ async function checkIfAssignedContactStillExists() {
   await getUsers();
 
   Object.entries(tasks).forEach(([taskId, task]) => {
-    if (task.assigned_contacts) {
+    if (!task.assigned_contacts) return;
+
+    const hasInvalidContacts = Object.values(task.assigned_contacts).some(
+      (contact) => !contactsOptions.some((c) => c.id === contact.id),
+    );
+
+    if (hasInvalidContacts) {
       collectValidAssignedContacts(task, taskId);
     }
   });
