@@ -38,10 +38,6 @@
         font-size: 20px;
     }
 
-    .title-divider {
-        height: 47px;
-    }
-
     .summary-body {
         flex-direction: column-reverse;
         gap: 48px;
@@ -79,7 +75,7 @@
     }
 
     .summary-title p {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .cards-row {
@@ -92,7 +88,7 @@
     }
 
     .card-label {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .metric-card-icon {
@@ -122,11 +118,7 @@
     }
 
     .summary-title p {
-        font-size: 16px;
-    }
-
-    .title-divider {
-        height: 32px;
+        font-size: 20px;
     }
 
     .cards-row {
@@ -139,7 +131,7 @@
     }
 
     .card-label {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .metric-card {
@@ -152,14 +144,8 @@
     }
 
     .metric-card-wide {
-        flex-direction: column;
         padding: 16px;
         gap: 12px;
-    }
-
-    .card-divider {
-        width: 80%;
-        height: 2px;
     }
 
     .metric-card-bottom {
@@ -178,10 +164,11 @@
 
     .deadline-date {
         font-size: 16px;
+        white-space: nowrap;
     }
 
     .deadline-label {
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 
@@ -197,7 +184,7 @@
     }
 
     .card-label {
-        font-size: 11px;
+        font-size: 16px;
     }
 
     .metric-card-icon {
@@ -224,10 +211,6 @@
         font-size: 13px;
     }
 
-    .title-divider {
-        height: 28px;
-    }
-
     .cards-row {
         gap: 6px;
     }
@@ -238,7 +221,7 @@
     }
 
     .card-label {
-        font-size: 10px;
+        font-size: 16px;
         line-height: 1.2;
     }
 
@@ -262,11 +245,11 @@
     }
 
     .deadline-date {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .deadline-label {
-        font-size: 11px;
+        font-size: 16px;
     }
 }
 
@@ -283,12 +266,15 @@
     }
 
     .title-divider {
-        display: none;
+        display: block;
+        width: 100px;
+        height: 3px;
+        order: 1;
     }
 
     .summary-title {
         display: flex;
-        justify-content: flex-start;
+        align-items: flex-start;
         gap: 24px;
         margin-bottom: 64px;
         flex-direction: column;
@@ -335,22 +321,22 @@
     .summary-cards.visible {
         opacity: 1;
     }
+
     .main-content {
         padding-left: 16px;
-        padding-right: 16px;}
+        padding-right: 16px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .summary-greeting h2 {
         font-size: 40px;
     }
-
 }
 
 .summary-greeting p {
     font-size: 40px;
 }
-
 
 
 @media screen and (max-width: 425px) {
@@ -363,7 +349,8 @@
     }
     .main-content {
         padding-left: 16px;
-        padding-right: 16px;}
+        padding-right: 16px;
+    }
 }
 
 @media screen and (max-width: 375px) {
@@ -376,7 +363,8 @@
     }
     .main-content {
         padding-left: 16px;
-        padding-right: 16px;}
+        padding-right: 16px;
+    }
 }
 
 @media screen and (max-width: 320px) {
