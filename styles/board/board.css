@@ -184,6 +184,7 @@ hr {
   align-self: start;
   justify-content: space-between;
   width: 200px;
+  flex-shrink: 0;
   max-height: 100%;
   background-color: white;
   border-radius: 10px;
