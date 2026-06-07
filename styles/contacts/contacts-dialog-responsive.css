@@ -1,226 +1,226 @@
 @media (max-width: 1024px) {
-    .add-contact-dialog {
-        flex-direction: column;
-        width: 65dvw;
-        height: calc(90dvh - 85px - 85px);
-        max-height: none;
-        border-radius: 30px;
-        margin: auto;
-        transform: translateY(100dvh);
-        transition: transform 0.3s ease-out;
-    }
+  .add-contact-dialog {
+    flex-direction: column;
+    width: 65dvw;
+    height: calc(90dvh - 85px - 85px);
+    max-height: none;
+    border-radius: 30px;
+    margin: auto;
+    transform: translateY(100dvh);
+    transition: transform 0.125s ease-out;
+  }
 
-    .add-contact-dialog[open] {
-        transform: translateY(0);
-    }
+  .add-contact-dialog[open] {
+    transform: translateY(0);
+  }
 
-    .dialog-left {
-        width: 100%;
-        height: 35%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+  .dialog-left {
+    width: 100%;
+    height: 35%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .dialog-left .dialog-logo {
-        display: none;
-    }
+  .dialog-left .dialog-logo {
+    display: none;
+  }
 
-    .dialog-close-btn-mobile {
-        display: flex;
-        position: absolute;
-        background: none;
-        border: none;
-        top: 24px;
-        right: 24px;
-        cursor: pointer;
-        padding: 8px;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-    }
+  .dialog-close-btn-mobile {
+    display: flex;
+    position: absolute;
+    background: none;
+    border: none;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
 
-    .dialog-close-btn-mobile:active {
-        background-color: var(--light-blue);
-        border-radius: 50%;
-    }
+  .dialog-close-btn-mobile:active {
+    background-color: var(--light-blue);
+    border-radius: 50%;
+  }
 
-    .dialog-close-btn-mobile img {
-        filter: brightness(0) invert(1);
-        width: 16px;
-        height: 16px;
-    }
+  .dialog-close-btn-mobile img {
+    filter: brightness(0) invert(1);
+    width: 16px;
+    height: 16px;
+  }
 
-    .dialog-left-content h1 {
-        font-size: 48px;
-        margin: 0 0 8px 0;
-    }
+  .dialog-left-content h1 {
+    font-size: 48px;
+    margin: 0 0 8px 0;
+  }
 
-    .dialog-left-content span {
-        font-size: 20px;
-    }
+  .dialog-left-content span {
+    font-size: 20px;
+  }
 
-    .default-avatar {
-        width: 95px;
-        height: 95px;
-    }
+  .default-avatar {
+    width: 95px;
+    height: 95px;
+  }
 
-    .dialog-right {
-        width: 100%;
-        height: 65%;
-        padding: 24px;
-    }
+  .dialog-right {
+    width: 100%;
+    height: 65%;
+    padding: 24px;
+  }
 
-    .dialog-right .dialog-close-btn {
-        display: none;
-    }
+  .dialog-right .dialog-close-btn {
+    display: none;
+  }
 
-    .dialog-body {
-        flex-direction: column;
-        gap: 0;
-    }
+  .dialog-body {
+    flex-direction: column;
+    gap: 0;
+  }
 
-    .dialog-avatar-container {
-        position: absolute;
-        top: -50px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 5;
-    }
+  .dialog-avatar-container {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+  }
 
-    .dialog-buttons .btn-cancel {
-        display: none;
-    }
+  .dialog-buttons .btn-cancel {
+    display: none;
+  }
 
-    .dialog-buttons {
-        justify-content: center;
-    }
+  .dialog-buttons {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
-    .add-contact-dialog {
-        min-height: 500px;
-        width: 80dvw;
-    }
+  .add-contact-dialog {
+    min-height: 500px;
+    width: 80dvw;
+  }
 
-    .dialog-left-content h1 {
-        font-size: 36px;
-    }
+  .dialog-left-content h1 {
+    font-size: 36px;
+  }
 
-    .dialog-left-content span {
-        font-size: 16px;
-    }
+  .dialog-left-content span {
+    font-size: 16px;
+  }
 
-    .default-avatar {
-        width: 90px;
-        height: 90px;
-        font-size: 36px;
-    }
+  .default-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
+  }
 
-    .dialog-avatar-container {
-        top: -50px;
-    }
+  .dialog-avatar-container {
+    top: -50px;
+  }
 
-    .contact-form {
-        gap: 16px;
-        max-width: 350px;
-    }
+  .contact-form {
+    gap: 16px;
+    max-width: 350px;
+  }
 
-    .input-container {
-        gap: 16px;
-    }
+  .input-container {
+    gap: 16px;
+  }
 }
 
 @media (max-width: 550px) {
-    .add-contact-dialog {
-        width: 90dvw;
-    }
+  .add-contact-dialog {
+    width: 90dvw;
+  }
 }
 
 @media (max-width: 425px) {
-    .add-contact-dialog {
-        min-height: 375px;
-        width: 95dvw;
-    }
+  .add-contact-dialog {
+    min-height: 375px;
+    width: 95dvw;
+  }
 
-    .dialog-left {
-        height: 35%;
-        padding: 24px 32px;
-        align-items: flex-start;
-    }
+  .dialog-left {
+    height: 35%;
+    padding: 24px 32px;
+    align-items: flex-start;
+  }
 
-    .dialog-left-content h1 {
-        font-size: 28px;
-        margin: 0;
-    }
+  .dialog-left-content h1 {
+    font-size: 28px;
+    margin: 0;
+  }
 
-    .dialog-left-content span {
-        font-size: 14px;
-    }
+  .dialog-left-content span {
+    font-size: 14px;
+  }
 
-    .blue-horizontal-divider {
-        margin: 8px 0 0 0;
-    }
+  .blue-horizontal-divider {
+    margin: 8px 0 0 0;
+  }
 
-    .dialog-avatar-container {
-        top: -45px;
-    }
+  .dialog-avatar-container {
+    top: -45px;
+  }
 
-    .default-avatar {
-        width: 80px;
-        height: 80px;
-        font-size: 28px;
-    }
+  .default-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 28px;
+  }
 
-    .dialog-right {
-        height: 65%;
-        padding: 32px 16px 16px 16px;
-    }
+  .dialog-right {
+    height: 65%;
+    padding: 32px 16px 16px 16px;
+  }
 
-    .dialog-body {
-        justify-content: center;
-        height: 100%;
-    }
+  .dialog-body {
+    justify-content: center;
+    height: 100%;
+  }
 
-    .contact-input {
-        height: 42px;
-        font-size: 16px;
-        padding: 8px 16px;
-        padding-right: 40px;
-        background-position: right 16px center;
-    }
+  .contact-input {
+    height: 42px;
+    font-size: 16px;
+    padding: 8px 16px;
+    padding-right: 40px;
+    background-position: right 16px center;
+  }
 
-    .input-container {
-        gap: 12px;
-    }
+  .input-container {
+    gap: 12px;
+  }
 
-    .contact-form {
-        gap: 16px;
-    }
+  .contact-form {
+    gap: 16px;
+  }
 
-    .btn-create {
-        min-width: 140px;
-        height: 48px;
-        padding: 12px;
-        font-size: 16px;
-    }
+  .btn-create {
+    min-width: 140px;
+    height: 48px;
+    padding: 12px;
+    font-size: 16px;
+  }
 
-    .btn-create img {
-        width: 14px;
-        height: 10px;
-    }
+  .btn-create img {
+    width: 14px;
+    height: 10px;
+  }
 }
 
 @media (max-width: 375px) {
-    .dialog-avatar-container {
-        top: -40px;
-    }
+  .dialog-avatar-container {
+    top: -40px;
+  }
 
-    .default-avatar {
-        width: 75px;
-        height: 75px;
-        font-size: 28px;
-    }
+  .default-avatar {
+    width: 75px;
+    height: 75px;
+    font-size: 28px;
+  }
 }

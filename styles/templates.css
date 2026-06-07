@@ -196,6 +196,7 @@ a {
 
 .header-avatar:hover {
   background-color: var(--dark-blue) !important;
+  border-color: white !important;
 }
 
 .header-logo-mobile {
@@ -392,4 +393,3 @@ a {
     display: none;
   }
 }
-

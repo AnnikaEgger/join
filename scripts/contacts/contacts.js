@@ -123,6 +123,7 @@ async function createNewContact() {
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
   let newId = await postContact({
@@ -135,6 +136,7 @@ async function createNewContact() {
   showContactDetails(newId);
   showSuccessBanner();
   enableButton("btn-submit-contact");
+  enableButton("btn-cancel");
 }
 
 /**
@@ -242,6 +244,8 @@ async function saveEditedContact() {
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
+
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
   let contact = findContactById(currentEditingId);
@@ -253,7 +257,9 @@ async function saveEditedContact() {
   });
   await finalizeAddition();
   showContactDetails(currentEditingId);
+  disableButtonWhileLoading("btn-submit-contact");
   enableButton("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
 }
 
 /**

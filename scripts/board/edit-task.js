@@ -381,9 +381,6 @@ async function patchDefaultTask(taskId, template) {
       category: template.category,
     }),
   });
-
-  let response = await fetch(BASE_URL + `tasks/${taskId}.json`);
-  console.log(await response.json());
 }
 
 /**

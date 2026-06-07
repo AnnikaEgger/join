@@ -46,24 +46,10 @@ async function handleSignup(event) {
   }
 
   await saveUser(userData);
-  loginAfterSignup(userData);
   showSuccessToast();
   setTimeout(() => {
-    window.location.href = "../html/summary.html";
+    window.location.href = "../index.html";
   }, 2000);
-}
-
-/**
- * Logs the user in after sign-up by saving to localStorage (without password).
- * @param {Object} user
- */
-function loginAfterSignup(user) {
-  const userData = {
-    name: user.name,
-    email: user.email,
-    color: user.color,
-  };
-  localStorage.setItem("currentUser", JSON.stringify(userData));
 }
 
 /**
@@ -213,6 +199,7 @@ async function submitSignupForm(event) {
   if (!(await validateSignupEmail())) return;
 
   document.getElementById("signup-btn").disabled = true;
+  document.activeElement.blur();
 
   finishSignup();
 }
@@ -246,10 +233,9 @@ async function finishSignup() {
   const userData = collectFormData();
 
   await saveUser(userData);
-  loginAfterSignup(userData);
   showSuccessToast();
   setTimeout(() => {
-    window.location.href = "../html/summary.html";
+    window.location.href = "../index.html";
   }, 2000);
 }
 
