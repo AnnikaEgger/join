@@ -306,7 +306,9 @@ async function getMissingDefaultTasks() {
     (requiredId) => !existingIds.includes(requiredId),
   );
 
-  postMissingDefaultTasks(missingDefaultTasksIds);
+  if (missingDefaultTasksIds.length > 0) {
+    await postMissingDefaultTasks(missingDefaultTasksIds);
+  }
 }
 
 /**
@@ -389,7 +391,6 @@ async function patchDefaultTask(taskId, template) {
  * @returns {Promise<void>}
  */
 async function ensureAllDefaultTasksAreInBoard() {
-  await getDefaultTasksTemplates();
   await getMissingDefaultTasks();
   await patchExistingDefaultTasks();
 }
