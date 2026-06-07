@@ -1,20 +1,16 @@
-# Join
+# Join - Kanban Task Management Application
 
-### Kanban Task Management Application
+## 📖 About the Project
+
+**Join** is a Kanban-style web application for task and workflow management.  
+It allows users to create tasks, manage contacts, assign responsibilities, and track progress through subtasks and visual status updates.
 
 ---
 
 ## 📸 Preview
 
 ![Screenshot 1](./assets/imgs/screenshot-add-task.png)
-![Screenshot 2](./assets/imgs/screenshot-add-task.png)
-
----
-
-## 📖 About the Project
-
-**Join** is a Kanban-style web application for task and workflow management.  
-It allows users to create tasks, manage contacts, assign responsibilities, and track progress through subtasks and visual status updates.
+![Screenshot 2](./assets/imgs/screenshot-board.png)
 
 ---
 
