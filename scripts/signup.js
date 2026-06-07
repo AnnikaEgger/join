@@ -227,7 +227,7 @@ async function validateSignupEmail() {
 }
 
 /**
- * Completes the sign-up process by saving the user, logging them in, and showing success feedback.
+ * Completes the sign-up process by saving the user and showing success feedback.
  */
 async function finishSignup() {
   const userData = collectFormData();
