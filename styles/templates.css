@@ -263,6 +263,21 @@ a {
   padding: 24px;
   box-sizing: border-box;
 }
+.dropdown-content .dropdown-item {
+  width: 100%;
+  text-align: left;
+  color: white;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: var(--color-active-bg);
+}
 
 @media screen and (max-width: 950px) and (orientation: landscape) {
   #landscape-warning {
