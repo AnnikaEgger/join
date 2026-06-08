@@ -29,6 +29,17 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .main-content {
+    min-height: calc(100dvh - var(--header-height) - var(--resp-navbar-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .summary-page {
+    padding: 0;
+  }
+
   .summary-title h1 {
     font-size: 47px;
   }
@@ -336,14 +347,14 @@
     font-size: 32px;
   }
 
-    .summary-greeting p {
-        font-size: 32px;
-    }
+  .summary-greeting p {
+    font-size: 32px;
+  }
 
-    .main-content {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+  .main-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @media screen and (max-width: 375px) {
@@ -351,14 +362,14 @@
     font-size: 28px;
   }
 
-    .summary-greeting p {
-        font-size: 28px;
-    }
+  .summary-greeting p {
+    font-size: 28px;
+  }
 
-    .main-content {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+  .main-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -366,12 +377,12 @@
     font-size: 24px;
   }
 
-    .summary-greeting p {
-        font-size: 24px;
-    }
+  .summary-greeting p {
+    font-size: 24px;
+  }
 
-    .main-content {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+  .main-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
