@@ -39,6 +39,9 @@ function fillContactsArray(contactsObj) {
   let keys = Object.keys(contactsObj);
   for (let i = 0; i < keys.length; i++) {
     let id = keys[i];
+
+    if (id === "dummy_placeholder") continue;
+
     let contactData = contactsObj[id];
     contactData.id = id;
     if (!contactData.phone) {
