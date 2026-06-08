@@ -257,9 +257,8 @@ async function saveEditedContact() {
   });
   await finalizeAddition();
   showContactDetails(currentEditingId);
-  disableButtonWhileLoading("btn-submit-contact");
   enableButton("btn-submit-contact");
-  disableButtonWhileLoading("btn-cancel");
+  enableButton("btn-cancel");
 }
 
 /**
