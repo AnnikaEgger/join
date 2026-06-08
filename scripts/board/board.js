@@ -5,7 +5,7 @@ let currentDraggedElement;
  * Initializes the board by ensuring all default tasks are present, loading tasks from Firebase, and enabling pointer events for the board. This function is called when the board page is loaded to set up the initial state of the application.
  */
 async function initBoard() {
-  await ensureAllDefaultTasksAreInBoard();
+  // await ensureAllDefaultTasksAreInBoard();
   await loadTasks();
   guardPage();
   enableAllPointerEvents("--board");

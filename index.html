@@ -68,6 +68,7 @@
               placeholder="Email"
               class="form-input form-input-email"
               id="login-email"
+              pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
               type="email"
             />
             <span class="error-msg" id="error-login-email"></span>
@@ -80,6 +81,7 @@
                 placeholder="Password"
                 class="form-input form-input-password"
                 id="login-password"
+                pattern="\S+"
                 type="password"
               />
               <button

@@ -27,7 +27,6 @@ const ERROR_TO_INPUT = {
  * Initializes the sign-up page.
  */
 function initSignup() {
-  userTriedToSubmit = false;
   initPasswordToggles();
 }
 
@@ -143,8 +142,6 @@ function initPasswordToggles() {
   updatePasswordIcon("signup-confirm-password", "toggle-confirm");
 }
 
-let userTriedToSubmit = false;
-
 /**
  * Validates a sign-up input field after the user attempted submission.
  * Marks invalid fields and updates checkbox styling.
@@ -152,7 +149,6 @@ let userTriedToSubmit = false;
  */
 function checkInputValidity(inputId) {
   initPasswordToggles();
-  if (!userTriedToSubmit) return;
 
   const input = document.getElementById("signup" + "-" + inputId);
 
@@ -186,7 +182,6 @@ function checkInputValidity(inputId) {
  * @param {Event} event - The submit event from the sign-up form
  */
 async function submitSignupForm(event) {
-  userTriedToSubmit = true;
   event.preventDefault();
 
   const taskForm = document.getElementById("signup-form");

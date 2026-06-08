@@ -23,7 +23,7 @@ function addSubtask(id) {
     done: false,
   };
 
-  if (SUBTASK_INPUT.length > 0) {
+  if (SUBTASK_INPUT.trim().length > 0) {
     subtasksArr.push({ ...subtaskObj });
     renderSubtasks(id);
     clearSubtaskInput(id);

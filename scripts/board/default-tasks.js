@@ -9,7 +9,7 @@ const BASE_URL =
  * Default task templates used to populate Firebase with initial board tasks.
  * @constant {Array<Object>}
  */
-const defaultTasksJson = [
+const defaultTasksArray = [
   {
     "assigned_contacts": [
       {
@@ -228,10 +228,12 @@ const defaultTasksJson = [
  * Uploads the default task templates to Firebase under the "default_tasks" node.
  * @returns {Promise<void>}
  */
-async function putDefaultTasksInFirebase() {
-  await fetch(BASE_URL + "default_tasks" + ".json", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(defaultTasksJson),
-  });
+async function postDefaultTasksInFirebase() {
+  for (const defaultTask of defaultTasksArray) {
+    await fetch(BASE_URL + "tasks" + ".json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(defaultTask),
+    });
+  }
 }

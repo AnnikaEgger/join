@@ -83,6 +83,8 @@ input[type="checkbox"] {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  max-height: 100px;
+  overflow-y: scroll;
 }
 
 .selected-contacts--add-task {
@@ -217,6 +219,11 @@ input[type="checkbox"] {
 .subtask-btns-container--ul button:hover,
 .subtask-btns-container--ul button:focus-visible {
   transform: scale(1.05);
+}
+
+.subtask-list {
+  max-height: 150px;
+  overflow-y: scroll;
 }
 
 .subtask-list:has(li) {

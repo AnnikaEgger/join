@@ -42,6 +42,7 @@ function taskEditModeTemplate(task, taskId) {
                   id="task-title--edit-task"
                   placeholder="Enter a title"
                   value="${task.title}"
+                  pattern=".*\\S.*"
                   required
                 />
               </div>
@@ -284,6 +285,7 @@ function taskEditModeTemplate(task, taskId) {
                     id="subtask-input--edit-task"
                     placeholder="Add new subtask"
                     aria-label="add subtask"
+                      pattern=".*\\S.*"
                   />
                   <div class="subtask-btns-container">
                     <button
