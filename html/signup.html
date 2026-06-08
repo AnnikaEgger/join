@@ -38,10 +38,8 @@
         novalidate
       >
         <div class="form-headline-container form-headline-container-signup">
-          <a href="../index.html">
-            <button type="button" class="blue-arrow-left-btn">
-              <img src="../assets/icons/blue-arrow-left.svg" alt="arrow icon" />
-            </button>
+          <a href="../index.html" class="blue-arrow-left-btn">
+            <img src="../assets/icons/blue-arrow-left.svg" alt="Back to login" />
           </a>
           <div class="headline-wrapper">
             <h1>Sign up</h1>
@@ -78,7 +76,7 @@
               id="signup-email"
               placeholder="Email"
               type="email"
-              pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+              pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}"
               required
             />
           </div>
@@ -103,6 +101,7 @@
                 type="button"
                 class="password-toggle"
                 id="toggle-password"
+                aria-label="Show password"
                 onclick="togglePassword('signup-password', 'toggle-password')"
               ></button>
             </div>
@@ -128,6 +127,7 @@
                 type="button"
                 class="password-toggle"
                 id="toggle-confirm"
+                aria-label="Show password"
                 onclick="
                   togglePassword('signup-confirm-password', 'toggle-confirm')
                 "
@@ -148,7 +148,6 @@
               id="signup-privacy-checkbox"
               class="accept-checkbox"
               type="checkbox"
-              id="signup-checkbox"
               required
             />
           </div>
