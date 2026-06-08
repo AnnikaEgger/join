@@ -196,6 +196,7 @@ a {
 
 .header-avatar:hover {
   background-color: var(--dark-blue) !important;
+  border-color: white !important;
 }
 
 .header-logo-mobile {
@@ -263,6 +264,7 @@ a {
   padding: 24px;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 .dropdown-content .dropdown-item {
   width: 100%;
   text-align: left;
@@ -408,3 +410,5 @@ a {
   }
 }
 
+=======
+>>>>>>> a9b08279a549bb73be0b70fcc07740a04253ba14

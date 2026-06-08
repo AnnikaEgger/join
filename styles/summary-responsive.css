@@ -1,348 +1,340 @@
 @media screen and (max-width: 1440px) {
-    .summary-title h1 {
-        font-size: 55px;
-    }
+  .summary-title h1 {
+    font-size: 55px;
+  }
 
-    .summary-title p {
-        font-size: 24px;
-    }
+  .summary-title p {
+    font-size: 24px;
+  }
 
-    .card-count {
-        font-size: 42px;
-    }
+  .card-count {
+    font-size: 42px;
+  }
 
-    .metric-card-bottom .card-count {
-        font-size: 42px;
-    }
+  .metric-card-bottom .card-count {
+    font-size: 42px;
+  }
 
-    .summary-greeting h2 {
-        font-size: 39px;
-    }
+  .summary-greeting h2 {
+    font-size: 39px;
+  }
 
-    .summary-greeting p {
-        font-size: 55px;
-    }
+  .summary-greeting p {
+    font-size: 55px;
+  }
 
-    .summary-cards {
-        min-width: 500px;
-    }
+  .summary-cards {
+    min-width: 500px;
+  }
 }
-
 
 @media screen and (max-width: 1024px) {
-    .summary-title h1 {
-        font-size: 47px;
-    }
+  .summary-title h1 {
+    font-size: 47px;
+  }
 
-    .summary-title p {
-        font-size: 20px;
-    }
+  .summary-title p {
+    font-size: 20px;
+  }
 
-    .summary-body {
-        flex-direction: column-reverse;
-        gap: 48px;
-        align-items: stretch;
-    }
+  .summary-body {
+    flex-direction: column-reverse;
+    gap: 48px;
+    align-items: stretch;
+  }
 
-    .summary-cards {
-        min-width: unset;
-    }
+  .summary-cards {
+    min-width: unset;
+  }
 
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 36px;
-    }
+  .card-count,
+  .metric-card-bottom .card-count {
+    font-size: 36px;
+  }
 
-    .metric-card-icon {
-        padding: 20px 24px;
-    }
+  .metric-card-icon {
+    padding: 20px 24px;
+  }
 
-    .card-icon-circle {
-        width: 50px;
-        height: 50px;
-    }
+  .card-icon-circle {
+    width: 50px;
+    height: 50px;
+  }
 }
-
 
 @media screen and (max-width: 768px) {
-    .summary-title {
-        gap: 16px;
-        margin-bottom: 48px;
-    }
+  .summary-title {
+    gap: 16px;
+    margin-bottom: 48px;
+  }
 
-    .summary-title h1 {
-        font-size: 40px;
-    }
+  .summary-title h1 {
+    font-size: 40px;
+  }
 
-    .summary-title p {
-        font-size: 20px;
-    }
+  .summary-title p {
+    font-size: 20px;
+  }
 
-    .cards-row {
-        gap: 16px;
-    }
+  .cards-row {
+    gap: 16px;
+  }
 
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 32px;
-    }
+  .card-count,
+  .metric-card-bottom .card-count {
+    font-size: 32px;
+  }
 
-    .card-label {
-        font-size: 16px;
-    }
+  .card-label {
+    font-size: 16px;
+  }
 
-    .metric-card-icon {
-        padding: 16px 20px;
-        gap: 12px;
-    }
+  .metric-card-icon {
+    padding: 16px 20px;
+    gap: 12px;
+  }
 
-    .metric-card-wide {
-        padding: 20px;
-        gap: 16px;
-    }
+  .metric-card-wide {
+    padding: 20px;
+    gap: 16px;
+  }
 
-    .metric-card-bottom {
-        padding: 16px 8px;
-    }
+  .metric-card-bottom {
+    padding: 16px 8px;
+  }
 
-    .card-icon-circle {
-        width: 44px;
-        height: 44px;
-    }
+  .card-icon-circle {
+    width: 44px;
+    height: 44px;
+  }
 }
-
 
 @media screen and (max-width: 480px) {
-    .summary-title h1 {
-        font-size: 32px;
-    }
+  .summary-title h1 {
+    font-size: 32px;
+  }
 
-    .summary-title p {
-        font-size: 20px;
-    }
+  .summary-title p {
+    font-size: 20px;
+  }
 
-    .cards-row {
-        gap: 8px;
-    }
+  .cards-row {
+    gap: 8px;
+  }
 
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 24px;
-    }
+  .card-count,
+  .metric-card-bottom .card-count {
+    font-size: 24px;
+  }
 
-    .card-label {
-        font-size: 16px;
-    }
+  .card-label {
+    font-size: 16px;
+  }
 
-    .metric-card {
-        border-radius: 16px;
-    }
+  .metric-card {
+    border-radius: 16px;
+  }
 
-    .metric-card-icon {
-        padding: 10px 12px;
-        gap: 8px;
-    }
+  .metric-card-icon {
+    padding: 10px 12px;
+    gap: 8px;
+  }
 
-    .metric-card-wide {
-        padding: 16px;
-        gap: 12px;
-    }
+  .metric-card-wide {
+    padding: 16px;
+    gap: 12px;
+  }
 
-    .metric-card-bottom {
-        padding: 10px 4px;
-    }
+  .metric-card-bottom {
+    padding: 10px 4px;
+  }
 
-    .card-icon-circle {
-        width: 36px;
-        height: 36px;
-    }
+  .card-icon-circle {
+    width: 36px;
+    height: 36px;
+  }
 
-    .card-icon-circle svg {
-        width: 18px;
-        height: 18px;
-    }
+  .card-icon-circle svg {
+    width: 18px;
+    height: 18px;
+  }
 
-    .deadline-date {
-        font-size: 16px;
-        white-space: nowrap;
-    }
+  .deadline-date {
+    font-size: 16px;
+    white-space: nowrap;
+  }
 
-    .deadline-label {
-        font-size: 16px;
-    }
+  .deadline-label {
+    font-size: 16px;
+  }
 }
-
 
 @media screen and (max-width: 375px) {
-    .summary-title h1 {
-        font-size: 28px;
-    }
+  .summary-title h1 {
+    font-size: 28px;
+  }
 
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 22px;
-    }
+  .card-count,
+  .metric-card-bottom .card-count {
+    font-size: 22px;
+  }
 
-    .card-label {
-        font-size: 16px;
-    }
+  .card-label {
+    font-size: 16px;
+  }
 
-    .metric-card-icon {
-        padding: 8px 10px;
-    }
+  .metric-card-icon {
+    padding: 8px 10px;
+  }
 
-    .card-icon-circle {
-        width: 32px;
-        height: 32px;
-    }
+  .card-icon-circle {
+    width: 32px;
+    height: 32px;
+  }
 }
-
 
 @media screen and (max-width: 320px) {
-    .summary-title {
-        gap: 12px;
-    }
+  .summary-title {
+    gap: 12px;
+  }
 
-    .summary-title h1 {
-        font-size: 24px;
-    }
+  .summary-title h1 {
+    font-size: 24px;
+  }
 
-    .summary-title p {
-        font-size: 13px;
-    }
+  .summary-title p {
+    font-size: 13px;
+  }
 
-    .cards-row {
-        gap: 6px;
-    }
+  .cards-row {
+    gap: 6px;
+  }
 
-    .card-count,
-    .metric-card-bottom .card-count {
-        font-size: 18px;
-    }
+  .card-count,
+  .metric-card-bottom .card-count {
+    font-size: 18px;
+  }
 
-    .card-label {
-        font-size: 16px;
-        line-height: 1.2;
-    }
+  .card-label {
+    font-size: 16px;
+    line-height: 1.2;
+  }
 
-    .metric-card-icon {
-        padding: 6px 8px;
-        gap: 6px;
-    }
+  .metric-card-icon {
+    padding: 6px 8px;
+    gap: 6px;
+  }
 
-    .metric-card-bottom {
-        padding: 8px 2px;
-    }
+  .metric-card-bottom {
+    padding: 8px 2px;
+  }
 
-    .card-icon-circle {
-        width: 28px;
-        height: 28px;
-    }
+  .card-icon-circle {
+    width: 28px;
+    height: 28px;
+  }
 
-    .card-icon-circle svg {
-        width: 14px;
-        height: 14px;
-    }
+  .card-icon-circle svg {
+    width: 14px;
+    height: 14px;
+  }
 
-    .deadline-date {
-        font-size: 16px;
-    }
+  .deadline-date {
+    font-size: 16px;
+  }
 
-    .deadline-label {
-        font-size: 16px;
-    }
+  .deadline-label {
+    font-size: 16px;
+  }
 }
-
 
 /* #region mobile greeting animation */
 @media screen and (max-width: 1024px) {
+  .summary-page {
+    position: relative;
+  }
 
-    .summary-page {
-        position: relative;
-    }
+  .header-title {
+    display: none;
+  }
 
-    .header-title {
-        display: none;
-    }
+  .title-divider {
+    display: block;
+    width: 100px;
+    height: 3px;
+    order: 1;
+  }
 
-    .title-divider {
-        display: block;
-        width: 100px;
-        height: 3px;
-        order: 1;
-    }
+  .summary-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 64px;
+    flex-direction: column;
+  }
 
-    .summary-title {
-        display: flex;
-        align-items: flex-start;
-        gap: 24px;
-        margin-bottom: 64px;
-        flex-direction: column;
-    }
+  .summary-greeting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 16px;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.125s ease-out;
+  }
 
-    .summary-greeting {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--color-bg);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 0 16px;
-        z-index: 1000;
-        opacity: 1;
-        transition: opacity 0.5s ease-out;
-    }
+  .summary-greeting h2 {
+    font-size: 47px;
+    word-break: break-word;
+  }
 
-    .summary-greeting h2 {
-        font-size: 47px;
-        word-break: break-word;
-    }
+  .summary-greeting p {
+    font-size: 47px;
+    word-break: break-word;
+  }
 
-    .summary-greeting p {
-        font-size: 47px;
-        word-break: break-word;
-    }
+  .summary-greeting.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-    .summary-greeting.fade-out {
-        opacity: 0;
-        pointer-events: none;
-    }
+  .summary-cards {
+    opacity: 0;
+    transition: opacity 0.125s ease-in;
+  }
 
-    .summary-cards {
-        opacity: 0;
-        transition: opacity 0.5s ease-in;
-    }
+  .summary-cards.visible {
+    opacity: 1;
+  }
 
-    .summary-cards.visible {
-        opacity: 1;
-    }
-
-    .main-content {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+  .main-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .summary-greeting h2 {
-        font-size: 40px;
-    }
+  .summary-greeting h2 {
+    font-size: 40px;
+  }
 }
 
 .summary-greeting p {
-    font-size: 40px;
+  font-size: 40px;
 }
 
-
 @media screen and (max-width: 425px) {
-    .summary-greeting h2 {
-        font-size: 32px;
-    }
+  .summary-greeting h2 {
+    font-size: 32px;
+  }
 
     .summary-greeting p {
         font-size: 32px;
@@ -355,9 +347,9 @@
 }
 
 @media screen and (max-width: 375px) {
-    .summary-greeting h2 {
-        font-size: 28px;
-    }
+  .summary-greeting h2 {
+    font-size: 28px;
+  }
 
     .summary-greeting p {
         font-size: 28px;
@@ -370,9 +362,9 @@
 }
 
 @media screen and (max-width: 320px) {
-    .summary-greeting h2 {
-        font-size: 24px;
-    }
+  .summary-greeting h2 {
+    font-size: 24px;
+  }
 
     .summary-greeting p {
         font-size: 24px;

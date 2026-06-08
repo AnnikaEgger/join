@@ -214,6 +214,8 @@ function fillContactsOptionsArray(object) {
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
 
+    if (id === "dummy_placeholder") continue;
+
     let contactData = {
       id: id,
       color: object[id].color,
@@ -321,7 +323,10 @@ async function checkIfAssignedContactStillExists() {
     if (!task.assigned_contacts) return;
 
     const hasInvalidContacts = Object.values(task.assigned_contacts).some(
-      (contact) => !contactsOptions.some((c) => c.id === contact.id),
+      (contact) =>
+        !contactsOptions.some(
+          (c) => c.id === contact.id && c.name === contact.name,
+        ),
     );
 
     if (hasInvalidContacts) {
@@ -339,7 +344,9 @@ function collectValidAssignedContacts(task, taskId) {
   let assignedTaskContacts = [];
 
   for (const contact of Object.values(task.assigned_contacts || {})) {
-    const exists = contactsOptions.some((c) => c.id === contact.id);
+    const exists = contactsOptions.some(
+      (c) => c.id === contact.id && c.name === contact.name,
+    );
 
     if (exists) {
       assignedTaskContacts.push(contact);

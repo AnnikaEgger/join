@@ -152,12 +152,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .custom-select--trigger img {
-  transition: transform 200ms ease-in;
+  transition: transform 125ms ease-in;
 }
 
 .rotate {
   transform: rotate(180deg);
-  transition: transform 200ms ease-in;
+  transition: transform 125ms ease-in;
 }
 
 .custom-select--trigger {
@@ -204,8 +204,8 @@ input[type="search"]::-webkit-search-cancel-button {
   max-height: 300px;
 
   transition:
-    opacity 150ms ease,
-    max-height 150ms ease;
+    opacity 125ms ease,
+    max-height 125ms ease;
 }
 
 .custom-select-options--contacts {
@@ -327,7 +327,7 @@ button:disabled {
   color: white;
   background-color: var(--dark-blue);
   border: 1px solid transparent;
-  transition: all 0.2s ease-in;
+  transition: all 0.125s ease-in;
 }
 
 .button-blue:hover,
@@ -336,7 +336,7 @@ button:disabled {
   border: 1px solid transparent;
   outline: none;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in;
+  transition: all 0.125s ease-in;
 }
 
 .button-blue:active {
@@ -348,7 +348,7 @@ button:disabled {
   background-color: inherit;
   border: 1px solid var(--dark-blue);
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.125s ease-in;
 }
 
 .button-white:hover,
@@ -356,14 +356,14 @@ button:disabled {
   border: 1px solid var(--light-blue);
   outline: 1px solid var(--light-blue);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.125s ease-in;
 }
 
 .button-white:active {
   border: 1px solid var(--dark-blue);
   outline: none;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.125s ease-in;
 }
 
 /* #endregion */

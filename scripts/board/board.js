@@ -43,8 +43,12 @@ function fillTasksArray(tasksObj) {
 
   for (let i = 0; i < keys.length; i++) {
     let id = keys[i];
+
+    if (id === "dummy_placeholder") continue;
+
     let taskData = tasksObj[id];
     taskData.id = id;
+
     todos.push(taskData);
   }
 }

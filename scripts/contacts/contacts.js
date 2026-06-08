@@ -39,6 +39,9 @@ function fillContactsArray(contactsObj) {
   let keys = Object.keys(contactsObj);
   for (let i = 0; i < keys.length; i++) {
     let id = keys[i];
+
+    if (id === "dummy_placeholder") continue;
+
     let contactData = contactsObj[id];
     contactData.id = id;
     if (!contactData.phone) {
@@ -123,6 +126,7 @@ async function createNewContact() {
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
   let newId = await postContact({
@@ -135,6 +139,7 @@ async function createNewContact() {
   showContactDetails(newId);
   showSuccessBanner();
   enableButton("btn-submit-contact");
+  enableButton("btn-cancel");
 }
 
 /**
@@ -242,6 +247,8 @@ async function saveEditedContact() {
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
+
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
   let contact = findContactById(currentEditingId);
@@ -254,6 +261,7 @@ async function saveEditedContact() {
   await finalizeAddition();
   showContactDetails(currentEditingId);
   enableButton("btn-submit-contact");
+  enableButton("btn-cancel");
 }
 
 /**
@@ -282,6 +290,9 @@ async function putContact(contact) {
  */
 async function deleteContact(id, event) {
   if (event) event.currentTarget.disabled = true;
+  disableButtonWhileLoading("btn-submit-contact");
+  disableButtonWhileLoading("btn-cancel");
+
   let isUser = await checkIfIdIsUser(id);
   let path = isUser ? `users/${id}` : `contacts/${id}`;
   let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
@@ -289,6 +300,9 @@ async function deleteContact(id, event) {
   closeContactDetails();
   document.getElementById("contact-detail-content").innerHTML = "";
   await init();
+
+  enableButton("btn-submit-contact");
+  enableButton("btn-cancel");
 }
 
 /**
