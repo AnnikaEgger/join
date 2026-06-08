@@ -34,7 +34,7 @@ function initMobileTouch(event, card) {
     isLongPress = true; //
     activateMobileDragStyle(card);
     if (navigator.vibrate) navigator.vibrate(50);
-  }, 200);
+  }, 50);
 }
 
 /**
@@ -171,6 +171,8 @@ function stopDragging(event) {
     let columnContainer = element ? element.closest(".card-container") : null;
     if (columnContainer) moveTo(columnContainer.id);
   }
+
+  updateHTML();
 }
 
 /**
