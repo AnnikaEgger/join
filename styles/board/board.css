@@ -195,6 +195,14 @@ hr {
   word-break: break-word;
 }
 
+.card {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 .card.dragging {
   z-index: 998;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);

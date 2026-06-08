@@ -33,7 +33,6 @@ function initMobileTouch(event, card) {
   touchTimeout = setTimeout(() => {
     isLongPress = true; //
     activateMobileDragStyle(card);
-    if (navigator.vibrate) navigator.vibrate(50);
   }, 100);
 }
 
@@ -104,7 +103,11 @@ function handleTouchMove(event) {
     }
     return;
   }
-  event.preventDefault();
+  if (event.cancelable) {
+    event.preventDefault();
+  } else {
+    return;
+  }
   let card = event.target.closest(".card");
   if (card) {
     card.style.position = "fixed";
