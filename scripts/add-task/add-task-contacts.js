@@ -214,6 +214,8 @@ function fillContactsOptionsArray(object) {
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
 
+    if (id === "dummy_placeholder") continue;
+
     let contactData = {
       id: id,
       color: object[id].color,

@@ -128,12 +128,21 @@ async function patchDefaultTask(taskId, template) {
  * Ensures default task templates are present and synchronized on the board.
  * @returns {Promise<void>}
  */
+/**
+ * Ensures default task templates are present and synchronized on the board.
+ * It removes duplicates, creates missing task entries, and updates existing tasks.
+ * @returns {Promise<void>}
+ */
 async function ensureAllDefaultTasksAreInBoard() {
   await checkForDefaultTasksDuplicates();
   await getMissingDefaultTasks();
   await patchExistingDefaultTasks();
 }
 
+/**
+ * Detects duplicate default tasks on the board and schedules them for deletion.
+ * @returns {Promise<void>}
+ */
 async function checkForDefaultTasksDuplicates() {
   const defaultTasksBoard = await getDefaultTasksFromBoard();
 
@@ -153,6 +162,11 @@ async function checkForDefaultTasksDuplicates() {
   await deleteDefaultTasksDuplicates(tasksToDelete);
 }
 
+/**
+ * Deletes duplicate default tasks from Firebase.
+ * @param {Array<string>} tasksToDelete - Board task IDs to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteDefaultTasksDuplicates(tasksToDelete) {
   for (const key of tasksToDelete) {
     fetch(BASE_URL + `tasks/${key}.json`, {
