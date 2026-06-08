@@ -42,7 +42,6 @@ function updateGreeting(user) {
  * Runs mobile greeting animation (only on screens ≤1024px).
  */
 function runMobileGreetingAnimation() {
-  if (window.innerWidth > 1024) return;
   const greeting = document.querySelector(".summary-greeting");
   const cards = document.querySelector(".summary-cards");
   setTimeout(() => {
