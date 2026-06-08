@@ -140,7 +140,7 @@ function handleMobileHighlight(x, y) {
  * @param {number} clientY - The current vertical position of the finger.
  */
 function checkAutoScroll(clientY) {
-  let speed = 100;
+  let speed = 200;
   let threshold = 100;
 
   if (clientY < threshold) {
