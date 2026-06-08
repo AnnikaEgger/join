@@ -1,247 +1,251 @@
 .d-none {
-    display: none;
+  display: none;
 }
 
 .add-contact-dialog {
-    border: none;
-    padding: 0;
-    background-color: var(--color-white);
-    width: 85%;
-    max-width: 1200px;
-    height: auto;
-    min-height: 600px;
-    max-height: 60dvh;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    margin: auto;
+  border: none;
+  padding: 0;
+  background-color: var(--color-white);
+  width: 85%;
+  max-width: 1200px;
+  height: auto;
+  min-height: 600px;
+  max-height: 60dvh;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
 .add-contact-dialog[open] {
-    display: flex;
-    animation: slideInDialog 0.3s ease-out;
+  display: flex;
+  animation: slideInDialog 0.3s ease-out;
 }
 
 @keyframes slideInDialog {
-    from {
-        transform: translateX(100dvw);
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(100dvw);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .add-contact-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .dialog-left {
-    background-color: var(--dark-blue);
-    width: 460px;
-    padding: 60px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
+  background-color: var(--dark-blue);
+  width: 460px;
+  padding: 60px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
 }
 
 .dialog-logo {
-    width: 56px;
-    height: 66px;
-    margin-bottom: 32px;
+  width: 56px;
+  height: 66px;
+  margin-bottom: 32px;
 }
 
 .dialog-left-content h1 {
-    color: var(--color-white);
-    font-size: 60px;
-    font-weight: 700;
-    margin-bottom: 8px;
+  color: var(--color-white);
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .dialog-left-content span {
-    font-size: 24px;
-    font-weight: 400;
+  font-size: 24px;
+  font-weight: 400;
 }
 
 .blue-horizontal-divider {
-    width: 90px;
-    height: 3px;
-    background-color: var(--light-blue);
-    margin-top: 16px;
-    border-radius: 4px;
+  width: 90px;
+  height: 3px;
+  background-color: var(--light-blue);
+  margin-top: 16px;
+  border-radius: 4px;
 }
 
 .dialog-right {
-    flex: 1;
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .dialog-body {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    width: 100%;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
 }
 
 .dialog-avatar-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 140px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 140px;
 }
 
 .dialog-close-btn {
-    position: absolute;
-    background: none;
-    border: none;
-    top: 32px;
-    right: 32px;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.1s;
-    border-radius: 50%;
+  position: absolute;
+  background: none;
+  border: none;
+  top: 32px;
+  right: 32px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.1s;
+  border-radius: 50%;
 }
 
 .dialog-close-btn:hover {
-    background-color: var(--color-bg);
+  background-color: var(--color-bg);
 }
 
 .dialog-close-btn-mobile {
-    display: none;
+  display: none;
 }
 
 .default-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 70px;
-    border: 3px solid white;
-    background-color: #D1D1D1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
-    color: white;
-    font-size: 42px;
+  width: 120px;
+  height: 120px;
+  border-radius: 70px;
+  border: 3px solid white;
+  background-color: #d1d1d1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 42px;
 }
 
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    width: 100%;
-    max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 360px;
 }
 
 .input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .contact-input {
-    width: 100%;
-    height: 48px;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    padding: 12px 20px;
-    padding-right: 48px;
-    font-size: 20px;
-    outline: none;
-    background-repeat: no-repeat;
-    background-position: right 20px center;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  padding: 12px 20px;
+  padding-right: 48px;
+  font-size: 20px;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right 20px center;
 }
 
 .icon-name {
-    background-image: url('../../assets/icons/person.svg');
+  background-image: url("../../assets/icons/person.svg");
 }
 
 .icon-mail {
-    background-image: url('../../assets/icons/mail.svg');
+  background-image: url("../../assets/icons/mail.svg");
 }
 
 .icon-phone {
-    background-image: url('../../assets/icons/call.svg');
+  background-image: url("../../assets/icons/call.svg");
 }
 
 .contact-input.input-error {
-    border: 1px solid var(--red-invalid)
+  border: 1px solid var(--red-invalid);
 }
 
 .error-message {
-    color: var(--red-invalid);
-    font-size: 14px;
-    display: block;
-    text-align: left;
+  color: var(--red-invalid);
+  font-size: 14px;
+  display: block;
+  text-align: left;
 }
 
 .dialog-buttons {
-    display: flex;
-    gap: 24px;
-    margin-top: 8px;
-    justify-content: flex-start; 
-    align-items: center;
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .btn-cancel {
-    width: auto;
-    min-width: 120px;
-    height: 56px;
-    background-color: var(--color-white);
-    color: var(--dark-blue);
-    border: 1px solid var(--dark-blue);
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 20px;
-    font-weight: 400;
-    cursor: pointer;
+  width: auto;
+  min-width: 120px;
+  height: 56px;
+  background-color: var(--color-white);
+  color: var(--dark-blue);
+  border: 1px solid var(--dark-blue);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 .btn-cancel:hover {
-    color: var(--light-blue);
-    border-color: var(--light-blue);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: var(--light-blue);
+  border-color: var(--light-blue);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .btn-cancel:hover img {
-    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg) brightness(100%) contrast(100%);
+  filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg)
+    brightness(100%) contrast(100%);
 }
 
 .btn-create {
-    width: auto;
-    min-width: 140px;
-    height: 56px;
-    background-color: var(--dark-blue);
-    color: var(--color-white);
-    border: none;
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
+  width: auto;
+  min-width: 140px;
+  height: 56px;
+  background-color: var(--dark-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-create:hover {
-    background-color: var(--light-blue);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--light-blue);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.btn-cancel, .btn-cancel img, .btn-create, .add-contact-btn {
-    transition: all 0.1s ease-in-out;
+.btn-cancel,
+.btn-cancel img,
+.btn-create,
+.add-contact-btn {
+  transition: all 0.1s ease-in-out;
 }
