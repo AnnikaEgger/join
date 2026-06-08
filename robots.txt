@@ -1,4 +1,8 @@
 User-agent: *
 
 Disallow: /html/legal-notice.html
+Disallow: /html/legal-notice-external.html
+
 Disallow: /html/privacy-policy.html
+Disallow: /html/privacy-policy-external.html
+
