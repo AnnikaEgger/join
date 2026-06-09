@@ -63,8 +63,8 @@
   }
 
   .default-avatar {
-    width: 95px;
-    height: 95px;
+    width: 90px;
+    height: 90px;
   }
 
   .dialog-right {
@@ -84,7 +84,7 @@
 
   .dialog-avatar-container {
     position: absolute;
-    top: -50px;
+    top: -45px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
@@ -129,13 +129,31 @@
   }
 
   .input-container {
-    gap: 8px;
+    gap: 0;
+  }
+
+  .input-container .input-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .input-container .input-wrapper:last-child {
+    margin-bottom: 0;
   }
 }
 
 @media (max-width: 550px) {
   .add-contact-dialog {
     width: 90dvw;
+  }
+
+    .default-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 28px;
+  }
+
+  .dialog-avatar-container {
+    top: -40px;
   }
 }
 
@@ -164,16 +182,6 @@
     margin: 8px 0 0 0;
   }
 
-  .dialog-avatar-container {
-    top: -45px;
-  }
-
-  .default-avatar {
-    width: 80px;
-    height: 80px;
-    font-size: 28px;
-  }
-
   .dialog-right {
     height: 65%;
     padding: 32px 16px 16px 16px;
@@ -192,8 +200,12 @@
     background-position: right 16px center;
   }
 
-  .input-container {
-    gap: 12px;
+.input-container {
+    gap: 0;
+  }
+
+  .input-container .input-wrapper:last-child {
+    margin-bottom: 0;
   }
 
   .contact-form {

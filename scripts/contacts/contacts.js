@@ -189,14 +189,16 @@ async function finalizeAddition() {
  * Resets the form inputs and clears all validation errors.
  */
 function resetForm() {
-  document.querySelector(".contact-form").reset();
-  const fields = ["name", "email", "phone"];
-  for (let i = 0; i < fields.length; i++) {
-    let input = document.getElementById(`contact-${fields[i]}--validator`);
-    let errorSpan = document.getElementById(`contact-${fields[i]}--error`);
-    if (input) input.classList.remove("input-error");
-    if (errorSpan) errorSpan.innerText = "";
-  }
+    document.querySelector(".contact-form").reset();
+    const fields = ["name", "email", "phone"];
+    for (let i = 0; i < fields.length; i++) {
+        let input = document.getElementById(`contact-${fields[i]}--validator`);
+        if (input) {
+            input.classList.remove("invalid");
+            let wrapper = input.closest(".required");
+            if (wrapper) wrapper.classList.remove("signup-after");
+        }
+    }
 }
 
 /**
