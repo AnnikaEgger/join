@@ -21,31 +21,31 @@ function startDragging(event, id) {
 
 /**
  * Initializes the mobile touch handling for drag operations.
- *
- * @param {parameter} event - The touch start event.
- * @param {parameter} card - The card element being dragged.
+ * @param {Event} event - The touch start event.
+ * @param {HTMLElement} card - The card element being dragged.
  */
 function initMobileTouch(event, card) {
   startX = event.touches[0].clientX;
   startY = event.touches[0].clientY;
-  isLongPress = false; //
+  isLongPress = false;
+
+  card.oncontextmenu = (e) => e.preventDefault();
 
   touchTimeout = setTimeout(() => {
-    isLongPress = true; //
+    isLongPress = true;
     activateMobileDragStyle(card);
   }, 100);
 }
 
 /**
- * Activates the mobile drag style for the specified card.
- *
- * @param {parameter} card - The card element for which to activate drag style.
+ * Activates the mobile drag style and disables global text selection.
+ * @param {HTMLElement} card - The card element for which to activate drag style.
  */
 function activateMobileDragStyle(card) {
   if (card) {
-    //
     card.classList.add("dragging");
     card.style.pointerEvents = "none";
+    document.body.classList.add("disable-select-global");
   }
 }
 
@@ -154,12 +154,13 @@ function checkAutoScroll(clientY) {
 }
 
 /**
- * Handles the end of a touch event and triggers the drop logic.
- *
- * @param {parameter} event - The touch end event.
+ * Handles the end of a touch event, triggers drop logic, and restores text selection.
+ * @param {Event} event - The touch end event.
  */
 function stopDragging(event) {
   clearTimeout(touchTimeout);
+  document.body.classList.remove("disable-select-global");
+
   document
     .querySelectorAll(".card-container")
     .forEach((c) => c.classList.remove("drag-area-highlight"));
