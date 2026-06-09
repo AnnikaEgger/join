@@ -1,106 +1,55 @@
 /**
- * Checks all contact fields simultaneously (essential for submitting the form).
- * @returns {boolean} - True, if all fields are valid.
+ * Checks input validity while typing. Removes error styles if the field becomes valid.
+ * @param {string} inputId - 'name', 'email', or 'phone'
+ */
+function checkContactInputValidityOnInput(inputId) {
+    const input = document.getElementById(`contact-${inputId}--validator`);
+    if (input && input.checkValidity()) {
+        removeInvalidStyle(input);
+    }
+}
+
+/**
+ * Checks input validity when focus is lost. Adds error styles if the field is invalid.
+ * @param {string} inputId - 'name', 'email', or 'phone'
+ */
+function checkContactInputValidityOnBlur(inputId) {
+    const input = document.getElementById(`contact-${inputId}--validator`);
+    if (input && !input.checkValidity()) {
+        addInvalidStyle(input);
+    }
+}
+
+/**
+ * Removes the invalid style from an input field and hides its error message.
+ * @param {HTMLInputElement} element - The input element to clear errors from.
+ */
+function removeInvalidStyle(element) {
+    element.classList.remove("invalid");
+    element.closest(".required").classList.remove("signup-after");
+}
+
+/**
+ * Adds the invalid style to an input field and displays its error message.
+ * @param {HTMLInputElement} element - The input element to mark as invalid.
+ */
+function addInvalidStyle(element) {
+    element.classList.add("invalid");
+    element.closest(".required").classList.add("signup-after");
+}
+
+/**
+ * Checks all fields on form submission.
+ * @returns {boolean} - True if the entire form is valid.
  */
 function isContactFormValid() {
-    checkContactInputValidity('name');
-    checkContactInputValidity('email');
-    checkContactInputValidity('phone');
-
-    const nameInput = document.getElementById('contact-name--validator');
-    const emailInput = document.getElementById('contact-email--validator');
-    const phoneInput = document.getElementById('contact-phone--validator');
-
-    if (nameInput.classList.contains('input-error') ||
-        emailInput.classList.contains('input-error') ||
-        phoneInput.classList.contains('input-error')) {
-        return false;
+    const fields = ['name', 'email', 'phone'];
+    for (let i = 0; i < fields.length; i++) {
+        const input = document.getElementById(`contact-${fields[i]}--validator`);
+        if (input && !input.checkValidity()) {
+            addInvalidStyle(input);
+        }
     }
-
-    return true;
-}
-
-/**
- * 
-Main function for validating the contact input fields.
- * @param {string} inputType - the type of the field ('name', 'email', 'phone')
- */
-function checkContactInputValidity(inputType) {
-    const input = document.getElementById(`contact-${inputType}--validator`);
-    if (!input) return;
-
-    if (inputType === 'name') {
-        validateContactName(input);
-    } else if (inputType === 'email') {
-        validateContactEmail(input);
-    } else if (inputType === 'phone') {
-        validateContactPhone(input);
-    }
-}
-
-/**
- * Validates the name input field and updates its error status.
- * @param {HTMLInputElement} input - The name input element.
- */
-function validateContactName(input) {
-    const errorSpan = document.getElementById('contact-name--error');
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
-}
-
-/**
- * Validates the email input field structure and updates its error status.
- * @param {HTMLInputElement} input - The email input element.
- */
-function validateContactEmail(input) {
-    const errorSpan = document.getElementById('contact-email--error');
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else if (!emailPattern.test(input.value.trim())) {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "Please enter a valid email address (e.g., user@example.com).";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
-}
-
-/**
- * Validates the phone input field format and updates its error status.
- * @param {HTMLInputElement} input - The phone input element.
- */
-function validateContactPhone(input) {
-    const errorSpan = document.getElementById('contact-phone--error');
-    let phonePattern = /^[0-9+\s\-\/]+$/;
-
-    if (input.value.trim() === "") {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "This field is required.";
-    } else if (!phonePattern.test(input.value.trim())) {
-        input.classList.add('input-error');
-        if (errorSpan) errorSpan.innerText = "Please enter a valid phone number (digits only).";
-    } else {
-        input.classList.remove('input-error');
-        if (errorSpan) errorSpan.innerText = "";
-    }
-}
-
-/**
-* Tries to lock the screen orientation to portrait mode on mobile devices.*
-* @param {*} - No parameters are required for this function as it directly interacts with the Screen Orientation API 
-* to attempt to lock the orientation when the board page is initialized.
-*/
-function lockScreenOrientation() {
-  if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock("portrait-primary").catch(() => {});
-  }
+    const errors = document.querySelectorAll('.add-contact-dialog .signup-after');
+    return errors.length === 0;
 }

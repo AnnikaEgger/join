@@ -26,6 +26,7 @@
   from {
     transform: translateX(100dvw);
   }
+
   to {
     transform: translateX(0);
   }
@@ -144,7 +145,14 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
+}
+
+.input-wrapper.required {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .contact-input {
@@ -216,8 +224,7 @@
 }
 
 .btn-cancel:not(:disabled):hover img {
-  filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg)
-    brightness(100%) contrast(100%);
+  filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg) brightness(100%) contrast(100%);
 }
 
 .btn-create {
