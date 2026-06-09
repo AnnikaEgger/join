@@ -411,32 +411,3 @@ select,
 .add-task-btn-container {
   margin-bottom: 32px;
 }
-
-#landscape-warning {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  background-color: #2a3647;
-  color: white;
-  z-index: 99999;
-  justify-content: center;
-  align-items: center;
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  text-align: center;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-@media screen and (max-width: 950px) and (orientation: landscape) {
-  #landscape-warning {
-    display: flex !important;
-  }
-
-  body {
-    overflow: hidden !important;
-  }
-}
