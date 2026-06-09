@@ -224,6 +224,7 @@ function openEditContact(id) {
   currentEditingId = id;
   let contact = findContactById(id);
   if (contact) {
+    resetForm();
     updateDialogAvatar(contact);
     fillFormFields(contact);
     adaptDialogForEdit(id);

@@ -141,6 +141,7 @@ function closeContactDialog() {
     if (dialog) {
         dialog.close();
     }
+    resetForm();
     resetCancelButton();
 }
 
