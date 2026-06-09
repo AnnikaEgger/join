@@ -116,6 +116,10 @@ hr {
   transition: transform 0.125s ease-in;
 }
 
+.add-task-btn-bg {
+  background-color: transparent;
+}
+
 .add-task-btn {
   height: 27px;
 }
