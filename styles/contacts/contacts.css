@@ -237,6 +237,15 @@ body {
   height: 18px;
 }
 
+.edit-delete-section .contact-action:hover {
+  color: var(--light-blue);
+}
+
+.edit-delete-section .contact-action:hover img {
+  filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg)
+    brightness(100%) contrast(100%);
+}
+
 .contact-info-headline {
   margin: 40px 0;
   text-align: left;
