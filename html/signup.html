@@ -39,7 +39,10 @@
       >
         <div class="form-headline-container form-headline-container-signup">
           <a href="../index.html" class="blue-arrow-left-btn">
-            <img src="../assets/icons/blue-arrow-left.svg" alt="Back to login" />
+            <img
+              src="../assets/icons/blue-arrow-left.svg"
+              alt="Back to login"
+            />
           </a>
           <div class="headline-wrapper">
             <h1>Sign up</h1>
@@ -54,7 +57,8 @@
           >
             <input
               aria-label="name"
-              oninput="checkInputValidity('name')"
+              oninput="checkInputValidityOnInput('name')"
+              onblur="checkInputValidityOnBlur('name')"
               class="form-input form-input-name"
               id="signup-name"
               placeholder="Name"
@@ -71,7 +75,8 @@
           >
             <input
               aria-label="email"
-              oninput="checkInputValidity('email')"
+              oninput="checkInputValidityOnInput('email')"
+              onblur="checkInputValidityOnBlur('email')"
               class="form-input form-input-email"
               id="signup-email"
               placeholder="Email"
@@ -88,7 +93,8 @@
             <div class="input-with-icon">
               <input
                 aria-label="password"
-                oninput="checkInputValidity('password')"
+                oninput="checkInputValidityOnInput('password')"
+                onblur="checkInputValidityOnBlur('password')"
                 class="form-input form-input-password"
                 id="signup-password"
                 placeholder="Password"
@@ -114,7 +120,8 @@
             <div class="input-with-icon">
               <input
                 aria-label="confirm password"
-                oninput="checkInputValidity('confirm-password')"
+                oninput="checkInputValidityOnInput('confirm-password')"
+                onblur="checkInputValidityOnBlur('confirm-password')"
                 class="form-input form-input-confirm-password"
                 id="signup-confirm-password"
                 placeholder="Confirm Password"
@@ -144,7 +151,7 @@
           <div class="checkbox-container">
             <input
               aria-label="accept privacy policy"
-              oninput="checkInputValidity('privacy-checkbox')"
+              oninput="checkInputValidityOnInput('privacy-checkbox')"
               id="signup-privacy-checkbox"
               class="accept-checkbox"
               type="checkbox"

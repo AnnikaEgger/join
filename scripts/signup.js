@@ -23,7 +23,6 @@ function initSignup() {
   initPasswordToggles();
 }
 
-
 /**
  * Collects all form data into a user object.
  * @returns {Object}
@@ -115,38 +114,69 @@ function initPasswordToggles() {
   updatePasswordIcon("signup-confirm-password", "toggle-confirm");
 }
 
-/**
- * Validates a sign-up input field after the user attempted submission.
- * Marks invalid fields and updates checkbox styling.
- * @param {string} inputId - The base input identifier without the "signup-" prefix
- */
-function checkInputValidity(inputId) {
+async function checkInputValidityOnInput(inputId) {
   initPasswordToggles();
 
   const input = document.getElementById("signup" + "-" + inputId);
 
-  if (input.type !== "checkbox") {
-    if (input.checkValidity()) {
-      input.classList.remove("invalid");
-      input.closest(".required").classList.remove("signup-after");
-    } else {
-      input.classList.add("invalid");
-      input.closest(".required").classList.add("signup-after");
-    }
+  if (!input.checkValidity() && inputId === "email") {
+    await validateSignupEmail();
+  }
 
-    if (input.id === "signup-confirm-password") {
-      checkConfirmPassword();
-    }
-  } else {
-    if (!input.checkValidity()) {
-      handleInvalidCheckbox(input);
+  if (input.type !== "checkbox" && input.checkValidity()) {
+    if (inputId === "email") {
+      if (await validateSignupEmail()) {
+        removeInvalidStyle(input);
+      }
+    } else if (inputId === "confirm-password") {
+      if (checkConfirmPassword()) {
+        removeInvalidStyle(input);
+      }
     } else {
-      const CHECKBOX_CONTAINER = document.getElementById(
-        "signup-checkbox-container",
-      );
-      CHECKBOX_CONTAINER.classList.remove("signup-checkbox-after");
+      removeInvalidStyle(input);
+    }
+  } else if (input.type === "checkbox") {
+    if (input.checkValidity()) {
+      handleValidCheckbox(input);
+    } else {
+      handleInvalidCheckbox(input);
     }
   }
+}
+
+async function checkInputValidityOnBlur(inputId) {
+  const input = document.getElementById(`signup-${inputId}`);
+  if (!input) return;
+
+  let isValid = input.checkValidity();
+
+  if (!isValid) {
+    if (inputId === "email") {
+      await validateSignupEmail();
+    }
+  }
+
+  if (isValid) {
+    if (inputId === "email") {
+      isValid = await validateSignupEmail();
+    } else if (inputId === "confirm-password") {
+      isValid = checkConfirmPassword();
+    }
+  }
+
+  if (!isValid) {
+    addInvalidStyle(input);
+  }
+}
+
+function removeInvalidStyle(element) {
+  element.classList.remove("invalid");
+  element.closest(".required").classList.remove("signup-after");
+}
+
+function addInvalidStyle(element) {
+  element.classList.add("invalid");
+  element.closest(".required").classList.add("signup-after");
 }
 
 /**
@@ -163,7 +193,10 @@ async function submitSignupForm(event) {
     handleInvalidTaskform(taskForm);
     return;
   }
-  if (!checkConfirmPassword()) return;
+  if (!checkConfirmPassword()) {
+    handleInvalidSubmit(document.getElementById("signup-confirm-password"));
+    return;
+  }
   if (!(await validateSignupEmail())) return;
 
   document.getElementById("signup-btn").disabled = true;
@@ -180,16 +213,15 @@ async function submitSignupForm(event) {
 async function validateSignupEmail() {
   const userData = collectFormData();
   const emailExists = await checkEmailExists(userData.email);
+  const mailInputWrapper = document.getElementById(
+    "input-wrapper--signup-mail",
+  );
 
   if (emailExists) {
-    let mailInput = document.getElementById("signup-email");
-
-    document.getElementById("input-wrapper--signup-mail").dataset.message =
-      "Email already exists";
-    handleInvalidSubmit(mailInput);
-
+    mailInputWrapper.dataset.message = "Email already exists";
     return false;
   } else {
+    mailInputWrapper.dataset.message = "Please enter a valid email";
     return true;
   }
 }
@@ -212,14 +244,11 @@ async function finishSignup() {
  * @returns {boolean} True if both passwords are identical
  */
 function checkConfirmPassword() {
-  const CONFIRM_PASSWORD_INPUT = document.getElementById(
-    "signup-confirm-password",
-  );
   const password = document.getElementById("signup-password").value;
   const confirm = document.getElementById("signup-confirm-password").value;
 
+  if (confirm.trim().length == 0) return;
   if (password !== confirm) {
-    handleInvalidSubmit(CONFIRM_PASSWORD_INPUT);
     return false;
   } else {
     return true;
@@ -231,12 +260,15 @@ function checkConfirmPassword() {
  * @param {HTMLInputElement} checkbox - The checkbox input element
  */
 function handleInvalidCheckbox(checkbox) {
-  const CHECKBOX_CONTAINER = document.getElementById(
-    "signup-checkbox-container",
-  );
+  document
+    .getElementById("signup-checkbox-container")
+    .classList.add("signup-checkbox-after");
+}
 
-  CHECKBOX_CONTAINER.classList.add("signup-checkbox-after");
-  focusInvalidElement(checkbox);
+function handleValidCheckbox(checkbox) {
+  document
+    .getElementById("signup-checkbox-container")
+    .classList.remove("signup-checkbox-after");
 }
 
 /**
@@ -245,36 +277,21 @@ function handleInvalidCheckbox(checkbox) {
  */
 function handleInvalidTaskform(taskForm) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
+  const invalidElementsClass = taskForm.querySelectorAll(".invalid");
 
   if (!invalidElements.length) return;
 
-  const firstInvalid = invalidElements[0];
-
   invalidElements.forEach((element) => {
     if (element.type === "checkbox") {
-      const CHECKBOX_CONTAINER = document.getElementById(
-        "signup-checkbox-container",
-      );
-      CHECKBOX_CONTAINER.classList.add("signup-checkbox-after");
+      handleInvalidCheckbox(element);
       return;
+    } else {
+      addInvalidStyle(element);
     }
-
-    element.classList.add("invalid");
-    element.closest(".required").classList.add("signup-after");
   });
 
-  focusInvalidElement(firstInvalid);
-}
-
-/**
- * Marks a specific input as invalid and scrolls it into view.
- * @param {HTMLElement} element - The invalid form element
- */
-function handleInvalidSubmit(element) {
-  element.classList.add("invalid");
-  element.closest(".required").classList.add("signup-after");
-
-  focusInvalidElement(element);
+  const firstInvalid = invalidElementsClass[0];
+  if (firstInvalid) focusInvalidElement(firstInvalid);
 }
 
 /**

@@ -70,6 +70,8 @@
               id="login-email"
               pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
               type="email"
+              oninput="checkInputValidityOnInput('email')"
+              onblur="checkInputValidityOnBlur('email')"
             />
             <span class="error-msg" id="error-login-email"></span>
           </div>
