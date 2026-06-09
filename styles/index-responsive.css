@@ -121,9 +121,12 @@
     --padding-lr: 16px;
   }
   .form-container {
-    width: calc(100% - max(var(--content-limitation), var(--padding-lr)) * 2);
-    left: max(var(--content-limitation), var(--padding-lr));
+    width: 100%
+    
   }
+  .signup-container {
+  padding: 16px;
+}
 
   header {
     padding: 24px var(--padding-lr);

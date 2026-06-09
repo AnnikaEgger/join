@@ -32,7 +32,7 @@
   .main-content {
     min-height: calc(100dvh - var(--header-height) - var(--resp-navbar-height));
     display: flex;
-    align-items: center;
+    align-items:flex-start;
     justify-content: center;
     padding: 16px 0px;
   }
@@ -281,7 +281,7 @@
     display: flex;
     align-items: flex-start;
     gap: 24px;
-    margin-bottom: 64px;
+    margin-bottom: 20px;
     flex-direction: column;
   }
 
