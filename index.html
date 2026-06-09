@@ -53,7 +53,12 @@
     </header>
 
     <main>
-      <form class="form-container login-container" id="login-form" novalidate>
+      <form
+        onsubmit="handleLogin(event)"
+        class="form-container login-container"
+        id="login-form"
+        novalidate
+      >
         <div class="form-headline-container form-headline-container-login">
           <div class="headline-wrapper">
             <h1>Log In</h1>
@@ -61,49 +66,59 @@
           </div>
         </div>
 
-        <section class="input-fields input-fields-login">
-          <div class="input-wrapper input-wrapper-login-email">
-            <input
-              aria-label="email adress"
-              placeholder="Email"
-              class="form-input form-input-email"
-              id="login-email"
-              pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
-              type="email"
-              oninput="checkInputValidityOnInput('email')"
-              onblur="checkInputValidityOnBlur('email')"
-            />
-            <span class="error-msg" id="error-login-email"></span>
-          </div>
-
-          <div class="input-wrapper input-wrapper-login-password">
-            <div class="input-with-icon">
+        <div
+          class="required"
+          id="input-required-container"
+          data-message="Wrong email or password"
+        >
+          <section class="input-fields input-fields-login">
+            <div
+              class="input-wrapper input-wrapper-login-email required"
+              data-message="Please enter your email"
+            >
               <input
-                aria-label="password"
-                placeholder="Password"
-                class="form-input form-input-password"
-                id="login-password"
-                pattern="\S+"
-                type="password"
+                aria-label="email adress"
+                placeholder="Email"
+                class="form-input form-input-email"
+                id="login-email"
+                pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                type="email"
+                oninput="checkInputValidityOnInputLogin('email')"
+                onblur="checkInputValidityOnBlurLogin('email')"
+                required
               />
-              <button
-                type="button"
-                class="password-toggle"
-                id="toggle-login-password"
-                aria-label="Show password"
-                onclick="
-                  togglePassword('login-password', 'toggle-login-password')
-                "
-              ></button>
             </div>
-            <span class="error-msg" id="error-login-password"></span>
-          </div>
 
-          <span
-            class="error-msg error-msg-login-general"
-            id="error-login-general"
-          ></span>
-        </section>
+            <div
+              class="input-wrapper input-wrapper-login-password required"
+              data-message="Please enter your password"
+            >
+              <div class="input-with-icon">
+                <input
+                  oninput="checkInputValidityOnInputLogin('password')"
+                  onblur="checkInputValidityOnBlurLogin('password')"
+                  aria-label="password"
+                  placeholder="Password"
+                  class="form-input form-input-password"
+                  id="login-password"
+                  pattern="\S+"
+                  minlength="6"
+                  type="password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  id="toggle-login-password"
+                  aria-label="Show password"
+                  onclick="
+                    togglePassword('login-password', 'toggle-login-password')
+                  "
+                ></button>
+              </div>
+            </div>
+          </section>
+        </div>
 
         <section class="form-btn-section">
           <button

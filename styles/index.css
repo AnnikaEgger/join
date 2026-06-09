@@ -82,7 +82,7 @@ main {
 .input-fields-login {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
 }
 
 .input-fields-signup {
@@ -92,7 +92,7 @@ main {
 }
 
 .input-wrapper-login-email {
-  margin-bottom: 18px;
+  margin-bottom: 32px;
 }
 .input-wrapper-login-password {
   margin-bottom: 0px;

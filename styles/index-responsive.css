@@ -53,7 +53,7 @@
 
   .form-btn-section {
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     border-radius: var(--border-radius-l);
   }
 

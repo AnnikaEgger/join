@@ -49,99 +49,58 @@ function initLogin() {
   const form = document.getElementById("login-form");
   if (!form) return;
 
-  form.addEventListener("submit", handleLogin);
-
-  const inputs = document.querySelectorAll("#login-form input");
-  inputs.forEach((input) =>
-    input.addEventListener("input", clearAllLoginErrors),
-  );
-
   initPasswordToggle();
+}
+
+function checkInputValidityOnInputLogin(inputId) {
+  initPasswordToggle();
+
+  const input = document.getElementById("login" + "-" + inputId);
+
+  if (input.checkValidity()) {
+    removeInvalidStyle(input);
+  }
+}
+
+function checkInputValidityOnBlurLogin(inputId) {
+  const input = document.getElementById("login" + "-" + inputId);
+
+  if (!input.checkValidity()) {
+    removeGeneralError();
+    addInvalidStyle(input);
+  }
+}
+
+function removeInvalidStyle(element) {
+  element.classList.remove("invalid");
+  element.closest(".required").classList.remove("login-after");
+}
+
+function addInvalidStyle(element) {
+  element.classList.add("invalid");
+  element.closest(".required").classList.add("login-after");
+}
+
+function showGeneralError() {
   document
-    .getElementById("login-password")
-    .addEventListener("input", () =>
-      updatePasswordIcon("login-password", "toggle-login-password"),
-    );
+    .getElementById("input-required-container")
+    .classList.add("login-container-after");
 }
 
-/**
- * Clears all login error messages.
- */
-function clearAllLoginErrors() {
-  clearError("error-login-email");
-  clearError("error-login-password");
-  clearError("error-login-general");
+function removeGeneralError() {
+  document
+    .getElementById("input-required-container")
+    .classList.remove("login-container-after");
 }
 
-/**
- * Validates the login form values.
- * @returns {boolean}
- */
-function validateLoginForm() {
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  return checkLoginEmail(email) & checkLoginPassword(password);
-}
-
-/**
- * Checks the login email input for validity.
- * @param {string} email
- * @returns {boolean}
- */
-function checkLoginEmail(email) {
-  if (email.length === 0) {
-    showError("error-login-email", "Please enter your email");
-    return false;
-  }
-  if (!email.includes("@") || !email.includes(".")) {
-    showError("error-login-email", "Please enter a valid email");
-    return false;
-  }
-  return true;
-}
-
-/**
- * Checks the login password input for validity.
- * @param {string} password
- * @returns {boolean}
- */
-function checkLoginPassword(password) {
-  if (password.length === 0) {
-    showError("error-login-password", "Please enter your password");
-    return false;
-  }
-  return true;
-}
-
-/**
- * Displays an error message and marks the related input invalid.
- * @param {string} errorId
- * @param {string} message
- */
-function showError(errorId, message) {
-  document.getElementById(errorId).textContent = message;
-  const inputId = ERROR_TO_INPUT[errorId];
-  if (inputId) document.getElementById(inputId)?.classList.add("invalid");
-}
-
-/**
- * Clears an error message and resets invalid styling.
- * @param {string} errorId
- */
-function clearError(errorId) {
-  document.getElementById(errorId).textContent = "";
-  const inputId = ERROR_TO_INPUT[errorId];
-  if (inputId) document.getElementById(inputId)?.classList.remove("invalid");
-}
-
-/**
- * Handles login form submission and authenticates the user.
- * @param {Event} event
- */
 async function handleLogin(event) {
   event.preventDefault();
-  if (!validateLoginForm()) return;
+  const LOGIN_FORM = document.getElementById("login-form");
+
+  if (!LOGIN_FORM.checkValidity()) {
+    handleInvalidTaskform(LOGIN_FORM);
+    return;
+  }
 
   const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
@@ -153,10 +112,31 @@ async function handleLogin(event) {
     saveCurrentUser(matchedUser);
     window.location.href = "./html/summary.html";
   } else {
-    showError("error-login-general", "Wrong email or password");
+    showGeneralError();
   }
 }
 
+function handleInvalidTaskform(taskForm) {
+  const invalidElements = taskForm.querySelectorAll(":invalid");
+
+  if (!invalidElements.length) return;
+
+  invalidElements.forEach((element) => {
+    addInvalidStyle(element);
+  });
+
+  const firstInvalid = invalidElements[0];
+  if (firstInvalid) focusInvalidElement(firstInvalid);
+}
+
+function focusInvalidElement(element) {
+  element.focus();
+
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
+}
 /**
  * Loads all users from Firebase.
  * @returns {Promise<Array<Object>>}

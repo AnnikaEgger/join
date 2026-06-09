@@ -97,13 +97,6 @@
   z-index: 1;
 }
 
-.dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  display: block;
-  cursor: pointer;
-}
-
 .d-none {
   display: none;
 }
