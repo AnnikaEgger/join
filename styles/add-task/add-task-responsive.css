@@ -179,9 +179,9 @@
   }
 }
 
-@media screen and (min-height: 1000px) and (min-width: 1024px) {
+@media screen and (min-height: 1100px) and (min-width: 1024px) {
   .add-task-bottom-btns-container--add-task {
-    top: 900px;
+    top: 950px;
   }
 
   .bottom-btns-wrapper--add-task {
@@ -189,6 +189,6 @@
   }
 
   .p-required--add-task {
-    top: 900px;
+    top: 950px;
   }
 }

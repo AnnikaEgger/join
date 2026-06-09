@@ -18,7 +18,7 @@
   margin-bottom: 48px;
 }
 
-textarea {
+.description-textarea {
   padding: 18px 16px;
   height: var(--textarea-height);
   resize: vertical;

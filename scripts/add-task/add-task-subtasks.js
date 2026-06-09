@@ -39,6 +39,7 @@ function renderSubtasks(id) {
   const SUBTASK_INPUT_REF = document.getElementById("subtask-input" + id);
 
   SUBTASK_UL.innerHTML = "";
+  if (subtasksArr.length === 0) return;
 
   for (let index = 0; index < subtasksArr.length; index++) {
     SUBTASK_UL.innerHTML += subtaskLiTemplate(subtasksArr[index], index, id);

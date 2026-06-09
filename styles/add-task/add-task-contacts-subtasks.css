@@ -83,8 +83,8 @@ input[type="checkbox"] {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  max-height: 100px;
-  overflow-y: scroll;
+  max-height: 75px;
+  overflow-y: auto;
 }
 
 .selected-contacts--add-task {
@@ -222,8 +222,8 @@ input[type="checkbox"] {
 }
 
 .subtask-list {
-  max-height: 150px;
-  overflow-y: scroll;
+  max-height: 120px;
+  overflow-y: auto;
 }
 
 .subtask-list:has(li) {
@@ -248,6 +248,7 @@ input[type="checkbox"] {
   margin-bottom: 4px;
   cursor: pointer;
   transition: var(--transition-default);
+  word-break: break-all;
 }
 
 .subtask-list .li-with-input:focus-visible {
@@ -267,10 +268,12 @@ input[type="checkbox"] {
   flex: 1;
   width: unset;
   min-width: 0;
+  word-break: break-all;
+  height: 100px;
 }
 
 .subtask-list .normal-li .subtask-btns-container--ul {
-  display: none;
+  visibility: hidden;
 }
 
 .subtask-list .normal-li:hover,
@@ -285,7 +288,7 @@ input[type="checkbox"] {
 .subtask-list .normal-li:hover .subtask-btns-container--ul,
 .subtask-list .normal-li:focus-visible .subtask-btns-container--ul,
 .subtask-list .normal-li:focus-within .subtask-btns-container--ul {
-  display: flex;
+  visibility: visible;
 }
 
 .subtask-list p {

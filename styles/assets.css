@@ -18,7 +18,8 @@ input:not([type="checkbox"]):focus,
 .custom-select-input:focus,
 .custom-select-input:focus-within,
 .custom-select:focus-within .custom-select--trigger,
-textarea:focus,
+.description-textarea:focus,
+.edit-task-title-textarea:focus,
 .search-task-container:focus,
 .search-task-container:focus-within {
   border: 1px solid var(--light-blue);
@@ -262,15 +263,43 @@ input[type="search"]::-webkit-search-cancel-button {
 /* #endregion */
 
 /* #region textarea */
-textarea {
+.description-textarea {
   border: 1px solid #d1d1d1;
   border-radius: var(--border-radius-s);
-  width: var(--input-width);
   font-size: 20px;
   font-weight: 400;
   background-image: url("../assets/icons/textarea-resizer.svg");
   background-repeat: no-repeat;
   background-position: bottom 6px right 6px;
+  resize: vertical;
+}
+
+.edit-task-title-textarea {
+  padding: 18px 16px;
+  border: 1px solid #d1d1d1;
+  border-radius: var(--border-radius-s);
+
+  width: 100%;
+  min-height: calc(1.5em + 12px);
+  line-height: 1.5em;
+  padding: 6px 8px;
+
+  overflow: auto;
+}
+
+.subtask-textarea {
+  width: 100%;
+  height: calc(1.5em + 12px);
+  line-height: 1.5em;
+  padding: 6px 8px;
+
+  resize: none;
+  overflow: auto;
+}
+
+textarea {
+  width: var(--input-width);
+  border: none;
 }
 
 textarea::placeholder {

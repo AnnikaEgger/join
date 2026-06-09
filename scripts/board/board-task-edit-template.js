@@ -36,22 +36,22 @@ function taskEditModeTemplate(task, taskId) {
             <section class="title-section">
               <label class="label" for="task-title--edit-task">Title</label>
               <div class="required">
-                <input
-                  type="text"
+                <textarea
+                class="edit-task-title-textarea"
                   id="task-title--edit-task"
                   placeholder="Enter a title"
-                  value="${task.title}"
                   pattern=".*\\S.*"
                   required
                   oninput="checkIfInputValid('title', '--edit-task')"
                   onblur="checkIfInputInvalid('title', '--edit-task')"
-                />
+                >${task.title}</textarea>
               </div>
             </section>
 
             <section class="description-section">
               <label class="label" for="task-description--edit-task">Description</label>
               <textarea
+              class="description-textarea"
                 id="task-description--edit-task"
                 placeholder="Enter a description"
               >${task.description}</textarea>
