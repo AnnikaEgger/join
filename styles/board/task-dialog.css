@@ -16,15 +16,14 @@
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   z-index: 999;
   overflow-y: hidden;
-
   max-width: 525px;
   width: 90dvw;
   height: fit-content;
   max-height: 85dvh;
   border-radius: 30px;
   transition:
-    display 0.15s allow-discrete,
-    overlay 0.15s allow-discrete;
+  display 0.15s allow-discrete,
+  overlay 0.15s allow-discrete;
   animation: slideOutCentered 0.15s ease-in forwards;
 }
 
@@ -278,8 +277,8 @@ body:has(.add-task-dialog[open]) {
 
 @media screen and (max-width: 480px) {
   :root {
-    --task-dialog-padding-lr: 8px;
-    --task-dialog-padding-tb: 8px;
+    --task-dialog-padding-lr: 20px;
+    --task-dialog-padding-tb: 20px;
     --task-dialog-edit-padding-tb: 8px;
   }
 

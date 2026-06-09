@@ -100,7 +100,9 @@ function generatePrioIconHTML(src, prio) {
 function generateEmptySectionHTML(category) {
   return `
         <div class="empty-card-container">
+          <div class="empty-icon-wrapper">
             <p>${category}</p>
+          </div>
         </div>
     `;
 }

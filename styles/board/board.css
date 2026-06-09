@@ -137,7 +137,7 @@ hr {
 
 .task-titles {
   display: flex;
-  gap: 20px;
+  gap: 50px;
   justify-content: space-between;
   width: 100%;
 }
@@ -147,6 +147,7 @@ hr {
   flex-direction: column;
   flex: 1;
   min-width: 220px;
+  max-width: 250px;
 }
 
 .search-message {
@@ -183,7 +184,8 @@ hr {
   gap: 15px;
   align-self: start;
   justify-content: space-between;
-  width: 200px;
+  min-width: 200px;
+  max-width: 100%;
   flex-shrink: 0;
   max-height: 100%;
   background-color: white;

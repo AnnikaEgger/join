@@ -1,4 +1,10 @@
-@media (max-width: 1200px) {
+@media (max-width: 1345px) {
+  .task-titles {
+    gap: 35px;
+  }
+}
+
+@media (max-width: 1300px) {
   .main-content {
     padding-left: 32px;
     padding-right: 32px;
@@ -17,7 +23,7 @@
   }
 
   .task-titles {
-    gap: 15px;
+    gap: 35px;
   }
 
   .task-lanes {
@@ -34,7 +40,7 @@
   }
 }
 
-@media (max-width: 1125px) {
+@media (max-width: 1127px) {
   .main-content {
     padding-left: 20px;
     padding-right: 20px;
@@ -82,14 +88,27 @@
     gap: 32px;
   }
 
+  .task-lanes {
+    max-width: 100%;
+  }
+
   .card-container {
-    display: flex !important;
+    display: flex;
     flex-direction: row !important;
     overflow-x: auto;
     gap: 16px;
     padding: 10px;
-    height: auto !important;
-    align-items: flex-start;
+    min-height: 5px;
+    max-height: 100%;
+    align-items: center;
+  }
+
+  .empty-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 
   .card {
@@ -98,8 +117,12 @@
   }
 
   .empty-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 45px;
     font-size: 17px;
+    margin-bottom: 0;
   }
 }
 
@@ -156,7 +179,7 @@
   }
 
   .card-container {
-    height: 200px;
+    height: fit-content;
   }
 }
 
