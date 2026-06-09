@@ -218,7 +218,8 @@
                 >
                 <div class="required">
                   <input
-                    oninput="checkInputValidity('title', '--add-task')"
+                    oninput="checkIfInputValid('title', '--add-task')"
+                    onblur="checkIfInputInvalid('title', '--add-task')"
                     type="text"
                     id="task-title--add-task"
                     placeholder="Enter a title"
@@ -247,7 +248,8 @@
                   tabindex="0"
                 >
                   <input
-                    oninput="checkInputValidity('due-date', '--add-task')"
+                    oninput="checkIfInputValid('due-date', '--add-task')"
+                    onblur="checkIfInputInvalid('due-date', '--add-task')"
                     class="task-date-input"
                     id="task-due-date--add-task"
                     lang="en-GB"
@@ -255,6 +257,7 @@
                     required
                   />
                   <button
+                    onblur="checkIfInputInvalid('due-date', '--add-task')"
                     class="calendar-svg-btn"
                     type="button"
                     onclick="showDatePicker('--add-task')"
@@ -437,6 +440,7 @@
                       onclick="
                         toggleCustomSelectDropdown('category', '--add-task')
                       "
+                      onblur="checkIfCategoryWasSelected('--add-task')"
                       class="custom-select--trigger custom-select-input"
                       id="custom-select-trigger-category--add-task"
                       tabindex="0"

@@ -427,7 +427,8 @@
                 >
                 <div class="required">
                   <input
-                    oninput="checkInputValidity('title', '--add-task-dialog')"
+                    oninput="checkIfInputValid('title', '--add-task-dialog')"
+                    onblur="checkIfInputInvalid('title', '--add-task-dialog')"
                     type="text"
                     id="task-title--add-task-dialog"
                     placeholder="Enter a title"
@@ -456,19 +457,23 @@
                   tabindex="0"
                 >
                   <input
-                    oninput="
-                      checkInputValidity('due-date', '--add-task-dialog')
-                    "
                     class="task-date-input"
                     id="task-due-date--add-task-dialog"
                     lang="en-GB"
                     type="date"
                     required
+                    oninput="checkIfInputValid('due-date', '--add-task-dialog')"
+                    onblur="
+                      checkIfInputInvalid('due-date', '--add-task-dialog')
+                    "
                   />
                   <button
                     class="calendar-svg-btn"
                     type="button"
                     onclick="showDatePicker('--add-task-dialog')"
+                    onblur="
+                      checkIfInputInvalid('due-date', '--add-task-dialog')
+                    "
                     aria-label="pick date"
                   >
                     <svg
@@ -658,6 +663,7 @@
                           '--add-task-dialog',
                         )
                       "
+                      onblur="checkIfCategoryWasSelected('--add-task-dialog')"
                       class="custom-select--trigger custom-select-input"
                       id="custom-select-trigger-category--add-task-dialog"
                       tabindex="0"

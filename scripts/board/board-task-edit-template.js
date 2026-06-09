@@ -37,13 +37,14 @@ function taskEditModeTemplate(task, taskId) {
               <label class="label" for="task-title--edit-task">Title</label>
               <div class="required">
                 <input
-                  oninput="checkInputValidity('title', '--edit-task')"
                   type="text"
                   id="task-title--edit-task"
                   placeholder="Enter a title"
                   value="${task.title}"
                   pattern=".*\\S.*"
                   required
+                  oninput="checkIfInputValid('title', '--edit-task')"
+                  onblur="checkIfInputInvalid('title', '--edit-task')"
                 />
               </div>
             </section>
@@ -63,6 +64,8 @@ function taskEditModeTemplate(task, taskId) {
                 tabindex="0"
               >
                 <input
+                oninput="checkIfInputValid('due-date', '--edit-task')"
+                    onblur="checkIfInputInvalid('due-date', '--edit-task')"
                   oninput="checkInputValidity('due-date', '--edit-task')"
                   class="task-date-input"
                   id="task-due-date--edit-task"
@@ -74,6 +77,7 @@ function taskEditModeTemplate(task, taskId) {
                 <button
                   class="calendar-svg-btn"
                   type="button"
+                  onblur="checkIfInputInvalid('due-date', '--edit-task')"
                   onclick="showDatePicker('--edit-task')"
                   aria-label="pick date"
                 >
@@ -248,6 +252,7 @@ function taskEditModeTemplate(task, taskId) {
                     aria-haspopup="listbox"
                     aria-owns="select-options--category--edit-task"
                     onclick="toggleCustomSelectDropdown('category', '--edit-task')"
+                    onblur="checkIfCategoryWasSelected('--edit-task')"
                     class="custom-select--trigger custom-select-input"
                     id="custom-select-trigger-category--edit-task"
                     tabindex="0"

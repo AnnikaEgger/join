@@ -274,6 +274,7 @@ function renderCategories(id) {
 function selectCategory(category, id) {
   selectedCategory = category;
   renderSelectedCategory(id);
+  checkIfCategoryWasSelected(id);
 }
 
 /**

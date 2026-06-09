@@ -146,6 +146,7 @@ async function postTaskToFirebase(task) {
  */
 function clearTask(id) {
   clearFormValues(id);
+  removeFormValidation(id);
   renderAssignedContacts(id);
   renderSubtasks(id);
   renderSelectedCategory(id);
@@ -171,44 +172,60 @@ function clearFormValues(id) {
   subtasksArr = [];
 }
 
-/**
- * Validates a form input field based on its type.
- * @param {string} inputType - The type of input to validate ("title" or "due-date")
- * @param {string} id - The identifier suffix for the current form or dialog instance
- */
-function checkInputValidity(inputType, id) {
+function removeFormValidation(id) {
+  let invalidElements = [];
+  document.querySelectorAll(".invalid").forEach((element) => {
+    invalidElements.push(element);
+  });
+
+  document.querySelectorAll(".after").forEach((element) => {
+    invalidElements.push(element);
+  });
+
+  invalidElements.forEach((element) => {
+    element.classList.remove("invalid", "after");
+  });
+}
+
+function checkIfInputValid(inputType, id) {
   const input = document.getElementById("task-" + inputType + id);
 
-  if (inputType == "title") {
-    titleFormValidation(input);
-  }
-  if (inputType == "due-date") {
-    dueDateFormValidation(input);
+  if (input.checkValidity()) {
+    if (inputType == "title") {
+      input.classList.remove("invalid");
+      input.closest(".required").classList.remove("after");
+    } else if (inputType == "due-date") {
+      input.closest(".required").classList.remove("after", "invalid");
+    }
   }
 }
 
-/**
- * Validates the title input and applies or removes invalid styling.
- * @param {HTMLInputElement} input - The title input element
- */
-function titleFormValidation(input) {
-  if (input.checkValidity()) {
-    input.classList.remove("invalid");
-    input.closest(".required").classList.remove("after");
-  } else {
-    input.classList.add("invalid");
-    input.closest(".required").classList.add("after");
+function checkIfInputInvalid(inputType, id) {
+  const input = document.getElementById("task-" + inputType + id);
+
+  if (!input.checkValidity()) {
+    if (inputType == "title") {
+      input.classList.add("invalid");
+      input.closest(".required").classList.add("after");
+    } else if (inputType == "due-date") {
+      input.closest(".required").classList.add("after", "invalid");
+    }
   }
 }
 
-/**
- * Validates the due date input and applies or removes invalid styling.
- * @param {HTMLInputElement} input - The due date input element
- */
-function dueDateFormValidation(input) {
-  if (input.checkValidity()) {
-    input.closest(".required").classList.remove("after", "invalid");
+function checkIfCategoryWasSelected(id) {
+  const categoriesDropdown = document.getElementById(
+    "categories-dropdown" + id,
+  );
+  const categoriesTrigger = document.getElementById(
+    "custom-select-trigger-category" + id,
+  );
+
+  if (selectedCategory === "Select task category") {
+    categoriesDropdown.classList.add("after");
+    categoriesTrigger.classList.add("invalid");
   } else {
-    input.closest(".required").classList.add("after", "invalid");
+    categoriesDropdown.classList.remove("after");
+    categoriesTrigger.classList.remove("invalid");
   }
 }

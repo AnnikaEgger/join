@@ -118,9 +118,6 @@ function addEventListeners(id) {
     contactsDropdownFocusOutFunction(event, id),
   );
 
-  categoriesDropdown.addEventListener("click", () =>
-    categoriesDropdownClickFunction(event, id),
-  );
   categoriesDropdown.addEventListener("focusout", () =>
     categoriesDropdownFocusOutFunction(event, id),
   );
@@ -280,25 +277,6 @@ function contactsDropdownFocusOutFunction(e, id) {
     let inputValue = contactInput.value;
     filterContacts(inputValue);
     closeCustomSelectDropdown("contacts", id);
-  }
-}
-
-/**
- * Handles click event on the categories dropdown, managing error state visibility.
- */
-function categoriesDropdownClickFunction(e, id) {
-  const categoriesDropdown = e.currentTarget;
-  // const idDropdown = categoriesDropdown.id.slice(-1);
-  const categoryTrigger = document.getElementById(
-    "custom-select-trigger-category" + id,
-  );
-
-  if (successfullSubmit == false) {
-    categoriesDropdown.classList.add("after");
-    categoryTrigger.classList.add("invalid");
-  } else {
-    categoriesDropdown.classList.remove("after");
-    categoryTrigger.classList.remove("invalid");
   }
 }
 

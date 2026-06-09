@@ -50,44 +50,15 @@ input:not([type="checkbox"]) {
 .required {
   position: relative;
   display: flex;
+}
+
+.required-login-container {
   flex-direction: column;
 }
 
 input::placeholder {
   color: #d1d1d1;
 }
-/* 
-.invalid:focus,
-.invalid:focus-within {
-  border: 1px solid var(--red-invalid) !important;
-}
-
-.after:focus-within::after {
-  content: "This field is required";
-  font-size: 16px;
-  color: var(--red-invalid);
-  position: absolute;
-  bottom: -20px;
-  left: 5px;
-}
-
-.signup-after:focus-within::after {
-  content: attr(data-message);
-  font-size: 16px;
-  color: var(--red-invalid);
-  position: absolute;
-  bottom: -20px;
-  left: 5px;
-}
-
-.signup-checkbox-after:focus-within::after {
-  content: attr(data-message);
-  font-size: 16px;
-  color: var(--red-invalid);
-  position: absolute;
-  bottom: -20px;
-  align-self: center;
-} */
 
 .invalid,
 .invalid {
@@ -438,7 +409,9 @@ button:disabled {
 
   .after::after,
   .signup-checkbox-after::after,
-  .signup-after::after {
+  .signup-after::after,
+  .login-after::after,
+  .login-container-after::after {
     font-size: 14px;
   }
 
