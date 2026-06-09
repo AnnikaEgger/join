@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Provides the login page logic, password visibility helpers,
+ * Firebase user authentication, and shared page-protection utilities.
+ * @module script
+ */
+
+/**
  * Base URL for Firebase Realtime Database requests.
  * @constant {string}
  */
@@ -52,6 +58,10 @@ function initLogin() {
   initPasswordToggle();
 }
 
+/**
+ * Revalidates a login field and refreshes the password toggle state.
+ * @param {string} inputId - The login input name suffix to validate.
+ */
 function checkInputValidityOnInputLogin(inputId) {
   initPasswordToggle();
 
@@ -62,6 +72,10 @@ function checkInputValidityOnInputLogin(inputId) {
   }
 }
 
+/**
+ * Marks an invalid login field when the user leaves it.
+ * @param {string} inputId - The login input name suffix to validate.
+ */
 function checkInputValidityOnBlurLogin(inputId) {
   const input = document.getElementById("login" + "-" + inputId);
 
@@ -71,28 +85,47 @@ function checkInputValidityOnBlurLogin(inputId) {
   }
 }
 
+/**
+ * Removes the invalid styling from a form field.
+ * @param {HTMLElement} element - The input element to reset.
+ */
 function removeInvalidStyle(element) {
   element.classList.remove("invalid");
   element.closest(".required").classList.remove("login-after");
 }
 
+/**
+ * Adds invalid styling to a form field and its wrapper.
+ * @param {HTMLElement} element - The invalid input element.
+ */
 function addInvalidStyle(element) {
   element.classList.add("invalid");
   element.closest(".required").classList.add("login-after");
 }
 
+/**
+ * Displays the global login error banner for invalid credentials.
+ */
 function showGeneralError() {
   document
     .getElementById("input-required-container")
     .classList.add("login-container-after");
 }
 
+/**
+ * Hides the global login error banner.
+ */
 function removeGeneralError() {
   document
     .getElementById("input-required-container")
     .classList.remove("login-container-after");
 }
 
+/**
+ * Handles the login form submission and redirects the user on success.
+ * @param {Event} event - The submit event triggered by the login form.
+ * @returns {Promise<void>} Resolves after authentication and redirection logic completes.
+ */
 async function handleLogin(event) {
   event.preventDefault();
   const LOGIN_FORM = document.getElementById("login-form");
@@ -116,6 +149,10 @@ async function handleLogin(event) {
   }
 }
 
+/**
+ * Adds validation feedback to all invalid form fields.
+ * @param {HTMLFormElement} taskForm - The form to validate.
+ */
 function handleInvalidTaskform(taskForm) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
 
@@ -129,6 +166,10 @@ function handleInvalidTaskform(taskForm) {
   if (firstInvalid) focusInvalidElement(firstInvalid);
 }
 
+/**
+ * Focuses the first invalid field and scrolls it into view.
+ * @param {HTMLElement} element - The invalid form element to focus.
+ */
 function focusInvalidElement(element) {
   element.focus();
 
@@ -300,6 +341,9 @@ function guardPage() {
   }
 }
 
+/**
+ * Initializes page protection for help, privacy policy, and legal notice pages.
+ */
 function initHelpPrivacyPolicyLegalNotice() {
   guardPage();
 }

@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Generates reusable HTML templates for add-task subtasks,
+ * contact options, and category dropdown items.
+ * @module add-task-templates
+ */
+
+/**
  * add-task-templates.js
  * Provides HTML template generators for add-task subtasks, contact options, and categories.
  */

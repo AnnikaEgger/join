@@ -1,4 +1,9 @@
 /**
+ * @fileoverview Registers keyboard and form event listeners for the add-task flow.
+ * @module add-task-event-listeners
+ */
+
+/**
  * add-task-event-listeners.js
  * Manages keyboard and form event listeners for the add task workflow.
  */
