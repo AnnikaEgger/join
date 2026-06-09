@@ -150,7 +150,7 @@ hr {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 220px;
+  /* min-width: 220px; */
   max-width: 250px;
 }
 
@@ -188,12 +188,13 @@ hr {
   gap: 15px;
   align-self: start;
   justify-content: space-between;
-  min-width: 200px;
-  max-width: 100%;
+  /* min-width: 200px; */
+  /* max-width: 100%; */
+  width: 100%;
   flex-shrink: 0;
   max-height: 100%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 24px;
   padding: 15px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -221,9 +222,11 @@ hr {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.empty-card-container,
+.empty-card-container .empty-card-container,
 .empty-card-container p {
   pointer-events: none;
+  color: rgba(168, 168, 168, 1);
+  text-align: center;
 }
 
 .profile-badge-plus {
@@ -246,7 +249,7 @@ hr {
   height: 45px;
   width: 100%;
   max-width: 500px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(231, 231, 231, 1);
   border: 1px dashed rgb(167, 167, 167);
   border-radius: 10px;
   margin-bottom: 50px;
@@ -254,6 +257,8 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  justify-self: center;
 }
 
 .dragging {
@@ -405,33 +410,4 @@ textarea,
 select,
 .add-task-btn-container {
   margin-bottom: 32px;
-}
-
-#landscape-warning {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  background-color: #2a3647;
-  color: white;
-  z-index: 99999;
-  justify-content: center;
-  align-items: center;
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  text-align: center;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-@media screen and (max-width: 950px) and (orientation: landscape) {
-  #landscape-warning {
-    display: flex !important;
-  }
-
-  body {
-    overflow: hidden !important;
-  }
 }

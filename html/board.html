@@ -1,469 +1,843 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board | Join</title>
+    <link
+      rel="icon"
+      href="../assets/icons/join-logo-white.svg"
+      type="image/svg+xml"
+    />
+    <link rel="stylesheet" type="text/css" href="../styles/standard.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/variables.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/templates.css" />
+    <link rel="stylesheet" href="../styles/templates-responsive.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Board | Join</title>
-  <link rel="icon" href="../assets/icons/join-logo-white.svg" type="image/svg+xml" />
-  <link rel="stylesheet" type="text/css" href="../styles/standard.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/variables.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/templates.css" />
-  <link rel="stylesheet" href="../styles/templates-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/assets.css" />
+    <link rel="stylesheet" href="../styles/buttons.css" />
 
-  <link rel="stylesheet" type="text/css" href="../styles/fonts.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/assets.css" />
-  <link rel="stylesheet" href="../styles/buttons.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/add-task/add-task.css"
+    />
 
-  <link rel="stylesheet" type="text/css" href="../styles/add-task/add-task.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/add-task/add-task-contacts-subtasks.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/add-task/add-task-responsive.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/add-task/add-task-dialog.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/board/task-dialog.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../styles/board/board.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/board/board-dialogs.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../styles/board/board-responsive.css"
+    />
 
-  <link rel="stylesheet" type="text/css" href="../styles/add-task/add-task-contacts-subtasks.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/add-task/add-task-responsive.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/add-task/add-task-dialog.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/board/task-dialog.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/board/board.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/board/board-dialogs.css" />
-  <link rel="stylesheet" type="text/css" href="../styles/board/board-responsive.css" />
+    <script src="../script.js" defer></script>
+    <script src="../scripts/board/board-templates.js"></script>
+    <script src="../scripts/board/board-task-edit-template.js"></script>
+    <script src="../scripts/board/edit-task.js" defer></script>
+    <script src="../scripts/board/board-dialog.js" defer></script>
+    <script src="../scripts/board/board-drag-card.js" defer></script>
+    <script src="../scripts/board/board.js" defer></script>
+    <script src="../scripts/add-task/add-task-templates.js" defer></script>
+    <script
+      src="../scripts/add-task/add-task-event-listeners.js"
+      defer
+    ></script>
+    <script src="../scripts/add-task/add-task-contacts.js" defer></script>
+    <script src="../scripts/add-task/add-task-subtasks.js" defer></script>
+    <script src="../scripts/add-task/add-task-task.js" defer></script>
+    <script src="../scripts/add-task/add-task.js" defer></script>
+    <script src="../scripts/header.js" defer></script>
+  </head>
 
-  <script src="../script.js" defer></script>
-  <script src="../scripts/board/board-templates.js"></script>
-  <script src="../scripts/board/board-task-edit-template.js"></script>
-  <script src="../scripts/board/edit-task.js" defer></script>
-  <script src="../scripts/board/board-dialog.js" defer></script>
-  <script src="../scripts/board/board-drag-card.js" defer></script>
-  <script src="../scripts/board/board.js" defer></script>
-  <script src="../scripts/add-task/add-task-templates.js" defer></script>
-  <script src="../scripts/add-task/add-task-event-listeners.js" defer></script>
-  <script src="../scripts/add-task/add-task-contacts.js" defer></script>
-  <script src="../scripts/add-task/add-task-subtasks.js" defer></script>
-  <script src="../scripts/add-task/add-task-task.js" defer></script>
-  <script src="../scripts/add-task/add-task.js" defer></script>
-  <script src="../scripts/header.js" defer></script>
-</head>
+  <body id="body--board" onload="initBoard()" class="disabled-ui">
+    <!-- SIDEBAR  -->
+    <section class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../assets/icons/join-logo-white.svg" alt="Join Logo" />
+      </div>
 
-<body id="body--board" onload="initBoard()" class="disabled-ui">
-  <!-- SIDEBAR  -->
-  <section class="sidebar">
-    <div class="sidebar-logo">
-      <img src="../assets/icons/join-logo-white.svg" alt="Join Logo" />
-    </div>
-
-    <nav class="sidebar-nav">
-      <ul class="nav-list">
-        <li>
-          <a href="summary.html" class="nav-link">
-            <svg class="nav-icon" width="30" height="30" viewBox="0 0 30 30" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M25.2273 2.5H4.77273H4.5C3.39543 2.5 2.5 3.39573 2.5 4.5003C2.5 4.68009 2.5 4.80746 2.5 4.83997V25.2945V25.5C2.5 26.6046 3.39572 27.5 4.50029 27.5C4.64377 27.5 4.74401 27.5 4.77272 27.5H25.2273C25.256 27.5 25.3562 27.5 25.4997 27.5C26.6043 27.5 27.5 26.6041 27.5 25.4995C27.5 25.3927 27.5 25.3188 27.5 25.2945V4.83994C27.5 4.80744 27.5 4.68008 27.5 4.5003C27.5 3.39573 26.6043 2.5 25.4997 2.5C25.3562 2.5 25.256 2.5 25.2273 2.5ZM17.2727 25.2945H4.77273V16.2036H17.2727V25.2945ZM17.2727 13.9309H4.77273V4.83997L17.2727 4.83994V13.9309ZM25.2273 25.2945H19.5455V4.83997H25.2273V25.2945Z"
-                fill="#cdcdcd" />
-            </svg>
-            <span>Summary</span>
-          </a>
-        </li>
-        <li>
-          <a href="add-task.html" class="nav-link">
-            <svg class="nav-icon" width="30" height="30" viewBox="0 0 30 30" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <mask id="mask0_464124_3868" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="30"
-                height="30">
-                <rect width="30" height="30" fill="#D9D9D9" />
-              </mask>
-              <g mask="url(#mask0_464124_3868)">
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li>
+            <a href="summary.html" class="nav-link">
+              <svg
+                class="nav-icon"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M4.62652 27.2024C3.95579 27.2024 3.38161 26.9635 2.90396 26.4859C2.42632 26.0083 2.1875 25.4341 2.1875 24.7633V7.69017C2.1875 7.01944 2.42632 6.44525 2.90396 5.96761C3.38161 5.48996 3.95579 5.25114 4.62652 5.25114H15.5107L13.0716 7.69017H4.62652V24.7633H21.6997V16.2877L24.1387 13.8487V24.7633C24.1387 25.4341 23.8999 26.0083 23.4223 26.4859C22.9446 26.9635 22.3704 27.2024 21.6997 27.2024H4.62652ZM18.2546 5.95236L19.9924 7.65968L11.9436 15.7085V17.4463H13.6509L21.7302 9.367L23.468 11.0743L15.3887 19.1536C15.1651 19.3772 14.906 19.555 14.6113 19.6871C14.3166 19.8192 14.0066 19.8853 13.6814 19.8853H10.7241C10.3786 19.8853 10.0889 19.7684 9.85518 19.5347C9.62144 19.3009 9.50457 19.0113 9.50457 18.6658V15.7085C9.50457 15.3833 9.56555 15.0733 9.6875 14.7786C9.80945 14.4839 9.98222 14.2247 10.2058 14.0011L18.2546 5.95236ZM23.468 11.0743L18.2546 5.95236L21.3034 2.90358C21.7912 2.41578 22.3755 2.17188 23.0564 2.17188C23.7373 2.17188 24.3115 2.41578 24.779 2.90358L26.4863 4.64139C26.9538 5.10887 27.1875 5.67797 27.1875 6.3487C27.1875 7.01944 26.9538 7.58854 26.4863 8.05602L23.468 11.0743Z"
-                  fill="#CDCDCD" />
-              </g>
-            </svg>
+                  d="M25.2273 2.5H4.77273H4.5C3.39543 2.5 2.5 3.39573 2.5 4.5003C2.5 4.68009 2.5 4.80746 2.5 4.83997V25.2945V25.5C2.5 26.6046 3.39572 27.5 4.50029 27.5C4.64377 27.5 4.74401 27.5 4.77272 27.5H25.2273C25.256 27.5 25.3562 27.5 25.4997 27.5C26.6043 27.5 27.5 26.6041 27.5 25.4995C27.5 25.3927 27.5 25.3188 27.5 25.2945V4.83994C27.5 4.80744 27.5 4.68008 27.5 4.5003C27.5 3.39573 26.6043 2.5 25.4997 2.5C25.3562 2.5 25.256 2.5 25.2273 2.5ZM17.2727 25.2945H4.77273V16.2036H17.2727V25.2945ZM17.2727 13.9309H4.77273V4.83997L17.2727 4.83994V13.9309ZM25.2273 25.2945H19.5455V4.83997H25.2273V25.2945Z"
+                  fill="#cdcdcd"
+                />
+              </svg>
+              <span>Summary</span>
+            </a>
+          </li>
+          <li>
+            <a href="add-task.html" class="nav-link">
+              <svg
+                class="nav-icon"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <mask
+                  id="mask0_464124_3868"
+                  style="mask-type: alpha"
+                  maskUnits="userSpaceOnUse"
+                  x="0"
+                  y="0"
+                  width="30"
+                  height="30"
+                >
+                  <rect width="30" height="30" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask0_464124_3868)">
+                  <path
+                    d="M4.62652 27.2024C3.95579 27.2024 3.38161 26.9635 2.90396 26.4859C2.42632 26.0083 2.1875 25.4341 2.1875 24.7633V7.69017C2.1875 7.01944 2.42632 6.44525 2.90396 5.96761C3.38161 5.48996 3.95579 5.25114 4.62652 5.25114H15.5107L13.0716 7.69017H4.62652V24.7633H21.6997V16.2877L24.1387 13.8487V24.7633C24.1387 25.4341 23.8999 26.0083 23.4223 26.4859C22.9446 26.9635 22.3704 27.2024 21.6997 27.2024H4.62652ZM18.2546 5.95236L19.9924 7.65968L11.9436 15.7085V17.4463H13.6509L21.7302 9.367L23.468 11.0743L15.3887 19.1536C15.1651 19.3772 14.906 19.555 14.6113 19.6871C14.3166 19.8192 14.0066 19.8853 13.6814 19.8853H10.7241C10.3786 19.8853 10.0889 19.7684 9.85518 19.5347C9.62144 19.3009 9.50457 19.0113 9.50457 18.6658V15.7085C9.50457 15.3833 9.56555 15.0733 9.6875 14.7786C9.80945 14.4839 9.98222 14.2247 10.2058 14.0011L18.2546 5.95236ZM23.468 11.0743L18.2546 5.95236L21.3034 2.90358C21.7912 2.41578 22.3755 2.17188 23.0564 2.17188C23.7373 2.17188 24.3115 2.41578 24.779 2.90358L26.4863 4.64139C26.9538 5.10887 27.1875 5.67797 27.1875 6.3487C27.1875 7.01944 26.9538 7.58854 26.4863 8.05602L23.468 11.0743Z"
+                    fill="#CDCDCD"
+                  />
+                </g>
+              </svg>
 
-            <span>Add Task</span>
-          </a>
-        </li>
-        <li>
-          <a href="board.html" class="nav-link active">
-            <svg class="nav-icon" width="30" height="30" viewBox="0 0 30 30" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M22.9544 4.77273L22.9545 25.2271C22.9538 25.8296 22.7142 26.4074 22.2881 26.8334C21.862 27.2595 21.2843 27.4992 20.6817 27.4998L16.1363 27.4998C15.5338 27.4992 14.956 27.2595 14.53 26.8334C14.1039 26.4074 13.8642 25.8296 13.8636 25.2271L13.8636 4.77273C13.8642 4.17015 14.1039 3.59243 14.53 3.16635C14.956 2.74026 15.5338 2.50062 16.1363 2.50002L20.6817 2.50002C21.2843 2.50062 21.862 2.74026 22.2881 3.16635C22.7142 3.59243 22.9538 4.17015 22.9544 4.77273ZM16.1363 25.2271L20.6817 25.2271L20.6817 4.77273L16.1363 4.77273L16.1363 25.2271ZM16.1363 4.77273L16.1363 25.2271C16.1357 25.8296 15.8961 26.4073 15.47 26.8334C15.0439 27.2595 14.4662 27.4991 13.8636 27.4997L9.31823 27.4997C8.71566 27.4991 8.13794 27.2595 7.71185 26.8334C7.28577 26.4073 7.04613 25.8296 7.04553 25.227L7.04553 4.7727C7.04613 4.17013 7.28577 3.59241 7.71185 3.16632C8.13793 2.74024 8.71566 2.5006 9.31823 2.5L13.8636 2.5C14.4662 2.5006 15.0439 2.74024 15.47 3.16632C15.8961 3.59241 16.1357 4.17015 16.1363 4.77273ZM9.31823 25.227L13.8636 25.2271L13.8636 4.77273L9.31823 4.7727L9.31823 25.227ZM9.31823 4.7727L9.31823 25.227C9.31763 25.8296 9.07799 26.4073 8.65191 26.8334C8.22582 27.2595 7.6481 27.4991 7.04553 27.4997L2.50012 27.4997C1.89755 27.4991 1.31983 27.2595 0.893741 26.8334C0.467657 26.4073 0.228019 25.8296 0.227417 25.227L0.227416 4.7727C0.228018 4.17013 0.467656 3.59241 0.89374 3.16632C1.31982 2.74024 1.89755 2.5006 2.50012 2.5L7.04553 2.5C7.6481 2.5006 8.22582 2.74024 8.6519 3.16632C9.07799 3.59241 9.31763 4.17013 9.31823 4.7727ZM2.50012 25.227L7.04553 25.227L7.04553 4.7727L2.50012 4.7727L2.50012 25.227Z"
-                fill="#CDCDCD" />
-              <path
-                d="M29.7726 4.77298L29.7726 25.2273C29.772 25.8299 29.5323 26.4076 29.1062 26.8337C28.6802 27.2598 28.1024 27.4994 27.4999 27.5L22.9545 27.5C22.3519 27.4994 21.7742 27.2598 21.3481 26.8337C20.922 26.4076 20.6824 25.8296 20.6817 25.2271L20.6817 4.77273C20.6823 4.17015 20.922 3.59268 21.3481 3.1666C21.7742 2.74051 22.3519 2.50088 22.9544 2.50027L27.4999 2.50027C28.1024 2.50088 28.6801 2.74051 29.1062 3.1666C29.5323 3.59268 29.772 4.1704 29.7726 4.77298ZM22.9545 25.2271L27.4999 25.2273L27.4999 4.77298L22.9544 4.77273L22.9545 25.2271Z"
-                fill="#CDCDCD" />
-            </svg>
-
-            <span>Board</span>
-          </a>
-        </li>
-        <li>
-          <a href="contacts.html" class="nav-link">
-            <svg class="nav-icon" width="30" height="30" viewBox="0 0 30 30" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <mask id="mask0_464124_3880" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="30"
-                height="30">
-                <rect width="30" height="30" fill="#D9D9D9" />
-              </mask>
-              <g mask="url(#mask0_464124_3880)">
+              <span>Add Task</span>
+            </a>
+          </li>
+          <li>
+            <a href="board.html" class="nav-link active">
+              <svg
+                class="nav-icon"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M15 22.5C13.8333 22.5 12.7188 22.6823 11.6563 23.0469C10.5938 23.4115 9.625 23.9583 8.75 24.6875V25H21.25V24.6875C20.375 23.9583 19.4062 23.4115 18.3438 23.0469C17.2812 22.6823 16.1667 22.5 15 22.5ZM6.25 23.5625C7.375 22.4583 8.68229 21.5885 10.1719 20.9531C11.6615 20.3177 13.2708 20 15 20C16.7292 20 18.3385 20.3177 19.8281 20.9531C21.3177 21.5885 22.625 22.4583 23.75 23.5625V7.5H6.25V23.5625ZM15 17.5C13.7917 17.5 12.7604 17.0729 11.9062 16.2188C11.0521 15.3646 10.625 14.3333 10.625 13.125C10.625 11.9167 11.0521 10.8854 11.9062 10.0312C12.7604 9.17708 13.7917 8.75 15 8.75C16.2083 8.75 17.2396 9.17708 18.0938 10.0312C18.9479 10.8854 19.375 11.9167 19.375 13.125C19.375 14.3333 18.9479 15.3646 18.0938 16.2188C17.2396 17.0729 16.2083 17.5 15 17.5ZM15 15C15.5208 15 15.9635 14.8177 16.3281 14.4531C16.6927 14.0885 16.875 13.6458 16.875 13.125C16.875 12.6042 16.6927 12.1615 16.3281 11.7969C15.9635 11.4323 15.5208 11.25 15 11.25C14.4792 11.25 14.0365 11.4323 13.6719 11.7969C13.3073 12.1615 13.125 12.6042 13.125 13.125C13.125 13.6458 13.3073 14.0885 13.6719 14.4531C14.0365 14.8177 14.4792 15 15 15ZM6.25 27.5C5.5625 27.5 4.97396 27.2552 4.48438 26.7656C3.99479 26.276 3.75 25.6875 3.75 25V7.5C3.75 6.8125 3.99479 6.22396 4.48438 5.73438C4.97396 5.24479 5.5625 5 6.25 5H7.5V2.5H10V5H20V2.5H22.5V5H23.75C24.4375 5 25.026 5.24479 25.5156 5.73438C26.0052 6.22396 26.25 6.8125 26.25 7.5V25C26.25 25.6875 26.0052 26.276 25.5156 26.7656C25.026 27.2552 24.4375 27.5 23.75 27.5H6.25Z"
-                  fill="#CDCDCD" />
-              </g>
-            </svg>
+                  d="M22.9544 4.77273L22.9545 25.2271C22.9538 25.8296 22.7142 26.4074 22.2881 26.8334C21.862 27.2595 21.2843 27.4992 20.6817 27.4998L16.1363 27.4998C15.5338 27.4992 14.956 27.2595 14.53 26.8334C14.1039 26.4074 13.8642 25.8296 13.8636 25.2271L13.8636 4.77273C13.8642 4.17015 14.1039 3.59243 14.53 3.16635C14.956 2.74026 15.5338 2.50062 16.1363 2.50002L20.6817 2.50002C21.2843 2.50062 21.862 2.74026 22.2881 3.16635C22.7142 3.59243 22.9538 4.17015 22.9544 4.77273ZM16.1363 25.2271L20.6817 25.2271L20.6817 4.77273L16.1363 4.77273L16.1363 25.2271ZM16.1363 4.77273L16.1363 25.2271C16.1357 25.8296 15.8961 26.4073 15.47 26.8334C15.0439 27.2595 14.4662 27.4991 13.8636 27.4997L9.31823 27.4997C8.71566 27.4991 8.13794 27.2595 7.71185 26.8334C7.28577 26.4073 7.04613 25.8296 7.04553 25.227L7.04553 4.7727C7.04613 4.17013 7.28577 3.59241 7.71185 3.16632C8.13793 2.74024 8.71566 2.5006 9.31823 2.5L13.8636 2.5C14.4662 2.5006 15.0439 2.74024 15.47 3.16632C15.8961 3.59241 16.1357 4.17015 16.1363 4.77273ZM9.31823 25.227L13.8636 25.2271L13.8636 4.77273L9.31823 4.7727L9.31823 25.227ZM9.31823 4.7727L9.31823 25.227C9.31763 25.8296 9.07799 26.4073 8.65191 26.8334C8.22582 27.2595 7.6481 27.4991 7.04553 27.4997L2.50012 27.4997C1.89755 27.4991 1.31983 27.2595 0.893741 26.8334C0.467657 26.4073 0.228019 25.8296 0.227417 25.227L0.227416 4.7727C0.228018 4.17013 0.467656 3.59241 0.89374 3.16632C1.31982 2.74024 1.89755 2.5006 2.50012 2.5L7.04553 2.5C7.6481 2.5006 8.22582 2.74024 8.6519 3.16632C9.07799 3.59241 9.31763 4.17013 9.31823 4.7727ZM2.50012 25.227L7.04553 25.227L7.04553 4.7727L2.50012 4.7727L2.50012 25.227Z"
+                  fill="#CDCDCD"
+                />
+                <path
+                  d="M29.7726 4.77298L29.7726 25.2273C29.772 25.8299 29.5323 26.4076 29.1062 26.8337C28.6802 27.2598 28.1024 27.4994 27.4999 27.5L22.9545 27.5C22.3519 27.4994 21.7742 27.2598 21.3481 26.8337C20.922 26.4076 20.6824 25.8296 20.6817 25.2271L20.6817 4.77273C20.6823 4.17015 20.922 3.59268 21.3481 3.1666C21.7742 2.74051 22.3519 2.50088 22.9544 2.50027L27.4999 2.50027C28.1024 2.50088 28.6801 2.74051 29.1062 3.1666C29.5323 3.59268 29.772 4.1704 29.7726 4.77298ZM22.9545 25.2271L27.4999 25.2273L27.4999 4.77298L22.9544 4.77273L22.9545 25.2271Z"
+                  fill="#CDCDCD"
+                />
+              </svg>
 
-            <span>Contacts</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+              <span>Board</span>
+            </a>
+          </li>
+          <li>
+            <a href="contacts.html" class="nav-link">
+              <svg
+                class="nav-icon"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <mask
+                  id="mask0_464124_3880"
+                  style="mask-type: alpha"
+                  maskUnits="userSpaceOnUse"
+                  x="0"
+                  y="0"
+                  width="30"
+                  height="30"
+                >
+                  <rect width="30" height="30" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask0_464124_3880)">
+                  <path
+                    d="M15 22.5C13.8333 22.5 12.7188 22.6823 11.6563 23.0469C10.5938 23.4115 9.625 23.9583 8.75 24.6875V25H21.25V24.6875C20.375 23.9583 19.4062 23.4115 18.3438 23.0469C17.2812 22.6823 16.1667 22.5 15 22.5ZM6.25 23.5625C7.375 22.4583 8.68229 21.5885 10.1719 20.9531C11.6615 20.3177 13.2708 20 15 20C16.7292 20 18.3385 20.3177 19.8281 20.9531C21.3177 21.5885 22.625 22.4583 23.75 23.5625V7.5H6.25V23.5625ZM15 17.5C13.7917 17.5 12.7604 17.0729 11.9062 16.2188C11.0521 15.3646 10.625 14.3333 10.625 13.125C10.625 11.9167 11.0521 10.8854 11.9062 10.0312C12.7604 9.17708 13.7917 8.75 15 8.75C16.2083 8.75 17.2396 9.17708 18.0938 10.0312C18.9479 10.8854 19.375 11.9167 19.375 13.125C19.375 14.3333 18.9479 15.3646 18.0938 16.2188C17.2396 17.0729 16.2083 17.5 15 17.5ZM15 15C15.5208 15 15.9635 14.8177 16.3281 14.4531C16.6927 14.0885 16.875 13.6458 16.875 13.125C16.875 12.6042 16.6927 12.1615 16.3281 11.7969C15.9635 11.4323 15.5208 11.25 15 11.25C14.4792 11.25 14.0365 11.4323 13.6719 11.7969C13.3073 12.1615 13.125 12.6042 13.125 13.125C13.125 13.6458 13.3073 14.0885 13.6719 14.4531C14.0365 14.8177 14.4792 15 15 15ZM6.25 27.5C5.5625 27.5 4.97396 27.2552 4.48438 26.7656C3.99479 26.276 3.75 25.6875 3.75 25V7.5C3.75 6.8125 3.99479 6.22396 4.48438 5.73438C4.97396 5.24479 5.5625 5 6.25 5H7.5V2.5H10V5H20V2.5H22.5V5H23.75C24.4375 5 25.026 5.24479 25.5156 5.73438C26.0052 6.22396 26.25 6.8125 26.25 7.5V25C26.25 25.6875 26.0052 26.276 25.5156 26.7656C25.026 27.2552 24.4375 27.5 23.75 27.5H6.25Z"
+                    fill="#CDCDCD"
+                  />
+                </g>
+              </svg>
 
-    <div class="sidebar-footer">
-      <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-      <a href="legal-notice.html" class="footer-link">Legal notice</a>
-    </div>
-  </section>
+              <span>Contacts</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-  <!--  HEADER  -->
-  <header class="header">
-    <a href="summary.html" class="header-logo-mobile">
-      <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
-    </a>
+      <div class="sidebar-footer">
+        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        <a href="legal-notice.html" class="footer-link">Legal notice</a>
+      </div>
+    </section>
 
-    <h2 class="header-title">Kanban Project Management Tool</h2>
-
-    <div class="header-actions">
-      <a href="help.html" class="nav-link header-help-link">
-        <img class="nav-icon" src="../assets/icons/help-logo.svg" alt="help icon" />
+    <!--  HEADER  -->
+    <header class="header">
+      <a href="summary.html" class="header-logo-mobile">
+        <img src="../assets/icons/join-logo-blue.svg" alt="Join Logo" />
       </a>
 
-      <div class="header-user-area">
-        <div class="header-avatar" id="header-avatar" onclick="toggleDropdown()"></div>
+      <h2 class="header-title">Kanban Project Management Tool</h2>
 
-        <div id="dropdown" class="dropdown-content d-none">
-          <a href="help.html" class="dropdown-help-link">Help</a>
-          <a href="legal-notice.html">Legal Notice</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a onclick="logout()">Log out</a>
-        </div>
-      </div>
-    </div>
-  </header>
+      <div class="header-actions">
+        <a href="help.html" class="nav-link header-help-link">
+          <img
+            class="nav-icon"
+            src="../assets/icons/help-logo.svg"
+            alt="help icon"
+          />
+        </a>
 
-  <main class="main-content">
-    <section class="board-header">
-      <div class="board-header-mobile">
-        <h1 class="head-text">Board</h1>
-        <button class="second-add-btn" aria-label="Add task" onclick="openAddTaskDialog('to do')">
-          <img src="../assets/icons/white_plus_button.svg" alt="white plus icon" />
-        </button>
-      </div>
-      <div class="search-and-add-section">
-        <div class="search-task-container">
-          <input oninput="filterTasks()" aria-label="Search tasks" id="search-input" class="input-field" type="search"
-            placeholder="Find Task" />
-          <hr />
-          <img class="search-icon" src="../assets/icons/search.svg" alt="search icon" />
-        </div>
-        <button class="add-btn" aria-label="Add task" onclick="openAddTaskDialog('to do')">
-          <span>Add task</span>
-          <img src="../assets/icons/white_plus_button.svg" alt="white plus icon" />
-        </button>
-      </div>
-    </section>
-    <div id="search-message" class="search-message"></div>
-    <section class="board-section">
-      <div class="task-titles">
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>To do</h2>
-            <button class="add-task-btn-bg">
-              <img class="add-task-btn" onclick="openAddTaskDialog('to do')" aria-label="Add task button" role="button"
-                src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
+        <div class="header-user-area">
+          <div
+            class="header-avatar"
+            id="header-avatar"
+            onclick="toggleDropdown()"
+          ></div>
+
+          <div id="dropdown" class="dropdown-content d-none">
+            <a href="help.html" class="dropdown-help-link">Help</a>
+            <a href="legal-notice.html">Legal Notice</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a onclick="logout()">Log out</a>
           </div>
-          <div id="to do" class="card-container" ondrop="
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="board-header">
+        <div class="board-header-mobile">
+          <h1 class="head-text">Board</h1>
+          <button
+            class="second-add-btn"
+            aria-label="Add task"
+            onclick="openAddTaskDialog('to do')"
+          >
+            <img
+              src="../assets/icons/white_plus_button.svg"
+              alt="white plus icon"
+            />
+          </button>
+        </div>
+        <div class="search-and-add-section">
+          <div class="search-task-container">
+            <input
+              oninput="filterTasks()"
+              aria-label="Search tasks"
+              id="search-input"
+              class="input-field"
+              type="search"
+              placeholder="Find Task"
+            />
+            <hr />
+            <img
+              class="search-icon"
+              src="../assets/icons/search.svg"
+              alt="search icon"
+            />
+          </div>
+          <button
+            class="add-btn"
+            aria-label="Add task"
+            onclick="openAddTaskDialog('to do')"
+          >
+            <span>Add task</span>
+            <img
+              src="../assets/icons/white_plus_button.svg"
+              alt="white plus icon"
+            />
+          </button>
+        </div>
+      </section>
+      <div id="search-message" class="search-message"></div>
+      <section class="board-section">
+        <div class="task-titles">
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>To do</h2>
+              <button class="add-task-btn-bg">
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('to do')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="to do"
+              class="card-container"
+              ondrop="
                 moveTo('to do');
                 removeHighlight('to do');
-              " ondragleave="removeHighlight('to do')" ondragover="
+              "
+              ondragleave="removeHighlight('to do')"
+              ondragover="
                 allowDrop(event);
                 highlight('to do');
-              "></div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>in progress</h2>
-            <button class="add-task-btn-bg">
-              <img class="add-task-btn" onclick="openAddTaskDialog('in progress')" aria-label="Add task button"
-                role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
+              "
+            ></div>
           </div>
-          <div id="in progress" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>in progress</h2>
+              <button class="add-task-btn-bg">
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('in progress')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="in progress"
+              class="card-container"
+              ondrop="
                 moveTo('in progress');
                 removeHighlight('in progress');
-              " ondragleave="removeHighlight('in progress')" ondragover="
+              "
+              ondragleave="removeHighlight('in progress')"
+              ondragover="
                 allowDrop(event);
                 highlight('in progress');
-              "></div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>Await feedback</h2>
-            <button class="add-task-btn-bg">
-              <img class="add-task-btn" onclick="openAddTaskDialog('await feedback')" aria-label="Add task button"
-                role="button" src="../assets/icons/plus_button.svg" alt="plus button" />
-            </button>
+              "
+            ></div>
           </div>
-          <div id="await feedback" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>Await feedback</h2>
+              <button class="add-task-btn-bg">
+                <img
+                  class="add-task-btn"
+                  onclick="openAddTaskDialog('await feedback')"
+                  aria-label="Add task button"
+                  role="button"
+                  src="../assets/icons/plus_button.svg"
+                  alt="plus button"
+                />
+              </button>
+            </div>
+            <div
+              id="await feedback"
+              class="card-container"
+              ondrop="
                 moveTo('await feedback');
                 removeHighlight('await feedback');
-              " ondragleave="removeHighlight('await feedback')" ondragover="
+              "
+              ondragleave="removeHighlight('await feedback')"
+              ondragover="
                 allowDrop(event);
                 highlight('await feedback');
-              "></div>
-        </div>
-        <div class="task-lanes">
-          <div class="task-title">
-            <h2>Done</h2>
+              "
+            ></div>
           </div>
-          <div id="done" class="card-container" ondrop="
+          <div class="task-lanes">
+            <div class="task-title">
+              <h2>Done</h2>
+            </div>
+            <div
+              id="done"
+              class="card-container card-container--done"
+              ondrop="
                 moveTo('done');
                 removeHighlight('done');
-              " ondragleave="removeHighlight('done')" ondragover="
+              "
+              ondragleave="removeHighlight('done')"
+              ondragover="
                 allowDrop(event);
                 highlight('done');
-              "></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <dialog id="addTaskDialog" class="add-task-dialog">
-    <div id="content-wrapper--add-task-dialog" class="content-wrapper content-wrapper--dialog disabled-ui">
-      <h2 class="add-task-headline add-task-headline--dialog">Add Task</h2>
-      <button class="add-task-dialog-closing-btn" onclick="closeAddTaskDialog()">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
-            stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </button>
-
-      <form aria-labelledby="add-task-headline" onsubmit="addTask(event, 'board', '--add-task-dialog')"
-        id="task-form--add-task-dialog" class="task-form task-form--dialog" novalidate>
-        <div class="add-task-inner-wrapper add-task-inner-wrapper--dialog">
-          <div class="add-task-container add-task-container-left">
-            <section class="title-section">
-              <label class="label" for="task-title--add-task-dialog">Title<span class="red">*</span></label>
-              <div class="required">
-                <input oninput="checkIfInputValid('title', '--add-task-dialog')"
-                  onblur="checkIfInputInvalid('title', '--add-task-dialog')" type="text"
-                  id="task-title--add-task-dialog" placeholder="Enter a title" pattern=".*\S.*" required />
-              </div>
-            </section>
-
-            <section class="description-section">
-              <label class="label" for="task-description--add-task-dialog">Description</label>
-              <textarea class="description-textarea" id="task-description--add-task-dialog"
-                placeholder="Enter a description"></textarea>
-            </section>
-
-            <section class="due-date-section">
-              <label class="label" for="task-due-date--add-task-dialog">Due Date<span class="red">*</span></label>
-              <div class="required custom-select-input custom-select-input--date trigger-input-container" tabindex="0">
-                <input class="task-date-input" id="task-due-date--add-task-dialog" lang="en-GB" type="date" required
-                  oninput="checkIfInputValid('due-date', '--add-task-dialog')" onblur="
-                      checkIfInputInvalid('due-date', '--add-task-dialog')
-                    " />
-                <button class="calendar-svg-btn" type="button" onclick="showDatePicker('--add-task-dialog')" onblur="
-                      checkIfInputInvalid('due-date', '--add-task-dialog')
-                    " aria-label="pick date">
-                  <svg class="calendar-icon" width="18" height="20" viewBox="0 0 18 20" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M11.5 16C10.8 16 10.2083 15.7583 9.725 15.275C9.24167 14.7917 9 14.2 9 13.5C9 12.8 9.24167 12.2083 9.725 11.725C10.2083 11.2417 10.8 11 11.5 11C12.2 11 12.7917 11.2417 13.275 11.725C13.7583 12.2083 14 12.8 14 13.5C14 14.2 13.7583 14.7917 13.275 15.275C12.7917 15.7583 12.2 16 11.5 16ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V1C3 0.716667 3.09583 0.479167 3.2875 0.2875C3.47917 0.0958333 3.71667 0 4 0C4.28333 0 4.52083 0.0958333 4.7125 0.2875C4.90417 0.479167 5 0.716667 5 1V2H13V1C13 0.716667 13.0958 0.479167 13.2875 0.2875C13.4792 0.0958333 13.7167 0 14 0C14.2833 0 14.5208 0.0958333 14.7125 0.2875C14.9042 0.479167 15 0.716667 15 1V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
-                      fill="#2A3647" />
-                  </svg>
-                </button>
-              </div>
-            </section>
+              "
+            ></div>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <div class="seperation-line"></div>
+    <dialog id="addTaskDialog" class="add-task-dialog">
+      <div
+        id="content-wrapper--add-task-dialog"
+        class="content-wrapper content-wrapper--dialog disabled-ui"
+      >
+        <h2 class="add-task-headline add-task-headline--dialog">Add Task</h2>
+        <button
+          class="add-task-dialog-closing-btn"
+          onclick="closeAddTaskDialog()"
+        >
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
+              stroke="#2A3647"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
 
-          <div class="add-task-container add-task-container-right">
-            <section class="prio-section">
-              <p class="label">Priority</p>
-              <div id="task-priority" class="add-task-prio-btns-container">
-                <button type="button" onclick="setPriority('Urgent', '--add-task-dialog')"
-                  id="urgent-prio-btn--add-task-dialog" class="prio-btn" aria-label="set priority to urgent">
-                  Urgent
-                  <svg id="urgent-prio-svg--add-task-dialog" class="prio-svg" width="20" height="15" viewBox="0 0 20 15"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M18.9043 14.5096C18.6696 14.51 18.4411 14.4351 18.2522 14.2961L10.0001 8.21288L1.74809 14.2961C1.63224 14.3816 1.50066 14.4435 1.36086 14.4783C1.22106 14.513 1.07577 14.5199 0.933305 14.4986C0.790837 14.4772 0.653973 14.428 0.530528 14.3538C0.407083 14.2796 0.299474 14.1818 0.213845 14.0661C0.128216 13.9503 0.0662437 13.8188 0.0314671 13.6791C-0.00330956 13.5394 -0.0102098 13.3943 0.0111604 13.2519C0.0543195 12.9644 0.21001 12.7058 0.443982 12.533L9.34809 5.96249C9.53679 5.8229 9.76536 5.74756 10.0001 5.74756C10.2349 5.74756 10.4635 5.8229 10.6522 5.96249L19.5563 12.533C19.7422 12.6699 19.8801 12.862 19.9503 13.0819C20.0204 13.3018 20.0193 13.5382 19.9469 13.7573C19.8746 13.9765 19.7349 14.1673 19.5476 14.3024C19.3604 14.4375 19.1352 14.51 18.9043 14.5096Z"
-                      fill="#FF3D00" />
-                    <path
-                      d="M18.9043 8.76057C18.6696 8.76097 18.4411 8.68612 18.2522 8.54702L10.0002 2.46386L1.7481 8.54702C1.51412 8.71983 1.22104 8.79269 0.93331 8.74956C0.645583 8.70643 0.386785 8.55086 0.213849 8.31706C0.0409137 8.08326 -0.0319941 7.79039 0.011165 7.50288C0.054324 7.21536 0.210015 6.95676 0.443986 6.78395L9.3481 0.213471C9.5368 0.0738799 9.76537 -0.00146484 10.0002 -0.00146484C10.2349 -0.00146484 10.4635 0.0738799 10.6522 0.213471L19.5563 6.78395C19.7422 6.92087 19.8801 7.11298 19.9503 7.33286C20.0204 7.55274 20.0193 7.78914 19.947 8.00832C19.8746 8.22751 19.7349 8.41826 19.5476 8.55335C19.3604 8.68844 19.1352 8.76096 18.9043 8.76057Z"
-                      fill="#FF3D00" />
-                  </svg></button><button type="button" onclick="setPriority('Medium', '--add-task-dialog')"
-                  id="medium-prio-btn--add-task-dialog" class="prio-btn" aria-label="set priority to medium">
-                  Medium<svg id="medium-prio-svg--add-task-dialog" class="prio-svg" width="20" height="8"
-                    viewBox="0 0 20 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M18.9041 7.45086H1.09589C0.805242 7.45086 0.526498 7.33456 0.320979 7.12755C0.11546 6.92054 0 6.63977 0 6.34701C0 6.05425 0.11546 5.77349 0.320979 5.56647C0.526498 5.35946 0.805242 5.24316 1.09589 5.24316H18.9041C19.1948 5.24316 19.4735 5.35946 19.679 5.56647C19.8845 5.77349 20 6.05425 20 6.34701C20 6.63977 19.8845 6.92054 19.679 7.12755C19.4735 7.33456 19.1948 7.45086 18.9041 7.45086Z"
-                      fill="#ffa800" />
-                    <path
-                      d="M18.9041 2.2077H1.09589C0.805242 2.2077 0.526498 2.0914 0.320979 1.88439C0.11546 1.67738 0 1.39661 0 1.10385C0 0.81109 0.11546 0.530322 0.320979 0.32331C0.526498 0.116298 0.805242 0 1.09589 0L18.9041 0C19.1948 0 19.4735 0.116298 19.679 0.32331C19.8845 0.530322 20 0.81109 20 1.10385C20 1.39661 19.8845 1.67738 19.679 1.88439C19.4735 2.0914 19.1948 2.2077 18.9041 2.2077Z"
-                      fill="#ffa800" />
-                  </svg></button><button type="button" onclick="setPriority('Low', '--add-task-dialog')"
-                  id="low-prio-btn--add-task-dialog" class="prio-btn" aria-label="set priority to low">
-                  Low<svg id="low-prio-svg--add-task-dialog" class="prio-svg" width="20" height="15" viewBox="0 0 20 15"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10 8.76077C9.7654 8.76118 9.53687 8.68634 9.34802 8.54726L0.444913 1.97752C0.329075 1.89197 0.231235 1.78445 0.15698 1.66111C0.0827245 1.53777 0.033508 1.40102 0.0121402 1.25868C-0.031014 0.971193 0.0418855 0.678356 0.214802 0.444584C0.387718 0.210811 0.646486 0.0552534 0.934181 0.0121312C1.22188 -0.0309911 1.51493 0.0418545 1.74888 0.214643L10 6.29712L18.2511 0.214643C18.367 0.129087 18.4985 0.0671675 18.6383 0.0324205C18.7781 -0.00232646 18.9234 -0.00922079 19.0658 0.0121312C19.2083 0.0334832 19.3451 0.0826633 19.4685 0.156864C19.592 0.231064 19.6996 0.328831 19.7852 0.444584C19.8708 0.560336 19.9328 0.691806 19.9676 0.831488C20.0023 0.97117 20.0092 1.11633 19.9879 1.25868C19.9665 1.40102 19.9173 1.53777 19.843 1.66111C19.7688 1.78445 19.6709 1.89197 19.5551 1.97752L10.652 8.54726C10.4631 8.68634 10.2346 8.76118 10 8.76077Z"
-                      fill="#7AE229" />
-                    <path
-                      d="M10 14.5093C9.7654 14.5097 9.53687 14.4349 9.34802 14.2958L0.444913 7.72606C0.210967 7.55327 0.0552944 7.29469 0.0121402 7.00721C-0.031014 6.71973 0.0418855 6.42689 0.214802 6.19312C0.387718 5.95935 0.646486 5.80379 0.934181 5.76067C1.22188 5.71754 1.51493 5.79039 1.74888 5.96318L10 12.0457L18.2511 5.96318C18.4851 5.79039 18.7781 5.71754 19.0658 5.76067C19.3535 5.80379 19.6123 5.95935 19.7852 6.19312C19.9581 6.42689 20.031 6.71973 19.9879 7.00721C19.9447 7.29469 19.789 7.55327 19.5551 7.72606L10.652 14.2958C10.4631 14.4349 10.2346 14.5097 10 14.5093Z"
-                      fill="#7AE229" />
-                  </svg>
-                </button>
-              </div>
-            </section>
+        <form
+          aria-labelledby="add-task-headline"
+          onsubmit="addTask(event, 'board', '--add-task-dialog')"
+          id="task-form--add-task-dialog"
+          class="task-form task-form--dialog"
+          novalidate
+        >
+          <div class="add-task-inner-wrapper add-task-inner-wrapper--dialog">
+            <div class="add-task-container add-task-container-left">
+              <section class="title-section">
+                <label class="label" for="task-title--add-task-dialog"
+                  >Title<span class="red">*</span></label
+                >
+                <div class="required">
+                  <input
+                    oninput="checkIfInputValid('title', '--add-task-dialog')"
+                    onblur="checkIfInputInvalid('title', '--add-task-dialog')"
+                    type="text"
+                    id="task-title--add-task-dialog"
+                    placeholder="Enter a title"
+                    pattern=".*\S.*"
+                    required
+                  />
+                </div>
+              </section>
 
-            <section class="contacts-section">
-              <p class="label" id="contacts-label--add-task-dialog">
-                Assigned to
-              </p>
-              <div class="select-wrapper">
-                <div aria-labelledby="contacts-label--add-task-dialog" class="custom-select custom-select--contacts"
-                  id="contacts-dropdown--add-task-dialog">
-                  <div role="combobox" aria-haspopup="listbox" aria-owns="select-options--contacts--add-task-dialog"
-                    onclick="
+              <section class="description-section">
+                <label class="label" for="task-description--add-task-dialog"
+                  >Description</label
+                >
+                <textarea
+                  class="description-textarea"
+                  id="task-description--add-task-dialog"
+                  placeholder="Enter a description"
+                ></textarea>
+              </section>
+
+              <section class="due-date-section">
+                <label class="label" for="task-due-date--add-task-dialog"
+                  >Due Date<span class="red">*</span></label
+                >
+                <div
+                  class="required custom-select-input custom-select-input--date trigger-input-container"
+                  tabindex="0"
+                >
+                  <input
+                    class="task-date-input"
+                    id="task-due-date--add-task-dialog"
+                    lang="en-GB"
+                    type="date"
+                    required
+                    oninput="checkIfInputValid('due-date', '--add-task-dialog')"
+                    onblur="
+                      checkIfInputInvalid('due-date', '--add-task-dialog')
+                    "
+                  />
+                  <button
+                    class="calendar-svg-btn"
+                    type="button"
+                    onclick="showDatePicker('--add-task-dialog')"
+                    onblur="
+                      checkIfInputInvalid('due-date', '--add-task-dialog')
+                    "
+                    aria-label="pick date"
+                  >
+                    <svg
+                      class="calendar-icon"
+                      width="18"
+                      height="20"
+                      viewBox="0 0 18 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.5 16C10.8 16 10.2083 15.7583 9.725 15.275C9.24167 14.7917 9 14.2 9 13.5C9 12.8 9.24167 12.2083 9.725 11.725C10.2083 11.2417 10.8 11 11.5 11C12.2 11 12.7917 11.2417 13.275 11.725C13.7583 12.2083 14 12.8 14 13.5C14 14.2 13.7583 14.7917 13.275 15.275C12.7917 15.7583 12.2 16 11.5 16ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V1C3 0.716667 3.09583 0.479167 3.2875 0.2875C3.47917 0.0958333 3.71667 0 4 0C4.28333 0 4.52083 0.0958333 4.7125 0.2875C4.90417 0.479167 5 0.716667 5 1V2H13V1C13 0.716667 13.0958 0.479167 13.2875 0.2875C13.4792 0.0958333 13.7167 0 14 0C14.2833 0 14.5208 0.0958333 14.7125 0.2875C14.9042 0.479167 15 0.716667 15 1V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
+                        fill="#2A3647"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </section>
+            </div>
+
+            <div class="seperation-line"></div>
+
+            <div class="add-task-container add-task-container-right">
+              <section class="prio-section">
+                <p class="label">Priority</p>
+                <div id="task-priority" class="add-task-prio-btns-container">
+                  <button
+                    type="button"
+                    onclick="setPriority('Urgent', '--add-task-dialog')"
+                    id="urgent-prio-btn--add-task-dialog"
+                    class="prio-btn"
+                    aria-label="set priority to urgent"
+                  >
+                    Urgent
+                    <svg
+                      id="urgent-prio-svg--add-task-dialog"
+                      class="prio-svg"
+                      width="20"
+                      height="15"
+                      viewBox="0 0 20 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.9043 14.5096C18.6696 14.51 18.4411 14.4351 18.2522 14.2961L10.0001 8.21288L1.74809 14.2961C1.63224 14.3816 1.50066 14.4435 1.36086 14.4783C1.22106 14.513 1.07577 14.5199 0.933305 14.4986C0.790837 14.4772 0.653973 14.428 0.530528 14.3538C0.407083 14.2796 0.299474 14.1818 0.213845 14.0661C0.128216 13.9503 0.0662437 13.8188 0.0314671 13.6791C-0.00330956 13.5394 -0.0102098 13.3943 0.0111604 13.2519C0.0543195 12.9644 0.21001 12.7058 0.443982 12.533L9.34809 5.96249C9.53679 5.8229 9.76536 5.74756 10.0001 5.74756C10.2349 5.74756 10.4635 5.8229 10.6522 5.96249L19.5563 12.533C19.7422 12.6699 19.8801 12.862 19.9503 13.0819C20.0204 13.3018 20.0193 13.5382 19.9469 13.7573C19.8746 13.9765 19.7349 14.1673 19.5476 14.3024C19.3604 14.4375 19.1352 14.51 18.9043 14.5096Z"
+                        fill="#FF3D00"
+                      />
+                      <path
+                        d="M18.9043 8.76057C18.6696 8.76097 18.4411 8.68612 18.2522 8.54702L10.0002 2.46386L1.7481 8.54702C1.51412 8.71983 1.22104 8.79269 0.93331 8.74956C0.645583 8.70643 0.386785 8.55086 0.213849 8.31706C0.0409137 8.08326 -0.0319941 7.79039 0.011165 7.50288C0.054324 7.21536 0.210015 6.95676 0.443986 6.78395L9.3481 0.213471C9.5368 0.0738799 9.76537 -0.00146484 10.0002 -0.00146484C10.2349 -0.00146484 10.4635 0.0738799 10.6522 0.213471L19.5563 6.78395C19.7422 6.92087 19.8801 7.11298 19.9503 7.33286C20.0204 7.55274 20.0193 7.78914 19.947 8.00832C19.8746 8.22751 19.7349 8.41826 19.5476 8.55335C19.3604 8.68844 19.1352 8.76096 18.9043 8.76057Z"
+                        fill="#FF3D00"
+                      />
+                    </svg></button
+                  ><button
+                    type="button"
+                    onclick="setPriority('Medium', '--add-task-dialog')"
+                    id="medium-prio-btn--add-task-dialog"
+                    class="prio-btn"
+                    aria-label="set priority to medium"
+                  >
+                    Medium<svg
+                      id="medium-prio-svg--add-task-dialog"
+                      class="prio-svg"
+                      width="20"
+                      height="8"
+                      viewBox="0 0 20 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.9041 7.45086H1.09589C0.805242 7.45086 0.526498 7.33456 0.320979 7.12755C0.11546 6.92054 0 6.63977 0 6.34701C0 6.05425 0.11546 5.77349 0.320979 5.56647C0.526498 5.35946 0.805242 5.24316 1.09589 5.24316H18.9041C19.1948 5.24316 19.4735 5.35946 19.679 5.56647C19.8845 5.77349 20 6.05425 20 6.34701C20 6.63977 19.8845 6.92054 19.679 7.12755C19.4735 7.33456 19.1948 7.45086 18.9041 7.45086Z"
+                        fill="#ffa800"
+                      />
+                      <path
+                        d="M18.9041 2.2077H1.09589C0.805242 2.2077 0.526498 2.0914 0.320979 1.88439C0.11546 1.67738 0 1.39661 0 1.10385C0 0.81109 0.11546 0.530322 0.320979 0.32331C0.526498 0.116298 0.805242 0 1.09589 0L18.9041 0C19.1948 0 19.4735 0.116298 19.679 0.32331C19.8845 0.530322 20 0.81109 20 1.10385C20 1.39661 19.8845 1.67738 19.679 1.88439C19.4735 2.0914 19.1948 2.2077 18.9041 2.2077Z"
+                        fill="#ffa800"
+                      />
+                    </svg></button
+                  ><button
+                    type="button"
+                    onclick="setPriority('Low', '--add-task-dialog')"
+                    id="low-prio-btn--add-task-dialog"
+                    class="prio-btn"
+                    aria-label="set priority to low"
+                  >
+                    Low<svg
+                      id="low-prio-svg--add-task-dialog"
+                      class="prio-svg"
+                      width="20"
+                      height="15"
+                      viewBox="0 0 20 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 8.76077C9.7654 8.76118 9.53687 8.68634 9.34802 8.54726L0.444913 1.97752C0.329075 1.89197 0.231235 1.78445 0.15698 1.66111C0.0827245 1.53777 0.033508 1.40102 0.0121402 1.25868C-0.031014 0.971193 0.0418855 0.678356 0.214802 0.444584C0.387718 0.210811 0.646486 0.0552534 0.934181 0.0121312C1.22188 -0.0309911 1.51493 0.0418545 1.74888 0.214643L10 6.29712L18.2511 0.214643C18.367 0.129087 18.4985 0.0671675 18.6383 0.0324205C18.7781 -0.00232646 18.9234 -0.00922079 19.0658 0.0121312C19.2083 0.0334832 19.3451 0.0826633 19.4685 0.156864C19.592 0.231064 19.6996 0.328831 19.7852 0.444584C19.8708 0.560336 19.9328 0.691806 19.9676 0.831488C20.0023 0.97117 20.0092 1.11633 19.9879 1.25868C19.9665 1.40102 19.9173 1.53777 19.843 1.66111C19.7688 1.78445 19.6709 1.89197 19.5551 1.97752L10.652 8.54726C10.4631 8.68634 10.2346 8.76118 10 8.76077Z"
+                        fill="#7AE229"
+                      />
+                      <path
+                        d="M10 14.5093C9.7654 14.5097 9.53687 14.4349 9.34802 14.2958L0.444913 7.72606C0.210967 7.55327 0.0552944 7.29469 0.0121402 7.00721C-0.031014 6.71973 0.0418855 6.42689 0.214802 6.19312C0.387718 5.95935 0.646486 5.80379 0.934181 5.76067C1.22188 5.71754 1.51493 5.79039 1.74888 5.96318L10 12.0457L18.2511 5.96318C18.4851 5.79039 18.7781 5.71754 19.0658 5.76067C19.3535 5.80379 19.6123 5.95935 19.7852 6.19312C19.9581 6.42689 20.031 6.71973 19.9879 7.00721C19.9447 7.29469 19.789 7.55327 19.5551 7.72606L10.652 14.2958C10.4631 14.4349 10.2346 14.5097 10 14.5093Z"
+                        fill="#7AE229"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </section>
+
+              <section class="contacts-section">
+                <p class="label" id="contacts-label--add-task-dialog">
+                  Assigned to
+                </p>
+                <div class="select-wrapper">
+                  <div
+                    aria-labelledby="contacts-label--add-task-dialog"
+                    class="custom-select custom-select--contacts"
+                    id="contacts-dropdown--add-task-dialog"
+                  >
+                    <div
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-owns="select-options--contacts--add-task-dialog"
+                      onclick="
                         toggleCustomSelectDropdown(
                           'contacts',
                           '--add-task-dialog',
                         )
-                      " class="custom-select--trigger custom-select-input trigger-input-container"
-                    id="custom-select-trigger-contacts--add-task-dialog" tabindex="0">
-                    <input oninput="handleContactsSearch('--add-task-dialog')" onclick="
+                      "
+                      class="custom-select--trigger custom-select-input trigger-input-container"
+                      id="custom-select-trigger-contacts--add-task-dialog"
+                      tabindex="0"
+                    >
+                      <input
+                        oninput="handleContactsSearch('--add-task-dialog')"
+                        onclick="
                           handleStopPropagation(event, '--add-task-dialog')
-                        " class="search-contact-input" id="search-contact-input--add-task-dialog" type="search"
-                      placeholder="Select contacts to assign" aria-label="select contacts to assign"
-                      aria-autocomplete="list" aria-controls="select-options--contacts--add-task-dialog" />
-                    <button type="button" aria-label="Open contact selection"
-                      class="custom-select--trigger--img-container">
-                      <img id="arrow-dropdown--contacts--add-task-dialog" src="../assets/icons/arrow-drop-down.svg"
-                        alt="arrow down icon" />
-                    </button>
+                        "
+                        class="search-contact-input"
+                        id="search-contact-input--add-task-dialog"
+                        type="search"
+                        placeholder="Select contacts to assign"
+                        aria-label="select contacts to assign"
+                        aria-autocomplete="list"
+                        aria-controls="select-options--contacts--add-task-dialog"
+                      />
+                      <button
+                        type="button"
+                        aria-label="Open contact selection"
+                        class="custom-select--trigger--img-container"
+                      >
+                        <img
+                          id="arrow-dropdown--contacts--add-task-dialog"
+                          src="../assets/icons/arrow-drop-down.svg"
+                          alt="arrow down icon"
+                        />
+                      </button>
+                    </div>
+
+                    <ul
+                      role="listbox"
+                      id="select-options--contacts--add-task-dialog"
+                      class="custom-select-options custom-select-options--contacts display-none"
+                    ></ul>
                   </div>
 
-                  <ul role="listbox" id="select-options--contacts--add-task-dialog"
-                    class="custom-select-options custom-select-options--contacts display-none"></ul>
+                  <div
+                    class="selected-contacts"
+                    id="selected-contacts-container--add-task-dialog"
+                  ></div>
                 </div>
+              </section>
 
-                <div class="selected-contacts" id="selected-contacts-container--add-task-dialog"></div>
-              </div>
-            </section>
-
-            <section class="category-section">
-              <p class="label" id="categories-label--add-task-dialog">
-                Category<span class="red">*</span>
-              </p>
-              <div class="select-wrapper">
-                <div class="custom-select custom-select--categories required" id="categories-dropdown--add-task-dialog">
-                  <div role="combobox" aria-haspopup="listbox" aria-owns="select-options--category--add-task-dialog"
-                    onclick="
+              <section class="category-section">
+                <p class="label" id="categories-label--add-task-dialog">
+                  Category<span class="red">*</span>
+                </p>
+                <div class="select-wrapper">
+                  <div
+                    class="custom-select custom-select--categories required"
+                    id="categories-dropdown--add-task-dialog"
+                  >
+                    <div
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-owns="select-options--category--add-task-dialog"
+                      onclick="
                         toggleCustomSelectDropdown(
                           'category',
                           '--add-task-dialog',
                         )
-                      " onblur="checkIfCategoryWasSelected('--add-task-dialog')"
-                    class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-category--add-task-dialog" tabindex="0">
-                    <span id="selected-category--add-task-dialog"></span>
-                    <button type="button" class="custom-select--trigger--img-container">
-                      <img id="arrow-dropdown--category--add-task-dialog" src="../assets/icons/arrow-drop-down.svg"
-                        alt="arrow down icon" />
-                    </button>
-                  </div>
-                  <ul id="select-options--category--add-task-dialog"
-                    class="custom-select-options custom-select-options--categories display-none"></ul>
-                </div>
-              </div>
-            </section>
-
-            <section class="subtask-section">
-              <p class="label">Subtasks</p>
-              <div class="subtask-container">
-                <div tabindex="0" class="trigger-input-container custom-select-input">
-                  <input class="subtask-input" type="text" id="subtask-input--add-task-dialog"
-                    placeholder="Add new subtask" aria-label="add subtask" pattern=".*\S.*" />
-                  <div class="subtask-btns-container">
-                    <button class="subtask-btn-left" type="button" onclick="clearSubtaskInput('--add-task-dialog')"
-                      aria-label="delete current input">
-                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
-                          stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </button>
-                    <div class="subtask-btns-seperation-line"></div>
-
-                    <button class="subtask-btn-right" type="button" onclick="addSubtask('--add-task-dialog')">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 8.5L5 12.5L13 1" stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                      </svg>
-                    </button>
+                      "
+                      onblur="checkIfCategoryWasSelected('--add-task-dialog')"
+                      class="custom-select--trigger custom-select-input"
+                      id="custom-select-trigger-category--add-task-dialog"
+                      tabindex="0"
+                    >
+                      <span id="selected-category--add-task-dialog"></span>
+                      <button
+                        type="button"
+                        class="custom-select--trigger--img-container"
+                      >
+                        <img
+                          id="arrow-dropdown--category--add-task-dialog"
+                          src="../assets/icons/arrow-drop-down.svg"
+                          alt="arrow down icon"
+                        />
+                      </button>
+                    </div>
+                    <ul
+                      id="select-options--category--add-task-dialog"
+                      class="custom-select-options custom-select-options--categories display-none"
+                    ></ul>
                   </div>
                 </div>
+              </section>
 
-                <ul class="subtask-list" id="subtask-list--add-task-dialog" aria-label="subtask list"></ul>
-              </div>
-            </section>
+              <section class="subtask-section">
+                <p class="label">Subtasks</p>
+                <div class="subtask-container">
+                  <div
+                    tabindex="0"
+                    class="trigger-input-container custom-select-input"
+                  >
+                    <input
+                      class="subtask-input"
+                      type="text"
+                      id="subtask-input--add-task-dialog"
+                      placeholder="Add new subtask"
+                      aria-label="add subtask"
+                      pattern=".*\S.*"
+                    />
+                    <div class="subtask-btns-container">
+                      <button
+                        class="subtask-btn-left"
+                        type="button"
+                        onclick="clearSubtaskInput('--add-task-dialog')"
+                        aria-label="delete current input"
+                      >
+                        <svg
+                          width="13"
+                          height="13"
+                          viewBox="0 0 13 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
+                            stroke="#2A3647"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      <div class="subtask-btns-seperation-line"></div>
+
+                      <button
+                        class="subtask-btn-right"
+                        type="button"
+                        onclick="addSubtask('--add-task-dialog')"
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1 8.5L5 12.5L13 1"
+                            stroke="#2A3647"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <ul
+                    class="subtask-list"
+                    id="subtask-list--add-task-dialog"
+                    aria-label="subtask list"
+                  ></ul>
+                </div>
+              </section>
+            </div>
           </div>
-        </div>
 
-        <p class="p-required p-required--dialog">
-          <span class="red">*</span>this field is required
-        </p>
+          <p class="p-required p-required--dialog">
+            <span class="red">*</span>this field is required
+          </p>
 
-        <div class="add-task-bottom-btns-container add-task-bottom-btns-container--dialog">
-          <div class="bottom-btns-wrapper bottom-btns-wrapper--dialog">
-            <button onclick="closeAddTaskDialog()" type="button" id="cancel-task-btn--add-task-dialog"
-              class="button bottom-btn bottom-btn--board button-white button-white--dialog"
-              aria-label="clear task form">
-              Cancel
-              <svg id="cancel-task-btn-svg" width="13" height="13" viewBox="0 0 13 13" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
-                  stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button type="submit" id="create-task-btn--add-task-dialog"
-              class="button bottom-btn bottom-btn--board button-blue create-task-btn" aria-label="create task">
-              Create Task
-              <svg id="create-task-btn-svg" width="16" height="12" viewBox="0 0 16 12" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M5.288 8.775L13.763 0.3C13.963 0.1 14.2005 0 14.4755 0C14.7505 0 14.988 0.1 15.188 0.3C15.388 0.5 15.488 0.7375 15.488 1.0125C15.488 1.2875 15.388 1.525 15.188 1.725L5.988 10.925C5.788 11.125 5.55467 11.225 5.288 11.225C5.02133 11.225 4.788 11.125 4.588 10.925L0.288 6.625C0.088 6.425 -0.00783333 6.1875 0.0005 5.9125C0.00883333 5.6375 0.113 5.4 0.313 5.2C0.513 5 0.7505 4.9 1.0255 4.9C1.3005 4.9 1.538 5 1.738 5.2L5.288 8.775Z"
-                  fill="white" />
-              </svg>
-            </button>
+          <div
+            class="add-task-bottom-btns-container add-task-bottom-btns-container--dialog"
+          >
+            <div class="bottom-btns-wrapper bottom-btns-wrapper--dialog">
+              <button
+                onclick="closeAddTaskDialog()"
+                type="button"
+                id="cancel-task-btn--add-task-dialog"
+                class="button bottom-btn bottom-btn--board button-white button-white--dialog"
+                aria-label="clear task form"
+              >
+                Cancel
+                <svg
+                  id="cancel-task-btn-svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.243 6.243L11.486 11.486M1 11.486L6.243 6.243L1 11.486ZM11.486 1L6.242 6.243L11.486 1ZM6.242 6.243L1 1L6.242 6.243Z"
+                    stroke="#2A3647"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                type="submit"
+                id="create-task-btn--add-task-dialog"
+                class="button bottom-btn bottom-btn--board button-blue create-task-btn"
+                aria-label="create task"
+              >
+                Create Task
+                <svg
+                  id="create-task-btn-svg"
+                  width="16"
+                  height="12"
+                  viewBox="0 0 16 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.288 8.775L13.763 0.3C13.963 0.1 14.2005 0 14.4755 0C14.7505 0 14.988 0.1 15.188 0.3C15.388 0.5 15.488 0.7375 15.488 1.0125C15.488 1.2875 15.388 1.525 15.188 1.725L5.988 10.925C5.788 11.125 5.55467 11.225 5.288 11.225C5.02133 11.225 4.788 11.125 4.588 10.925L0.288 6.625C0.088 6.425 -0.00783333 6.1875 0.0005 5.9125C0.00883333 5.6375 0.113 5.4 0.313 5.2C0.513 5 0.7505 4.9 1.0255 4.9C1.3005 4.9 1.538 5 1.738 5.2L5.288 8.775Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+
+      <div
+        id="addtask-toast-msg--add-task-dialog"
+        class="addtask-toast-msg addtask-toast-msg--dialog"
+      >
+        <p>Task added to board</p>
+        <img src="../assets/icons/board-icon-white.svg" alt="Board icon" />
+      </div>
+    </dialog>
+
+    <dialog
+      class="task-dialog task-dialog--detailed example-dialog"
+      id="taskDialog"
+    ></dialog>
+    <div id="landscape-warning">
+      Please rotate your device to portrait mode to use the board optimally! 📱
     </div>
-
-    <div id="addtask-toast-msg--add-task-dialog" class="addtask-toast-msg addtask-toast-msg--dialog">
-      <p>Task added to board</p>
-      <img src="../assets/icons/board-icon-white.svg" alt="Board icon" />
-    </div>
-  </dialog>
-
-  <dialog class="task-dialog task-dialog--detailed example-dialog" id="taskDialog"></dialog>
-  <div id="landscape-warning">
-    Please rotate your device to portrait mode to use the board optimally! 📱
-  </div>
-</body>
-
+  </body>
 </html>
