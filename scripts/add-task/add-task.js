@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Initializes the add-task page, loads contacts and categories,
+ * and wires up priority, dropdown, and task form behavior.
+ * @module add-task
+ */
+
+/**
  * add-task.js
  * Handles initialization, custom dropdown behavior, priority selection, and category loading.
  */

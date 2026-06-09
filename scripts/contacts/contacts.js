@@ -120,26 +120,12 @@ async function createNewContact() {
   if (!isContactFormValid()) return;
   let emailInput = document.getElementById("contact-email--validator");
   if (isEmailAlreadyUsed(emailInput.value)) {
-    emailInput.classList.add("input-error");
-    document.getElementById("contact-email--error").innerText =
-      "This email is already in use!";
+    handleDuplicateEmailError(emailInput);
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
   disableButtonWhileLoading("btn-cancel");
-  let name = document.querySelector(".icon-name").value;
-  let phone = document.querySelector(".icon-phone").value;
-  let newId = await postContact({
-    name,
-    email: emailInput.value,
-    phone,
-    color: getRandomColor(),
-  });
-  await finalizeAddition();
-  showContactDetails(newId);
-  showSuccessBanner();
-  enableButton("btn-submit-contact");
-  enableButton("btn-cancel");
+  await executeContactCreation(emailInput.value);
 }
 
 /**
@@ -176,6 +162,35 @@ function isEmailAlreadyUsed(email, excludeId = null) {
 }
 
 /**
+ * Marks the email field as invalid with a specific duplicate message.
+ * @param {HTMLInputElement} emailInput - The email input element.
+ */
+function handleDuplicateEmailError(emailInput) {
+    emailInput.classList.add("invalid");
+    let wrapper = emailInput.closest(".required");
+    if (wrapper) {
+        wrapper.dataset.message = "This email is already in use!";
+        wrapper.classList.add("signup-after");
+    }
+}
+
+/**
+ * Extracts form values and saves a brand new contact to the database.
+ * @async
+ * @param {string} email - The validated email string.
+ */
+async function executeContactCreation(email) {
+  let name = document.querySelector(".icon-name").value;
+  let phone = document.querySelector(".icon-phone").value;
+  let newId = await postContact({ name, email, phone, color: getRandomColor() });
+  await finalizeAddition();
+  showContactDetails(newId);
+  showSuccessBanner();
+  enableButton("btn-submit-contact");
+  enableButton("btn-cancel");
+}
+
+/**
  * Closes the dialog and reloads the contact application state.
  * @async
  * @returns {Promise<void>}
@@ -189,16 +204,16 @@ async function finalizeAddition() {
  * Resets the form inputs and clears all validation errors.
  */
 function resetForm() {
-    document.querySelector(".contact-form").reset();
-    const fields = ["name", "email", "phone"];
-    for (let i = 0; i < fields.length; i++) {
-        let input = document.getElementById(`contact-${fields[i]}--validator`);
-        if (input) {
-            input.classList.remove("invalid");
-            let wrapper = input.closest(".required");
-            if (wrapper) wrapper.classList.remove("signup-after");
-        }
+  document.querySelector(".contact-form").reset();
+  const fields = ["name", "email", "phone"];
+  for (let i = 0; i < fields.length; i++) {
+    let input = document.getElementById(`contact-${fields[i]}--validator`);
+    if (input) {
+      input.classList.remove("invalid");
+      let wrapper = input.closest(".required");
+      if (wrapper) wrapper.classList.remove("signup-after");
     }
+  }
 }
 
 /**
@@ -243,23 +258,24 @@ async function saveEditedContact() {
   if (!isContactFormValid()) return;
   let emailInput = document.getElementById("contact-email--validator");
   if (isEmailAlreadyUsed(emailInput.value, currentEditingId)) {
-    emailInput.classList.add("input-error");
-    document.getElementById("contact-email--error").innerText =
-      "This email is already in use!";
+    handleDuplicateEmailError(emailInput);
     return;
   }
   disableButtonWhileLoading("btn-submit-contact");
   disableButtonWhileLoading("btn-cancel");
+  await executeContactUpdate(emailInput.value);
+}
 
+/**
+ * Extracts form values and pushes the updated contact data to the database.
+ * @async
+ * @param {string} email - The validated email string.
+ */
+async function executeContactUpdate(email) {
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
   let contact = findContactById(currentEditingId);
-  await putContact({
-    name,
-    email: emailInput.value,
-    phone,
-    color: contact.color,
-  });
+  await putContact({ name, email, phone, color: contact.color });
   await finalizeAddition();
   showContactDetails(currentEditingId);
   enableButton("btn-submit-contact");

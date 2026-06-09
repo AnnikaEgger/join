@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Handles task creation, validation, and Firebase submission logic
+ * for the add-task and board dialogs.
+ * @module add-task-task
+ */
+
+/**
  * add-task-task.js
  * Handles task creation, form submission, validation, and task data preparation.
  */

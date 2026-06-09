@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Handles the sign-up page flow: validation, password toggles,
+ * duplicate email checks, and user creation.
+ * @module signup
+ */
+
 const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
 
@@ -114,6 +120,11 @@ function initPasswordToggles() {
   updatePasswordIcon("signup-confirm-password", "toggle-confirm");
 }
 
+/**
+ * Revalidates a sign-up field and updates UI feedback while typing.
+ * @param {string} inputId - The input name suffix to validate.
+ * @returns {Promise<void>} Resolves after validation and UI updates are handled.
+ */
 async function checkInputValidityOnInput(inputId) {
   initPasswordToggles();
 
@@ -144,6 +155,11 @@ async function checkInputValidityOnInput(inputId) {
   }
 }
 
+/**
+ * Validates a sign-up field when the input loses focus.
+ * @param {string} inputId - The input name suffix to validate.
+ * @returns {Promise<void>} Resolves after blur-time validation is complete.
+ */
 async function checkInputValidityOnBlur(inputId) {
   const input = document.getElementById(`signup-${inputId}`);
   if (!input) return;
@@ -169,11 +185,19 @@ async function checkInputValidityOnBlur(inputId) {
   }
 }
 
+/**
+ * Removes the invalid state from a sign-up input.
+ * @param {HTMLElement} element - The input element to reset.
+ */
 function removeInvalidStyle(element) {
   element.classList.remove("invalid");
   element.closest(".required").classList.remove("signup-after");
 }
 
+/**
+ * Adds the invalid state to a sign-up input and its wrapper.
+ * @param {HTMLElement} element - The input element to mark invalid.
+ */
 function addInvalidStyle(element) {
   element.classList.add("invalid");
   element.closest(".required").classList.add("signup-after");
@@ -265,6 +289,10 @@ function handleInvalidCheckbox(checkbox) {
     .classList.add("signup-checkbox-after");
 }
 
+/**
+ * Clears the invalid checkbox styling after the user makes a valid selection.
+ * @param {HTMLInputElement} checkbox - The checkbox element to update.
+ */
 function handleValidCheckbox(checkbox) {
   document
     .getElementById("signup-checkbox-container")

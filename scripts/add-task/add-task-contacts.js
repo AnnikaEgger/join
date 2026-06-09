@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Manages contact selection, filtering, rendering, and assignment
+ * for the add-task workflow.
+ * @module add-task-contacts
+ */
+
+/**
  * add-task-contacts.js
  * Handles contact selection, filtering, rendering, and loading for the add task workflow.
  */

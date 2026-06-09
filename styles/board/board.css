@@ -204,6 +204,13 @@ hr {
   user-select: none;
   -webkit-touch-callout: none;
 }
+/* Verhindert jegliche Textmarkierung auf der gesamten Seite während des Drags */
+.disable-select-global {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
 
 .card.dragging {
   z-index: 998;

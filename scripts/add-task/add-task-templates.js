@@ -1,4 +1,10 @@
 /**
+ * @fileoverview Generates reusable HTML templates for add-task subtasks,
+ * contact options, and category dropdown items.
+ * @module add-task-templates
+ */
+
+/**
  * add-task-templates.js
  * Provides HTML template generators for add-task subtasks, contact options, and categories.
  */
@@ -71,7 +77,7 @@ function subtaskLiTemplate(subtask, indexSubtask, id) {
  */
 function subtaskLiWithInputTemplate(indexSubtask, id) {
   return ` <li id="${"subtask-li-" + indexSubtask + id}" class="li-with-input trigger-input-container" tabindex="0">
-            <input id="${"li-input" + indexSubtask + id}" type="text" value="${subtasksArr[indexSubtask].title}" />
+            <textarea class="subtask-textarea" id="${"li-input" + indexSubtask + id}">${subtasksArr[indexSubtask].title}</textarea>
             <div
               class="subtask-btns-container subtask-btns-container--ul"
             >

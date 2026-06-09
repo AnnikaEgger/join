@@ -1,0 +1,102 @@
+button {
+  cursor: pointer;
+  border: unset;
+}
+
+button:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.button-blue:disabled:hover,
+.button-blue:disabled:active,
+.button-blue:disabled:focus,
+.button-blue:disabled:focus-visible {
+  background-color: var(--dark-blue);
+  transform: none;
+  box-shadow: none;
+}
+
+.button-white:disabled:hover,
+.button-white:disabled:active,
+.button-white:disabled:focus,
+.button-white:disabled:focus-visible {
+  transform: none;
+  box-shadow: none;
+  outline: none;
+  border: 1px solid var(--dark-blue);
+}
+
+.task-dialog-btn:disabled:hover,
+.task-dialog-btn:disabled:active,
+.task-dialog-btn:disabled:focus,
+.task-dialog-btn:disabled:focus-visible {
+  color: var(--dark-blue);
+  font-weight: normal;
+}
+
+.task-dialog-btn:disabled:hover svg path,
+.task-dialog-btn:disabled:active svg path,
+.task-dialog-btn:disabled:focus svg path,
+.task-dialog-btn:disabled:focus-visible svg path {
+  fill: var(--dark-blue);
+}
+
+.button {
+  border-radius: var(--border-radius-xs);
+}
+
+.button-login {
+  padding: 15px 24px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.button-signup-small {
+  padding: 15px 16px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button-blue {
+  color: white;
+  background-color: var(--dark-blue);
+  border: 1px solid transparent;
+  transition: all 0.125s ease-in;
+}
+
+.button-blue:hover,
+.button-blue:focus-visible {
+  background-color: var(--light-blue);
+  border: 1px solid transparent;
+  outline: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.125s ease-in;
+}
+
+.button-blue:active {
+  background-color: var(--darkest-blue);
+}
+
+.button-white {
+  color: var(--dark-blue);
+  background-color: inherit;
+  border: 1px solid var(--dark-blue);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  transition: box-shadow 0.125s ease-in;
+}
+
+.button-white:hover,
+.button-white:focus-visible {
+  border: 1px solid var(--light-blue);
+  outline: 1px solid var(--light-blue);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.125s ease-in;
+}
+
+.button-white:active {
+  border: 1px solid var(--dark-blue);
+  outline: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.125s ease-in;
+}
