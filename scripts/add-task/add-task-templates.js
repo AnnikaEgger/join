@@ -189,6 +189,11 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
           </span>`;
 }
 
+/**
+ * Generates the overflow badge that shows how many additional assigned contacts are hidden.
+ * @param {number} count - The number of extra assigned contacts beyond the visible five.
+ * @returns {string} HTML string for the overflow badge.
+ */
 function generateOverflowBadgeTemplate(count) {
   return `<span class="contact-avatar contact-avatar--plus">+${count}</span>`;
 }

@@ -1,4 +1,19 @@
 /**
+ * @fileoverview Renders assigned contact badges, validates existing task assignments,
+ * and filters contact search results for the add-task workflow.
+ * @module add-task-assigned-contacts
+ */
+
+/**
+ * add-task-assigned-contacts.js
+ * Handles assigned contact rendering, cleanup of stale assignments, and search filtering.
+ */
+
+/**
+ * @typedef {{id: string, name: string, color?: string}} AssignedContact
+ */
+
+/**
  * Extracts and returns the initials from a contact name.
  * @param {string} name - The contact's full name
  * @returns {string} The initials in uppercase (max 2 characters)
@@ -41,6 +56,10 @@ function renderAssignedContacts(id) {
   renderOverflowBadge(SELECTED_CONTACTS_DIV);
 }
 
+/**
+ * Returns the first five assigned contacts to display in the selected badge area.
+ * @returns {AssignedContact[]|undefined} The contacts to render, or undefined when none are assigned.
+ */
 function getAssignedContactstoRender() {
   if (assignedContacts.length === 0) return;
 
@@ -48,6 +67,10 @@ function getAssignedContactstoRender() {
   return contactsToRender;
 }
 
+/**
+ * Appends an overflow badge when more than five contacts are assigned.
+ * @param {HTMLElement} SELECTED_CONTACTS_DIV - The container that holds the selected contact badges.
+ */
 function renderOverflowBadge(SELECTED_CONTACTS_DIV) {
   let extraCount = assignedContacts.length - 5;
   if (extraCount > 0) {
