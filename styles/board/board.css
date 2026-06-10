@@ -126,8 +126,7 @@ hr {
 
 .add-task-btn:hover {
   cursor: pointer;
-  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg)
-    brightness(95%) contrast(88%);
+  filter: invert(58%) sepia(82%) saturate(2487%) hue-rotate(164deg) brightness(95%) contrast(88%);
 }
 
 .custom-checkbox.checked {
@@ -209,6 +208,7 @@ hr {
   user-select: none;
   -webkit-touch-callout: none;
 }
+
 /* Verhindert jegliche Textmarkierung auf der gesamten Seite während des Drags */
 .disable-select-global {
   -webkit-user-select: none !important;
@@ -280,6 +280,13 @@ hr {
 
 .card-text {
   font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+.card-descr {
+  font-family: "Inter", sans-serif;
+  color: #A8A8A8;
+  font-size: 16px;
 }
 
 .progress-container {
@@ -309,8 +316,8 @@ hr {
   display: flex;
   width: 90px;
   font-family: "Inter", sans-serif;
-  font-size: 12px;
-  color: #42526e;
+  font-size: 14px;
+  color: #000000;
 }
 
 .card-footer {
@@ -338,7 +345,7 @@ hr {
   box-sizing: border-box;
 }
 
-.badge-container > :not(:first-child) {
+.badge-container> :not(:first-child) {
   margin-left: -12px;
   border: 1px solid #ffffff;
 }

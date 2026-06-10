@@ -12,7 +12,7 @@ function generateTodoHTML(todo, catColor) {
                 ondragend="stopDragging(event)" class="card">
                 <span class="category-field" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
                 <h3 class="card-text">${todo["title"]}</h3>
-                <p>${todo["description"]}</p>
+                <p class="card-descr">${todo["description"]}</p>
                 ${progressBar}
                 <div class="card-footer">
                     <div class="badge-container">${badgesHTML}</div>

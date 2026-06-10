@@ -58,7 +58,7 @@ function fillTasksArray(tasksObj) {
 function updateHTML() {
   renderCategory("to do", "to do", "No tasks To do");
   renderCategory("in progress", "in progress", "No tasks in progress");
-  renderCategory("await feedback","await feedback","No tasks awaiting feedback");
+  renderCategory("await feedback", "await feedback", "No tasks awaiting feedback");
   renderCategory("done", "done", "No tasks done");
 }
 

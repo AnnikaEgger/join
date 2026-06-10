@@ -192,6 +192,10 @@
   .card {
     width: 200px;
   }
+
+  .dialog-task-title {
+    font-size: 38px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -227,7 +231,7 @@
   }
 
   .dialog-task-title {
-    font-size: 36px;
+    font-size: 24px;
   }
 
   .dialog-description {

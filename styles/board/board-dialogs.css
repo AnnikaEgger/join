@@ -182,16 +182,10 @@
   display: inline-block;
 }
 
-.dialog-subtask-row
-  input[type="checkbox"]:checked
-  + .custom-subtask-checkbox
-  .cb-empty {
+.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-empty {
   display: none;
 }
 
-.dialog-subtask-row
-  input[type="checkbox"]:checked
-  + .custom-subtask-checkbox
-  .cb-checked {
+.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-checked {
   display: inline-block;
 }
