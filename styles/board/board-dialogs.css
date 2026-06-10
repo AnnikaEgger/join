@@ -68,7 +68,7 @@
 }
 
 .dialog-task-title {
-  font-size: 48px;
+  font-size: 40px;
   font-family: "Inter", sans-serif;
   margin-top: 16px;
 }
@@ -182,10 +182,16 @@
   display: inline-block;
 }
 
-.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-empty {
+.dialog-subtask-row
+  input[type="checkbox"]:checked
+  + .custom-subtask-checkbox
+  .cb-empty {
   display: none;
 }
 
-.dialog-subtask-row input[type="checkbox"]:checked+.custom-subtask-checkbox .cb-checked {
+.dialog-subtask-row
+  input[type="checkbox"]:checked
+  + .custom-subtask-checkbox
+  .cb-checked {
   display: inline-block;
 }

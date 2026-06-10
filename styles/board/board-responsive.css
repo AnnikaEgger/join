@@ -121,6 +121,10 @@
     justify-content: center;
   }
 
+  .card-container:has(article + article) {
+    padding-bottom: 32px;
+  }
+
   .card-container--done {
     margin-bottom: 16px;
   }
@@ -194,7 +198,7 @@
   }
 
   .dialog-task-title {
-    font-size: 38px;
+    font-size: 32px;
   }
 }
 
@@ -213,7 +217,7 @@
   }
 
   .dialog-task-title {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
 
@@ -235,7 +239,7 @@
   }
 
   .dialog-task-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .dialog-description {
