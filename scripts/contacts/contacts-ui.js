@@ -97,7 +97,7 @@ function fillFormFields(contact) {
  * @param {string} id - Unique contact ID.
  */
 function adaptDialogForEdit(id) {
-    document.querySelector('.dialog-left h1').innerHTML = 'Edit Contact';
+    document.querySelector('.dialog-left h2').innerHTML = 'Edit Contact';
     let btnCreate = document.querySelector('.btn-create');
     btnCreate.innerHTML = `Save <img src="../assets/icons/check.svg" alt="Save">`;
     document.querySelector('.contact-form').onsubmit = function () {
