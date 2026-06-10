@@ -153,9 +153,9 @@ function contactOptionTemplate(
            
           >
             <div class="contact-container">
-              <div class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
-                <p class="contact-avatar--initials">${initials}</p>
-              </div>
+              <span class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
+               ${initials}
+              </span>
               <p class="contact-full-name" id="contact-full-name">${contactName}</p>
             </div>
             <div class="checkbox-container">
@@ -184,9 +184,13 @@ function contactOptionTemplate(
  * @returns {string} HTML string for the contact avatar badge
  */
 function contactAvatarTemplate(indexAssignedContact, initials) {
-  return ` <div class="contact-avatar" style="background-color: ${assignedContacts[indexAssignedContact].color}">
-            <p class="contact-avatar--initials">${initials}</p>
-          </div>`;
+  return ` <span class="contact-avatar" style="background-color: ${assignedContacts[indexAssignedContact].color}">
+            ${initials}
+          </span>`;
+}
+
+function generateOverflowBadgeTemplate(count) {
+  return `<span class="contact-avatar contact-avatar--plus">+${count}</span>`;
 }
 
 /**

@@ -52,21 +52,6 @@ input[type="checkbox"] {
   height: 5px;
 }
 
-.contact-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 100%;
-}
-
-.contact-avatar--initials {
-  color: white;
-  font-size: 16px;
-}
-
 .contact-full-name {
   flex: 1;
 }
@@ -81,10 +66,15 @@ input[type="checkbox"] {
 
 .selected-contacts {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   max-height: 75px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.selected-contacts > :not(:first-child) {
+  margin-left: -12px;
 }
 
 .selected-contacts--add-task {
@@ -93,6 +83,25 @@ input[type="checkbox"] {
 
 .selected-contacts:has(.contact-avatar) {
   padding-top: 10px;
+}
+
+.contact-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  color: white;
+  font-size: 16px;
+}
+
+.contact-avatar--plus {
+  background-color: #2a3647;
 }
 
 .display-none {

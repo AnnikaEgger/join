@@ -230,6 +230,8 @@ let selectedCategory = "Select task category";
  * @async
  */
 async function getCategories() {
+  categoriesArr = [];
+
   let response = await fetch(BASE_URL + "categories" + ".json");
   let categoriesObj = await response.json();
 
