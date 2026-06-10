@@ -226,6 +226,10 @@
 }
 
 @media (max-width: 375px) {
+  .dialog-left {
+    padding: 16px;
+  }
+
   .dialog-avatar-container {
     top: -40px;
   }
@@ -234,5 +238,11 @@
     width: 75px;
     height: 75px;
     font-size: 28px;
+  }
+}
+
+@media (max-width: 320px) {
+  .add-contact-dialog {
+    width: 100dvw;
   }
 }

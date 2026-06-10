@@ -317,6 +317,18 @@
 
 @media (max-width: 375px) {
   .contact-list {
-    padding: 0 calc((100% - 250px) / 2);
+    padding: 0 calc((100% - 280px) / 2);
+  }
+
+  .contact-list-container {
+    padding: 8px;
+  }
+
+  .letter-header {
+    padding: 6px 0 6px 28px;
+  }
+
+  .contact-item {
+    padding: 6px 16px;
   }
 }
