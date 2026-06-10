@@ -180,6 +180,9 @@
 
 .custom-subtask-checkbox .cb-empty {
   display: inline-block;
+  width: 22px;
+  height: 22px;
+  padding: 2.5px;
 }
 
 .dialog-subtask-row

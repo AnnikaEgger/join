@@ -49,6 +49,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 0 max(var(--content-limitation), var(--padding-lr));
+  margin: 0;
 }
 
 /* #region input */
