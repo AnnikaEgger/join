@@ -35,9 +35,12 @@
 }
 
 @media screen and (max-width: 1024px) {
+  :root {
+    --padding-lr-main: 32px;
+  }
   .main-content {
     min-height: calc(100dvh - var(--header-height) - var(--resp-navbar-height));
-    padding: 32px;
+    padding: var(--padding-lr-main);
   }
   .sidebar {
     top: auto;
@@ -105,22 +108,18 @@
   .header-logo-mobile img {
     height: 50px;
     width: auto;
-    padding-left: 20px;
   }
 
   .header {
     left: 0;
     width: 100dvw;
-    padding-left: max(var(--content-limitation), 0px);
+    padding: 0px var(--padding-lr-main);
   }
 
   .main-content {
     margin-left: max(var(--content-limitation), 0px);
     margin-bottom: var(--resp-navbar-height);
     padding-bottom: 40px;
-
-    padding-left: 16px;
-    padding-right: 16px;
   }
   .header-title {
     display: none;
@@ -132,19 +131,19 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main-content {
-    padding: 24px;
+  :root {
+    --padding-lr-main: 24px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .main-content {
-    padding: 16px;
+  :root {
+    --padding-lr-main: 16px;
   }
 }
 
 @media screen and (max-width: 375px) {
-  .main-content {
-    padding: 8px;
+  :root {
+    --padding-lr-main: 8px;
   }
 }

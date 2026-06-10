@@ -210,8 +210,18 @@ body {
   flex-grow: 1;
 }
 
-.detail-name-section h1 {
-  font-size: 42px;
+.contact-detail-view h3,
+.contact-detail-view b,
+.contact-detail-view a {
+  color: black;
+}
+
+.color-black {
+  color: black;
+}
+
+.detail-name-section h3 {
+  font-size: 48px;
   margin: 0;
   font-weight: 500;
   overflow-wrap: break-word;

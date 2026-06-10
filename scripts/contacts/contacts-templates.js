@@ -1,5 +1,5 @@
 function renderLetterHeader(letter) {
-    return `
+  return `
         <div class="letter-section">
             <div class="letter-header">${letter}</div>
             <div class="letter-divider"></div>
@@ -7,9 +7,9 @@ function renderLetterHeader(letter) {
 }
 
 function generateContactHTML(contact) {
-    let initials = getInitials(contact.name);
+  let initials = getInitials(contact.name);
 
-    return `
+  return `
         <button type="button" id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
             <div class="contact-avatar" style="background-color: ${contact.color}">${initials}</div>
             <div class="contact-info-short">
@@ -20,14 +20,14 @@ function generateContactHTML(contact) {
 }
 
 function generateDetailHTML(contact) {
-    let initials = getInitials(contact.name);
-    return `
+  let initials = getInitials(contact.name);
+  return `
         <div class="detail-header">
             <div class="detail-avatar" style="background-color: ${contact.color}">
                 ${initials}
             </div>
             <div class="detail-name-section">
-                <h1>${contact.name}</h1>
+                <h3>${contact.name}</h3>
                 <div class="edit-delete-section">
                     <button onclick="openEditContact('${contact.id}')" class="contact-action" type="button" aria-label="Edit Contact">
                         <img src="../assets/icons/edit-icon.svg" alt="Edit"> Edit
@@ -40,7 +40,7 @@ function generateDetailHTML(contact) {
         </div>
 
         <div class="contact-info-headline">
-            <span>Contact Information</span>
+            <span class="color-black">Contact Information</span>
         </div>
 
         <div class="detail-info-item">
@@ -50,7 +50,7 @@ function generateDetailHTML(contact) {
 
         <div class="detail-info-item">
             <b>Phone</b>
-            <span>${contact.phone}</span>
+            <span class="color-black">${contact.phone}</span>
         </div>
 
         <div id="mobile-menu-container" class="mobile-menu-container" onclick="toggleMobileMenu()">
