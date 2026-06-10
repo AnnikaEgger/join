@@ -47,11 +47,7 @@ function renderDialogContacts(todo) {
     .map((contact) => {
       let name = getAssignedContactName(contact);
       let color = contact.color || "#2A3647";
-      let initials = name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase();
+      let initials = getInitials(name);
       return generateDialogContactsHTML(name, color, initials);
     })
     .join("");
