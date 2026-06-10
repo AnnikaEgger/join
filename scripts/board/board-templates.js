@@ -1,8 +1,10 @@
-function generateTodoHTML(todo, catColor) {
-  let progressBar = generateProgressBarHTML(todo);
-  let badgesHTML = generateAssignedBadgesHTML(todo);
-  let prioIconHTML = getPrioIconHTML(todo);
-
+function generateTodoHTML(
+  todo,
+  catColor,
+  progressBar,
+  badgesHTML,
+  prioIconHTML,
+) {
   return `<article draggable="true" aria-label="Draggable todo item" tabindex="0"
                 onclick="openTaskDialog('${todo["id"]}')"
                 ontouchstart="startDragging(event, '${todo["id"]}')" 
@@ -32,10 +34,14 @@ function generateProgressHTML(done, total, percentage) {
     `;
 }
 
-function generateTaskDialogHTML(todo, catColor, id) {
-  let contactsListHTML = renderDialogContacts(todo);
-  let subtasksListHTML = renderDialogSubtasks(todo, id);
-  let prioIconHTML = getPrioIconHTML(todo);
+function generateTaskDialogHTML(
+  todo,
+  catColor,
+  id,
+  contactsListHTML,
+  subtasksListHTML,
+  prioIconHTML,
+) {
   return `
       <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed disabled-ui" id="content-wrapper--task-dialog">
           <div class="task-dialog-header">
@@ -78,8 +84,13 @@ function generateDialogContactsHTML(name, color, initials) {
         </div>`;
 }
 
-function generateDialogSubtasksHTML(todoId, index, title, isChecked) {
-  let checkboxId = `subtask-${todoId}-${index}`;
+function generateDialogSubtasksHTML(
+  todoId,
+  index,
+  title,
+  isChecked,
+  checkboxId,
+) {
   return `
         <div class="dialog-subtask-row">
             <input type="checkbox" id="${checkboxId}" ${isChecked} 

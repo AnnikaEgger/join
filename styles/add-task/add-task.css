@@ -6,12 +6,14 @@
   --padding-lr-big: 80px;
   --padding-lr-medium: 48px;
   --padding-lr-small: 24px;
+
+  --padding-lr-main-add-task: var(--padding-lr-main);
 }
 
 .main-content--add-task {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: var(--padding-lr-main-add-task);
 }
 
 .add-task-headline--add-task {
@@ -136,18 +138,15 @@ input {
   position: fixed;
   top: 90dvh;
   transform: translateY(100%);
-  left: calc(
-    var(--sidebar-width) +
-      ((100dvw - var(--sidebar-width) - var(--width-content-wrapper)) / 2)
-  );
+  left: calc(var(--sidebar-width) + var(--padding-lr-main-add-task));
 }
 
 .add-task-bottom-btns-container--add-task {
   position: fixed;
   top: 90dvh;
   left: calc(
-    var(--sidebar-width) + ((100dvw - var(--sidebar-width)) / 2) +
-      (var(--width-content-wrapper) / 2)
+    var(--sidebar-width) + var(--padding-lr-main-add-task) +
+      (var(--width-content-wrapper))
   );
   transform: translateX(-100%);
 }

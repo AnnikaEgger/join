@@ -9,7 +9,18 @@ function openTaskDialog(id) {
 
   let dialog = document.getElementById("taskDialog");
   let catColor = getCategoryColor(todo.category);
-  dialog.innerHTML = generateTaskDialogHTML(todo, catColor, id);
+
+  let contactsListHTML = renderDialogContacts(todo);
+  let subtasksListHTML = renderDialogSubtasks(todo, id);
+  let prioIconHTML = getPrioIconHTML(todo);
+  dialog.innerHTML = generateTaskDialogHTML(
+    todo,
+    catColor,
+    id,
+    contactsListHTML,
+    subtasksListHTML,
+    prioIconHTML,
+  );
   dialog.showModal();
   enableAllPointerEvents("taskDialog");
 }
@@ -84,7 +95,15 @@ function renderDialogSubtasks(todo, id) {
         typeof subtask === "string"
           ? subtask
           : subtask.title || subtask.name || subtask.text || "Subtask";
-      return generateDialogSubtasksHTML(id, index, title, isChecked);
+
+      let checkboxId = "subtask-" + id + index;
+      return generateDialogSubtasksHTML(
+        id,
+        index,
+        title,
+        isChecked,
+        checkboxId,
+      );
     })
     .join("");
 }

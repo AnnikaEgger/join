@@ -6,9 +6,7 @@ function renderLetterHeader(letter) {
         </div>`;
 }
 
-function generateContactHTML(contact) {
-  let initials = getInitials(contact.name);
-
+function generateContactHTML(contact, initials) {
   return `
         <button type="button" id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
             <div class="contact-avatar" style="background-color: ${contact.color}">${initials}</div>
