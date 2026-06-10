@@ -35,6 +35,19 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.add-contact-dialog.hide-dialog {
+  animation: slideOutDialog 0.3s ease-in forwards;
+}
+
+@keyframes slideOutDialog {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100dvw);
+  }
+}
+
 .dialog-left {
   background-color: var(--dark-blue);
   width: 460px;

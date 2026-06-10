@@ -136,15 +136,21 @@ function openContactDialog() {
 }
 
 /**
- * Closes the contact dialog modal.
+ * Closes the contact dialog modal with a slide-out animation.
  */
 function closeContactDialog() {
     const dialog = document.getElementById('add-contact-dialog');
     if (dialog) {
-        dialog.close();
+        dialog.classList.add('hide-dialog');
+
+        // Wartet, bis die 0.3s (300ms) CSS-Animation vorbei ist
+        setTimeout(() => {
+            dialog.close();
+            dialog.classList.remove('hide-dialog'); // Bereit für das nächste Mal öffnen
+            resetForm();
+            resetCancelButton();
+        }, 300);
     }
-    resetForm();
-    resetCancelButton();
 }
 
 /**
