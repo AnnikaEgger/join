@@ -212,7 +212,8 @@ body {
 
 .contact-detail-view h3,
 .contact-detail-view b,
-.contact-detail-view a {
+.contact-detail-view a,
+.contact-detail-view h2 {
   color: black;
 }
 

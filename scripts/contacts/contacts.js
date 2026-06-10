@@ -166,12 +166,12 @@ function isEmailAlreadyUsed(email, excludeId = null) {
  * @param {HTMLInputElement} emailInput - The email input element.
  */
 function handleDuplicateEmailError(emailInput) {
-    emailInput.classList.add("invalid");
-    let wrapper = emailInput.closest(".required");
-    if (wrapper) {
-        wrapper.dataset.message = "This email is already in use!";
-        wrapper.classList.add("signup-after");
-    }
+  emailInput.classList.add("invalid");
+  let wrapper = emailInput.closest(".required");
+  if (wrapper) {
+    wrapper.dataset.message = "This email is already in use!";
+    wrapper.classList.add("signup-after");
+  }
 }
 
 /**
@@ -182,7 +182,12 @@ function handleDuplicateEmailError(emailInput) {
 async function executeContactCreation(email) {
   let name = document.querySelector(".icon-name").value;
   let phone = document.querySelector(".icon-phone").value;
-  let newId = await postContact({ name, email, phone, color: getRandomColor() });
+  let newId = await postContact({
+    name,
+    email,
+    phone,
+    color: getRandomColor(),
+  });
   await finalizeAddition();
   showContactDetails(newId);
   showSuccessBanner();
@@ -239,7 +244,7 @@ function prepareAddContactDialog() {
   currentEditingId = null;
   resetForm();
   resetDialogAvatar();
-  document.querySelector(".dialog-left h1").innerHTML = "Add contact";
+  document.querySelector(".dialog-left h2").innerHTML = "Add contact";
   let btnCreate = document.querySelector(".btn-create");
   btnCreate.innerHTML = `Create contact <img src="../assets/icons/check.svg" alt="Check">`;
   document.querySelector(".contact-form").onsubmit = function () {
