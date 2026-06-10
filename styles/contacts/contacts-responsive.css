@@ -52,6 +52,27 @@
     transform: translateX(0);
   }
 
+  .detail-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .detail-header-section h2 {
+    order: 1;
+  }
+
+  .detail-header-section span {
+    order: 2;
+  }
+
+  .blue-divider {
+    order: 3;
+    width: 100px;
+    height: 3px;
+    margin-top: 4px;
+  }
+
   .back-to-list-btn {
     display: flex;
     position: absolute;
@@ -248,10 +269,6 @@
     gap: 16px;
   }
 
-  .detail-header-section {
-    gap: 16px;
-  }
-
   .detail-header-section h2 {
     font-size: 42px;
   }
@@ -294,6 +311,10 @@
   .detail-header-section span {
     font-size: 14px;
     padding-right: 36px;
+  }
+  
+  .blue-divider {
+    width: 80px;
   }
 
   .back-to-list-btn {
