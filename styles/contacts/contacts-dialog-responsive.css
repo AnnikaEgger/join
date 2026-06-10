@@ -53,7 +53,7 @@
     height: 16px;
   }
 
-  .dialog-left-content h3 {
+  .dialog-left-content h2 {
     font-size: 48px;
     margin: 0 0 8px 0;
   }
@@ -105,7 +105,7 @@
     width: 80dvw;
   }
 
-  .dialog-left-content h3 {
+  .dialog-left-content h2 {
     font-size: 36px;
   }
 
@@ -170,7 +170,7 @@
     align-items: flex-start;
   }
 
-  .dialog-left-content h3 {
+  .dialog-left-content h2 {
     font-size: 28px;
     margin: 0;
   }
