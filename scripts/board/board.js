@@ -66,20 +66,17 @@ function updateHTML() {
  * Renders the tasks for a specific column in the board.
  *
  * @param {string} column - The column to render (e.g., "to do", "in progress").
- * @param {string} containerId - The ID of the HTML container element for the column.
- * @param {string} message - The message to display if no tasks are found for the column.
+ * @param {string} containerId - The ID of the container element where the tasks should be rendered.
+ * @param {string} message - The message to display if there are no tasks in the column.
  */
 function renderCategory(column, containerId, message) {
   let search = document.getElementById("search-input").value.toLowerCase();
   let container = document.getElementById(containerId);
   let filtered = filterTodosForCategory(column, search);
 
-  if (search.length > 0 && filtered.length == 0) {
-    container.parentElement.style.display = "none";
-  } else {
-    container.parentElement.style.display = "flex";
-    drawCategoryContent(container, filtered, message);
-  }
+  container.parentElement.style.display = "flex";
+  drawCategoryContent(container, filtered, message);
+
   checkSearchNoMatches(search);
 }
 
@@ -199,12 +196,9 @@ function getPrioIconHTML(todo) {
 function checkSearchNoMatches(search) {
   let anyMatch = todos.some(
     (t) =>
-      t.title.toLowerCase().includes(search) ||
-      t.description.toLowerCase().includes(search),
+      (t.title || "").toLowerCase().includes(search) ||
+      (t.description || "").toLowerCase().includes(search),
   );
-  let msg = document.getElementById("search-message");
-  if (msg)
-    msg.innerHTML = !anyMatch && search.length > 0 ? "no tasks found." : "";
 }
 
 /**

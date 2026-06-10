@@ -153,13 +153,6 @@ hr {
   max-width: 250px;
 }
 
-.search-message {
-  color: #29abe2;
-  text-align: center;
-  margin: 10px;
-  font-size: 20px;
-}
-
 .task-title {
   display: flex;
   gap: 15px;
