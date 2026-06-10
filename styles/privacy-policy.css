@@ -1,26 +1,26 @@
+.main-content {
+  color: black;
+  line-height: 1.4;
+}
+
 .privacy-container {
   max-width: 1000px;
 }
 
 .privacy-container h1 {
-  font-size: 61px;
+  font-size: 60px;
   font-weight: 700;
-  margin-bottom: 40px;
-  color: var(--dark-blue);
 }
 
 .privacy-container h2 {
-  font-size: 27px;
-  margin-top: 35px;
-  margin-bottom: 15px;
-  color: var(--dark-blue);
+  font-size: 28px;
+  margin-top: 32px;
+  margin-bottom: 6px;
 }
 
 .privacy-container p,
 .privacy-container li {
   font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 15px;
 }
 
 .privacy-container ul {
@@ -34,15 +34,43 @@
   margin-top: 40px;
 }
 
+.help-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  margin-top: 48px;
+}
+
+.back-arrow {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition-default);
+  background: none;
+  border: none;
+}
+
+.back-arrow:hover {
+  background-color: rgba(41, 171, 226, 0.1);
+}
+
+.back-arrow img {
+  width: 32px;
+  height: auto;
+}
+
 /* #region responsive */
 @media screen and (max-width: 1024px) {
-  .privacy-container h1 {
-    font-size: 47px;
+  .help-title-row {
+    margin-top: 0;
   }
 
-  .main-content {
-    padding-left: 16px;
-    padding-right: 16px;
+  .privacy-container h1 {
+    font-size: 48px;
   }
 
   .li-nav-link--privacy-policy-resp {
@@ -53,25 +81,46 @@
   .li-nav-link--privacy-policy-resp a {
     height: 100%;
   }
+
+  .back-arrow {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .privacy-container h1 {
     font-size: 40px;
-    margin-bottom: 30px;
   }
   .privacy-container h2 {
     font-size: 24px;
+  }
+
+  .help-title-row {
+    margin-bottom: 30px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .privacy-container h1 {
     font-size: 36px;
-    margin-bottom: 24px;
+  }
+
+  .help-title-row {
+    margin-bottom: 16px;
   }
   .privacy-container h2 {
     font-size: 22px;
+    margin-top: 16px;
+    margin-bottom: 6px;
+  }
+
+  .privacy-container p,
+  .privacy-container li {
+    margin-bottom: 0px;
+  }
+
+  .privacy-contact-section {
+    margin-top: 0;
   }
 
   .nav-login-item {
@@ -81,6 +130,10 @@
   .nav-link {
     padding: 8px;
   }
+  .back-arrow img {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -89,10 +142,6 @@
   }
   .privacy-container h2 {
     font-size: 20px;
-  }
-  .privacy-container p,
-  .privacy-container li {
-    font-size: 15px;
   }
 }
 

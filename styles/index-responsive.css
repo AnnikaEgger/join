@@ -120,20 +120,23 @@
   :root {
     --padding-lr: 16px;
   }
+
   .form-container {
-    width: 100%
-    
+    width: 100%;
+    padding: 8px 8px;
   }
+
   .signup-container {
-  padding: 16px;
-}
+    padding: 16px 8px;
+    gap: 26px;
+  }
 
   header {
-    padding: 24px var(--padding-lr);
+    padding: 16px var(--padding-lr) 8px var(--padding-lr);
   }
 
   footer {
-    margin: 24px var(--padding-lr);
+    margin: 8px var(--padding-lr) 16px var(--padding-lr);
   }
 
   .accept-privacy-container p,
@@ -146,10 +149,20 @@
   }
 
   .accept-privacy-container {
-    margin-top: 8px;
+    margin: 8px 0px;
+  }
+
+  .login-nav--mobile {
+    margin-bottom: 24px;
   }
 
   .input-fields-signup {
-    gap: 40px;
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  :root {
+    --padding-lr: 8px;
   }
 }

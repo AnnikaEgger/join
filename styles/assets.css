@@ -339,7 +339,6 @@ textarea::placeholder {
   }
 
   .signup-checkbox-after::after {
-    bottom: -35px;
     text-align: center;
   }
 

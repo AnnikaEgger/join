@@ -35,6 +35,10 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .main-content {
+    min-height: calc(100dvh - var(--header-height) - var(--resp-navbar-height));
+    padding: 32px;
+  }
   .sidebar {
     top: auto;
     left: 0;
@@ -124,5 +128,23 @@
 
   .header-help-link {
     display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .main-content {
+    padding: 8px;
   }
 }

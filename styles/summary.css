@@ -12,8 +12,9 @@
 .summary-title h1 {
   font-size: 61px;
   font-weight: 700;
-  color: var(--dark-blue);
+  color: black;
   margin: 0;
+  line-height: 1;
 }
 
 .title-divider {
@@ -127,6 +128,7 @@
   font-size: 47px;
   font-weight: 700;
   line-height: 1;
+  color: black;
 }
 
 .card-label {

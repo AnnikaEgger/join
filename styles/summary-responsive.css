@@ -30,15 +30,23 @@
 
 @media screen and (max-width: 1024px) {
   .main-content {
-    min-height: calc(100dvh - var(--header-height) - var(--resp-navbar-height));
     display: flex;
-    align-items:flex-start;
+    align-items: flex-start;
     justify-content: center;
-    padding: 16px 0px;
+  }
+
+  .summary-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-direction: column;
   }
 
   .summary-page {
     padding: 0;
+    align-self: center;
+    justify-self: center;
   }
 
   .summary-title h1 {
@@ -122,6 +130,11 @@
 }
 
 @media screen and (max-width: 480px) {
+  .summary-title {
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
   .summary-title h1 {
     font-size: 32px;
   }
@@ -277,14 +290,6 @@
     order: 1;
   }
 
-  .summary-title {
-    display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 20px;
-    flex-direction: column;
-  }
-
   .summary-greeting {
     position: fixed;
     top: 0;
@@ -326,11 +331,6 @@
   .summary-cards.visible {
     opacity: 1;
   }
-
-  .main-content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 }
 
 @media screen and (max-width: 768px) {
@@ -351,11 +351,6 @@
   .summary-greeting p {
     font-size: 32px;
   }
-
-  .main-content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 }
 
 @media screen and (max-width: 375px) {
@@ -366,11 +361,6 @@
   .summary-greeting p {
     font-size: 28px;
   }
-
-  .main-content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 }
 
 @media screen and (max-width: 320px) {
@@ -380,10 +370,5 @@
 
   .summary-greeting p {
     font-size: 24px;
-  }
-
-  .main-content {
-    padding-left: 16px;
-    padding-right: 16px;
   }
 }
