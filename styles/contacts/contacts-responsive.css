@@ -201,8 +201,7 @@
 
   .mobile-menu-popup .contact-action:hover img,
   .mobile-menu-popup .contact-action:active img {
-    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg)
-      brightness(100%) contrast(100%);
+    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg) brightness(100%) contrast(100%);
   }
 
   .add-contact-mobile-btn {
@@ -232,6 +231,7 @@
 }
 
 @media (max-width: 768px) {
+
   .letter-section,
   .contact-item {
     margin: 0 0 6px 0;
@@ -243,6 +243,10 @@
 
   .contact-item {
     gap: 16px;
+  }
+
+  .success-banner.show-banner {
+    transform: translateX(-35dvw);
   }
 }
 
@@ -305,6 +309,14 @@
     gap: 6px;
     margin-bottom: 12px;
   }
+
+  .success-banner img {
+    width: 220px;
+  }
+
+  .success-banner.show-banner {
+    transform: translateX(-70dvw);
+  }
 }
 
 @media (max-width: 425px) {
@@ -316,7 +328,7 @@
     font-size: 14px;
     padding-right: 36px;
   }
-  
+
   .blue-divider {
     width: 80px;
   }
@@ -337,6 +349,10 @@
 
   .contact-info-headline span {
     font-size: 18px;
+  }
+
+  .success-banner.show-banner {
+    transform: translateX(-50dvw);
   }
 }
 
@@ -359,5 +375,9 @@
 
   .contact-item {
     padding: 6px 16px;
+  }
+
+  .success-banner.show-banner {
+    transform: translateX(-30dvw);
   }
 }

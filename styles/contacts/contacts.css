@@ -305,10 +305,11 @@ body {
 
 .success-banner {
   position: fixed;
-  bottom: 50px;
+  bottom: 100px;
   right: 0;
   transform: translateX(150%);
   transition: transform 0.125s ease-in-out;
+  z-index: 5;
 }
 
 .success-banner.show-banner {
