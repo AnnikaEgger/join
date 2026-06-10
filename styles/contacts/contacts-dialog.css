@@ -64,10 +64,10 @@
 }
 
 .blue-horizontal-divider {
-  width: 90px;
+  width: 100px;
   height: 3px;
   background-color: var(--light-blue);
-  margin-top: 16px;
+  margin-top: 12px;
   border-radius: 4px;
 }
 

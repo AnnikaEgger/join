@@ -98,6 +98,8 @@ function fillFormFields(contact) {
  */
 function adaptDialogForEdit(id) {
     document.querySelector('.dialog-left h2').innerHTML = 'Edit Contact';
+    const subtitle = document.getElementById('dialog-subtitle');
+    if (subtitle) subtitle.classList.add('d-none');
     let btnCreate = document.querySelector('.btn-create');
     btnCreate.innerHTML = `Save <img src="../assets/icons/check.svg" alt="Save">`;
     document.querySelector('.contact-form').onsubmit = function () {

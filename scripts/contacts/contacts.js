@@ -244,6 +244,8 @@ function prepareAddContactDialog() {
   currentEditingId = null;
   resetForm();
   resetDialogAvatar();
+  const subtitle = document.getElementById('dialog-subtitle');
+  if (subtitle) subtitle.classList.remove('d-none');
   document.querySelector(".dialog-left h2").innerHTML = "Add contact";
   let btnCreate = document.querySelector(".btn-create");
   btnCreate.innerHTML = `Create contact <img src="../assets/icons/check.svg" alt="Check">`;
