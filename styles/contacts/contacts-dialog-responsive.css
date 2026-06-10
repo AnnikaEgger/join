@@ -2,7 +2,7 @@
   .add-contact-dialog {
     flex-direction: column;
     width: 65dvw;
-    height: calc(95dvh - 85px - 85px);
+    height: calc(75dvh - 85px - 85px);
     max-height: none;
     border-radius: 30px;
     margin: auto;
@@ -144,6 +144,7 @@
 @media (max-width: 550px) {
   .add-contact-dialog {
     width: 90dvw;
+    height: calc(95dvh - 85px - 85px);
   }
 
     .default-avatar {
