@@ -95,7 +95,7 @@ function openSubtaskEdit(indexSubtask, id) {
 function submitEditedSubtask(indexSubtask, id) {
   let edit = document.getElementById("li-input" + indexSubtask + id).value;
 
-  if (edit.length > 0) {
+  if (edit.trim().length > 0) {
     subtasksArr.splice(indexSubtask, 1, { title: edit, done: false });
     skipFocusoutRender = true;
     renderSingleSubtask(indexSubtask, id);

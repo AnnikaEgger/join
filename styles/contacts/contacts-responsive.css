@@ -180,7 +180,8 @@
 
   .mobile-menu-popup .contact-action:hover img,
   .mobile-menu-popup .contact-action:active img {
-    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg) brightness(100%) contrast(100%);
+    filter: invert(47%) sepia(95%) saturate(1852%) hue-rotate(170deg)
+      brightness(100%) contrast(100%);
   }
 
   .add-contact-mobile-btn {
@@ -203,10 +204,13 @@
   .add-contact-mobile-btn:hover {
     background-color: var(--light-blue);
   }
+
+  .detail-name-section h3 {
+    font-weight: 700;
+  }
 }
 
 @media (max-width: 768px) {
-
   .letter-section,
   .contact-item {
     margin: 0 0 6px 0;
@@ -272,7 +276,7 @@
     font-size: 28px;
   }
 
-  .detail-name-section h1 {
+  .detail-name-section h3 {
     font-size: 32px;
   }
 
@@ -306,7 +310,7 @@
     font-size: 20px;
   }
 
-  .detail-name-section h1 {
+  .detail-name-section h3 {
     font-size: 24px;
   }
 
@@ -316,6 +320,10 @@
 }
 
 @media (max-width: 375px) {
+  .contact-detail-view {
+    padding: 8px;
+  }
+
   .contact-list {
     padding: 0 calc((100% - 280px) / 2);
   }
