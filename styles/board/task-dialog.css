@@ -22,8 +22,8 @@
   max-height: 85dvh;
   border-radius: 30px;
   transition:
-  display 0.15s allow-discrete,
-  overlay 0.15s allow-discrete;
+    display 0.15s allow-discrete,
+    overlay 0.15s allow-discrete;
   animation: slideOutCentered 0.15s ease-in forwards;
 }
 
@@ -277,9 +277,24 @@ body:has(.add-task-dialog[open]) {
 
 @media screen and (max-width: 480px) {
   :root {
-    --task-dialog-padding-lr: 14px;
-    --task-dialog-padding-tb: 14px;
+    --task-dialog-padding-lr: 8px;
+    --task-dialog-padding-tb: 8px;
     --task-dialog-edit-padding-tb: 8px;
+  }
+
+  .task-dialog {
+    border-radius: 16px;
+    max-width: unset;
+    max-height: 95dvh;
+    width: calc(100dvw - 16px);
+  }
+
+  .content-wrapper-task-dialog {
+    max-height: 95dvh;
+  }
+
+  .content-wrapper-task-dialog--detailed {
+    padding-right: 0px;
   }
 
   .content-wrapper-task-dialog {
@@ -288,4 +303,3 @@ body:has(.add-task-dialog[open]) {
 }
 
 /* #endregion */
-

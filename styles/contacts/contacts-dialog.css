@@ -9,8 +9,7 @@
   width: 85%;
   max-width: 1200px;
   height: auto;
-  min-height: 600px;
-  max-height: 50dvh;
+  max-height: 600px;
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
