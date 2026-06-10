@@ -134,7 +134,7 @@
   }
 
   .card {
-    width: 250px;
+    width: 350px;
     margin-bottom: 0 !important;
   }
 
@@ -190,7 +190,7 @@
   }
 
   .card {
-    width: 200px;
+    width: 300px;
   }
 
   .dialog-task-title {
@@ -210,6 +210,10 @@
 
   .card-container {
     height: fit-content;
+  }
+
+  .dialog-task-title {
+    font-size: 28px;
   }
 }
 

@@ -277,8 +277,8 @@ body:has(.add-task-dialog[open]) {
 
 @media screen and (max-width: 480px) {
   :root {
-    --task-dialog-padding-lr: 20px;
-    --task-dialog-padding-tb: 20px;
+    --task-dialog-padding-lr: 14px;
+    --task-dialog-padding-tb: 14px;
     --task-dialog-edit-padding-tb: 8px;
   }
 
