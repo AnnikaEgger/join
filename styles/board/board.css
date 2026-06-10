@@ -293,7 +293,7 @@ hr {
   background-color: #f4f4f4;
   border-radius: 8px;
   height: 8px;
-  width: 100%;
+  width: 80%;
   display: flex;
   overflow: hidden;
 }
