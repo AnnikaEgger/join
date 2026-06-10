@@ -31,7 +31,7 @@
     --padding-lr-main-add-task: var(--padding-lr-main);
   }
 
-  .main-content {
+  .main-content--add-task {
     align-items: center;
   }
 
