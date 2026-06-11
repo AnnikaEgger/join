@@ -21,21 +21,9 @@ function getInitials(name) {
  */
 function getRandomColor() {
   let colors = [
-    "#FF7A00",
-    "#FF5EB3",
-    "#6E52FF",
-    "#9327FF",
-    "#00BEE8",
-    "#1FD7C1",
-    "#FF745E",
-    "#FFA35E",
-    "#FC71FF",
-    "#FFC701",
-    "#0038FF",
-    "#C3FF2B",
-    "#FFE62B",
-    "#FF4646",
-    "#FFBB2B",
+    "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8",
+    "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701",
+    "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"
   ];
 
   let randomIndex = Math.floor(Math.random() * colors.length);
@@ -44,10 +32,10 @@ function getRandomColor() {
 
 /**
  * Displays the success confirmation banner temporarily.
+ * @returns {void}
  */
 function showSuccessBanner() {
   let banner = document.getElementById("success-banner");
-
   banner.classList.add("show-banner");
 
   setTimeout(() => {
@@ -57,6 +45,7 @@ function showSuccessBanner() {
 
 /**
  * Focuses the mobile back button for better accessibility.
+ * @returns {void}
  */
 function focusBackButton() {
   let backBtn = document.querySelector(".back-to-list-btn");
@@ -67,6 +56,7 @@ function focusBackButton() {
 
 /**
  * Focuses the appropriate close button depending on screen size.
+ * @returns {void}
  */
 function focusActiveCloseButton() {
   let isMobile = window.innerWidth <= 1024;
@@ -77,6 +67,7 @@ function focusActiveCloseButton() {
 
 /**
  * Focuses the first button inside the mobile menu pop-up.
+ * @returns {void}
  */
 function focusFirstMenuAction() {
   let firstAction = document.querySelector(
@@ -87,6 +78,7 @@ function focusFirstMenuAction() {
 
 /**
  * Delays the focus handling for the mobile menu to ensure smooth execution.
+ * @returns {void}
  */
 function delayMenuFocus() {
   setTimeout(focusFirstMenuAction, 100);
