@@ -186,6 +186,10 @@ function stopDragging(event) {
   let card = event.target.closest(".card");
   if (card) card.style.position = "";
 
+  handleTouchEnd(event);
+}
+
+function handleTouchEnd(event) {
   if (event.type === "touchend" && isLongPress) {
     let touch = event.changedTouches[0];
     let element = document.elementFromPoint(touch.clientX, touch.clientY);

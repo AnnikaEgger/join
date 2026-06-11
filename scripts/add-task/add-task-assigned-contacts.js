@@ -40,11 +40,16 @@ function renderAssignedContacts(id) {
   );
 
   let contactsToRender = getAssignedContactstoRender();
-
   SELECTED_CONTACTS_DIV.innerHTML = "";
-
   if (!contactsToRender) return;
 
+  renderHTMLForAssignedContacts(contactsToRender, SELECTED_CONTACTS_DIV);
+}
+
+function renderHTMLForAssignedContacts(
+  contactsToRender,
+  SELECTED_CONTACTS_DIV,
+) {
   for (let index = 0; index < contactsToRender.length; index++) {
     let contactInitials = getContactInitials(contactsToRender[index].name);
     SELECTED_CONTACTS_DIV.innerHTML += contactAvatarTemplate(
@@ -92,6 +97,10 @@ async function checkIfAssignedContactStillExists() {
   await getContacts();
   await getUsers();
 
+  checkEachTaskForRedundantContacts(tasks);
+}
+
+function checkEachTaskForRedundantContacts(tasks) {
   Object.entries(tasks).forEach(([taskId, task]) => {
     if (!task.assigned_contacts) return;
 

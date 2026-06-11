@@ -71,16 +71,17 @@ function contactOptionsCheckboxesEnterHandlers(id) {
     ".contact-option-checkbox",
   );
   contactOptionsCheckboxes.forEach((checkbox) => {
-    registerEnterHandler(
-      "#checkbox" + checkbox.dataset.indexContact + id,
-      () => {
-        selectContact(
-          checkbox.dataset.indexContact,
-          filteredContacts[checkbox.dataset.indexContact].id,
-          false,
-          id,
-        );
-      },
+    registerCheckboxesEnterHandlers(checkbox, id);
+  });
+}
+
+function registerCheckboxesEnterHandlers(checkbox, id) {
+  registerEnterHandler("#checkbox" + checkbox.dataset.indexContact + id, () => {
+    selectContact(
+      checkbox.dataset.indexContact,
+      filteredContacts[checkbox.dataset.indexContact].id,
+      false,
+      id,
     );
   });
 }
@@ -107,17 +108,25 @@ function categoryOptionsEnterHandlers(id) {
  */
 function addEventListeners(id) {
   const taskForm = document.getElementById("task-form" + id);
-  const contactsDropdown = document.getElementById("contacts-dropdown" + id);
-  const categoriesDropdown = document.getElementById(
-    "categories-dropdown" + id,
-  );
 
   addTaskFormEventListeners(id);
+  addContactsDropdownEventListener(id);
 
+  if (id === "--edit-task") return;
+  addCategoriesDropdownEventListener(id);
+}
+
+function addContactsDropdownEventListener(id) {
+  const contactsDropdown = document.getElementById("contacts-dropdown" + id);
   contactsDropdown.addEventListener("focusout", (event) =>
     contactsDropdownFocusOutFunction(event, id),
   );
+}
 
+function addCategoriesDropdownEventListener(id) {
+  const categoriesDropdown = document.getElementById(
+    "categories-dropdown" + id,
+  );
   categoriesDropdown.addEventListener("focusout", (event) =>
     categoriesDropdownFocusOutFunction(event, id),
   );
@@ -176,7 +185,6 @@ function handleKeyDownElement(el) {
   ) {
     el.blur();
   }
-
   return true;
 }
 
@@ -221,6 +229,12 @@ function handleInvalidSubmit(
     addInvalidClasses(taskForm, id);
   }
 
+  if (id === "--edit-task") return;
+
+  handleInvalidCategory(formIsValid, categoryIsValid, id, taskForm);
+}
+
+function handleInvalidCategory(formIsValid, categoryIsValid, id, taskForm) {
   if (!categoryIsValid) {
     addCategoryClasses(taskForm, id);
   }

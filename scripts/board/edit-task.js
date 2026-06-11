@@ -79,14 +79,12 @@ async function deleteTaskFromFirebase(taskId) {
  */
 async function initEditTask(id) {
   contactsOptions = [];
-  categoriesArr = [];
   subtasksArr = [];
   assignedContacts = [];
 
   disablePastDates(id);
 
   initContacts(id);
-  initCategories(id);
 
   registerEnterHandlers(id);
   addEventListeners(id);
@@ -107,17 +105,6 @@ async function initContacts(id) {
 }
 
 /**
- * Loads categories and renders the selected category for edit mode.
- * @param {string} id - The dialog identifier suffix.
- * @returns {Promise<void>}
- */
-async function initCategories(id) {
-  await getCategories();
-  renderSelectedCategory(id);
-  renderCategories(id);
-}
-
-/**
  * Opens the task edit dialog, populates fields, and initializes edit mode.
  * @param {string} taskId - The ID of the task to edit.
  * @returns {Promise<void>}
@@ -129,11 +116,9 @@ async function openTaskEditMode(taskId) {
   const TASK_DIALOG = document.getElementById("taskDialog");
 
   let task = await getTaskFromFirebase(taskId);
-
   TASK_DIALOG.innerHTML = taskEditModeTemplate(task, taskId);
   addTaskFormEventListeners("--edit-task");
 
-  selectedCategory = task.category;
   setPriority(task.priority, "--edit-task");
   await initEditTask("--edit-task");
   renderAssignedContactsEditMode(task);
@@ -193,10 +178,7 @@ async function submitEditedTask(
   const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();
 
-  if (
-    TASK_FORM.checkValidity() &&
-    selectedCategory !== "Select task category"
-  ) {
+  if (TASK_FORM.checkValidity) {
     disableButtonWhileLoading("task-edit-ok-btn");
     await putEditedTaskToFirebase(column, defaultTask, taskId, templateId);
     await loadTasks();
@@ -222,10 +204,9 @@ async function putEditedTaskToFirebase(
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(
-      collectEditedTaskData(column, defaultTask, taskId, templateId),
+      await collectEditedTaskData(column, defaultTask, taskId, templateId),
     ),
   });
-  return await task.json();
 }
 
 /**
@@ -236,12 +217,13 @@ async function putEditedTaskToFirebase(
  * @param {string} templateId - The template identifier for the task.
  * @returns {Object} The task payload ready for Firebase.
  */
-function collectEditedTaskData(column, defaultTask, taskId, templateId) {
+async function collectEditedTaskData(column, defaultTask, taskId, templateId) {
   const title = document.getElementById("task-title--edit-task").value;
   const description = document.getElementById(
     "task-description--edit-task",
   ).value;
   const dueDate = document.getElementById("task-due-date--edit-task").value;
+  let taskCategory = await getTaskEditCategory(taskId);
 
   return {
     title: title,
@@ -249,10 +231,19 @@ function collectEditedTaskData(column, defaultTask, taskId, templateId) {
     due_date: dueDate,
     priority: priority,
     assigned_contacts: assignedContacts,
-    category: selectedCategory,
+    category: taskCategory,
     subtasks: subtasksArr,
     column: column,
     default_task: defaultTask,
     template_id: templateId,
   };
+}
+
+async function getTaskEditCategory(taskId) {
+  let response = await fetch(
+    BASE_URL + "tasks/" + taskId + "/category" + ".json",
+  );
+
+  let responseToJson = await response.json();
+  return responseToJson;
 }

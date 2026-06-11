@@ -116,16 +116,12 @@ function subtasksToReturn(subtasksArray, id) {
   return subtasksArray
     .map((subtask, index) => {
       let isChecked = subtask.done ? "checked" : "";
-      let title =
-        typeof subtask === "string"
-          ? subtask
-          : subtask.title || subtask.name || subtask.text || "Subtask";
 
       let checkboxId = "subtask-" + id + index;
       return generateDialogSubtasksHTML(
         id,
         index,
-        title,
+        subtask.title,
         isChecked,
         checkboxId,
       );
@@ -148,10 +144,8 @@ async function toggleSubtask(todoId, subtaskIndex) {
 
     if (subtasksArray[subtaskIndex]) {
       subtasksArray[subtaskIndex].done = !subtasksArray[subtaskIndex].done;
-
       let isDone = subtasksArray[subtaskIndex].done;
       await saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone);
-
       updateHTML();
     }
   }

@@ -328,6 +328,10 @@ function renderSelectedCategory(id) {
   );
   let focused = CATEGORIES_DROPDOWN.querySelector(":focus");
 
+  closeCategoriesDropdown(id, focused);
+}
+
+function closeCategoriesDropdown(id, focused) {
   if (selectedCategory !== "Select task category") {
     closeCustomSelectDropdown("category", id);
     if (focused) {

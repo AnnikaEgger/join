@@ -15,12 +15,9 @@ async function initBoard() {
  */
 async function loadTasks() {
   todos = [];
-
   await checkIfAssignedContactStillExists();
 
-  let response = await fetch(
-    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
-  );
+  let response = await fetch(BASE_URL + "tasks.json");
   let data = await response.json();
 
   if (data) {
@@ -47,7 +44,6 @@ function fillTasksArray(tasksObj) {
 
     let taskData = tasksObj[id];
     taskData.id = id;
-
     todos.push(taskData);
   }
 }

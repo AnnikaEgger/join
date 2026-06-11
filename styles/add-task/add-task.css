@@ -264,11 +264,6 @@ input {
 
 .addtask-toast-msg {
   position: fixed;
-  top: 500px;
-  left: calc((var(--width-content-wrapper) / 2));
-  transform: translate(50%, 100dvh);
-  /* left: 500px; */
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -283,12 +278,25 @@ input {
   transition: var(--transition-default);
 }
 
-.addtask-toast-msg--dialog {
-  left: calc(50% - (325px / 2));
+.addtask-toast-msg--add-task {
+  left: calc((var(--width-content-wrapper) / 2));
+  top: 500px;
+  transform: translate(50%, 100dvh);
 }
 
-.display-toast-msg {
+.addtask-toast-msg--dialog {
+  top: calc(50% - (74px / 2));
+  align-self: center;
+  transform: translate(0, 100dvh);
+}
+
+.display-toast-msg-add-task {
   transform: translate(50%, 0);
+  transition: var(--transition-default);
+}
+
+.display-toast-msg-dialog {
+  transform: translate(0, 0);
   transition: var(--transition-default);
 }
 

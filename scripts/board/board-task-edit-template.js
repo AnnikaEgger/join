@@ -33,7 +33,7 @@ function taskEditModeTemplate(task, taskId) {
 
       <form
         aria-labelledby="add-task-headline"
-        onsubmit="submitEditedTask(event, '${task.column}', ${task.default_task}, '${taskId}', '${task.template_id}')"
+        onsubmit="submitEditedTask( event, '${task.column}', ${task.default_task}, '${taskId}', '${task.template_id}')"
         id="task-form--edit-task"
         class="task-form task-form--edit-task"
         novalidate
@@ -244,43 +244,6 @@ function taskEditModeTemplate(task, taskId) {
                   class="selected-contacts"
                   id="selected-contacts-container--edit-task"
                 ></div>
-              </div>
-            </section>
-
-            <section class="category-section">
-              <p class="label" id="categories-label--edit-task">Category</p>
-              <div class="select-wrapper">
-                <div
-                  class="custom-select custom-select--categories required"
-                  id="categories-dropdown--edit-task"
-                >
-                  <div
-                    role="combobox"
-                    aria-haspopup="listbox"
-                    aria-owns="select-options--category--edit-task"
-                    onclick="toggleCustomSelectDropdown('category', '--edit-task')"
-                    onblur="checkIfCategoryWasSelected('--edit-task')"
-                    class="custom-select--trigger custom-select-input"
-                    id="custom-select-trigger-category--edit-task"
-                    tabindex="0"
-                  >
-                    <span id="selected-category--edit-task"></span>
-                    <button
-                      type="button"
-                      class="custom-select--trigger--img-container"
-                    >
-                      <img
-                        id="arrow-dropdown--category--edit-task"
-                        src="../assets/icons/arrow-drop-down.svg"
-                        alt="arrow down icon"
-                      />
-                    </button>
-                  </div>
-                  <ul
-                    id="select-options--category--edit-task"
-                    class="custom-select-options custom-select-options--categories display-none"
-                  ></ul>
-                </div>
               </div>
             </section>
 

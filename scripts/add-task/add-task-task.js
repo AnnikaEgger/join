@@ -48,17 +48,18 @@ async function handleValidTaskSubmit(id, page, event) {
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
     event.preventDefault();
-
     let task = taskJson(id);
     await postTaskToFirebase(task);
-
     if (id !== "--edit-task") {
       showAddtaskToastMsg(id);
     }
     clearTask(id);
     completeTaskCreation(page);
   }
+  enableAddTaskButtons(id);
+}
 
+function enableAddTaskButtons(id) {
   if (id === "--add-task") {
     enableButton("clear-task-btn" + id);
   } else if (id === "--add-task-dialog") {
@@ -136,10 +137,17 @@ function getSubtasksJson() {
 function showAddtaskToastMsg(id) {
   const TOAST_MSG = document.getElementById("addtask-toast-msg" + id);
 
-  TOAST_MSG.classList.add("display-toast-msg");
-  setTimeout(() => {
-    TOAST_MSG.classList.remove("display-toast-msg");
-  }, 3000);
+  if (id === "--add-task") {
+    TOAST_MSG.classList.add("display-toast-msg-add-task");
+    setTimeout(() => {
+      TOAST_MSG.classList.remove("display-toast-ms-add-task");
+    }, 3000);
+  } else if (id === "--edit-task") {
+    TOAST_MSG.classList.add("display-toast-msg-dialog");
+    setTimeout(() => {
+      TOAST_MSG.classList.remove("display-toast-msg-dialog");
+    }, 3000);
+  }
 }
 
 /**

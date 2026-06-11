@@ -10,7 +10,7 @@
     --input-width: 420px;
   }
 
-  .addtask-toast-msg {
+  .addtask-toast-msg-add-task {
     left: 300px;
   }
 }
@@ -125,11 +125,14 @@
     display: flex;
   }
 
-  .addtask-toast-msg {
+  .addtask-toast-msg--add-task {
     top: calc(50% - (74px / 2));
-    transform: translateX(0);
     left: unset;
     align-self: center;
+  }
+
+  .display-toast-msg-add-task {
+    transform: translate(0, 0);
   }
 }
 

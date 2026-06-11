@@ -54,20 +54,32 @@ function handleContactSelection(indexContact, contactId, clickViaCheckbox, id) {
   let indexAssignedContact = checkIfContactAlreadyAssigned(contactId);
 
   if (!clickViaCheckbox) {
-    if (checkbox.checked == true) {
-      checkbox.checked = false;
-      assignedContacts.splice(indexAssignedContact, 1);
-    } else {
-      checkbox.checked = true;
-      assignedContacts.push(filteredContacts[indexContact]);
-    }
+    handleSelectionViaLi(checkbox, indexAssignedContact, indexContact);
   } else {
-    event.stopPropagation();
-    if (checkbox.checked === true) {
-      assignedContacts.push(filteredContacts[indexContact]);
-    } else {
-      assignedContacts.splice(indexAssignedContact, 1);
-    }
+    handleSelectionViaCheckbox(checkbox, indexAssignedContact, indexContact);
+  }
+}
+
+function handleSelectionViaLi(checkbox, indexAssignedContact, indexContact) {
+  if (checkbox.checked == true) {
+    checkbox.checked = false;
+    assignedContacts.splice(indexAssignedContact, 1);
+  } else {
+    checkbox.checked = true;
+    assignedContacts.push(filteredContacts[indexContact]);
+  }
+}
+
+function handleSelectionViaCheckbox(
+  checkbox,
+  indexAssignedContact,
+  indexContact,
+) {
+  event.stopPropagation();
+  if (checkbox.checked === true) {
+    assignedContacts.push(filteredContacts[indexContact]);
+  } else {
+    assignedContacts.splice(indexAssignedContact, 1);
   }
 }
 
@@ -102,23 +114,23 @@ function renderContactOptionsList(id) {
     indexContact < filteredContacts.length;
     indexContact++
   ) {
-    let contactInitials = getContactInitials(
-      filteredContacts[indexContact].name,
-    );
-    let contactName = getContactName(indexContact);
-    let checkboxChecked = checkIfContactAssigned(
-      filteredContacts[indexContact],
-    );
-
-    document.getElementById("select-options--contacts" + id).innerHTML +=
-      contactOptionTemplate(
-        indexContact,
-        contactInitials,
-        contactName,
-        checkboxChecked,
-        id,
-      );
+    renderContactOptionsListHTML(id, indexContact);
   }
+}
+
+function renderContactOptionsListHTML(id, indexContact) {
+  let contactInitials = getContactInitials(filteredContacts[indexContact].name);
+  let contactName = getContactName(indexContact);
+  let checkboxChecked = checkIfContactAssigned(filteredContacts[indexContact]);
+
+  document.getElementById("select-options--contacts" + id).innerHTML +=
+    contactOptionTemplate(
+      indexContact,
+      contactInitials,
+      contactName,
+      checkboxChecked,
+      id,
+    );
 }
 
 /**
@@ -166,6 +178,10 @@ function ensureUserIsFirstInContactsArr() {
   )
     return;
 
+  changeUserPositionInArray(currentUser);
+}
+
+function changeUserPositionInArray(currentUser) {
   filteredContacts = filteredContacts.filter(
     (contact) => contact.name !== currentUser.name,
   );
