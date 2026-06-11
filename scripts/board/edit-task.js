@@ -1,10 +1,4 @@
 /**
- * @fileoverview Manages the task modification lifecycle, including add/edit dialog overlays,
- * data collection from entry fields, form validation, and database deletion/update syncs.
- * @module edit-task
- */
-
-/**
  * Opens the native modal dialog for adding a new task and initializes the blank form state.
  *
  * @param {string} column - Target lane tracker classification key where the newly created card will drop.

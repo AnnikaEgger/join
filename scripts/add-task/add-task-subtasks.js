@@ -1,9 +1,3 @@
-/**
- * @fileoverview Provides subtask creation, rendering, editing, and deletion helpers
- * used by the add-task form.
- * @module add-task-subtasks
- */
-
 let subtasksArr = [];
 let skipFocusoutRender = false;
 

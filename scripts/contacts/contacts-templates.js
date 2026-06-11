@@ -1,10 +1,4 @@
 /**
- * @fileoverview Generates reusable HTML templates for the contacts view,
- * including section headers, contact cards, and detailed contact profiles.
- * @module contacts-templates
- */
-
-/**
  * Generates HTML for a letter section header used to group contacts alphabetically.
  * @param {string} letter - The alphabet letter for the header
  * @returns {string} HTML string for the letter header section

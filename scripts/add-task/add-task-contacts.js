@@ -1,13 +1,3 @@
-/**
- * @fileoverview Manages contact selection, filtering, rendering, and assignment
- * for the add-task workflow.
- * @module add-task-contacts
- */
-
-/**
- * @typedef {{id: string, name: string, color: string}} Contact
- */
-
 let contactsOptions = [];
 let filteredContacts = [];
 let assignedContacts = [];

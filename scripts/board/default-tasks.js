@@ -1,10 +1,4 @@
 /**
- * @fileoverview Defines the fallback schema blueprint datasets and handles network
- * synchronization tasks for resetting baseline standard task entities on Firebase.
- * @module default-tasks
- */
-
-/**
  * @typedef {Object} AssignedContact
  * @property {string} color - Hex background color configuration for rendering badges.
  * @property {string} id - Explicit contact entry data key reference mapping identifier.

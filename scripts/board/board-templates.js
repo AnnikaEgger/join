@@ -1,10 +1,4 @@
 /**
- * @fileoverview Provides template generation functions for the Kanban board view,
- * rendering cards, progress indicator metrics, detailed overlays, and badges.
- * @module board-templates
- */
-
-/**
  * Creates the HTML for a draggable task card.
  *
  * @param {Object} todo - The task object.

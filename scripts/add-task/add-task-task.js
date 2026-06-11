@@ -1,9 +1,3 @@
-/**
- * @fileoverview Handles task creation, validation, and Firebase submission logic
- * for the add-task and board dialogs.
- * @module add-task-task
- */
-
 let addTaskColumn;
 
 /**

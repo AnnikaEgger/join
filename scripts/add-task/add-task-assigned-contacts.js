@@ -1,14 +1,4 @@
 /**
- * @fileoverview Renders assigned contact badges, validates existing task assignments,
- * and filters contact search results for the add-task workflow.
- * @module add-task-assigned-contacts
- */
-
-/**
- * @typedef {{id: string, name: string, color?: string}} AssignedContact
- */
-
-/**
  * Extracts and returns the initials from a contact name.
  * @param {string} name - The contact's full name
  * @returns {string} The initials in uppercase (max 2 characters)

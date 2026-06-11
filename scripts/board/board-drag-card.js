@@ -1,9 +1,3 @@
-/**
- * @fileoverview Handles mouse and touch-based drag-and-drop operations for task cards,
- * including visual highlights, viewport auto-scrolling, and mobile interaction states.
- * @module board-drag-card
- */
-
 let touchTimeout;
 let isLongPress = false;
 let startX, startY;

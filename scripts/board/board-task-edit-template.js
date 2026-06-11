@@ -1,10 +1,4 @@
 /**
- * @fileoverview Generates the HTML template form layout for editing an existing task's
- * details, priorities, assignments, and subtasks within the board view.
- * @module board-task-edit-template
- */
-
-/**
  * Returns the HTML template for the task edit dialog view.
  *
  * @param {Object} task - The task data to prefill in the edit form layouts.

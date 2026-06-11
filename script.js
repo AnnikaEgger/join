@@ -1,10 +1,4 @@
 /**
- * @fileoverview Provides the login page logic, password visibility helpers,
- * Firebase user authentication, and shared page-protection utilities.
- * @module script
- */
-
-/**
  * Base URL for Firebase Realtime Database requests.
  * @constant {string}
  */

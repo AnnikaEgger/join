@@ -1,9 +1,3 @@
-/**
- * @fileoverview Initializes the add-task page, loads contacts and categories,
- * and wires up priority, dropdown, and task form behavior.
- * @module add-task
- */
-
 let priority = "Medium";
 let categoriesArr = [];
 let selectedCategory = "Select task category";

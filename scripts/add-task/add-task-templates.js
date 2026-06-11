@@ -1,10 +1,4 @@
 /**
- * @fileoverview Generates reusable HTML templates for add-task subtasks,
- * contact options, and category dropdown items.
- * @module add-task-templates
- */
-
-/**
  * Generates HTML for a subtask list item with edit and delete buttons.
  * @param {Object} subtask - The subtask object containing title and status
  * @param {number} indexSubtask - The index of the subtask

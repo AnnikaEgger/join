@@ -1,9 +1,3 @@
-/**
- * @fileoverview Handles the sign-up page flow: validation, password toggles,
- * duplicate email checks, and user creation.
- * @module signup
- */
-
 const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
 

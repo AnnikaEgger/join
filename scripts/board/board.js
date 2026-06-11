@@ -1,10 +1,4 @@
 /**
- * @fileoverview Manages core Kanban board operations including data fetching from Firebase,
- * filtering task items by status/search query, and driving the UI update cycle.
- * @module board
- */
-
-/**
  * Global cache storing all active task objects fetched from the database.
  * @type {Array<Object>}
  */
