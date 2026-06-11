@@ -18,7 +18,7 @@
 
 .add-contact-dialog[open] {
   display: flex;
-  animation: slideInDialog 0.3s ease-out;
+  animation: slideInDialog 0.125s ease-in-out;
 }
 
 @keyframes slideInDialog {
@@ -36,7 +36,7 @@
 }
 
 .add-contact-dialog.hide-dialog {
-  animation: slideOutDialog 0.3s ease-in forwards;
+  animation: slideOutDialog 0.125s ease-in-out forwards;
 }
 
 @keyframes slideOutDialog {

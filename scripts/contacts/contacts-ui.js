@@ -144,13 +144,12 @@ function closeContactDialog() {
   if (dialog) {
     dialog.classList.add("hide-dialog");
 
-    // Wartet, bis die 0.3s (300ms) CSS-Animation vorbei ist
     setTimeout(() => {
       dialog.close();
-      dialog.classList.remove("hide-dialog"); // Bereit für das nächste Mal öffnen
+      dialog.classList.remove("hide-dialog");
       resetForm();
       resetCancelButton();
-    }, 300);
+    }, 125);
   }
 }
 
