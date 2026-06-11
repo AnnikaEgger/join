@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Handles mouse and touch-based drag-and-drop operations for task cards,
+ * including visual highlights, viewport auto-scrolling, and mobile interaction states.
+ * @module board-drag-card
+ */
+
 let touchTimeout;
 let isLongPress = false;
 let startX, startY;
@@ -17,13 +23,14 @@ function startDragging(event, id) {
     initMobileTouch(event, card);
   } else if (card) {
     card.classList.add("dragging");
-  } //
+  }
 }
 
 /**
  * Initializes the mobile touch handling for drag operations.
  * @param {Event} event - The touch start event.
  * @param {HTMLElement} card - The card element being dragged.
+ * @returns {void}
  */
 function initMobileTouch(event, card) {
   startX = event.touches[0].clientX;
@@ -41,6 +48,7 @@ function initMobileTouch(event, card) {
 /**
  * Activates the mobile drag style and disables global text selection.
  * @param {HTMLElement} card - The card element for which to activate drag style.
+ * @returns {void}
  */
 function activateMobileDragStyle(card) {
   if (card) {
@@ -63,7 +71,8 @@ function allowDrop(ev) {
 /**
  * Checks mouse position and scrolls if near top or bottom.
  *
- * @param {number} clientY - The current vertical position of the mouse cursor, used to determine if the window should automatically scroll when dragging a task near the edges of the viewport on desktop devices.
+ * @param {number} clientY - The current vertical position of the mouse cursor.
+ * @returns {void}
  */
 function handleDesktopScroll(clientY) {
   const threshold = 120;
@@ -78,8 +87,7 @@ function handleDesktopScroll(clientY) {
 
 /**
  * Prevents the red "blocked" cursor globally while dragging.
- *
- * This function adds an event listener for the "dragover" event on the entire document, which prevents the default behavior that would show a "blocked" cursor when dragging elements over non-droppable areas. It also calls the `handleDesktopScroll` function to enable automatic scrolling when dragging near the edges of the viewport on desktop devices.
+ * @returns {void}
  */
 function initGlobalDragSettings() {
   document.addEventListener("dragover", (ev) => {
@@ -121,7 +129,9 @@ function handleTouchMove(event) {
  * Positions the dragged card under the current touch point and updates drag feedback.
  *
  * @param {Event} event - The touch move event.
- * @param {{clientX: number, clientY: number}} touch - The current touch coordinates.
+ * @param {Object} touch - The current touch coordinates object.
+ * @param {number} touch.clientX - The vertical client X position.
+ * @param {number} touch.clientY - The vertical client Y position.
  * @returns {void}
  */
 function handleCard(event, touch) {
@@ -140,6 +150,7 @@ function handleCard(event, touch) {
  *
  * @param {number} x - The current horizontal position of the finger.
  * @param {number} y - The current vertical position of the finger.
+ * @returns {void}
  */
 function handleMobileHighlight(x, y) {
   let element = document.elementFromPoint(x, y);
@@ -158,6 +169,7 @@ function handleMobileHighlight(x, y) {
  * Automatically scrolls the window when the finger is near the top or bottom edge.
  *
  * @param {number} clientY - The current vertical position of the finger.
+ * @returns {void}
  */
 function checkAutoScroll(clientY) {
   let speed = 200;
@@ -173,6 +185,7 @@ function checkAutoScroll(clientY) {
 /**
  * Handles the end of a touch event, triggers drop logic, and restores text selection.
  * @param {Event} event - The touch end event.
+ * @returns {void}
  */
 function stopDragging(event) {
   clearTimeout(touchTimeout);
@@ -189,6 +202,11 @@ function stopDragging(event) {
   handleTouchEnd(event);
 }
 
+/**
+ * Evaluates the final drop placement container when a mobile touch interaction terminates.
+ * @param {Event} event - The touch end event.
+ * @returns {void}
+ */
 function handleTouchEnd(event) {
   if (event.type === "touchend" && isLongPress) {
     let touch = event.changedTouches[0];
@@ -202,7 +220,9 @@ function handleTouchEnd(event) {
 /**
  * Moves a task to a different column and updates Firebase.
  *
+ * @async
  * @param {string} column - The target column.
+ * @returns {Promise<void>} Resolves when state is modified and synced.
  */
 async function moveTo(column) {
   let task = todos.find((t) => t.id === currentDraggedElement);
