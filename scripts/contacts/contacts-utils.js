@@ -32,6 +32,7 @@ function getRandomColor() {
 
 /**
  * Displays the success confirmation banner temporarily.
+ * @returns {void}
  */
 function showSuccessBanner() {
   let banner = document.getElementById("success-banner");
@@ -44,6 +45,7 @@ function showSuccessBanner() {
 
 /**
  * Focuses the mobile back button for better accessibility.
+ * @returns {void}
  */
 function focusBackButton() {
   let backBtn = document.querySelector(".back-to-list-btn");
@@ -54,6 +56,7 @@ function focusBackButton() {
 
 /**
  * Focuses the appropriate close button depending on screen size.
+ * @returns {void}
  */
 function focusActiveCloseButton() {
   let isMobile = window.innerWidth <= 1024;
@@ -64,6 +67,7 @@ function focusActiveCloseButton() {
 
 /**
  * Focuses the first button inside the mobile menu pop-up.
+ * @returns {void}
  */
 function focusFirstMenuAction() {
   let firstAction = document.querySelector(
@@ -74,6 +78,7 @@ function focusFirstMenuAction() {
 
 /**
  * Delays the focus handling for the mobile menu to ensure smooth execution.
+ * @returns {void}
  */
 function delayMenuFocus() {
   setTimeout(focusFirstMenuAction, 100);

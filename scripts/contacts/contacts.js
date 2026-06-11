@@ -32,6 +32,7 @@ async function loadContacts() {
 /**
  * Converts the raw database object into an array and assigns IDs.
  * @param {Object} contactsObj - Raw contacts object from the database.
+ * @returns {void}
  */
 function fillContactsArray(contactsObj) {
   let keys = Object.keys(contactsObj);
@@ -61,6 +62,7 @@ async function loadAllUsers() {
 
 /**
  * Renders the grouped contact list into the DOM.
+ * @returns {void}
  */
 function renderContactList() {
   let content = document.getElementById("contact-list");
@@ -81,6 +83,7 @@ function renderContactList() {
 /**
  * Opens, renders, and animates the detailed view of a contact.
  * @param {string} id - Unique contact ID.
+ * @returns {void}
  */
 function showContactDetails(id) {
   highlightContact(id);
@@ -156,6 +159,7 @@ function isEmailAlreadyUsed(email, excludeId = null) {
 /**
  * Marks the email field as invalid with a specific duplicate message.
  * @param {HTMLInputElement} emailInput - The email input element.
+ * @returns {void}
  */
 function handleDuplicateEmailError(emailInput) {
   emailInput.classList.add("invalid");
@@ -199,6 +203,7 @@ async function finalizeAddition() {
 
 /**
  * Resets the form inputs and clears all validation errors.
+ * @return {void}
  */
 function resetForm() {
   document.querySelector(".contact-form").reset();
@@ -216,6 +221,7 @@ function resetForm() {
 /**
  * Opens the dialog populated with contact data for editing.
  * @param {string} id - Unique contact ID.
+ * @return {void}
  */
 function openEditContact(id) {
   currentEditingId = id;
@@ -231,6 +237,7 @@ function openEditContact(id) {
 
 /**
  * Sets up the text elements and submit handler for the add contact view.
+ * @return {void}
  */
 function setupAddContactUI() {
   const subtitle = document.getElementById("dialog-subtitle");
@@ -246,6 +253,7 @@ function setupAddContactUI() {
 
 /**
  * Prepares and opens the dialog for creating a new contact.
+ * @return {void}
  */
 function prepareAddContactDialog() {
   currentEditingId = null;
