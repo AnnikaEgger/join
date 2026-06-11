@@ -4,35 +4,32 @@
  * @module add-task
  */
 
-/**
- * add-task.js
- * Handles initialization, custom dropdown behavior, priority selection, and category loading.
- */
+let priority = "Medium";
+let categoriesArr = [];
+let selectedCategory = "Select task category";
 
 /**
  * Initializes the add-task page by disabling past dates, setting default priority,
  * loading contacts and categories, and registering event handlers.
  * @async
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {Promise<void>} Resolves when initialization is complete.
  */
 async function initAddTask(id) {
   guardPage();
   resetTaskValues();
-
   disablePastDates(id);
   renderPriority(id);
-
   await initContacts(id);
   await initCategories(id);
-
   registerEnterHandlers(id);
   addEventListeners(id);
-
   enableAllPointerEvents(id);
 }
 
 /**
  * Resets all task-related UI state to its initial defaults for a fresh form.
+ * @returns {void}
  */
 function resetTaskValues() {
   addTaskColumn = "to do";
@@ -44,7 +41,6 @@ function resetTaskValues() {
 
 /**
  * Loads contacts, filters them, and renders the contact options for the current form.
- *
  * @async
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {Promise<void>} Resolves after the contacts have been loaded and rendered.
@@ -58,7 +54,6 @@ async function initContacts(id) {
 
 /**
  * Loads available categories and renders the default selection and dropdown options.
- *
  * @async
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {Promise<void>} Resolves after categories are fetched and rendered.
@@ -74,6 +69,7 @@ async function initCategories(id) {
  * Closes a custom select dropdown by hiding options and resetting the arrow icon.
  * @param {string} selectName - The name of the select dropdown to close (e.g., "contacts", "category")
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function closeCustomSelectDropdown(selectName, id) {
   let options = document.getElementById(
@@ -82,7 +78,6 @@ function closeCustomSelectDropdown(selectName, id) {
   let arrow = document.getElementById(
     "arrow-dropdown" + "--" + selectName + id,
   );
-
   options.classList.add("display-none");
   options.setAttribute("inert", "");
   arrow.classList.remove("rotate");
@@ -93,18 +88,17 @@ function closeCustomSelectDropdown(selectName, id) {
  * @async
  * @param {string} selectName - The name of the select dropdown to toggle (e.g., "contacts", "category")
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {Promise<void>} Resolves when the dropdown state has been handled.
  */
 async function toggleCustomSelectDropdown(selectName, id) {
   let options = document.getElementById(
     "select-options" + "--" + selectName + id,
   );
-
   if (selectName === "contacts" && options.classList.contains("display-none")) {
     renderContactOptions(id);
   } else if (selectName === "category") {
     handleCategories(options, id);
   }
-
   handleOptions(selectName, id);
   handleArrow(selectName, id);
 }
@@ -113,12 +107,12 @@ async function toggleCustomSelectDropdown(selectName, id) {
  * Toggles the display-none class on the options container and manages the inert attribute.
  * @param {string} selectName - The name of the select dropdown
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function handleOptions(selectName, id) {
   let options = document.getElementById(
     "select-options" + "--" + selectName + id,
   );
-
   options.classList.toggle("display-none");
   if (options.classList.contains("display-none")) {
     options.setAttribute("inert", "");
@@ -131,6 +125,7 @@ function handleOptions(selectName, id) {
  * Toggles the rotate class on the dropdown arrow icon.
  * @param {string} selectName - The name of the select dropdown
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function handleArrow(selectName, id) {
   let arrow = document.getElementById(
@@ -141,7 +136,6 @@ function handleArrow(selectName, id) {
 
 /**
  * Resets the category selection to the default state.
- *
  * @param {HTMLElement} options - The options container element.
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {void}
@@ -155,12 +149,12 @@ function handleCategories(options, id) {
  * Stops event propagation if the contacts dropdown is open.
  * @param {Event} event - The click event
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function handleStopPropagation(event, id) {
   let options = document.getElementById(
     "select-options" + "--" + "contacts" + id,
   );
-
   if (!options.classList.contains("display-none")) {
     event.stopPropagation();
   }
@@ -169,6 +163,7 @@ function handleStopPropagation(event, id) {
 /**
  * Opens the native date picker for the task due date input.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function showDatePicker(id) {
   let dateInput = document.getElementById("task-due-date" + id);
@@ -178,6 +173,7 @@ function showDatePicker(id) {
 /**
  * Sets the minimum date on the date input to today, preventing selection of past dates.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function disablePastDates(id) {
   document.getElementById("task-due-date" + id).min = new Date()
@@ -185,12 +181,11 @@ function disablePastDates(id) {
     .split("T")[0];
 }
 
-let priority = "Medium";
-
 /**
  * Sets the task priority and updates the UI representation.
  * @param {string} prio - The priority level ("Urgent", "Medium", "Low")
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function setPriority(prio, id) {
   priority = prio;
@@ -200,6 +195,7 @@ function setPriority(prio, id) {
 /**
  * Updates the priority button and SVG colors to reflect the current priority.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function renderPriority(id) {
   stylePrioBtnsColor(id);
@@ -209,12 +205,12 @@ function renderPriority(id) {
 /**
  * Applies active styling to the current priority button and removes it from the others.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function stylePrioBtnsColor(id) {
   let activeBtn = document.getElementById(
     priority.toLowerCase() + "-prio-btn" + id,
   );
-
   document.querySelectorAll(".prio-btn").forEach((btn) => {
     if (btn !== activeBtn) {
       btn.classList.remove("urgent-active", "medium-active", "low-active");
@@ -226,12 +222,12 @@ function stylePrioBtnsColor(id) {
 /**
  * Applies active styling to the current priority SVG and removes it from the others.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function stylePrioSvgColors(id) {
   let activeSvg = document.getElementById(
     priority.toLowerCase() + "-prio-svg" + id,
   );
-
   document.querySelectorAll(".prio-svg").forEach((svg) => {
     if (svg !== activeSvg) {
       svg.querySelectorAll("path").forEach((path) => {
@@ -239,25 +235,20 @@ function stylePrioSvgColors(id) {
       });
     }
   });
-
   activeSvg.querySelectorAll("path").forEach((path) => {
     path.classList.add("active-svg");
   });
 }
 
-let categoriesArr = [];
-let selectedCategory = "Select task category";
-
 /**
  * Fetches all task categories from Firebase.
  * @async
+ * @returns {Promise<void>} Resolves when categories are loaded.
  */
 async function getCategories() {
   categoriesArr = [];
-
   let response = await fetch(BASE_URL + "categories" + ".json");
   let categoriesObj = await response.json();
-
   if (categoriesObj) {
     fillCategoriesArray(categoriesObj);
   }
@@ -266,18 +257,16 @@ async function getCategories() {
 /**
  * Populates the categoriesArr with category data from Firebase response.
  * @param {Object} categoriesObj - The categories object from Firebase
+ * @returns {void}
  */
 function fillCategoriesArray(categoriesObj) {
   let keysArr = Object.keys(categoriesObj);
-
   for (let i = 0; i < keysArr.length; i++) {
     let id = keysArr[i];
-
     let categoryData = {
       id: id,
       title: categoriesObj[id].title,
     };
-
     categoriesArr.push(categoryData);
   }
 }
@@ -285,14 +274,13 @@ function fillCategoriesArray(categoriesObj) {
 /**
  * Renders all available categories in the category dropdown.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function renderCategories(id) {
   const CATEGORIES_DIV = document.getElementById(
     "select-options--category" + id,
   );
-
   CATEGORIES_DIV.innerHTML = "";
-
   for (let index = 0; index < categoriesArr.length; index++) {
     CATEGORIES_DIV.innerHTML += categoryOptionTemplate(index, id);
   }
@@ -300,7 +288,6 @@ function renderCategories(id) {
 
 /**
  * Updates the selected category and re-renders the selection UI.
- *
  * @param {string} category - The category title to select.
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {void}
@@ -313,7 +300,6 @@ function selectCategory(category, id) {
 
 /**
  * Updates the displayed selected category and closes the dropdown when a valid choice is made.
- *
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {void}
  */
@@ -323,14 +309,16 @@ function renderSelectedCategory(id) {
   const CATEGORIES_DROPDOWN = document.getElementById(
     "categories-dropdown" + id,
   );
-  const TRIGGER = document.getElementById(
-    "custom-select-trigger-category" + id,
-  );
   let focused = CATEGORIES_DROPDOWN.querySelector(":focus");
-
   closeCategoriesDropdown(id, focused);
 }
 
+/**
+ * Closes the category dropdown list and removes focus from the element if a category is selected.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @param {HTMLElement|null} focused - The currently focused element within the dropdown context.
+ * @returns {void}
+ */
 function closeCategoriesDropdown(id, focused) {
   if (selectedCategory !== "Select task category") {
     closeCustomSelectDropdown("category", id);
