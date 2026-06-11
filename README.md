@@ -81,7 +81,59 @@ It allows users to create tasks, manage contacts, assign responsibilities, and t
 
 ---
 
-## 🚀 Installation & Setup
+## 📁 Project Structure
+
+```text
+join/
+├── assets/
+│   ├── fonts/
+│   ├── icons/
+│   └── imgs/
+├── html/
+│   ├── add-task.html
+│   ├── board.html
+│   ├── contacts.html
+│   ├── help.html
+│   ├── legal-notice.html
+│   ├── legal-notice-external.html
+│   ├── privacy-policy.html
+│   ├── privacy-policy-external.html
+│   ├── signup.html
+│   ├── summary.html
+│   └── templates.html
+├── scripts/
+│   ├── add-task/
+│   ├── board/
+│   ├── contacts/
+│   ├── header.js
+│   ├── signup.js
+│   └── summary.js
+├── styles/
+│   ├── add-task/
+│   ├── board/
+│   ├── contacts/
+│   ├── assets.css
+│   ├── buttons.css
+│   ├── fonts.css
+│   ├── help.css
+│   ├── index.css
+│   ├── index-responsive.css
+│   ├── legal-notice.css
+│   ├── privacy-policy.css
+│   ├── standard.css
+│   ├── summary.css
+│   ├── summary-responsive.css
+│   ├── templates.css
+│   └── templates-responsive.css
+├── index.html
+├── script.js
+├── robots.txt
+└── README.md
+```
+
+---
+
+## �🚀 Installation & Setup
 
 ### 1. Clone the repository
 
