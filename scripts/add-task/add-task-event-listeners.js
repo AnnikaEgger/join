@@ -199,14 +199,60 @@ function handleKeyDownElement(el) {
  */
 function taskFormSubmitFunction(event, id) {
   const taskForm = event.target;
+
+  if (id === "--add-task" || id === "--add-task-dialog") {
+    taskFormSubmitFunctionAddTask(taskForm, id);
+  } else if (id === "--edit-task") {
+    taskFormSubmitFunctionEditTask(taskForm, id);
+  }
+}
+
+/**
+ * Validates the add-task form submission and marks the form as successfully submitted when valid.
+ *
+ * @param {HTMLFormElement} taskForm - The task form element to validate.
+ * @param {string} id - The current form identifier suffix.
+ * @returns {void}
+ */
+function taskFormSubmitFunctionAddTask(taskForm, id) {
   const formIsValid = taskForm.checkValidity();
   const categoryIsValid = selectedCategory !== "Select task category";
+
   if (!formIsValid || !categoryIsValid) {
-    handleInvalidSubmit(event, formIsValid, taskForm, id, categoryIsValid);
+    handleInvalidSubmit(
+      event,
+      formIsValid,
+      taskForm,
+      id,
+      categoryIsValid,
+      undefined,
+    );
   } else if (formIsValid && categoryIsValid) {
     successfullSubmit = true;
   }
 }
+
+/**
+ * Validates the edit-task form submission and checks the due date before allowing the update flow.
+ *
+ * @param {HTMLFormElement} taskForm - The edit task form element.
+ * @param {string} id - The current form identifier suffix.
+ * @returns {void}
+ */
+function taskFormSubmitFunctionEditTask(taskForm, id) {
+  const DATE_INPUT = document.getElementById("task-due-date--edit-task");
+  DATE_INPUT.disabled = true;
+  const formIsValid = taskForm.checkValidity();
+  DATE_INPUT.disabled = false;
+  const validDate = DATE_INPUT.value !== "";
+
+  if (!formIsValid || !validDate) {
+    handleInvalidSubmit(event, formIsValid, taskForm, id, undefined, validDate);
+  } else if (formIsValid && validDate) {
+    successfullSubmit = true;
+  }
+}
+//
 
 /**
  * Handles an invalid task submission by preventing the default submit action,
@@ -224,11 +270,12 @@ function handleInvalidSubmit(
   taskForm,
   id,
   categoryIsValid,
+  validDate,
 ) {
   event.preventDefault();
   successfullSubmit = false;
-  if (!formIsValid) {
-    addInvalidClasses(taskForm, id);
+  if (!formIsValid || validDate === false) {
+    addInvalidClasses(taskForm, id, validDate);
   }
   if (id === "--edit-task") return;
   handleInvalidCategory(formIsValid, categoryIsValid, id, taskForm);
@@ -260,17 +307,36 @@ function handleInvalidCategory(formIsValid, categoryIsValid, id, taskForm) {
  * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {void}
  */
-function addInvalidClasses(taskForm, id) {
+function addInvalidClasses(taskForm, id, validDate) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
+  addClassesToEachelement(invalidElements, id, validDate);
+
+  if (validDate === false) {
+    const DATE_INPUT = document.getElementById("task-due-date--edit-task");
+    DATE_INPUT.closest(".required").classList.add("after", "invalid");
+  }
+  focusInvalidElement(invalidElements[0], taskForm);
+}
+
+/**
+ * Applies invalid-field styling to each invalid form element and marks the due date field when needed.
+ *
+ * @param {NodeListOf<HTMLElement>} invalidElements - The invalid form elements returned by the browser.
+ * @param {string} id - The current form identifier suffix.
+ * @param {boolean} validDate - Indicates whether the date input is valid.
+ * @returns {void}
+ */
+function addClassesToEachelement(invalidElements, id, validDate) {
   invalidElements.forEach((element) => {
     if (element.id !== "task-due-date" + id) {
       element.classList.add("invalid");
       element.closest(".required").classList.add("after");
     } else {
-      element.closest(".required").classList.add("after", "invalid");
+      if (validDate !== false) {
+        element.closest(".required").classList.add("after", "invalid");
+      }
     }
   });
-  focusInvalidElement(invalidElements[0], taskForm);
 }
 
 /**

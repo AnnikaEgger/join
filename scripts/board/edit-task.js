@@ -186,10 +186,29 @@ async function submitEditedTask(
   taskId,
   templateId,
 ) {
-  const TASK_FORM = document.getElementById("task-form--edit-task");
   event.preventDefault();
+  await handleEditSubmission(column, defaultTask, taskId, templateId);
+}
 
-  if (TASK_FORM.checkValidity) {
+/**
+ * Validates the edited task form and submits the update when all fields are valid.
+ *
+ * @param {string} column - The board column that contains the task.
+ * @param {boolean} defaultTask - Indicates whether the task is a default task.
+ * @param {string} taskId - The task identifier used for the update request.
+ * @param {string} templateId - The template identifier associated with the task.
+ * @returns {Promise<void>}
+ */
+async function handleEditSubmission(column, defaultTask, taskId, templateId) {
+  const TASK_FORM = document.getElementById("task-form--edit-task");
+  const DATE_INPUT = document.getElementById("task-due-date--edit-task");
+
+  DATE_INPUT.disabled = true;
+  const validForm = TASK_FORM.checkValidity();
+  DATE_INPUT.disabled = false;
+  const validDate = DATE_INPUT.value !== "";
+
+  if (validForm && validDate) {
     disableButtonWhileLoading("task-edit-ok-btn");
     await putEditedTaskToFirebase(column, defaultTask, taskId, templateId);
     await loadTasks();

@@ -206,10 +206,6 @@ input {
   cursor: pointer;
 }
 
-.task-date-input:focus-within {
-  border: 1px solid var(--light-blue);
-}
-
 .calendar-svg-btn {
   display: flex;
   align-items: center;
