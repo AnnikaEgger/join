@@ -3,10 +3,10 @@
  * @param {string} inputId - 'name', 'email', or 'phone'
  */
 function checkContactInputValidityOnInput(inputId) {
-    const input = document.getElementById(`contact-${inputId}--validator`);
-    if (input && input.checkValidity()) {
-        removeInvalidStyle(input);
-    }
+  const input = document.getElementById(`contact-${inputId}--validator`);
+  if (input && input.checkValidity()) {
+    removeInvalidStyle(input);
+  }
 }
 
 /**
@@ -14,10 +14,10 @@ function checkContactInputValidityOnInput(inputId) {
  * @param {string} inputId - 'name', 'email', or 'phone'
  */
 function checkContactInputValidityOnBlur(inputId) {
-    const input = document.getElementById(`contact-${inputId}--validator`);
-    if (input && !input.checkValidity()) {
-        addInvalidStyle(input);
-    }
+  const input = document.getElementById(`contact-${inputId}--validator`);
+  if (input && !input.checkValidity()) {
+    addInvalidStyle(input);
+  }
 }
 
 /**
@@ -25,8 +25,8 @@ function checkContactInputValidityOnBlur(inputId) {
  * @param {HTMLInputElement} element - The input element to clear errors from.
  */
 function removeInvalidStyle(element) {
-    element.classList.remove("invalid");
-    element.closest(".required").classList.remove("signup-after");
+  element.classList.remove("invalid");
+  element.closest(".required").classList.remove("signup-after");
 }
 
 /**
@@ -34,8 +34,8 @@ function removeInvalidStyle(element) {
  * @param {HTMLInputElement} element - The input element to mark as invalid.
  */
 function addInvalidStyle(element) {
-    element.classList.add("invalid");
-    element.closest(".required").classList.add("signup-after");
+  element.classList.add("invalid");
+  element.closest(".required").classList.add("signup-after");
 }
 
 /**
@@ -43,13 +43,13 @@ function addInvalidStyle(element) {
  * @returns {boolean} - True if the entire form is valid.
  */
 function isContactFormValid() {
-    const fields = ['name', 'email', 'phone'];
-    for (let i = 0; i < fields.length; i++) {
-        const input = document.getElementById(`contact-${fields[i]}--validator`);
-        if (input && !input.checkValidity()) {
-            addInvalidStyle(input);
-        }
+  const fields = ['name', 'email', 'phone'];
+  for (let i = 0; i < fields.length; i++) {
+    const input = document.getElementById(`contact-${fields[i]}--validator`);
+    if (input && !input.checkValidity()) {
+      addInvalidStyle(input);
     }
-    const errors = document.querySelectorAll('.add-contact-dialog .signup-after');
-    return errors.length === 0;
+  }
+  const errors = document.querySelectorAll('.add-contact-dialog .signup-after');
+  return errors.length === 0;
 }

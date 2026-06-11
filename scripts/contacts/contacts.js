@@ -8,11 +8,9 @@ let currentEditingId = null;
  */
 async function init() {
   guardPage();
-
   await loadContacts();
   await loadAllUsers();
   renderContactList();
-
   enableAllPointerEvents("--contacts");
 }
 
@@ -39,14 +37,10 @@ function fillContactsArray(contactsObj) {
   let keys = Object.keys(contactsObj);
   for (let i = 0; i < keys.length; i++) {
     let id = keys[i];
-
     if (id === "dummy_placeholder") continue;
-
     let contactData = contactsObj[id];
     contactData.id = id;
-    if (!contactData.phone) {
-      contactData.phone = "-";
-    }
+    if (!contactData.phone) contactData.phone = "-";
     contacts.push(contactData);
   }
 }
@@ -79,7 +73,6 @@ function renderContactList() {
       currentLetter = firstLetter;
       content.innerHTML += renderLetterHeader(currentLetter);
     }
-
     let initials = getInitials(contact.name);
     content.innerHTML += generateContactHTML(contact, initials);
   }
@@ -237,12 +230,9 @@ function openEditContact(id) {
 }
 
 /**
- * Prepares and opens the dialog for creating a new contact.
+ * Sets up the text elements and submit handler for the add contact view.
  */
-function prepareAddContactDialog() {
-  currentEditingId = null;
-  resetForm();
-  resetDialogAvatar();
+function setupAddContactUI() {
   const subtitle = document.getElementById("dialog-subtitle");
   if (subtitle) subtitle.classList.remove("d-none");
   document.querySelector(".dialog-left h2").innerHTML = "Add contact";
@@ -252,6 +242,16 @@ function prepareAddContactDialog() {
     createNewContact();
     return false;
   };
+}
+
+/**
+ * Prepares and opens the dialog for creating a new contact.
+ */
+function prepareAddContactDialog() {
+  currentEditingId = null;
+  resetForm();
+  resetDialogAvatar();
+  setupAddContactUI();
   resetCancelButton();
   openContactDialog();
 }
@@ -296,9 +296,7 @@ async function executeContactUpdate(email) {
  */
 async function putContact(contact) {
   let isUser = await checkIfIdIsUser(currentEditingId);
-  let path = isUser
-    ? `users/${currentEditingId}`
-    : `contacts/${currentEditingId}`;
+  let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
   let url = BASE_URL + `${path}.json`;
   if (isUser) {
     let response = await fetch(url);
@@ -308,6 +306,7 @@ async function putContact(contact) {
   }
   await fetch(url, { method: "PUT", body: JSON.stringify(contact) });
 }
+
 /**
  * Deletes a contact or user from the database depending on its origin.
  * @async
@@ -317,7 +316,6 @@ async function deleteContact(id, event) {
   if (event) event.currentTarget.disabled = true;
   disableButtonWhileLoading("btn-submit-contact");
   disableButtonWhileLoading("btn-cancel");
-
   let isUser = await checkIfIdIsUser(id);
   let path = isUser ? `users/${id}` : `contacts/${id}`;
   let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
@@ -325,7 +323,6 @@ async function deleteContact(id, event) {
   closeContactDetails();
   document.getElementById("contact-detail-content").innerHTML = "";
   await init();
-
   enableButton("btn-submit-contact");
   enableButton("btn-cancel");
 }

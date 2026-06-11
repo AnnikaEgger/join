@@ -143,7 +143,6 @@ function closeContactDialog() {
   const dialog = document.getElementById("add-contact-dialog");
   if (dialog) {
     dialog.classList.add("hide-dialog");
-
     setTimeout(() => {
       dialog.close();
       dialog.classList.remove("hide-dialog");
