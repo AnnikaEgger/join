@@ -13,8 +13,6 @@
   --sidebar-width: 232px;
   --header-height: 100px;
   --transition-default: all 100ms ease-in-out;
-
-  --padding-lr-main: 80px;
 }
 
 * {
@@ -81,9 +79,11 @@ a {
   cursor: pointer;
   transition: var(--transition-default);
 }
+
 .nav-bottom-start {
   margin-top: auto;
 }
+
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--color-white);
@@ -97,6 +97,7 @@ a {
 .nav-link.active svg path {
   fill: var(--color-white);
 }
+
 .nav-link span {
   white-space: nowrap;
 }
@@ -147,8 +148,8 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  padding-left: 120px;
-  padding-right: 40px;
+  padding-left: max(var(--content-limitation), 120px);
+  padding-right: max(var(--content-limitation), 40px);
   z-index: 1000;
 }
 
@@ -173,9 +174,11 @@ a {
 .header-help:hover {
   color: var(--color-accent);
 }
+
 .header-help-link:hover .nav-icon {
   transform: scale(1.15);
 }
+
 .header-help-link .nav-icon {
   transition: transform 0.1s ease-in-out;
 }
@@ -198,7 +201,6 @@ a {
 
 .header-avatar:hover {
   background-color: var(--dark-blue) !important;
-  border-color: white !important;
 }
 
 .header-logo-mobile {
@@ -208,9 +210,10 @@ a {
 /*  MAIN CONTENT */
 .main-content {
   margin-top: var(--header-height);
-  margin-left: var(--sidebar-width);
-  max-width: 1920px;
-  padding: 48px var(--padding-lr-main);
+  margin-left: max(var(--content-limitation) + var(--sidebar-width),
+      var(--sidebar-width));
+  margin-right: max(var(--content-limitation), 0px);
+  padding: 48px 80px;
   min-height: calc(100dvh - var(--header-height));
 }
 
@@ -218,6 +221,9 @@ a {
   position: relative;
 }
 
+.dropdown-content .dropdown-help-link {
+  display: none;
+}
 .dropdown-content {
   position: absolute;
   right: 0;
@@ -231,7 +237,7 @@ a {
 }
 
 .dropdown-content a {
-  color: var(--light-gray2);
+  color: white;
   padding: 12px 16px;
   display: block;
   cursor: pointer;
@@ -263,10 +269,11 @@ a {
   padding: 24px;
   box-sizing: border-box;
 }
+
 .dropdown-content .dropdown-item {
   width: 100%;
   text-align: left;
-  color: var(--light-gray2);
+  color: white;
   padding: 12px 16px;
   background: none;
   border: none;
@@ -277,4 +284,141 @@ a {
 
 .dropdown-content .dropdown-item:hover {
   background-color: var(--color-active-bg);
+}
+
+@media screen and (max-width: 950px) and (orientation: landscape) {
+  #landscape-warning {
+    display: flex !important;
+  }
+
+  body {
+    overflow: hidden !important;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .sidebar-logo img {
+    width: 75px;
+  }
+
+  :root {
+    --sidebar-width: 175px;
+    --header-height: 75px;
+  }
+
+  .nav-link {
+    padding: 12px 24px;
+  }
+
+  .sidebar-footer {
+    text-align: center;
+  }
+
+  .footer-link {
+    padding: 12px 36px;
+  }
+}
+
+:root {
+  --resp-navbar-height: 80px;
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--resp-navbar-height);
+    padding: 0;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 1000;
+  }
+  .dropdown-content .dropdown-help-link {
+  display: block;
+}
+
+  .nav-login-item {
+    margin-bottom: 0;
+    margin-right: auto;
+    padding-left: 20px;
+  }
+
+  .sidebar-logo,
+  .sidebar-footer {
+    display: none;
+  }
+
+  .sidebar-nav {
+    width: 100%;
+    flex-grow: 0;
+    z-index: 999 !important;
+  }
+
+  .nav-bottom-start {
+    margin-top: 0;
+  }
+
+  .nav-list {
+    height: var(--resp-navbar-height);
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-link {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header-logo-mobile {
+    display: none;
+  }
+
+  .header-logo-mobile {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-logo-mobile img {
+    height: 50px;
+    width: auto;
+    padding-left: 20px;
+  }
+
+  .header {
+    left: 0;
+    width: 100dvw;
+    padding-left: max(var(--content-limitation), 0px);
+  }
+
+  .main-content {
+    margin-left: max(var(--content-limitation), 0px);
+    margin-bottom: var(--resp-navbar-height);
+    padding-bottom: 40px;
+
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .header-title {
+    display: none;
+  }
+
+  .header-help-link {
+    display: none;
+  }
 }

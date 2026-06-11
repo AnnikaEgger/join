@@ -64,54 +64,54 @@ async function loadSummaryData() {
  * @param {Object} tasks - Tasks object from Firebase
  */
 function renderMetrics(tasks) {
-  const arr = Object.values(tasks);
-  renderStatusCounts(arr);
-  renderUrgentSection(arr);
+  const taskList = Object.values(tasks);
+  renderStatusCounts(taskList);
+  renderUrgentSection(taskList);
 }
 
 /**
  * Sets status counters and total.
- * @param {Array} arr - All tasks
+ * @param {Array} taskList - All tasks
  */
-function renderStatusCounts(arr) {
-  document.getElementById("count-board").textContent = arr.length;
+function renderStatusCounts(taskList) {
+  document.getElementById("count-board").textContent = taskList.length;
   document.getElementById("count-todo").textContent = countByStatus(
-    arr,
+    taskList,
     "to do",
   );
   document.getElementById("count-progress").textContent = countByStatus(
-    arr,
+    taskList,
     "in progress",
   );
   document.getElementById("count-feedback").textContent = countByStatus(
-    arr,
+    taskList,
     "await feedback",
   );
   document.getElementById("count-done").textContent = countByStatus(
-    arr,
+    taskList,
     "done",
   );
 }
 
 /**
  * Counts tasks by column value.
- * @param {Array} arr - All tasks
+ * @param {Array} taskList - All tasks
  * @param {string} column - Column value to match
  * @returns {number} Count
  */
-function countByStatus(arr, column) {
-  return arr.filter((t) => t.column === column).length;
+function countByStatus(taskList, column) {
+  return taskList.filter((task) => task.column === column).length;
 }
 
 /**
  * Renders urgent count and earliest deadline.
- * @param {Array} arr - All tasks
+ * @param {Array} taskList - All tasks
  */
-function renderUrgentSection(arr) {
-  const urgent = arr.filter((t) => t.priority === "Urgent");
+function renderUrgentSection(taskList) {
+  const urgent = taskList.filter((task) => task.priority === "Urgent");
   document.getElementById("count-urgent").textContent = urgent.length;
   if (urgent.length > 0) {
-    const date = urgent.map((t) => t.due_date).sort()[0];
+    const date = urgent.map((task) => task.due_date).sort()[0];
     document.getElementById("deadline-date").textContent = formatDeadline(date);
   }
 }
