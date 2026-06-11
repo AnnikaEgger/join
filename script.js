@@ -39,7 +39,9 @@ const ERROR_TO_INPUT = {
 };
 
 /**
- * Logs in as guest and redirects to the summary page.
+ * Logs in as a guest user and redirects to the summary page.
+ *
+ * @returns {void}
  */
 function guestLogin() {
   const guestUser = { isGuest: true, name: "Guest" };
@@ -48,7 +50,9 @@ function guestLogin() {
 }
 
 /**
- * Initializes login page handlers and UI state.
+ * Initializes the login page handlers and UI state.
+ *
+ * @returns {void}
  */
 function initLogin() {
   initSplash();
@@ -60,7 +64,9 @@ function initLogin() {
 
 /**
  * Revalidates a login field and refreshes the password toggle state.
+ *
  * @param {string} inputId - The login input name suffix to validate.
+ * @returns {void}
  */
 function checkInputValidityOnInputLogin(inputId) {
   initPasswordToggle();
@@ -74,7 +80,9 @@ function checkInputValidityOnInputLogin(inputId) {
 
 /**
  * Marks an invalid login field when the user leaves it.
+ *
  * @param {string} inputId - The login input name suffix to validate.
+ * @returns {void}
  */
 function checkInputValidityOnBlurLogin(inputId) {
   const input = document.getElementById("login" + "-" + inputId);
@@ -87,7 +95,9 @@ function checkInputValidityOnBlurLogin(inputId) {
 
 /**
  * Removes the invalid styling from a form field.
+ *
  * @param {HTMLElement} element - The input element to reset.
+ * @returns {void}
  */
 function removeInvalidStyle(element) {
   element.classList.remove("invalid");
@@ -96,7 +106,9 @@ function removeInvalidStyle(element) {
 
 /**
  * Adds invalid styling to a form field and its wrapper.
+ *
  * @param {HTMLElement} element - The invalid input element.
+ * @returns {void}
  */
 function addInvalidStyle(element) {
   element.classList.add("invalid");
@@ -105,6 +117,8 @@ function addInvalidStyle(element) {
 
 /**
  * Displays the global login error banner for invalid credentials.
+ *
+ * @returns {void}
  */
 function showGeneralError() {
   document
@@ -114,6 +128,8 @@ function showGeneralError() {
 
 /**
  * Hides the global login error banner.
+ *
+ * @returns {void}
  */
 function removeGeneralError() {
   document
@@ -135,11 +151,7 @@ async function handleLogin(event) {
     return;
   }
 
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  const users = await loadAllUsers();
-  const matchedUser = findMatchingUser(email, password, users);
+  const matchedUser = await getMatchedUser();
 
   if (matchedUser) {
     saveCurrentUser(matchedUser);
@@ -150,8 +162,23 @@ async function handleLogin(event) {
 }
 
 /**
+ * Loads the current user from Firebase by matching the submitted email and password.
+ *
+ * @returns {Promise<Object|undefined>} The matching user object or undefined when no match exists.
+ */
+async function getMatchedUser() {
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value;
+  const users = await loadAllUsers();
+
+  return findMatchingUser(email, password, users);
+}
+
+/**
  * Adds validation feedback to all invalid form fields.
+ *
  * @param {HTMLFormElement} taskForm - The form to validate.
+ * @returns {void}
  */
 function handleInvalidTaskform(taskForm) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
@@ -168,7 +195,9 @@ function handleInvalidTaskform(taskForm) {
 
 /**
  * Focuses the first invalid field and scrolls it into view.
+ *
  * @param {HTMLElement} element - The invalid form element to focus.
+ * @returns {void}
  */
 function focusInvalidElement(element) {
   element.focus();
@@ -180,7 +209,8 @@ function focusInvalidElement(element) {
 }
 /**
  * Loads all users from Firebase.
- * @returns {Promise<Array<Object>>}
+ *
+ * @returns {Promise<Array<Object>>} A promise resolving to the user list.
  */
 async function loadAllUsers() {
   const response = await fetch(BASE_URL + "users.json");
@@ -191,10 +221,11 @@ async function loadAllUsers() {
 
 /**
  * Finds a user matching the given email and password.
- * @param {string} email
- * @param {string} password
- * @param {Array<Object>} users
- * @returns {Object|undefined}
+ *
+ * @param {string} email - The submitted email address.
+ * @param {string} password - The submitted password.
+ * @param {Array<Object>} users - The available user records.
+ * @returns {Object|undefined} The matching user object, or undefined when no match exists.
  */
 function findMatchingUser(email, password, users) {
   return users.find(
@@ -204,7 +235,9 @@ function findMatchingUser(email, password, users) {
 
 /**
  * Saves the authenticated user profile to localStorage.
- * @param {Object} user
+ *
+ * @param {Object} user - The authenticated user object.
+ * @returns {void}
  */
 function saveCurrentUser(user) {
   const userData = {
@@ -219,8 +252,10 @@ function saveCurrentUser(user) {
 
 /**
  * Updates the password toggle icon according to input state.
- * @param {string} inputId
- * @param {string} toggleId
+ *
+ * @param {string} inputId - The password input element ID.
+ * @param {string} toggleId - The toggle button element ID.
+ * @returns {void}
  */
 function updatePasswordIcon(inputId, toggleId) {
   const input = document.getElementById(inputId);
@@ -236,8 +271,10 @@ function updatePasswordIcon(inputId, toggleId) {
 
 /**
  * Toggles password visibility for the specified input.
- * @param {string} inputId
- * @param {string} toggleId
+ *
+ * @param {string} inputId - The password input element ID.
+ * @param {string} toggleId - The toggle button element ID.
+ * @returns {void}
  */
 function togglePassword(inputId, toggleId) {
   const input = document.getElementById(inputId);
@@ -248,12 +285,16 @@ function togglePassword(inputId, toggleId) {
 
 /**
  * Initializes the login password toggle icon.
+ *
+ * @returns {void}
  */
 function initPasswordToggle() {
   updatePasswordIcon("login-password", "toggle-login-password");
 }
 /**
  * Runs the splash animation once per session.
+ *
+ * @returns {void}
  */
 function initSplash() {
   const overlay = document.getElementById("splash-overlay");
@@ -272,7 +313,9 @@ document.addEventListener("DOMContentLoaded", initLogin);
 
 /**
  * Enables pointer interaction for a named UI panel.
- * @param {string} id
+ *
+ * @param {string} id - The panel identifier to enable.
+ * @returns {void}
  */
 function enableAllPointerEvents(id) {
   let elementId;
@@ -295,7 +338,9 @@ function enableAllPointerEvents(id) {
 
 /**
  * Disables a button while a loading action is in progress.
- * @param {string} buttonId
+ *
+ * @param {string} buttonId - The button element ID to disable.
+ * @returns {void}
  */
 function disableButtonWhileLoading(buttonId) {
   let button = document.getElementById(buttonId);
@@ -304,7 +349,9 @@ function disableButtonWhileLoading(buttonId) {
 
 /**
  * Enables a button that was previously disabled.
- * @param {string} buttonId
+ *
+ * @param {string} buttonId - The button element ID to enable.
+ * @returns {void}
  */
 function enableButton(buttonId) {
   let button = document.getElementById(buttonId);
@@ -313,6 +360,8 @@ function enableButton(buttonId) {
 
 /**
  * Tries to lock the screen orientation to portrait mode on mobile devices.
+ *
+ * @returns {void}
  */
 function lockScreenOrientation() {
   if (screen.orientation && screen.orientation.lock) {
@@ -321,9 +370,10 @@ function lockScreenOrientation() {
 }
 
 /**
- * Page Protection: Checks upon page load whether a user exists
- * in localStorage. If not, redirects to the login page.
- * Executed automatically as an IIFE during script load.
+ * Protects protected pages by verifying that a logged-in user exists in local storage.
+ * If the session is missing or invalid, the user is redirected to the login page.
+ *
+ * @returns {void}
  */
 function guardPage() {
   const stored = localStorage.getItem("currentUser");
@@ -343,6 +393,8 @@ function guardPage() {
 
 /**
  * Initializes page protection for help, privacy policy, and legal notice pages.
+ *
+ * @returns {void}
  */
 function initHelpPrivacyPolicyLegalNotice() {
   guardPage();

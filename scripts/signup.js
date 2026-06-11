@@ -24,14 +24,17 @@ const ICON_EYE_ON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8
 
 /**
  * Initializes the sign-up page.
+ *
+ * @returns {void}
  */
 function initSignup() {
   initPasswordToggles();
 }
 
 /**
- * Collects all form data into a user object.
- * @returns {Object}
+ * Collects all sign-up form data into a user object.
+ *
+ * @returns {Object} The user payload to save to Firebase.
  */
 function collectFormData() {
   return {
@@ -45,7 +48,8 @@ function collectFormData() {
 
 /**
  * Returns a random avatar color from the pool.
- * @returns {string}
+ *
+ * @returns {string} A randomly selected avatar color.
  */
 function getRandomColor() {
   const index = Math.floor(Math.random() * AVATAR_COLORS.length);
@@ -53,9 +57,10 @@ function getRandomColor() {
 }
 
 /**
- * Checks if an email already exists in Firebase.
- * @param {string} email
- * @returns {Promise<boolean>}
+ * Checks whether an email address already exists in Firebase.
+ *
+ * @param {string} email - The email to validate.
+ * @returns {Promise<boolean>} True when the email is already registered.
  */
 async function checkEmailExists(email) {
   const response = await fetch(BASE_URL + "/users.json");
@@ -67,7 +72,9 @@ async function checkEmailExists(email) {
 
 /**
  * Saves a new user to Firebase.
- * @param {Object} user
+ *
+ * @param {Object} user - The user payload to store.
+ * @returns {Promise<void>} Resolves when the save request finishes.
  */
 async function saveUser(user) {
   await fetch(BASE_URL + "/users.json", {
@@ -77,7 +84,9 @@ async function saveUser(user) {
 }
 
 /**
- * Shows the success toast.
+ * Shows the success toast after a successful sign-up.
+ *
+ * @returns {void}
  */
 function showSuccessToast() {
   document.getElementById("success-toast").classList.add("show");
@@ -85,8 +94,10 @@ function showSuccessToast() {
 
 /**
  * Updates the password toggle icon based on input state.
- * @param {string} inputId
- * @param {string} toggleId
+ *
+ * @param {string} inputId - The password input element ID.
+ * @param {string} toggleId - The toggle button element ID.
+ * @returns {void}
  */
 function updatePasswordIcon(inputId, toggleId) {
   const input = document.getElementById(inputId);
@@ -102,8 +113,10 @@ function updatePasswordIcon(inputId, toggleId) {
 
 /**
  * Toggles password visibility.
- * @param {string} inputId
- * @param {string} toggleId
+ *
+ * @param {string} inputId - The password input element ID.
+ * @param {string} toggleId - The toggle button element ID.
+ * @returns {void}
  */
 function togglePassword(inputId, toggleId) {
   const input = document.getElementById(inputId);
@@ -114,6 +127,8 @@ function togglePassword(inputId, toggleId) {
 
 /**
  * Initializes both password toggles with the lock icon.
+ *
+ * @returns {void}
  */
 function initPasswordToggles() {
   updatePasswordIcon("signup-password", "toggle-password");
@@ -122,6 +137,7 @@ function initPasswordToggles() {
 
 /**
  * Revalidates a sign-up field and updates UI feedback while typing.
+ *
  * @param {string} inputId - The input name suffix to validate.
  * @returns {Promise<void>} Resolves after validation and UI updates are handled.
  */
@@ -134,6 +150,17 @@ async function checkInputValidityOnInput(inputId) {
     await validateSignupEmail();
   }
 
+  await handleValidOrInvalidStyles(input, inputId);
+}
+
+/**
+ * Applies visual validation styling to the active sign-up field.
+ *
+ * @param {HTMLInputElement|HTMLTextAreaElement} input - The input element to style.
+ * @param {string} inputId - The input identifier suffix.
+ * @returns {Promise<void>} Resolves after the validation state is updated.
+ */
+async function handleValidOrInvalidStyles(input, inputId) {
   if (input.type !== "checkbox" && input.checkValidity()) {
     if (inputId === "email") {
       if (await validateSignupEmail()) {
@@ -157,6 +184,7 @@ async function checkInputValidityOnInput(inputId) {
 
 /**
  * Validates a sign-up field when the input loses focus.
+ *
  * @param {string} inputId - The input name suffix to validate.
  * @returns {Promise<void>} Resolves after blur-time validation is complete.
  */
@@ -187,7 +215,9 @@ async function checkInputValidityOnBlur(inputId) {
 
 /**
  * Removes the invalid state from a sign-up input.
+ *
  * @param {HTMLElement} element - The input element to reset.
+ * @returns {void}
  */
 function removeInvalidStyle(element) {
   element.classList.remove("invalid");
@@ -196,7 +226,9 @@ function removeInvalidStyle(element) {
 
 /**
  * Adds the invalid state to a sign-up input and its wrapper.
+ *
  * @param {HTMLElement} element - The input element to mark invalid.
+ * @returns {void}
  */
 function addInvalidStyle(element) {
   element.classList.add("invalid");
@@ -206,7 +238,9 @@ function addInvalidStyle(element) {
 /**
  * Handles the sign-up form submission flow.
  * Validates the form, checks for duplicate email, and saves the new user.
- * @param {Event} event - The submit event from the sign-up form
+ *
+ * @param {Event} event - The submit event from the sign-up form.
+ * @returns {Promise<void>} Resolves after the sign-up flow is handled.
  */
 async function submitSignupForm(event) {
   event.preventDefault();
@@ -226,13 +260,14 @@ async function submitSignupForm(event) {
   document.getElementById("signup-btn").disabled = true;
   document.activeElement.blur();
 
-  finishSignup();
+  await finishSignup();
 }
 
 /**
- * Checks if the entered email address already exists in Firebase.
+ * Checks whether the entered email address already exists in Firebase.
  * Displays an error if the email is already in use.
- * @returns {Promise<boolean>} True if the email is valid and not already used
+ *
+ * @returns {Promise<boolean>} True if the email is valid and not already used.
  */
 async function validateSignupEmail() {
   const userData = collectFormData();
@@ -252,6 +287,8 @@ async function validateSignupEmail() {
 
 /**
  * Completes the sign-up process by saving the user and showing success feedback.
+ *
+ * @returns {Promise<void>} Resolves after the user is saved and the redirect is scheduled.
  */
 async function finishSignup() {
   const userData = collectFormData();
@@ -265,7 +302,8 @@ async function finishSignup() {
 
 /**
  * Validates that the password and confirm password fields match.
- * @returns {boolean} True if both passwords are identical
+ *
+ * @returns {boolean} True if both passwords are identical.
  */
 function checkConfirmPassword() {
   const password = document.getElementById("signup-password").value;
@@ -280,8 +318,10 @@ function checkConfirmPassword() {
 }
 
 /**
- * Marks the privacy checkbox as invalid and focuses it.
- * @param {HTMLInputElement} checkbox - The checkbox input element
+ * Marks the privacy checkbox as invalid.
+ *
+ * @param {HTMLInputElement} checkbox - The checkbox input element.
+ * @returns {void}
  */
 function handleInvalidCheckbox(checkbox) {
   document
@@ -291,7 +331,9 @@ function handleInvalidCheckbox(checkbox) {
 
 /**
  * Clears the invalid checkbox styling after the user makes a valid selection.
+ *
  * @param {HTMLInputElement} checkbox - The checkbox element to update.
+ * @returns {void}
  */
 function handleValidCheckbox(checkbox) {
   document
@@ -301,7 +343,9 @@ function handleValidCheckbox(checkbox) {
 
 /**
  * Marks invalid sign-up form elements and scrolls to the first invalid field.
- * @param {HTMLFormElement} taskForm - The sign-up form element
+ *
+ * @param {HTMLFormElement} taskForm - The sign-up form element.
+ * @returns {void}
  */
 function handleInvalidTaskform(taskForm) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
@@ -324,7 +368,9 @@ function handleInvalidTaskform(taskForm) {
 
 /**
  * Focuses an invalid element and scrolls it into view.
- * @param {HTMLElement} element - The element to focus and scroll to
+ *
+ * @param {HTMLElement} element - The element to focus and scroll to.
+ * @returns {void}
  */
 function focusInvalidElement(element) {
   element.focus();

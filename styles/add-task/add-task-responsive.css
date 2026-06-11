@@ -9,6 +9,10 @@
     --textarea-height: 100px;
     --input-width: 420px;
   }
+
+  .addtask-toast-msg {
+    left: 300px;
+  }
 }
 
 @media screen and (max-width: 1150px) {
@@ -119,6 +123,13 @@
 
   .subtask-list .normal-li .subtask-btns-container--ul {
     display: flex;
+  }
+
+  .addtask-toast-msg {
+    top: calc(50% - (74px / 2));
+    transform: translateX(0);
+    left: unset;
+    align-self: center;
   }
 }
 

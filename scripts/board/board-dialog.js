@@ -139,7 +139,7 @@ function subtasksToReturn(subtasksArray, id) {
  * @param {string} todoId - The ID of the parent task containing the subtask.
  * @param {number} subtaskIndex - The index of the subtask to toggle within the parent task's subtasks array.
  */
-function toggleSubtask(todoId, subtaskIndex) {
+async function toggleSubtask(todoId, subtaskIndex) {
   let todo = todos.find((t) => t.id === todoId);
   if (todo && todo.subtasks) {
     let subtasksArray = Array.isArray(todo.subtasks)
@@ -150,7 +150,7 @@ function toggleSubtask(todoId, subtaskIndex) {
       subtasksArray[subtaskIndex].done = !subtasksArray[subtaskIndex].done;
 
       let isDone = subtasksArray[subtaskIndex].done;
-      saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone);
+      await saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone);
 
       updateHTML();
     }

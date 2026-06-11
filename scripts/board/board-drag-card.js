@@ -200,12 +200,12 @@ function stopDragging(event) {
  *
  * @param {string} column - The target column.
  */
-function moveTo(column) {
+async function moveTo(column) {
   let task = todos.find((t) => t.id === currentDraggedElement);
   if (task) {
     task["column"] = column;
     updateHTML();
-    updateTaskInFirebase(task);
+    await updateTaskInFirebase(task);
   }
 }
 

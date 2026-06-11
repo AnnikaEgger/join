@@ -25,15 +25,15 @@ function registerEnterHandler(selector, handler) {
  * @param {string} id - The identifier suffix for the current form or dialog instance
  */
 function registerEnterHandlers(id) {
-  registerEnterHandler("#custom-select-trigger-contacts" + id, () => {
-    toggleCustomSelectDropdown("contacts", id);
+  registerEnterHandler("#custom-select-trigger-contacts" + id, async () => {
+    await toggleCustomSelectDropdown("contacts", id);
   });
 
   contactOptionsEnterHandlers(id);
   contactOptionsCheckboxesEnterHandlers(id);
 
-  registerEnterHandler("#custom-select-trigger-category" + id, () => {
-    toggleCustomSelectDropdown("category", id);
+  registerEnterHandler("#custom-select-trigger-category" + id, async () => {
+    await toggleCustomSelectDropdown("category", id);
   });
   categoryOptionsEnterHandlers(id);
 
@@ -114,11 +114,11 @@ function addEventListeners(id) {
 
   addTaskFormEventListeners(id);
 
-  contactsDropdown.addEventListener("focusout", () =>
+  contactsDropdown.addEventListener("focusout", (event) =>
     contactsDropdownFocusOutFunction(event, id),
   );
 
-  categoriesDropdown.addEventListener("focusout", () =>
+  categoriesDropdown.addEventListener("focusout", (event) =>
     categoriesDropdownFocusOutFunction(event, id),
   );
 }
@@ -131,7 +131,9 @@ function addTaskFormEventListeners(id) {
   const taskForm = document.getElementById("task-form" + id);
 
   taskForm.addEventListener("keydown", taskFormKeydownFunction);
-  taskForm.addEventListener("submit", () => taskFormSubmitFunction(event, id));
+  taskForm.addEventListener("submit", (event) =>
+    taskFormSubmitFunction(event, id),
+  );
 }
 
 /**
@@ -191,7 +193,7 @@ function taskFormSubmitFunction(event, id) {
   const categoryIsValid = selectedCategory !== "Select task category";
 
   if (!formIsValid || !categoryIsValid) {
-    handleInvalidSubmit(formIsValid, taskForm, id, categoryIsValid);
+    handleInvalidSubmit(event, formIsValid, taskForm, id, categoryIsValid);
   } else if (formIsValid && categoryIsValid) {
     successfullSubmit = true;
   }
@@ -206,7 +208,13 @@ function taskFormSubmitFunction(event, id) {
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @returns {void}
  */
-function handleInvalidSubmit(formIsValid, taskForm, id, categoryIsValid) {
+function handleInvalidSubmit(
+  event,
+  formIsValid,
+  taskForm,
+  id,
+  categoryIsValid,
+) {
   event.preventDefault();
   successfullSubmit = false;
   if (!formIsValid) {

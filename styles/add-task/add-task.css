@@ -264,7 +264,10 @@ input {
 
 .addtask-toast-msg {
   position: fixed;
-  top: calc(50% - (74px / 2));
+  top: 500px;
+  left: calc((var(--width-content-wrapper) / 2));
+  transform: translate(50%, 100dvh);
+  /* left: 500px; */
 
   display: flex;
   justify-content: center;
@@ -277,7 +280,6 @@ input {
   font-size: 20px;
   background-color: var(--dark-blue);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  transform: translateY(100dvh);
   transition: var(--transition-default);
 }
 
@@ -286,7 +288,7 @@ input {
 }
 
 .display-toast-msg {
-  transform: translateY(0);
+  transform: translate(50%, 0);
   transition: var(--transition-default);
 }
 
