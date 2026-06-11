@@ -1,12 +1,22 @@
 /**
+ * @fileoverview Provides template generation functions for the Kanban board view,
+ * rendering cards, progress indicator metrics, detailed overlays, and badges.
+ * @module board-templates
+ */
+
+/**
  * Creates the HTML for a draggable task card.
  *
  * @param {Object} todo - The task object.
- * @param {string} catColor - The category badge color.
- * @param {string} progressBar - The rendered progress bar HTML.
- * @param {string} badgesHTML - The rendered contact badges HTML.
- * @param {string} prioIconHTML - The rendered priority icon HTML.
- * @returns {string} The task card HTML string.
+ * @param {string} todo.id - Unique task identifier key.
+ * @param {string} [todo.category] - Functional display category classification.
+ * @param {string} todo.title - Display title header.
+ * @param {string} todo.description - Informative body text snippet.
+ * @param {string} catColor - The category badge styling background color.
+ * @param {string} progressBar - The pre-rendered progress bar HTML layout component.
+ * @param {string} badgesHTML - The pre-rendered assigned contact badges inline elements.
+ * @param {string} prioIconHTML - The pre-rendered structural priority icon asset indicator.
+ * @returns {string} The formatted task card HTML article layout string.
  */
 function generateTodoHTML(
   todo,
@@ -38,8 +48,8 @@ function generateTodoHTML(
  *
  * @param {number} done - Number of completed subtasks.
  * @param {number} total - Total number of subtasks.
- * @param {number} percentage - Completion percentage.
- * @returns {string} The progress HTML string.
+ * @param {number} percentage - Completion percentage scaling factor out of 100.
+ * @returns {string} The progress structural container HTML snippet string.
  */
 function generateProgressHTML(done, total, percentage) {
   return `
@@ -56,12 +66,17 @@ function generateProgressHTML(done, total, percentage) {
  * Creates the detailed task dialog HTML.
  *
  * @param {Object} todo - The task data to display.
- * @param {string} catColor - Category color for the badge.
- * @param {string} id - Firebase task ID.
- * @param {string} contactsListHTML - Rendered contact rows HTML.
- * @param {string} subtasksListHTML - Rendered subtask rows HTML.
- * @param {string} prioIconHTML - Rendered priority icon HTML.
- * @returns {string} The task dialog HTML string.
+ * @param {string} todo.title - Primary text element header value.
+ * @param {string} [todo.description] - Supplemental explanation details text block.
+ * @param {string} [todo.due_date] - Date limit representation layout.
+ * @param {string} [todo.priority] - Active triage label mapping notation.
+ * @param {string} [todo.category] - Functional category label text.
+ * @param {string} catColor - Category coloring scheme code hex/rgb representation.
+ * @param {string} id - Database reference task key identifier.
+ * @param {string} contactsListHTML - Rendered contact list block collection layouts.
+ * @param {string} subtasksListHTML - Rendered subtask target checking elements collection.
+ * @param {string} prioIconHTML - Rendered priority graphic element mapping wrapper.
+ * @returns {string} The task detailed single dialog modal view HTML string.
  */
 function generateTaskDialogHTML(
   todo,
@@ -72,7 +87,7 @@ function generateTaskDialogHTML(
   prioIconHTML,
 ) {
   return `
-      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed disabled-ui" id="content-wrapper--task-dialog">
+      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--detailed disabled-ui">
           <div class="task-dialog-header">
               <span class="category-field-dialog" style="background-color: ${catColor}">${todo["category"] || "User Story"}</span>
               <button class="close-task-dialog-btn" tabindex="0" onclick="closeTaskDialog()"><img src="../assets/icons/close-icon.svg" alt="Close Task Dialog Icon"></button>
@@ -106,12 +121,12 @@ function generateTaskDialogHTML(
 }
 
 /**
- * Creates one assigned-contact row for the dialog.
+ * Creates one assigned-contact row for the dialog view layout.
  *
- * @param {string} name - Contact name.
- * @param {string} color - Contact badge color.
- * @param {string} initials - Contact initials.
- * @returns {string} The contact row HTML string.
+ * @param {string} name - Explicit alphabetical identity name text value.
+ * @param {string} color - Explicit CSS-usable background-color rendering value.
+ * @param {string} initials - Formatted capital string acronym indicator token.
+ * @returns {string} The contact structural single row entry representation template string.
  */
 function generateDialogContactsHTML(name, color, initials) {
   return `
@@ -122,14 +137,14 @@ function generateDialogContactsHTML(name, color, initials) {
 }
 
 /**
- * Creates one subtask checkbox row for the dialog.
+ * Creates one subtask checkbox row for the detailed presentation overlay view.
  *
- * @param {string} todoId - Parent task ID.
- * @param {number} index - Subtask index.
- * @param {string} title - Subtask title.
- * @param {string} isChecked - Checked attribute value.
+ * @param {string} todoId - Target contextual key indicator string for database location lookup.
+ * @param {number} index - Structural indexing tracker configuration key value.
+ * @param {string} title - Explicit short naming details description element text.
+ * @param {string} isChecked - Native attribute string rendering placeholder expression text field.
  * @param {string} checkboxId - Unique checkbox ID.
- * @returns {string} The subtask row HTML string.
+ * @returns {string} The interactive target inline item structure layout representation code.
  */
 function generateDialogSubtasksHTML(
   todoId,
@@ -152,21 +167,21 @@ function generateDialogSubtasksHTML(
 }
 
 /**
- * Creates an image tag for the priority icon.
+ * Creates an image tag for the priority representation asset icon.
  *
- * @param {string} src - Icon file path.
- * @param {string} prio - Priority label.
- * @returns {string} The icon HTML string.
+ * @param {string} src - File asset local/external destination reference target pathway value.
+ * @param {string} prio - Level priority label context descriptor name.
+ * @returns {string} The complete responsive structural token node layout string markup.
  */
 function generatePrioIconHTML(src, prio) {
   return `<img src="${src}" alt="${prio} priority icon">`;
 }
 
 /**
- * Creates the empty-state card for an empty board column.
+ * Creates the empty-state card component for an unpopulated active board row context column.
  *
- * @param {string} category - Column label shown in the empty state.
- * @returns {string} The empty-state HTML string.
+ * @param {string} category - Dynamic textual display title tag.
+ * @returns {string} The raw layout definition block markup template framework data.
  */
 function generateEmptySectionHTML(category) {
   return `
@@ -179,30 +194,30 @@ function generateEmptySectionHTML(category) {
 }
 
 /**
- * Creates one profile badge element for assigned contacts.
+ * Creates one standalone profile presentation badge layer component item.
  *
- * @param {string} initials - Badge initials.
- * @param {string} color - Badge color.
- * @returns {string} The badge HTML string.
+ * @param {string} initials - Key textual sequence.
+ * @param {string} color - Key color format expression.
+ * @returns {string} The single token icon node markup presentation structural block template.
  */
 function generateSingleBadgeHTML(initials, color) {
   return `<span class="profile-badge" style="background-color: ${color}">${initials}</span>`;
 }
 
 /**
- * Creates a badge that shows how many additional contacts are hidden.
+ * Creates an index counts overflow value tracker asset bubble.
  *
- * @param {number} count - Number of hidden contacts.
- * @returns {string} The overflow badge HTML string.
+ * @param {number} count - Total index sum of hidden entry units remaining.
+ * @returns {string} The badge textual container markup block snippet configuration code.
  */
 function generateOverflowBadgeHTML(count) {
   return `<span class="profile-badge-plus">+${count}</span>`;
 }
 
 /**
- * Creates the placeholder badge shown when no contact badge is available.
+ * Creates a clear fallback container layout element wrapper block markup structure.
  *
- * @returns {string} The placeholder badge HTML string.
+ * @returns {string} The standard clear default empty value placeholder element layout markup.
  */
 function generateEmptyBadgeHTML() {
   return '<span class="profile-empty-badge">--</span>';
