@@ -5,11 +5,6 @@
  */
 
 /**
- * add-task-templates.js
- * Provides HTML template generators for add-task subtasks, contact options, and categories.
- */
-
-/**
  * Generates HTML for a subtask list item with edit and delete buttons.
  * @param {Object} subtask - The subtask object containing title and status
  * @param {number} indexSubtask - The index of the subtask
@@ -50,7 +45,6 @@ function subtaskLiTemplate(subtask, indexSubtask, id) {
                 class="subtask-btn-right normal-li-delete-btn"
                 onclick="deleteSubtask(${indexSubtask}, '${id}')"
                 aria-label="delete subtask"
-
               >
                 <svg
                   width="16"
@@ -101,9 +95,7 @@ function subtaskLiWithInputTemplate(indexSubtask, id) {
                   />
                 </svg>
               </button>
-
               <div class="subtask-btns-seperation-line"></div>
-
               <button onclick="submitEditedSubtask(${indexSubtask}, '${id}')" class="subtask-btn-right" type="button" aria-label="edit subtask">
                 <svg
                   width="14"
@@ -145,12 +137,9 @@ function contactOptionTemplate(
             id="contact-option-${indexContact}${id}"
             data-index-contact="${indexContact}"
             role="option"
-            onclick="selectContact(${
-              indexContact
-            },'${filteredContacts[indexContact].id}', false, '${id}')"
+            onclick="selectContact(${indexContact},'${filteredContacts[indexContact].id}', false, '${id}')"
             class="custom-select--option contact-option"
             tabindex="0"
-           
           >
             <div class="contact-container">
               <span class="contact-avatar" style="background-color: ${filteredContacts[indexContact].color}">
@@ -162,9 +151,7 @@ function contactOptionTemplate(
               <input
               class="contact-option-checkbox"
                data-index-contact="${indexContact}"
-               onclick="selectContact(${
-                 indexContact
-               },'${filteredContacts[indexContact].id}', true, '${id}')"
+               onclick="selectContact(${indexContact},'${filteredContacts[indexContact].id}', true, '${id}')"
                 type="checkbox"
                 aria-label="assign contact"
                 name=""
@@ -180,7 +167,6 @@ function contactOptionTemplate(
  * Generates HTML for an assigned contact avatar badge.
  * @param {number} indexAssignedContact - The index of the assigned contact
  * @param {string} initials - The contact's initials
- * @param {string} id - The identifier suffix for the current form or dialog instance
  * @returns {string} HTML string for the contact avatar badge
  */
 function contactAvatarTemplate(indexAssignedContact, initials) {
@@ -191,8 +177,8 @@ function contactAvatarTemplate(indexAssignedContact, initials) {
 
 /**
  * Generates the overflow badge that shows how many additional assigned contacts are hidden.
- * @param {number} count - The number of extra assigned contacts beyond the visible five.
- * @returns {string} HTML string for the overflow badge.
+ * @param {number} count - The number of extra assigned contacts beyond the visible five
+ * @returns {string} HTML string for the overflow badge
  */
 function generateOverflowBadgeTemplate(count) {
   return `<span class="contact-avatar contact-avatar--plus">+${count}</span>`;

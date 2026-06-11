@@ -1,13 +1,34 @@
+/**
+ * @fileoverview Generates reusable HTML templates for the contacts view,
+ * including section headers, contact cards, and detailed contact profiles.
+ * @module contacts-templates
+ */
+
+/**
+ * Generates HTML for a letter section header used to group contacts alphabetically.
+ * @param {string} letter - The alphabet letter for the header
+ * @returns {string} HTML string for the letter header section
+ */
 function renderLetterHeader(letter) {
-  return `
+    return `
         <div class="letter-section">
             <div class="letter-header">${letter}</div>
             <div class="letter-divider"></div>
         </div>`;
 }
 
+/**
+ * Generates HTML for a single contact card button in the contact list.
+ * @param {Object} contact - The contact object containing details like id, color, name, and email
+ * @param {string} contact.id - The unique identifier of the contact
+ * @param {string} contact.color - The background color code for the avatar
+ * @param {string} contact.name - The full name of the contact
+ * @param {string} contact.email - The email address of the contact
+ * @param {string} initials - The contact's initials
+ * @returns {string} HTML string for the contact list item button
+ */
 function generateContactHTML(contact, initials) {
-  return `
+    return `
         <button type="button" id="card-${contact.id}" class="contact-item" onclick="showContactDetails('${contact.id}')">
             <div class="contact-avatar" style="background-color: ${contact.color}">${initials}</div>
             <div class="contact-info-short">
@@ -17,8 +38,19 @@ function generateContactHTML(contact, initials) {
         </button>`;
 }
 
+/**
+ * Generates HTML for the detailed profile view of a selected contact, including action menus.
+ * @param {Object} contact - The contact object containing details like id, color, name, email, and phone
+ * @param {string} contact.id - The unique identifier of the contact
+ * @param {string} contact.color - The background color code for the avatar
+ * @param {string} contact.name - The full name of the contact
+ * @param {string} contact.email - The email address of the contact
+ * @param {string} contact.phone - The phone number of the contact
+ * @param {string} initials - The contact's initials
+ * @returns {string} HTML string for the contact details profile view
+ */
 function generateDetailHTML(contact, initials) {
-  return `
+    return `
         <div class="detail-header">
             <div class="detail-avatar" style="background-color: ${contact.color}">
                 ${initials}

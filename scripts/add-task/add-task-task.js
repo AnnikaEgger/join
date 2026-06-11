@@ -4,17 +4,11 @@
  * @module add-task-task
  */
 
-/**
- * add-task-task.js
- * Handles task creation, form submission, validation, and task data preparation.
- */
-
 let addTaskColumn;
 
 /**
  * Starts the task creation flow by disabling submit buttons, validating the form,
  * and re-enabling the relevant button after the request completes.
- *
  * @async
  * @param {Event} event - The submit event triggered by the form.
  * @param {string} page - The originating page context ("add task" or "board").
@@ -28,15 +22,12 @@ async function addTask(event, page, id) {
     disableButtonWhileLoading("cancel-task-btn" + id);
   }
   disableButtonWhileLoading("create-task-btn" + id);
-
   await handleValidTaskSubmit(id, page, event);
-
   enableButton("create-task-btn" + id);
 }
 
 /**
  * Validates the submitted task data, posts it to Firebase, and completes the task flow.
- *
  * @async
  * @param {string} id - The identifier suffix for the current form or dialog instance.
  * @param {string} page - The originating page context ("add task" or "board").
@@ -45,7 +36,6 @@ async function addTask(event, page, id) {
  */
 async function handleValidTaskSubmit(id, page, event) {
   const FORM = document.getElementById("task-form" + id);
-
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
     event.preventDefault();
     let task = taskJson(id);
@@ -59,6 +49,11 @@ async function handleValidTaskSubmit(id, page, event) {
   enableAddTaskButtons(id);
 }
 
+/**
+ * Enables the respective cancel or clear buttons based on the form context ID.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
+ */
 function enableAddTaskButtons(id) {
   if (id === "--add-task") {
     enableButton("clear-task-btn" + id);
@@ -70,6 +65,7 @@ function enableAddTaskButtons(id) {
 /**
  * Completes task creation by redirecting or refreshing the board after a short delay.
  * @param {string} page - The originating page context ("add task" or "board").
+ * @returns {void}
  */
 function completeTaskCreation(page) {
   setTimeout(async () => {
@@ -84,6 +80,7 @@ function completeTaskCreation(page) {
 
 /**
  * Redirects to the board page after a short delay.
+ * @returns {void}
  */
 function redirectToBoard() {
   setTimeout(() => {
@@ -100,7 +97,6 @@ function taskJson(id) {
   const TITLE = document.getElementById("task-title" + id).value;
   const DESCRIPTION = document.getElementById("task-description" + id).value;
   const DUE_DATE = document.getElementById("task-due-date" + id).value;
-
   return {
     title: TITLE,
     description: DESCRIPTION,
@@ -120,7 +116,6 @@ function taskJson(id) {
  */
 function getSubtasksJson() {
   let subtasksJson = [];
-
   for (let index = 0; index < subtasksArr.length; index++) {
     subtasksJson.push({
       title: subtasksArr[index].title,
@@ -133,10 +128,10 @@ function getSubtasksJson() {
 /**
  * Displays a toast notification message for task creation and hides it after 3 seconds.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function showAddtaskToastMsg(id) {
   const TOAST_MSG = document.getElementById("addtask-toast-msg" + id);
-
   if (id === "--add-task") {
     TOAST_MSG.classList.add("display-toast-msg-add-task");
     setTimeout(() => {
@@ -164,13 +159,13 @@ async function postTaskToFirebase(task) {
     },
     body: JSON.stringify(task),
   });
-
   return await response.json();
 }
 
 /**
  * Clears all form inputs and resets task-related arrays to their initial state.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function clearTask(id) {
   clearFormValues(id);
@@ -184,12 +179,12 @@ function clearTask(id) {
 /**
  * Clears all form field values and resets priority to default.
  * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
  */
 function clearFormValues(id) {
   const TITLE = document.getElementById("task-title" + id);
   const DESCRIPTION = document.getElementById("task-description" + id);
   const DUE_DATE = document.getElementById("task-due-date" + id);
-
   TITLE.value = "";
   DESCRIPTION.value = "";
   DESCRIPTION.style.height = "";
@@ -200,24 +195,32 @@ function clearFormValues(id) {
   subtasksArr = [];
 }
 
+/**
+ * Removes error-related css classes from all currently marked invalid form elements.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
+ */
 function removeFormValidation(id) {
   let invalidElements = [];
   document.querySelectorAll(".invalid").forEach((element) => {
     invalidElements.push(element);
   });
-
   document.querySelectorAll(".after").forEach((element) => {
     invalidElements.push(element);
   });
-
   invalidElements.forEach((element) => {
     element.classList.remove("invalid", "after");
   });
 }
 
+/**
+ * Checks if a specific input type becomes valid and dynamically removes error styling.
+ * @param {string} inputType - The type of input to check (e.g., "title" or "due-date")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
+ */
 function checkIfInputValid(inputType, id) {
   const input = document.getElementById("task-" + inputType + id);
-
   if (input.checkValidity()) {
     if (inputType == "title") {
       input.classList.remove("invalid");
@@ -228,9 +231,14 @@ function checkIfInputValid(inputType, id) {
   }
 }
 
+/**
+ * Checks if a specific input type is invalid and dynamically adds error styling.
+ * @param {string} inputType - The type of input to check (e.g., "title" or "due-date")
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
+ */
 function checkIfInputInvalid(inputType, id) {
   const input = document.getElementById("task-" + inputType + id);
-
   if (!input.checkValidity()) {
     if (inputType == "title") {
       input.classList.add("invalid");
@@ -241,6 +249,11 @@ function checkIfInputInvalid(inputType, id) {
   }
 }
 
+/**
+ * Validates whether a category was selected and updates the styling of the custom dropdown.
+ * @param {string} id - The identifier suffix for the current form or dialog instance
+ * @returns {void}
+ */
 function checkIfCategoryWasSelected(id) {
   const categoriesDropdown = document.getElementById(
     "categories-dropdown" + id,
@@ -248,7 +261,6 @@ function checkIfCategoryWasSelected(id) {
   const categoriesTrigger = document.getElementById(
     "custom-select-trigger-category" + id,
   );
-
   if (selectedCategory === "Select task category") {
     categoriesDropdown.classList.add("after");
     categoriesTrigger.classList.add("invalid");

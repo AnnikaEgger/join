@@ -1,6 +1,39 @@
 /**
+ * @fileoverview Defines the fallback schema blueprint datasets and handles network
+ * synchronization tasks for resetting baseline standard task entities on Firebase.
+ * @module default-tasks
+ */
+
+/**
+ * @typedef {Object} AssignedContact
+ * @property {string} color - Hex background color configuration for rendering badges.
+ * @property {string} id - Explicit contact entry data key reference mapping identifier.
+ * @property {string} name - Clear human identity representation string parameters.
+ */
+
+/**
+ * @typedef {Object} SubtaskItem
+ * @property {boolean} done - Current binary completeness check indicator evaluation tracker.
+ * @property {string} title - Explicit short display action description string.
+ */
+
+/**
+ * @typedef {Object} TaskTemplate
+ * @property {Array<AssignedContact>} assigned_contacts - Mapped collection reference indices listing members.
+ * @property {string} category - Structural categorization tag context label designation.
+ * @property {string} column - Active targeted lane assignment indicator identifier.
+ * @property {boolean} default_task - Configuration baseline tag context standard classification flags.
+ * @property {string} description - Long paragraph body mapping detailed requirement notes.
+ * @property {string} due_date - Formatted date string notation limits configuration parameters.
+ * @property {string} priority - Urgency triage scale assessment value tags.
+ * @property {Array<SubtaskItem>} subtasks - Active inner checklist goals elements compilation arrays.
+ * @property {string} template_id - Base static model origin tracking layout key code index.
+ * @property {string} title - Main header summary identification string label.
+ */
+
+/**
  * Default task templates used to populate Firebase with initial board tasks.
- * @constant {Array<Object>}
+ * @constant {Array<TaskTemplate>}
  */
 const defaultTasksArray = [
   {
@@ -218,8 +251,9 @@ const defaultTasksArray = [
 ];
 
 /**
- * Uploads the default task templates to Firebase under the "default_tasks" node.
- * @returns {Promise<void>}
+ * Uploads the default task templates to Firebase under the "tasks" endpoint layer.
+ * * @async
+ * @returns {Promise<void>} Resolves when all standard fallback assets match parameters network sync calls complete.
  */
 async function postDefaultTasksInFirebase() {
   for (const defaultTask of defaultTasksArray) {

@@ -54,6 +54,7 @@ function closeTaskDialog() {
  * Processes the contact data and creates the combined HTML string.
  *
  * @param {Object} todo - The current todo object from Firebase.
+ * @returns {string} The HTML string containing all assigned contact elements.
  */
 function renderDialogContacts(todo) {
   if (!todo["assigned_contacts"] || todo["assigned_contacts"].length === 0)
@@ -71,8 +72,8 @@ function renderDialogContacts(todo) {
 /**
  * Gets the name of the assigned contact, with a special case for the current user.
  *
- * @param {Object|string} contact - The contact object or name.
- * @return {string} The name of the assigned contact.
+ * @param {Object|string} contact - The contact object or name string.
+ * @returns {string} The name of the assigned contact.
  */
 function getAssignedContactName(contact) {
   let name;
@@ -91,7 +92,8 @@ function getAssignedContactName(contact) {
  * Processes the subtask data and creates the combined HTML checkbox string.
  *
  * @param {Object} todo - The current todo object from Firebase.
- * @param {string} id - The ID of the parent task, used to uniquely identify the checkboxes for subtasks and link them to the correct task when toggling their status.
+ * @param {string} id - The ID of the parent task, used to uniquely identify the checkboxes.
+ * @returns {string} The HTML layout string for the subtask list section.
  */
 function renderDialogSubtasks(todo, id) {
   if (!todo || !todo["subtasks"]) return "<p>No subtasks</p>";
@@ -132,8 +134,10 @@ function subtasksToReturn(subtasksArray, id) {
 /**
  * Toggles the done status of a subtask and triggers the Firebase update.
  *
+ * @async
  * @param {string} todoId - The ID of the parent task containing the subtask.
- * @param {number} subtaskIndex - The index of the subtask to toggle within the parent task's subtasks array.
+ * @param {number} subtaskIndex - The index of the subtask to toggle.
+ * @returns {Promise<void>} Resolves when status is updated and UI is re-rendered.
  */
 async function toggleSubtask(todoId, subtaskIndex) {
   let todo = todos.find((t) => t.id === todoId);
@@ -154,7 +158,11 @@ async function toggleSubtask(todoId, subtaskIndex) {
 /**
  * Sends the updated task object containing the modified subtasks to Firebase.
  *
- * @param {Object} todo - The updated task object with the toggled subtask status, which will be sent to Firebase to persist the changes.
+ * @async
+ * @param {string} todoId - The ID of the parent task.
+ * @param {number} subtaskIndex - The index of the modified subtask.
+ * @param {boolean} isDone - The target state of the subtask done attribute.
+ * @returns {Promise<void>} Resolves when the network sync finishes.
  */
 async function saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone) {
   let url = BASE_URL + `tasks/${todoId}/subtasks/${subtaskIndex}/done.json`;
@@ -168,7 +176,9 @@ async function saveSubtaskStatusToFirebase(todoId, subtaskIndex, isDone) {
 /**
  * Sends a PUT request to Firebase to update a specific task.
  *
+ * @async
  * @param {Object} task - The updated task object.
+ * @returns {Promise<void>} Resolves when the network sync finishes.
  */
 async function updateTaskInFirebase(task) {
   let url = BASE_URL + `tasks/${task.id}.json`;
@@ -180,9 +190,8 @@ async function updateTaskInFirebase(task) {
 }
 
 /**
- * Closes the dialog when clicking directly on the backdrop background.
- *
- * @param {*} - No parameters are required for this function as it directly interacts with the dialog element in the HTML to set up an event listener for clicks on the backdrop.
+ * Closes the dialog when clicking directly on the backdrop background wrapper.
+ * @returns {void}
  */
 function initDialogCloseOnClickOutside() {
   let dialog = document.getElementById("taskDialog");
@@ -197,7 +206,7 @@ function initDialogCloseOnClickOutside() {
  * Returns an empty string if no contacts are assigned.
  *
  * @param {Object} todo - The current todo object from Firebase.
- * @return {string} The HTML string containing all profile badges or an empty string.
+ * @returns {string} The HTML string containing all profile badges or an empty string.
  */
 function generateAssignedBadgesHTML(todo) {
   let assigned = todo["assigned_contacts"] || [];
@@ -217,8 +226,8 @@ function generateAssignedBadgesHTML(todo) {
 /**
  * Renders individual badges for a list of contacts.
  *
- * @param {Array} contacts - The list of contacts for which to render badges.
- * @return {string} The HTML string containing all rendered badges.
+ * @param {Array<Object>} contacts - The list of contacts for which to render badges.
+ * @returns {string} The HTML string containing all rendered badges.
  */
 function renderSingleBadges(contacts) {
   return contacts
@@ -231,10 +240,11 @@ function renderSingleBadges(contacts) {
 }
 
 /**
- * Extracts the initials from a full name.
+ * Extracts the initials from a full name object.
  *
- * @param {string} name - Full name of the contact.
- * @return {string} Initials (e.g. "MM").
+ * @param {Object} name - Object wrapper holding the full name string of the contact.
+ * @param {string} name.name - The explicit name string.
+ * @returns {string} Initials (e.g. "MM").
  */
 function getTaskInitials(name) {
   let words = name.name.trim().split(" ");

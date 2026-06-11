@@ -1,8 +1,26 @@
+/**
+ * @fileoverview Manages core Kanban board operations including data fetching from Firebase,
+ * filtering task items by status/search query, and driving the UI update cycle.
+ * @module board
+ */
+
+/**
+ * Global cache storing all active task objects fetched from the database.
+ * @type {Array<Object>}
+ */
 let todos = [];
+
+/**
+ * Stores the unique database ID string of the task currently being dragged.
+ * @type {string|undefined}
+ */
 let currentDraggedElement;
 
 /**
- * Initializes the board by ensuring all default tasks are present, loading tasks from Firebase, and enabling pointer events for the board. This function is called when the board page is loaded to set up the initial state of the application.
+ * Initializes the board by ensuring all default tasks are present, 
+ * loading tasks from Firebase, and enabling pointer events for the board.
+ * * @async
+ * @returns {Promise<void>}
  */
 async function initBoard() {
   await loadTasks();
@@ -11,7 +29,9 @@ async function initBoard() {
 }
 
 /**
- * Loads tasks from Firebase and updates the `todos` array.
+ * Loads tasks from Firebase and updates the global `todos` array.
+ * * @async
+ * @returns {Promise<void>}
  */
 async function loadTasks() {
   todos = [];
@@ -30,9 +50,10 @@ async function loadTasks() {
 }
 
 /**
- * Fills the `todos` array with tasks from the Firebase data.
+ * Fills the global `todos` array with mapped task items from the raw Firebase data object.
  *
- * @param {*} tasksObj - The object containing tasks from Firebase.
+ * @param {Object.<string, Object>} tasksObj - Key-value map representing the raw Firebase database collection.
+ * @returns {void}
  */
 function fillTasksArray(tasksObj) {
   let keys = Object.keys(tasksObj);
@@ -65,11 +86,12 @@ function updateHTML() {
 }
 
 /**
- * Renders the tasks for a specific column in the board.
+ * Renders the tasks for a specific column in the board based on search filtering.
  *
- * @param {string} column - The column to render (e.g., "to do", "in progress").
- * @param {string} containerId - The ID of the container element where the tasks should be rendered.
- * @param {string} message - The message to display if there are no tasks in the column.
+ * @param {string} column - Target tracking group name (e.g., "to do", "in progress").
+ * @param {string} containerId - The DOM element ID string where cards should be injected.
+ * @param {string} message - Informative empty state message to display if no match is found.
+ * @returns {void}
  */
 function renderCategory(column, containerId, message) {
   let search = document.getElementById("search-input").value.toLowerCase();
@@ -83,11 +105,11 @@ function renderCategory(column, containerId, message) {
 }
 
 /**
- * Filters todos for a specific category based on the search query.
+ * Filters todos for a specific category based on status column and textual user search queries.
  *
- * @param {string} column - The column to filter by.
- * @param {string} search - The search query.
- * @returns {Array} - The filtered array of todos.
+ * @param {string} column - The exact column value assignment to extract.
+ * @param {string} search - Low-case normalized character user search criteria string.
+ * @returns {Array<Object>} Mapped array list subset containing matches.
  */
 function filterTodosForCategory(column, search) {
   return todos.filter(
@@ -99,11 +121,12 @@ function filterTodosForCategory(column, search) {
 }
 
 /**
- * Draws the content for a specific category column.
+ * Draws the content for a specific category column by clearing and appending child layouts.
  *
- * @param {HTMLElement} container - The container element for the category.
- * @param {Array} filtered - The filtered array of todos for the category.
- * @param {string} message - The message to display if no tasks are found.
+ * @param {HTMLElement} container - DOM reference block container wrapper location.
+ * @param {Array<Object>} filtered - Clean structured collection array representing matched targets.
+ * @param {string} message - Text payload to pass to the empty-state rendering handler fallback.
+ * @returns {void}
  */
 function drawCategoryContent(container, filtered, message) {
   container.innerHTML = filtered.length
@@ -116,9 +139,10 @@ function drawCategoryContent(container, filtered, message) {
 }
 
 /**
- * Renders one task card into its column container.
+ * Renders one task card layout blueprint into its parent column category context.
  *
- * @param {Object} todo - The task object to render.
+ * @param {Object} todo - The current structural task element data packet to unpack.
+ * @param {HTMLElement} container - Targeted DOM target container to append output text parameters onto.
  * @returns {void}
  */
 function renderCategoryContent(todo, container) {
@@ -137,10 +161,10 @@ function renderCategoryContent(todo, container) {
 }
 
 /**
- * Returns the color for a given category.
+ * Selects and returns an explicit layout badge coloring configuration code according to task category.
  *
- * @param {string} category - The category name for which to return a color.
- * @returns {string} The color for the given category.
+ * @param {string|undefined} category - Context tag definition name text string.
+ * @returns {string} HEX layout code representing the color mapping profile.
  */
 function getCategoryColor(category) {
   if (!category) return "gray";
@@ -152,10 +176,11 @@ function getCategoryColor(category) {
 }
 
 /**
- * Calculates subtask metrics and requests the progress bar HTML.
+ * Calculates subtask validation metrics and requests dynamic target layout loading.
  *
- * @param {Object} todo - The current todo object from Firebase.
- * @return {string} The HTML string or an empty string.
+ * @param {Object} todo - The active single target element array scope data packet tracking root.
+ * @param {Array<Object>|Object} [todo.subtasks] - Optional collection map structure array containing child requirements.
+ * @returns {string} HTML component design code block layout schema text.
  */
 function generateProgressBarHTML(todo) {
   let subtasks = todo["subtasks"] || [];
@@ -174,10 +199,11 @@ function generateProgressBarHTML(todo) {
 }
 
 /**
- * Generates a consistent background color based on the contact's name.
+ * Generates a consistent background color mapping calculation based on a contact's first name index character.
  *
- * @param {string} name - Name of the contact.
- * @return {string} Hex color string.
+ * @param {Object} name - Target contact context metadata wrapper tracking item.
+ * @param {string} name.name - Full literal alphabetic identifier text element parameters.
+ * @returns {string} The final target color HEX hex string formatting notation block.
  */
 function getContactColor(name) {
   let colors = [
@@ -193,10 +219,11 @@ function getContactColor(name) {
 }
 
 /**
- * Determines the correct priority icon path and gets the HTML string.
+ * Determines the correct local assets image directory source and tracking configurations.
  *
- * @param {Object} todo - The current todo object from Firebase.
- * @return {string} HTML string of the image tag.
+ * @param {Object} todo - Task payload container framework root tracking target.
+ * @param {string} [todo.priority] - Active priority level state assignment.
+ * @returns {string} Completed image item token inline asset layout definition logic markup.
  */
 function getPrioIconHTML(todo) {
   let prio = (todo["priority"] || "low").toLowerCase();
@@ -211,15 +238,9 @@ function getPrioIconHTML(todo) {
 }
 
 /**
- * Checks whether any visible task matches the current search term.
+ * Verifies whether any visible task globally matches the active search parameters query.
  *
- * @param {string} search - The search term to evaluate.
- * @returns {void}
- */
-/**
- * Verifies whether any visible task matches the current search term.
- *
- * @param {string} search - The current search query.
+ * @param {string} search - Evaluated criteria normal string mapping input.
  * @returns {void}
  */
 function checkSearchNoMatches(search) {
@@ -231,10 +252,7 @@ function checkSearchNoMatches(search) {
 }
 
 /**
- * Filters the tasks based on the current search term.
- */
-/**
- * Re-renders the board after a search or filter change.
+ * Re-renders the board view representation layout after input filters modification events trigger.
  *
  * @returns {void}
  */
