@@ -53,7 +53,9 @@ function fillTasksArray(tasksObj) {
 }
 
 /**
- * This function updates the HTML of the board by rendering each category of tasks based on the current state of the `todos` array. It calls the `renderCategory` function for each category, passing the appropriate parameters to display the tasks and handle search functionality.
+ * Re-renders all board columns from the current task data.
+ *
+ * @returns {void}
  */
 function updateHTML() {
   renderCategory("to do", "to do", "No tasks To do");
@@ -113,25 +115,35 @@ function drawCategoryContent(container, filtered, message) {
     : generateEmptySectionHTML(message);
 
   filtered.forEach((todo) => {
-    let catColor = getCategoryColor(todo.category);
-
-    let progressBar = generateProgressBarHTML(todo);
-    let badgesHTML = generateAssignedBadgesHTML(todo);
-    let prioIconHTML = getPrioIconHTML(todo);
-    container.innerHTML += generateTodoHTML(
-      todo,
-      catColor,
-      progressBar,
-      badgesHTML,
-      prioIconHTML,
-    );
+    renderCategoryContent(todo, container);
   });
+}
+
+/**
+ * Renders one task card into its column container.
+ *
+ * @param {Object} todo - The task object to render.
+ * @returns {void}
+ */
+function renderCategoryContent(todo, container) {
+  let catColor = getCategoryColor(todo.category);
+  let progressBar = generateProgressBarHTML(todo);
+  let badgesHTML = generateAssignedBadgesHTML(todo);
+  let prioIconHTML = getPrioIconHTML(todo);
+
+  container.innerHTML += generateTodoHTML(
+    todo,
+    catColor,
+    progressBar,
+    badgesHTML,
+    prioIconHTML,
+  );
 }
 
 /**
  * Returns the color for a given category.
  *
- * @param {parameter} category - The category for which to return a color.
+ * @param {string} category - The category name for which to return a color.
  * @returns {string} The color for the given category.
  */
 function getCategoryColor(category) {
@@ -203,9 +215,16 @@ function getPrioIconHTML(todo) {
 }
 
 /**
- * Checks if the search results match any tasks.
+ * Checks whether any visible task matches the current search term.
  *
- * @param {parameter} search - The search term.
+ * @param {string} search - The search term to evaluate.
+ * @returns {void}
+ */
+/**
+ * Verifies whether any visible task matches the current search term.
+ *
+ * @param {string} search - The current search query.
+ * @returns {void}
  */
 function checkSearchNoMatches(search) {
   let anyMatch = todos.some(
@@ -217,6 +236,11 @@ function checkSearchNoMatches(search) {
 
 /**
  * Filters the tasks based on the current search term.
+ */
+/**
+ * Re-renders the board after a search or filter change.
+ *
+ * @returns {void}
  */
 function filterTasks() {
   updateHTML();

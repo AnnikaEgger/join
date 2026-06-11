@@ -3,10 +3,11 @@ let isLongPress = false;
 let startX, startY;
 
 /**
- * Handles the start of a drag operation, including both mouse and touch events. For touch events, it initiates a long press detection to differentiate between scrolling and dragging on mobile devices.
+ * Handles the start of a drag operation for mouse and touch interactions.
  *
- * @param {parameter} event - The drag start event, which can be either a mouse or touch event.
- * @param {string} id - The ID of the task being dragged, used to identify which task is being moved during the drag and drop operation.
+ * @param {Event} event - The drag start event.
+ * @param {string} id - The ID of the task being dragged.
+ * @returns {void}
  */
 function startDragging(event, id) {
   currentDraggedElement = id;
@@ -50,9 +51,10 @@ function activateMobileDragStyle(card) {
 }
 
 /**
- * Allows drop and triggers auto-scroll on desktop during dragging.
+ * Allows dropping a dragged item and enables desktop auto-scroll during drag.
  *
- * @param {parameter} ev - The drag over event, which is used to allow dropping of the dragged element and to trigger automatic scrolling of the page when dragging near the edges of the viewport on desktop devices.
+ * @param {DragEvent} ev - The drag-over event.
+ * @returns {void}
  */
 function allowDrop(ev) {
   ev.preventDefault();
@@ -89,10 +91,12 @@ function initGlobalDragSettings() {
 /**
  * Moves the card with the finger and handles automatic page scrolling and column highlighting.
  *
- * @param {parameter} event - The touch move event.
+ * @param {TouchEvent} event - The touch move event.
+ * @returns {void}
  */
 function handleTouchMove(event) {
   let touch = event.touches ? event.touches[0] : null;
+
   if (!isLongPress || !touch) {
     if (
       touch &&
@@ -103,11 +107,24 @@ function handleTouchMove(event) {
     }
     return;
   }
+
   if (event.cancelable) {
     event.preventDefault();
   } else {
     return;
   }
+
+  handleCard(event, touch);
+}
+
+/**
+ * Positions the dragged card under the current touch point and updates drag feedback.
+ *
+ * @param {Event} event - The touch move event.
+ * @param {{clientX: number, clientY: number}} touch - The current touch coordinates.
+ * @returns {void}
+ */
+function handleCard(event, touch) {
   let card = event.target.closest(".card");
   if (card) {
     card.style.position = "fixed";
@@ -195,7 +212,8 @@ function moveTo(column) {
 /**
  * Highlights a drag area.
  *
- * @param {parameter} id - The ID of the drag area to highlight.
+ * @param {string} id - The ID of the drag area to highlight.
+ * @returns {void}
  */
 function highlight(id) {
   document.getElementById(id).classList.add("drag-area-highlight");
@@ -204,7 +222,8 @@ function highlight(id) {
 /**
  * Removes the highlight from a drag area.
  *
- * @param {parameter} id - The ID of the drag area to remove the highlight from.
+ * @param {string} id - The ID of the drag area to remove the highlight from.
+ * @returns {void}
  */
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");

@@ -1,11 +1,4 @@
 /**
- * Firebase database base URL for task and contact collections.
- * @constant {string}
- */
-const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
-
-/**
  * Default task templates used to populate Firebase with initial board tasks.
  * @constant {Array<Object>}
  */

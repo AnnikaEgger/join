@@ -12,12 +12,14 @@
 let addTaskColumn;
 
 /**
- * Adds a new task after validating the form and category selection.
+ * Starts the task creation flow by disabling submit buttons, validating the form,
+ * and re-enabling the relevant button after the request completes.
+ *
  * @async
  * @param {Event} event - The submit event triggered by the form.
  * @param {string} page - The originating page context ("add task" or "board").
- * @param {string} id - The identifier suffix for the current form or dialog instance
- * @returns {Promise<void>} Resolves once the task has been posted and UI actions are triggered.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {Promise<void>} Resolves after the task submit flow has finished.
  */
 async function addTask(event, page, id) {
   if (id === "--add-task") {
@@ -25,9 +27,23 @@ async function addTask(event, page, id) {
   } else if (id === "--add-task-dialog") {
     disableButtonWhileLoading("cancel-task-btn" + id);
   }
-
   disableButtonWhileLoading("create-task-btn" + id);
 
+  await handleValidTaskSubmit(id, page, event);
+
+  enableButton("create-task-btn" + id);
+}
+
+/**
+ * Validates the submitted task data, posts it to Firebase, and completes the task flow.
+ *
+ * @async
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @param {string} page - The originating page context ("add task" or "board").
+ * @param {Event} event - The submit event object.
+ * @returns {Promise<void>} Resolves after the task has been posted and the UI update flow starts.
+ */
+async function handleValidTaskSubmit(id, page, event) {
   const FORM = document.getElementById("task-form" + id);
 
   if (FORM.checkValidity() && selectedCategory !== "Select task category") {
@@ -48,8 +64,6 @@ async function addTask(event, page, id) {
   } else if (id === "--add-task-dialog") {
     enableButton("cancel-task-btn" + id);
   }
-
-  enableButton("create-task-btn" + id);
 }
 
 /**

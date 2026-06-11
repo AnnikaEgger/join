@@ -17,31 +17,57 @@
  */
 async function initAddTask(id) {
   guardPage();
-
-  addTaskColumn = "to do";
-
-  contactsOptions = [];
-  assignedContacts = [];
-  categoriesArr = [];
-  subtasksArr = [];
+  resetTaskValues();
 
   disablePastDates(id);
   renderPriority(id);
 
-  await getContacts();
-  await getUsers();
-  filteredContacts = contactsOptions;
-  renderContactOptions(id);
-
-  await getCategories();
-  selectedCategory = "Select task category";
-  renderSelectedCategory(id);
-  renderCategories(id);
+  await initContacts(id);
+  await initCategories(id);
 
   registerEnterHandlers(id);
   addEventListeners(id);
 
   enableAllPointerEvents(id);
+}
+
+/**
+ * Resets all task-related UI state to its initial defaults for a fresh form.
+ */
+function resetTaskValues() {
+  addTaskColumn = "to do";
+  contactsOptions = [];
+  assignedContacts = [];
+  categoriesArr = [];
+  subtasksArr = [];
+}
+
+/**
+ * Loads contacts, filters them, and renders the contact options for the current form.
+ *
+ * @async
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {Promise<void>} Resolves after the contacts have been loaded and rendered.
+ */
+async function initContacts(id) {
+  await getContacts();
+  await getUsers();
+  filteredContacts = contactsOptions;
+  renderContactOptions(id);
+}
+
+/**
+ * Loads available categories and renders the default selection and dropdown options.
+ *
+ * @async
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {Promise<void>} Resolves after categories are fetched and rendered.
+ */
+async function initCategories(id) {
+  await getCategories();
+  selectedCategory = "Select task category";
+  renderSelectedCategory(id);
+  renderCategories(id);
 }
 
 /**
@@ -115,8 +141,10 @@ function handleArrow(selectName, id) {
 
 /**
  * Resets the category selection to the default state.
- * @param {HTMLElement} options - The options container element
- * @param {string} id - The identifier suffix for the current form or dialog instance
+ *
+ * @param {HTMLElement} options - The options container element.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {void}
  */
 function handleCategories(options, id) {
   selectedCategory = "Select task category";
@@ -157,7 +185,6 @@ function disablePastDates(id) {
     .split("T")[0];
 }
 
-// #region priority
 let priority = "Medium";
 
 /**
@@ -218,10 +245,6 @@ function stylePrioSvgColors(id) {
   });
 }
 
-// #endregion
-
-// #region categories
-
 let categoriesArr = [];
 let selectedCategory = "Select task category";
 
@@ -276,8 +299,11 @@ function renderCategories(id) {
 }
 
 /**
- * Updates the selected category and re-renders the selection.
- * @param {string} category - The category title to select
+ * Updates the selected category and re-renders the selection UI.
+ *
+ * @param {string} category - The category title to select.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {void}
  */
 function selectCategory(category, id) {
   selectedCategory = category;
@@ -286,7 +312,10 @@ function selectCategory(category, id) {
 }
 
 /**
- * Updates the display of the selected category and closes the dropdown if a valid selection is made.
+ * Updates the displayed selected category and closes the dropdown when a valid choice is made.
+ *
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {void}
  */
 function renderSelectedCategory(id) {
   const SELECTED_CATEGORY = document.getElementById("selected-category" + id);
@@ -306,5 +335,3 @@ function renderSelectedCategory(id) {
     }
   }
 }
-
-// #endregion

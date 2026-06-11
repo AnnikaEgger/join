@@ -11,7 +11,6 @@
 const enterHandlers = new Map();
 let successfullSubmit;
 
-// #region enter handlers
 /**
  * Registers a keyboard handler for a specific element selector.
  * @param {string} selector - The CSS selector to match
@@ -102,10 +101,6 @@ function categoryOptionsEnterHandlers(id) {
   });
 }
 
-// #endregion
-
-// #region event listeners
-
 /**
  * Attaches event listeners to form and dropdown elements.
  * @param {string} id - The identifier suffix for the current form or dialog instance
@@ -184,10 +179,11 @@ function handleKeyDownElement(el) {
 }
 
 /**
- * Validates form submission, checking form validity and category selection.
- * Displays error messages and focuses invalid elements if needed.
- * @param {Event} event - The submit event
- * @param {string} id - The identifier suffix for the current form or dialog instance
+ * Validates the task form submission and delegates invalid cases to the error handler.
+ *
+ * @param {Event} event - The submit event object.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {void}
  */
 function taskFormSubmitFunction(event, id) {
   const taskForm = event.target;
@@ -195,24 +191,37 @@ function taskFormSubmitFunction(event, id) {
   const categoryIsValid = selectedCategory !== "Select task category";
 
   if (!formIsValid || !categoryIsValid) {
-    event.preventDefault();
-    successfullSubmit = false;
-    if (!formIsValid) {
-      handleInvalidSubmit(taskForm, id);
-    }
-
-    if (!categoryIsValid) {
-      addCategoryClasses(taskForm, id);
-    }
-
-    if (formIsValid && !categoryIsValid) {
-      const categoryTrigger = taskForm.querySelector(
-        "#custom-select-trigger-category" + id,
-      );
-      focusInvalidElement(categoryTrigger, taskForm);
-    }
+    handleInvalidSubmit(formIsValid, taskForm, id, categoryIsValid);
   } else if (formIsValid && categoryIsValid) {
     successfullSubmit = true;
+  }
+}
+
+/**
+ * Handles an invalid task submission by preventing the default submit action,
+ * marking the form as unsuccessful, and applying validation styling.
+ *
+ * @param {boolean} formIsValid - Indicates whether the form fields pass native validation.
+ * @param {HTMLFormElement} taskForm - The form element being submitted.
+ * @param {string} id - The identifier suffix for the current form or dialog instance.
+ * @returns {void}
+ */
+function handleInvalidSubmit(formIsValid, taskForm, id, categoryIsValid) {
+  event.preventDefault();
+  successfullSubmit = false;
+  if (!formIsValid) {
+    addInvalidClasses(taskForm, id);
+  }
+
+  if (!categoryIsValid) {
+    addCategoryClasses(taskForm, id);
+  }
+
+  if (formIsValid && !categoryIsValid) {
+    const categoryTrigger = taskForm.querySelector(
+      "#custom-select-trigger-category" + id,
+    );
+    focusInvalidElement(categoryTrigger, taskForm);
   }
 }
 
@@ -221,7 +230,7 @@ function taskFormSubmitFunction(event, id) {
  * @param {HTMLFormElement} taskForm - The form being validated
  * @param {string} id - The identifier suffix for the current form or dialog instance
  */
-function handleInvalidSubmit(taskForm, id) {
+function addInvalidClasses(taskForm, id) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
 
   invalidElements.forEach((element) => {
@@ -296,5 +305,3 @@ function categoriesDropdownFocusOutFunction(e, id) {
     closeCustomSelectDropdown("category", id);
   }
 }
-
-// #endregion

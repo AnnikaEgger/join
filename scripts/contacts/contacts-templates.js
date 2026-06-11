@@ -17,8 +17,7 @@ function generateContactHTML(contact, initials) {
         </button>`;
 }
 
-function generateDetailHTML(contact) {
-  let initials = getInitials(contact.name);
+function generateDetailHTML(contact, initials) {
   return `
         <div class="detail-header">
             <div class="detail-avatar" style="background-color: ${contact.color}">

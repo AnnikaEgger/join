@@ -1,3 +1,13 @@
+/**
+ * Creates the HTML for a draggable task card.
+ *
+ * @param {Object} todo - The task object.
+ * @param {string} catColor - The category badge color.
+ * @param {string} progressBar - The rendered progress bar HTML.
+ * @param {string} badgesHTML - The rendered contact badges HTML.
+ * @param {string} prioIconHTML - The rendered priority icon HTML.
+ * @returns {string} The task card HTML string.
+ */
 function generateTodoHTML(
   todo,
   catColor,
@@ -23,6 +33,14 @@ function generateTodoHTML(
              </article>`;
 }
 
+/**
+ * Creates a progress bar snippet for the task card.
+ *
+ * @param {number} done - Number of completed subtasks.
+ * @param {number} total - Total number of subtasks.
+ * @param {number} percentage - Completion percentage.
+ * @returns {string} The progress HTML string.
+ */
 function generateProgressHTML(done, total, percentage) {
   return `
         <div class="progress-container">
@@ -34,6 +52,17 @@ function generateProgressHTML(done, total, percentage) {
     `;
 }
 
+/**
+ * Creates the detailed task dialog HTML.
+ *
+ * @param {Object} todo - The task data to display.
+ * @param {string} catColor - Category color for the badge.
+ * @param {string} id - Firebase task ID.
+ * @param {string} contactsListHTML - Rendered contact rows HTML.
+ * @param {string} subtasksListHTML - Rendered subtask rows HTML.
+ * @param {string} prioIconHTML - Rendered priority icon HTML.
+ * @returns {string} The task dialog HTML string.
+ */
 function generateTaskDialogHTML(
   todo,
   catColor,
@@ -76,6 +105,14 @@ function generateTaskDialogHTML(
      `;
 }
 
+/**
+ * Creates one assigned-contact row for the dialog.
+ *
+ * @param {string} name - Contact name.
+ * @param {string} color - Contact badge color.
+ * @param {string} initials - Contact initials.
+ * @returns {string} The contact row HTML string.
+ */
 function generateDialogContactsHTML(name, color, initials) {
   return `
         <div class="dialog-contact-row">
@@ -84,6 +121,16 @@ function generateDialogContactsHTML(name, color, initials) {
         </div>`;
 }
 
+/**
+ * Creates one subtask checkbox row for the dialog.
+ *
+ * @param {string} todoId - Parent task ID.
+ * @param {number} index - Subtask index.
+ * @param {string} title - Subtask title.
+ * @param {string} isChecked - Checked attribute value.
+ * @param {string} checkboxId - Unique checkbox ID.
+ * @returns {string} The subtask row HTML string.
+ */
 function generateDialogSubtasksHTML(
   todoId,
   index,
@@ -104,10 +151,23 @@ function generateDialogSubtasksHTML(
         </div>`;
 }
 
+/**
+ * Creates an image tag for the priority icon.
+ *
+ * @param {string} src - Icon file path.
+ * @param {string} prio - Priority label.
+ * @returns {string} The icon HTML string.
+ */
 function generatePrioIconHTML(src, prio) {
   return `<img src="${src}" alt="${prio} priority icon">`;
 }
 
+/**
+ * Creates the empty-state card for an empty board column.
+ *
+ * @param {string} category - Column label shown in the empty state.
+ * @returns {string} The empty-state HTML string.
+ */
 function generateEmptySectionHTML(category) {
   return `
         <div class="empty-card-container">
@@ -118,14 +178,32 @@ function generateEmptySectionHTML(category) {
     `;
 }
 
+/**
+ * Creates one profile badge element for assigned contacts.
+ *
+ * @param {string} initials - Badge initials.
+ * @param {string} color - Badge color.
+ * @returns {string} The badge HTML string.
+ */
 function generateSingleBadgeHTML(initials, color) {
   return `<span class="profile-badge" style="background-color: ${color}">${initials}</span>`;
 }
 
+/**
+ * Creates a badge that shows how many additional contacts are hidden.
+ *
+ * @param {number} count - Number of hidden contacts.
+ * @returns {string} The overflow badge HTML string.
+ */
 function generateOverflowBadgeHTML(count) {
   return `<span class="profile-badge-plus">+${count}</span>`;
 }
 
+/**
+ * Creates the placeholder badge shown when no contact badge is available.
+ *
+ * @returns {string} The placeholder badge HTML string.
+ */
 function generateEmptyBadgeHTML() {
   return '<span class="profile-empty-badge">--</span>';
 }

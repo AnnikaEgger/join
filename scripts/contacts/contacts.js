@@ -57,9 +57,7 @@ function fillContactsArray(contactsObj) {
  * @returns {Promise<void>}
  */
 async function loadAllUsers() {
-  let response = await fetch(
-    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users.json",
-  );
+  let response = await fetch(BASE_URL + "users.json");
   let usersObj = await response.json();
   if (usersObj) {
     fillContactsArray(usersObj);
@@ -137,8 +135,7 @@ async function createNewContact() {
  * @returns {Promise<string>} The generated database ID.
  */
 async function postContact(contact) {
-  let url =
-    "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/contacts.json";
+  let url = BASE_URL + "contacts.json";
   let response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -302,7 +299,7 @@ async function putContact(contact) {
   let path = isUser
     ? `users/${currentEditingId}`
     : `contacts/${currentEditingId}`;
-  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  let url = BASE_URL + `${path}.json`;
   if (isUser) {
     let response = await fetch(url);
     let currentDBUser = await response.json();

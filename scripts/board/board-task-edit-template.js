@@ -1,3 +1,10 @@
+/**
+ * Returns the HTML template for the task edit dialog.
+ *
+ * @param {Object} task - The task data to prefill in the edit form.
+ * @param {string} taskId - The Firebase task ID.
+ * @returns {string} The rendered HTML string for edit mode.
+ */
 function taskEditModeTemplate(task, taskId) {
   return ` 
       <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--edit disabled-ui" id="content-wrapper--task-dialog">

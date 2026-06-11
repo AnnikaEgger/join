@@ -63,6 +63,9 @@ function renderSubtasks(id) {
  */
 function renderSingleSubtask(indexSubtask, id) {
   let li = document.getElementById("subtask-li-" + indexSubtask + id);
+
+  if (!subtasksArr[indexSubtask]) return;
+
   li.outerHTML = subtaskLiTemplate(subtasksArr[indexSubtask], indexSubtask, id);
 
   registerEnterHandler("#subtask-li-" + indexSubtask + id, () => {

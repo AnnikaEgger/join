@@ -2,21 +2,21 @@
  * Toggles the visibility of the mobile action menu.
  */
 function toggleMobileMenu() {
-    let menu = document.getElementById('mobile-menu-container');
-    if (menu) {
-        menu.classList.toggle('show-menu');
-        if (menu.classList.contains('show-menu')) {
-            delayMenuFocus();
-        }
+  let menu = document.getElementById("mobile-menu-container");
+  if (menu) {
+    menu.classList.toggle("show-menu");
+    if (menu.classList.contains("show-menu")) {
+      delayMenuFocus();
     }
+  }
 }
 
 /**
  * Resets the detail view class to prepare for the slide-in animation.
  */
 function prepareDetailsAnimation() {
-    let view = document.getElementById('contact-detail-view');
-    view.classList.remove('show-detail');
+  let view = document.getElementById("contact-detail-view");
+  view.classList.remove("show-detail");
 }
 
 /**
@@ -24,19 +24,20 @@ function prepareDetailsAnimation() {
  * @param {Object} contact - The contact object.
  */
 function renderDetails(contact) {
-    let content = document.getElementById('contact-detail-content');
-    content.innerHTML = generateDetailHTML(contact);
+  let content = document.getElementById("contact-detail-content");
+  let initials = getInitials(contact.name);
+  content.innerHTML = generateDetailHTML(contact, initials);
 }
 
 /**
  * Triggers the slide-in animation for the detail view.
  */
 function startDetailsAnimation() {
-    setTimeout(() => {
-        let view = document.getElementById('contact-detail-view');
-        view.classList.add('show-detail');
-        setTimeout(focusBackButton, 100);
-    }, 50);
+  setTimeout(() => {
+    let view = document.getElementById("contact-detail-view");
+    view.classList.add("show-detail");
+    setTimeout(focusBackButton, 100);
+  }, 50);
 }
 
 /**
@@ -44,22 +45,22 @@ function startDetailsAnimation() {
  * @param {string} id - Unique contact ID.
  */
 function highlightContact(id) {
-    let allCards = document.getElementsByClassName('contact-item');
-    for (let i = 0; i < allCards.length; i++) {
-        allCards[i].classList.remove('contact-item-active');
-    }
-    let activeCard = document.getElementById(`card-${id}`);
-    if (activeCard) {
-        activeCard.classList.add('contact-item-active');
-    }
+  let allCards = document.getElementsByClassName("contact-item");
+  for (let i = 0; i < allCards.length; i++) {
+    allCards[i].classList.remove("contact-item-active");
+  }
+  let activeCard = document.getElementById(`card-${id}`);
+  if (activeCard) {
+    activeCard.classList.add("contact-item-active");
+  }
 }
 
 /**
  * Closes the contact detail view.
  */
 function closeContactDetails() {
-    let detailView = document.getElementById('contact-detail-view');
-    detailView.classList.remove('show-detail');
+  let detailView = document.getElementById("contact-detail-view");
+  detailView.classList.remove("show-detail");
 }
 
 /**
@@ -67,19 +68,19 @@ function closeContactDetails() {
  * @param {Object} contact - The contact object.
  */
 function updateDialogAvatar(contact) {
-    let avatarContainer = document.querySelector('.default-avatar');
-    let initials = getInitials(contact.name);
-    avatarContainer.style.backgroundColor = contact.color;
-    avatarContainer.innerHTML = initials;
+  let avatarContainer = document.querySelector(".default-avatar");
+  let initials = getInitials(contact.name);
+  avatarContainer.style.backgroundColor = contact.color;
+  avatarContainer.innerHTML = initials;
 }
 
 /**
  * Resets the dialog avatar to the default placeholder.
  */
 function resetDialogAvatar() {
-    let avatarContainer = document.querySelector('.default-avatar');
-    avatarContainer.style.backgroundColor = '#D1D1D1';
-    avatarContainer.innerHTML = `<img src="../assets/icons/person-white.svg" alt="Avatar" />`;
+  let avatarContainer = document.querySelector(".default-avatar");
+  avatarContainer.style.backgroundColor = "#D1D1D1";
+  avatarContainer.innerHTML = `<img src="../assets/icons/person-white.svg" alt="Avatar" />`;
 }
 
 /**
@@ -87,9 +88,9 @@ function resetDialogAvatar() {
  * @param {Object} contact - The contact object.
  */
 function fillFormFields(contact) {
-    document.querySelector('.icon-name').value = contact.name;
-    document.querySelector('.icon-mail').value = contact.email;
-    document.querySelector('.icon-phone').value = contact.phone || "";
+  document.querySelector(".icon-name").value = contact.name;
+  document.querySelector(".icon-mail").value = contact.email;
+  document.querySelector(".icon-phone").value = contact.phone || "";
 }
 
 /**
@@ -97,16 +98,16 @@ function fillFormFields(contact) {
  * @param {string} id - Unique contact ID.
  */
 function adaptDialogForEdit(id) {
-    document.querySelector('.dialog-left h2').innerHTML = 'Edit Contact';
-    const subtitle = document.getElementById('dialog-subtitle');
-    if (subtitle) subtitle.classList.add('d-none');
-    let btnCreate = document.querySelector('.btn-create');
-    btnCreate.innerHTML = `Save <img src="../assets/icons/check.svg" alt="Save">`;
-    document.querySelector('.contact-form').onsubmit = function () {
-        saveEditedContact();
-        return false;
-    }
-    adaptCancelButtonToDelete(id);
+  document.querySelector(".dialog-left h2").innerHTML = "Edit Contact";
+  const subtitle = document.getElementById("dialog-subtitle");
+  if (subtitle) subtitle.classList.add("d-none");
+  let btnCreate = document.querySelector(".btn-create");
+  btnCreate.innerHTML = `Save <img src="../assets/icons/check.svg" alt="Save">`;
+  document.querySelector(".contact-form").onsubmit = function () {
+    saveEditedContact();
+    return false;
+  };
+  adaptCancelButtonToDelete(id);
 }
 
 /**
@@ -114,43 +115,43 @@ function adaptDialogForEdit(id) {
  * @param {string} id - Unique contact ID.
  */
 function adaptCancelButtonToDelete(id) {
-    let cancelBtn = document.querySelector('.btn-cancel');
-    if (cancelBtn) {
-        cancelBtn.innerHTML = `Delete`;
-        cancelBtn.onclick = async function (event) {
-            await deleteContact(id, event);
-            closeContactDialog();
-        };
-    }
+  let cancelBtn = document.querySelector(".btn-cancel");
+  if (cancelBtn) {
+    cancelBtn.innerHTML = `Delete`;
+    cancelBtn.onclick = async function (event) {
+      await deleteContact(id, event);
+      closeContactDialog();
+    };
+  }
 }
 
 /**
  * Opens the contact dialog modal.
  */
 function openContactDialog() {
-    const dialog = document.getElementById('add-contact-dialog');
-    if (dialog) {
-        dialog.showModal();
-    }
-    focusActiveCloseButton();
+  const dialog = document.getElementById("add-contact-dialog");
+  if (dialog) {
+    dialog.showModal();
+  }
+  focusActiveCloseButton();
 }
 
 /**
  * Closes the contact dialog modal with a slide-out animation.
  */
 function closeContactDialog() {
-    const dialog = document.getElementById('add-contact-dialog');
-    if (dialog) {
-        dialog.classList.add('hide-dialog');
+  const dialog = document.getElementById("add-contact-dialog");
+  if (dialog) {
+    dialog.classList.add("hide-dialog");
 
-        // Wartet, bis die 0.3s (300ms) CSS-Animation vorbei ist
-        setTimeout(() => {
-            dialog.close();
-            dialog.classList.remove('hide-dialog'); // Bereit für das nächste Mal öffnen
-            resetForm();
-            resetCancelButton();
-        }, 300);
-    }
+    // Wartet, bis die 0.3s (300ms) CSS-Animation vorbei ist
+    setTimeout(() => {
+      dialog.close();
+      dialog.classList.remove("hide-dialog"); // Bereit für das nächste Mal öffnen
+      resetForm();
+      resetCancelButton();
+    }, 300);
+  }
 }
 
 /**
@@ -158,19 +159,19 @@ function closeContactDialog() {
  * @param {MouseEvent} event - The click event.
  */
 function closeContactDialogOutside(event) {
-    const dialog = document.getElementById('add-contact-dialog');
-    if (event.target === dialog) {
-        closeContactDialog();
-    }
+  const dialog = document.getElementById("add-contact-dialog");
+  if (event.target === dialog) {
+    closeContactDialog();
+  }
 }
 
 /**
  * Resets the dialog cancel button to its default behavior.
  */
 function resetCancelButton() {
-    let btnCancel = document.querySelector('.btn-cancel');
-    if (btnCancel) {
-        btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
-        btnCancel.onclick = closeContactDialog;
-    }
+  let btnCancel = document.querySelector(".btn-cancel");
+  if (btnCancel) {
+    btnCancel.innerHTML = `Cancel <img src="../assets/icons/close-icon.svg" alt="X" />`;
+    btnCancel.onclick = closeContactDialog;
+  }
 }

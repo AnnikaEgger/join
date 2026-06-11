@@ -149,8 +149,6 @@ async function putAssignedContacts(taskId, assignedTaskContacts) {
   );
 }
 
-// #region filter contacts
-
 /**
  * Handles the contact search input by filtering contacts and re-rendering the dropdown.
  * @param {string} id - The identifier suffix for the current form or dialog instance
@@ -181,5 +179,3 @@ function filterContacts(inputValue) {
     });
   }
 }
-
-// #endregion
