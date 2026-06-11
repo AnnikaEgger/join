@@ -278,3 +278,6 @@ a {
 .dropdown-content .dropdown-item:hover {
   background-color: var(--color-active-bg);
 }
+.dropdown-content .dropdown-help-link {
+  display: none;
+}
