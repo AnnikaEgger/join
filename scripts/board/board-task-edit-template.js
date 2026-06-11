@@ -1,13 +1,25 @@
 /**
- * Returns the HTML template for the task edit dialog.
+ * @fileoverview Generates the HTML template form layout for editing an existing task's
+ * details, priorities, assignments, and subtasks within the board view.
+ * @module board-task-edit-template
+ */
+
+/**
+ * Returns the HTML template for the task edit dialog view.
  *
- * @param {Object} task - The task data to prefill in the edit form.
- * @param {string} taskId - The Firebase task ID.
- * @returns {string} The rendered HTML string for edit mode.
+ * @param {Object} task - The task data to prefill in the edit form layouts.
+ * @param {string} task.column - The column status path where the card resides.
+ * @param {boolean} task.default_task - Flags if the element belongs to standard core data.
+ * @param {string} task.template_id - The structural identifier key for layouts.
+ * @param {string} task.title - Preloaded title text content.
+ * @param {string} task.description - Preloaded narrative description content.
+ * @param {string} task.due_date - Preloaded ISO or local standard date value.
+ * @param {string} taskId - The unique Firebase task identifier key.
+ * @returns {string} The rendered HTML form string for edit mode.
  */
 function taskEditModeTemplate(task, taskId) {
   return ` 
-      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--edit disabled-ui" id="content-wrapper--task-dialog">
+      <div id="content-wrapper--task-dialog" class="content-wrapper-task-dialog content-wrapper-task-dialog--edit disabled-ui">
     <div class="edit-task-closing-btn-wrapper">
         <button
           class="edit-task-dialog-closing-btn"
@@ -73,7 +85,6 @@ function taskEditModeTemplate(task, taskId) {
                 <input
                 oninput="checkIfInputValid('due-date', '--edit-task')"
                     onblur="checkIfInputInvalid('due-date', '--edit-task')"
-                  oninput="checkInputValidity('due-date', '--edit-task')"
                   class="task-date-input"
                   id="task-due-date--edit-task"
                   lang="en-GB"
@@ -180,7 +191,7 @@ function taskEditModeTemplate(task, taskId) {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M10 8.76077C9.7654 8.76118 9.53687 8.68634 9.34802 8.54726L0.444913 1.97752C0.329075 1.89197 0.231235 1.78445 0.15698 1.66111C0.0827245 1.53777 0.033508 1.40102 0.0121402 1.25868C-0.031014 0.971193 0.0418855 0.678356 0.214802 0.444584C0.387718 0.210811 0.646486 0.0552534 0.934181 0.0121312C1.22188 -0.0309911 1.51493 0.0418545 1.74888 0.214643L10 6.29712L18.2511 0.214643C18.367 0.129087 18.4985 0.0671675 18.6383 0.0324205C18.7781 -0.00232646 18.9234 -0.00922079 19.0658 0.0121312C19.2083 0.0334832 19.3451 0.0826633 19.4685 0.156864C19.592 0.231064 19.6996 0.328831 19.7852 0.444584C19.8708 0.560336 19.9328 0.691806 19.9676 0.831488C20.0023 0.97117 20.0092 1.11633 19.9879 1.25868C19.9665 1.40102 19.9173 1.53777 19.843 1.66111C19.7688 1.78445 19.6709 1.89197 19.5551 1.97752L10.652 8.54726C10.4631 8.68634 10.2346 8.76118 10 8.76077Z"
+                      d="M10 8.76077C9.7654 8.76118 9.53687 8.68634 9.34802 8.54726L0.444913 1.97752C0.329075 1.89197 0.231235 1.78445 0.15698 1.66111C0.0827245 1.53777 0.033508 1.40102 0.0121402 1.25868C-0.031014 0.971193 0.0418855 0.678356 0.214802 0.444584C0.387718 0.210811 0.646486 0.0552534 0.934181 0.0121312C1.22188 -0.0309911 1.51493 0.0418545 1.74888 0.214643L10 6.29712L18.2511 0.214643C18.367 0.129087 18.4985 0.0671675 18.6383 0.0324205C18.7781 -0.00232646 18.9234 -0.00922079 19.0658 0.0121312C19.2083 0.0334832 19.3451 0.0826633 19.4685 0.156864C19.592 0.231064 19.6996 0.328831 19.7852 0.444584C19.8708 0.560336 19.9328 0.691806 19.9676 0.831488C20.023 0.97117 20.0092 1.11633 19.9879 1.25868C19.9665 1.40102 19.9173 1.53777 19.843 1.66111C19.7688 1.78445 19.6709 1.89197 19.5551 1.97752L10.652 8.54726C10.4631 8.68634 10.2346 8.76118 10 8.76077Z"
                       fill="#7AE229"
                     />
                     <path
@@ -321,7 +332,6 @@ function taskEditModeTemplate(task, taskId) {
           </div>
         </div>
 
-  
           <div class="edit-task-ok-btn-wrapper">
             <button
               id="task-edit-ok-btn"
