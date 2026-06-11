@@ -1,5 +1,6 @@
 /**
  * Initializes the summary page. Sets greeting, loads tasks, runs mobile animation.
+ * @returns {Promise<void>}
  */
 async function initSummary() {
   guardPage();
@@ -24,6 +25,7 @@ function getGreeting() {
 /**
  * Updates greeting text and user name.
  * @param {Object|null} user - User object
+ * @returns {void}
  */
 function updateGreeting(user) {
   const text = document.getElementById("greeting-text");
@@ -40,6 +42,7 @@ function updateGreeting(user) {
 
 /**
  * Runs mobile greeting animation (only on screens ≤1024px).
+ * @returns {void}
  */
 function runMobileGreetingAnimation() {
   const greeting = document.querySelector(".summary-greeting");
@@ -52,6 +55,7 @@ function runMobileGreetingAnimation() {
 
 /**
  * Loads all tasks from Firebase.
+ * @returns {Promise<void>}
  */
 async function loadSummaryData() {
   const response = await fetch(BASE_URL + "tasks.json");
@@ -62,6 +66,7 @@ async function loadSummaryData() {
 /**
  * Renders all counters and deadline info.
  * @param {Object} tasks - Tasks object from Firebase
+ * @returns {void}
  */
 function renderMetrics(tasks) {
   const taskList = Object.values(tasks);
@@ -72,25 +77,14 @@ function renderMetrics(tasks) {
 /**
  * Sets status counters and total.
  * @param {Array} taskList - All tasks
+ * @returns {void}
  */
 function renderStatusCounts(taskList) {
   document.getElementById("count-board").textContent = taskList.length;
-  document.getElementById("count-todo").textContent = countByStatus(
-    taskList,
-    "to do",
-  );
-  document.getElementById("count-progress").textContent = countByStatus(
-    taskList,
-    "in progress",
-  );
-  document.getElementById("count-feedback").textContent = countByStatus(
-    taskList,
-    "await feedback",
-  );
-  document.getElementById("count-done").textContent = countByStatus(
-    taskList,
-    "done",
-  );
+  document.getElementById("count-todo").textContent = countByStatus(taskList, "to do");
+  document.getElementById("count-progress").textContent = countByStatus(taskList, "in progress");
+  document.getElementById("count-feedback").textContent = countByStatus(taskList, "await feedback");
+  document.getElementById("count-done").textContent = countByStatus(taskList, "done");
 }
 
 /**
@@ -106,6 +100,7 @@ function countByStatus(taskList, column) {
 /**
  * Renders urgent count and earliest deadline.
  * @param {Array} taskList - All tasks
+ * @returns {void}
  */
 function renderUrgentSection(taskList) {
   const urgent = taskList.filter((task) => task.priority === "Urgent");
@@ -128,12 +123,15 @@ function formatDeadline(dateString) {
     day: "numeric",
   });
 }
+
 /**
  * Tries to lock the screen orientation to portrait mode on mobile devices.
+ * @returns {void}
  */
 function lockScreenOrientation() {
   if (screen.orientation && screen.orientation.lock) {
     screen.orientation.lock("portrait-primary").catch(() => {});
   }
 }
+
 document.addEventListener("DOMContentLoaded", initSummary);
