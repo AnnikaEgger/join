@@ -118,6 +118,10 @@
   fill: #ff3d00;
 }
 
+.metric-card:hover .card-count {
+  color: white;
+}
+
 .card-info {
   display: flex;
   flex-direction: column;
