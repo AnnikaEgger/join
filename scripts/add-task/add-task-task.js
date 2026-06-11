@@ -142,7 +142,7 @@ function showAddtaskToastMsg(id) {
     setTimeout(() => {
       TOAST_MSG.classList.remove("display-toast-ms-add-task");
     }, 3000);
-  } else if (id === "--edit-task") {
+  } else if (id === "--add-task-dialog") {
     TOAST_MSG.classList.add("display-toast-msg-dialog");
     setTimeout(() => {
       TOAST_MSG.classList.remove("display-toast-msg-dialog");
