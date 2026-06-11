@@ -1,10 +1,10 @@
 /**
  * Initializes the header. Sets avatar and outside-click listener.
+ * @returns {void}
  */
 function initHeader() {
   const avatar = document.getElementById("header-avatar");
   if (!avatar) return;
-
   const user = getCurrentUser();
   updateHeaderAvatar(user);
   document.addEventListener("click", closeDropdownOnOutsideClick);
@@ -39,6 +39,7 @@ function getInitials(name) {
 /**
  * Sets avatar text and color, or "G" for guest.
  * @param {Object|null} user - User object
+ * @returns {void}
  */
 function updateHeaderAvatar(user) {
   const avatar = document.getElementById("header-avatar");
@@ -57,6 +58,7 @@ function updateHeaderAvatar(user) {
 
 /**
  * Toggles the header dropdown menu.
+ * @returns {void}
  */
 function toggleDropdown() {
   const drop = document.getElementById("dropdown");
@@ -66,6 +68,7 @@ function toggleDropdown() {
 /**
  * Closes the dropdown on outside click.
  * @param {Event} event - Click event
+ * @returns {void}
  */
 function closeDropdownOnOutsideClick(event) {
   const drop = document.getElementById("dropdown");
@@ -78,6 +81,7 @@ function closeDropdownOnOutsideClick(event) {
 
 /**
  * Logs out: clears localStorage and redirects to login.
+ * @returns {void}
  */
 function logout() {
   localStorage.removeItem("currentUser");
