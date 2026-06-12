@@ -63,7 +63,7 @@ function renderDialogContacts(todo) {
     .map((contact) => {
       let name = getAssignedContactName(contact);
       let color = contact.color || "#2A3647";
-      let initials = getInitials(name);
+      let initials = getTaskInitials(name);
       return generateDialogContactsHTML(name, color, initials);
     })
     .join("");
@@ -232,7 +232,7 @@ function generateAssignedBadgesHTML(todo) {
 function renderSingleBadges(contacts) {
   return contacts
     .map((name) => {
-      let initials = getTaskInitials(name);
+      let initials = getTaskInitials(name.name);
       let color = name.color || getContactColor(name);
       return generateSingleBadgeHTML(initials, color);
     })
@@ -247,8 +247,17 @@ function renderSingleBadges(contacts) {
  * @returns {string} Initials (e.g. "MM").
  */
 function getTaskInitials(name) {
-  let words = name.name.trim().split(" ");
-  let first = words[0] ? words[0].charAt(0).toUpperCase() : "";
-  let last = words[1] ? words[1].charAt(0).toUpperCase() : "";
-  return first + last || "?";
+  // let words = name.name.trim().split(" ");
+  // let first = words[0] ? words[0].charAt(0).toUpperCase() : "";
+  // let last = words[1] ? words[1].charAt(0).toUpperCase() : "";
+
+  // return first + last || "?";
+
+  let firstLetter = name.charAt(0);
+  let spaceIndex = name.indexOf(" ");
+  let secondLetter = "";
+  if (spaceIndex !== -1 && name.charAt(spaceIndex + 1) !== "(") {
+    secondLetter = name.charAt(spaceIndex + 1);
+  }
+  return (firstLetter + secondLetter).toUpperCase();
 }

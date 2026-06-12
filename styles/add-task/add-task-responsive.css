@@ -22,7 +22,7 @@
 
   .prio-btn {
     padding: 10px 5px;
-    width: 110px;
+    min-width: 110px;
   }
 }
 
@@ -41,7 +41,7 @@
 
   .prio-btn {
     padding: 16px 10px;
-    width: 120px;
+    min-width: 120px;
   }
 
   .add-task-headline {
@@ -143,7 +143,7 @@
 
   .prio-btn {
     padding: 10px 10px;
-    width: 110px;
+    min-width: 110px;
   }
 
   .add-task-headline--add-task {

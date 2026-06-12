@@ -2,8 +2,14 @@ const BASE_URL =
   "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app";
 
 const AVATAR_COLORS = [
-  "#FF7A00", "#1FD7C1", "#462F8A", "#9327FF",
-  "#FF5EB3", "#FCBE2D", "#6E52FF", "#FF4646",
+  "#FF7A00",
+  "#1FD7C1",
+  "#462F8A",
+  "#9327FF",
+  "#FF5EB3",
+  "#FCBE2D",
+  "#6E52FF",
+  "#FF4646",
 ];
 
 const ICON_LOCK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#a8a8a8"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`;
@@ -25,7 +31,7 @@ function initSignup() {
 function collectFormData() {
   return {
     name: document.getElementById("signup-name").value.trim(),
-    id: "user",
+    id: user,
     email: document.getElementById("signup-email").value.trim(),
     password: document.getElementById("signup-password").value,
     color: getRandomColor(),
@@ -140,8 +146,10 @@ async function handleValidOrInvalidStyles(input, inputId) {
     return;
   }
   if (input.checkValidity()) {
-    const isEmailValid = inputId === "email" ? await validateSignupEmail() : true;
-    const isPassValid = inputId === "confirm-password" ? checkConfirmPassword() : true;
+    const isEmailValid =
+      inputId === "email" ? await validateSignupEmail() : true;
+    const isPassValid =
+      inputId === "confirm-password" ? checkConfirmPassword() : true;
     if (isEmailValid && isPassValid) removeInvalidStyle(input);
   }
 }
@@ -156,7 +164,8 @@ async function checkInputValidityOnBlur(inputId) {
   if (!input) return;
   let isValid = input.checkValidity();
   if (isValid && inputId === "email") isValid = await validateSignupEmail();
-  if (isValid && inputId === "confirm-password") isValid = checkConfirmPassword();
+  if (isValid && inputId === "confirm-password")
+    isValid = checkConfirmPassword();
   if (!isValid && inputId === "email") await validateSignupEmail();
   if (!isValid) addInvalidStyle(input);
 }
@@ -208,7 +217,9 @@ async function validateSignupEmail() {
   const userData = collectFormData();
   const emailExists = await checkEmailExists(userData.email);
   const mailWrapper = document.getElementById("input-wrapper--signup-mail");
-  mailWrapper.dataset.message = emailExists ? "Email already exists" : "Please enter a valid email";
+  mailWrapper.dataset.message = emailExists
+    ? "Email already exists"
+    : "Please enter a valid email";
   return !emailExists;
 }
 

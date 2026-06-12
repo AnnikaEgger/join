@@ -96,7 +96,7 @@ function checkEachTaskForRedundantContacts(tasks) {
     const hasInvalidContacts = Object.values(task.assigned_contacts).some(
       (contact) =>
         !contactsOptions.some(
-          (c) => c.id === contact.id && c.name === contact.name,
+          (c) => c.color === contact.color && c.name === contact.name,
         ),
     );
     if (hasInvalidContacts) {
@@ -132,16 +132,13 @@ function collectValidAssignedContacts(task, taskId) {
  * @returns {Promise<void>}
  */
 async function putAssignedContacts(taskId, assignedTaskContacts) {
-  await fetch(
-    BASE_URL + "tasks/" + taskId + "/assigned_contacts.json",
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(assignedTaskContacts),
+  await fetch(BASE_URL + "tasks/" + taskId + "/assigned_contacts.json", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify(assignedTaskContacts),
+  });
 }
 
 /**
