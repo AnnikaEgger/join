@@ -47,14 +47,6 @@ It allows users to create tasks, manage contacts, assign responsibilities, and t
 - Optimized for touch and desktop interactions
 - Consistent UI across all devices
 
-### 🔥 Technical Setup
-
-- Firebase Authentication (login and session handling)
-- Firestore database for real-time data storage
-- Modular project structure with clean code principles
-
----
-
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -65,8 +57,7 @@ It allows users to create tasks, manage contacts, assign responsibilities, and t
 
 ### Backend & Authentication
 
-- Firebase Firestore (NoSQL database)
-- Firebase Authentication
+- Firebase Realtime Database
 
 ### Architecture
 
