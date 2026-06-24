@@ -3,7 +3,7 @@
  * @constant {string}
  */
 const BASE_URL =
-  "https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/";
+  "https://join-a2bee-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * Lock icon displayed when password input is empty.

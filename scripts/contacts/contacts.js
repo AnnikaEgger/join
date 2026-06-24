@@ -304,7 +304,9 @@ async function executeContactUpdate(email) {
  */
 async function putContact(contact) {
   let isUser = await checkIfIdIsUser(currentEditingId);
-  let path = isUser ? `users/${currentEditingId}` : `contacts/${currentEditingId}`;
+  let path = isUser
+    ? `users/${currentEditingId}`
+    : `contacts/${currentEditingId}`;
   let url = BASE_URL + `${path}.json`;
   if (isUser) {
     let response = await fetch(url);
@@ -326,7 +328,7 @@ async function deleteContact(id, event) {
   disableButtonWhileLoading("btn-cancel");
   let isUser = await checkIfIdIsUser(id);
   let path = isUser ? `users/${id}` : `contacts/${id}`;
-  let url = `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`;
+  let url = BASE_URL + `${path}.json`;
   await fetch(url, { method: "DELETE" });
   closeContactDetails();
   document.getElementById("contact-detail-content").innerHTML = "";
@@ -342,9 +344,7 @@ async function deleteContact(id, event) {
  * @returns {Promise<boolean>} True if the ID is a user.
  */
 async function checkIfIdIsUser(id) {
-  let response = await fetch(
-    `https://join-50921-default-rtdb.europe-west1.firebasedatabase.app/users/${id}.json`,
-  );
+  let response = await fetch(BASE_URL + `users/${id}.json`);
   let data = await response.json();
   return data !== null;
 }
