@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
+
     <link
       rel="icon"
       href="../assets/icons/join-logo-white.svg"
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="../styles/templates.css" />
     <link rel="stylesheet" href="../styles/templates-responsive.css" />
   </head>
+
   <body onload="initSignup()">
     <header>
       <img
@@ -39,12 +41,19 @@
         novalidate
       >
         <div class="form-headline-container form-headline-container-signup">
-          <a href="../index.html" class="blue-arrow-left-btn">
+
+          <!-- FIX: Back button goes directly to Login -->
+          <a
+            href="../index.html#/login"
+            class="blue-arrow-left-btn"
+            aria-label="Back to login"
+          >
             <img
               src="../assets/icons/blue-arrow-left.svg"
               alt="Back to login"
             />
           </a>
+
           <div class="headline-wrapper">
             <h1>Sign up</h1>
             <div class="h1-underline"></div>
@@ -52,6 +61,8 @@
         </div>
 
         <section class="input-fields input-fields-signup">
+
+          <!-- NAME -->
           <div
             class="input-wrapper required"
             data-message="Please enter a name"
@@ -69,6 +80,7 @@
             />
           </div>
 
+          <!-- EMAIL -->
           <div
             id="input-wrapper--signup-mail"
             class="input-wrapper required"
@@ -87,6 +99,7 @@
             />
           </div>
 
+          <!-- PASSWORD -->
           <div
             class="input-wrapper required input-with-icon"
             data-message="Password must be at least 6 characters"
@@ -104,6 +117,7 @@
                 pattern="\S+"
                 minlength="6"
               />
+
               <button
                 type="button"
                 class="password-toggle"
@@ -114,6 +128,7 @@
             </div>
           </div>
 
+          <!-- CONFIRM PASSWORD -->
           <div
             class="input-wrapper required"
             data-message="Your passwords don't match. Please try again."
@@ -131,6 +146,7 @@
                 pattern="\S+"
                 minlength="6"
               />
+
               <button
                 type="button"
                 class="password-toggle"
@@ -144,6 +160,7 @@
           </div>
         </section>
 
+        <!-- PRIVACY POLICY -->
         <div
           data-message="Please accept the privacy policy"
           id="signup-checkbox-container"
@@ -159,12 +176,16 @@
               required
             />
           </div>
+
           <p>
             I accept the
-            <a href="../html/privacy-policy-external.html">Privacy Policy</a>
+            <a href="../html/privacy-policy-external.html">
+              Privacy Policy
+            </a>
           </p>
         </div>
 
+        <!-- SIGN UP BUTTON -->
         <button
           type="submit"
           class="button button-login button-blue"
@@ -177,10 +198,16 @@
 
     <footer>
       <nav class="footer-nav">
-        <a href="../html/privacy-policy-external.html">Privacy Policy</a>
-        <a href="../html/legal-notice-external.html">Legal Notice</a>
+        <a href="../html/privacy-policy-external.html">
+          Privacy Policy
+        </a>
+
+        <a href="../html/legal-notice-external.html">
+          Legal Notice
+        </a>
       </nav>
     </footer>
+
     <div id="success-toast" class="success-toast">
       You signed up successfully
     </div>
