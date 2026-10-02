@@ -1,5 +1,13 @@
 /* =========================================================
+   BOARD DIALOGS - RESPONSIVE CORRECTIONS
+   Datei: join/styles/board/board-dialogs.css
+   ========================================================= */
+
+
+/* =========================================================
    MOBILE TASK DETAIL DIALOG
+   ========================================================= */
+
 @media screen and (max-width: 480px) {
 
   /* Header and AI ticket marker */
@@ -12,18 +20,19 @@
   }
 
   .ai-ticket-marker {
+    max-width: 100%;
     white-space: normal;
     flex-wrap: wrap;
-    max-width: 100%;
   }
 
   .ai-generated-notice {
     max-width: 100%;
     box-sizing: border-box;
-    font-size: 16px;
     padding: 10px 12px;
+    font-size: 16px;
     overflow-wrap: anywhere;
   }
+
 
   /* Creator information */
 
@@ -41,9 +50,7 @@
     width: 100%;
     min-width: 0;
     margin-left: 0;
-
     font-size: 16px;
-
     overflow-wrap: anywhere;
     word-break: break-word;
   }
@@ -53,6 +60,7 @@
     height: 22px;
     flex-shrink: 0;
   }
+
 
   /* Task category and title */
 
@@ -65,19 +73,19 @@
   .dialog-task-title {
     font-size: 28px;
     line-height: 1.2;
-
     overflow-wrap: anywhere;
     word-break: break-word;
   }
+
 
   /* Task description */
 
   .dialog-description {
     font-size: 16px;
     line-height: 1.4;
-
     overflow-wrap: anywhere;
   }
+
 
   /* Date, priority and assigned contacts */
 
@@ -86,17 +94,154 @@
   .dialog-assigned-section {
     font-size: 16px;
   }
+}
 
-  /* Delete and Edit buttons:
-     Both buttons stay next to each other on mobile */
 
-  .dialog-footer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
+/* =========================================================
+   DELETE AND EDIT BUTTONS - FIGMA CORRECTION
+
+   Applies to mobile, tablet and desktop.
+   ========================================================= */
+
+.task-dialog .dialog-footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  min-width: 0;
+  gap: 8px;
+
+  box-sizing: border-box;
+}
+
+
+/* Both buttons */
+
+.task-dialog .dialog-footer .task-dialog-btn {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: auto;
+  min-width: 0;
+  min-height: 44px;
+
+  gap: 8px;
+  margin: 0;
+  padding: 8px 0;
+
+  border: none;
+  background: transparent;
+  color: #2a3647;
+
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+
+/* Icons stay to the left of the text */
+
+.task-dialog .dialog-footer .task-dialog-btn svg,
+.task-dialog .dialog-footer .task-dialog-btn img {
+  display: block;
+
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+
+/* Delete and Edit text */
+
+.task-dialog .dialog-footer .task-dialog-btn p {
+  display: block;
+
+  margin: 0;
+  padding: 0;
+
+  color: #2a3647;
+
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+
+/* Divider between Delete and Edit */
+
+.task-dialog .dialog-footer .dialog-footer-hr {
+  display: block;
+
+  flex: 0 0 1px;
+
+  width: 1px;
+  height: 24px;
+
+  margin: 0 4px;
+  padding: 0;
+
+  border: none;
+  background-color: #d1d1d1;
+}
+
+
+/* =========================================================
+   X BUTTON - REMOVE LIGHT GREY BACKGROUND
+
+   Keep the X icon visible without a grey circle or box.
+   ========================================================= */
+
+.task-dialog .close-task-dialog-btn,
+.task-dialog .close-task-dialog-btn:hover,
+.task-dialog .close-task-dialog-btn:active {
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.task-dialog .close-task-dialog-btn img {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 480px) {
+
+  /* Keep Delete and Edit horizontal */
+
+  .task-dialog .dialog-footer {
     justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
 
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  .task-dialog .dialog-footer .task-dialog-btn {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .task-dialog .dialog-footer .dialog-footer-hr {
+    margin: 0 2px;
+  }
+}
