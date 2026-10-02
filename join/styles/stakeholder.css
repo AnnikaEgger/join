@@ -1,10 +1,23 @@
 /* =========================================================
    STAKEHOLDER PAGE
    Datei: join/styles/stakeholder.css
+
+   Responsive correction:
+   - Create Request mobile layout
+   - Clean text alignment
+   - Illustration without overflow
+   - Email fallback fully accessible
    ========================================================= */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
 }
 
 small,
@@ -16,7 +29,7 @@ sup,
 
 body {
   margin: 0;
-
+  min-height: 100vh;
   min-height: 100dvh;
 
   display: flex;
@@ -31,57 +44,72 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------------- HEADER ---------------- */
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .stakeholder-header {
   display: flex;
   align-items: flex-start;
 
+  width: 100%;
   padding: 29px 40px 0;
+
+  flex-shrink: 0;
 }
 
 .stakeholder-header img {
+  display: block;
+
   width: 64px;
   height: 78px;
 
   object-fit: contain;
 }
 
-/* ---------------- MAIN ---------------- */
+/* =========================================================
+   MAIN
+   ========================================================= */
 
-main {
-  flex: 1;
-
-  position: relative;
+.stakeholder-main {
+  flex: 1 0 auto;
 
   width: min(calc(100% - 80px), 1121px);
+  min-width: 0;
 
   margin: 0 auto;
-
-  padding: 0 0 64px;
+  padding: 0 0 48px;
 }
 
-/* ---------------- TOPBAR ---------------- */
+/* =========================================================
+   TOP BAR
+   ========================================================= */
 
 .request-topbar {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
+  min-width: 0;
   min-height: 40px;
+
+  gap: 16px;
 }
 
-/* ---------------- BACK ---------------- */
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
 
 .back-link {
-  display: flex;
-
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
   width: 40px;
   height: 40px;
+
+  flex: 0 0 40px;
 
   text-decoration: none;
 }
@@ -95,26 +123,32 @@ main {
   object-fit: contain;
 }
 
-/* ---------------- LIMIT ---------------- */
+/* =========================================================
+   LIMIT STATUS
+   ========================================================= */
 
 #limit-status {
   margin: 0;
+  min-width: 0;
 
   font-size: 19px;
-  line-height: 1.2;
+  line-height: 1.3;
 
   color: #177da8;
-
   text-align: right;
+
+  overflow-wrap: break-word;
 }
 
 body.limit-reached #limit-status {
   color: #e85a5a;
 }
 
-/* ---------------- TITLE ---------------- */
+/* =========================================================
+   TITLE
+   ========================================================= */
 
-h1 {
+.stakeholder-main h1 {
   margin: 16px 0 48px;
 
   font-size: 64px;
@@ -124,42 +158,50 @@ h1 {
   text-align: center;
 }
 
-/* ---------------- CONTENT ---------------- */
+/* =========================================================
+   CONTENT
+   ========================================================= */
 
 .request-content {
-  width: 964px;
-  max-width: 100%;
-
-  margin: 0 auto;
-
   display: grid;
 
-  grid-template-columns: 502px 416px;
+  width: 100%;
+  max-width: 964px;
+
+  grid-template-columns:
+    minmax(0, 502fr)
+    minmax(0, 416fr);
 
   column-gap: 48px;
 
   align-items: start;
+
+  margin: 0 auto;
+}
+
+.request-text-column {
+  min-width: 0;
+  width: 100%;
 }
 
 .request-content h2 {
-  grid-column: 1;
-  grid-row: 1;
-
   margin: 0 0 40px;
 
   color: #42526e;
 
   font-size: 28px;
-  line-height: 1.2;
+  line-height: 1.3;
   font-weight: 400;
+
+  overflow-wrap: break-word;
 }
 
-/* ---------------- TEXT ---------------- */
+/* =========================================================
+   TEXT
+   ========================================================= */
 
 .request-copy {
-  grid-column: 1;
-  grid-row: 2;
-
+  width: 100%;
   min-width: 0;
 }
 
@@ -172,40 +214,48 @@ h1 {
   line-height: 1.4;
 
   text-align: left;
+  overflow-wrap: break-word;
 }
 
-/* ---------------- IMAGE ---------------- */
+/* =========================================================
+   ILLUSTRATION
+   ========================================================= */
+
+.illustration-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-width: 0;
+}
 
 .request-illustration {
-  grid-column: 2;
-  grid-row: 1 / span 2;
+  display: block;
 
-  width: 416px;
-  max-width: 100%;
-
+  width: 100%;
+  max-width: 416px;
   height: 300px;
 
   object-fit: contain;
   object-position: center;
-
-  justify-self: center;
-  align-self: center;
 }
 
-/* ---------------- PRIMARY BUTTON ---------------- */
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
 
 .primary-action {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
 
   gap: 5px;
 
+  max-width: 100%;
   min-height: 60px;
 
   margin-top: 24px;
-
   padding: 15px 20px;
 
   border-radius: 10px;
@@ -216,24 +266,26 @@ h1 {
   font-size: 23px;
   line-height: 1.2;
 
+  text-align: center;
   text-decoration: none;
+
+  overflow-wrap: break-word;
 }
 
 .primary-action:hover {
   background: #238fbc;
-
   box-shadow: 0 4px 8px #0002;
 }
 
-.mobile-action-label {
-  display: none;
-}
-
-/* ---------------- EMAIL FALLBACK ---------------- */
+/* =========================================================
+   EMAIL FALLBACK
+   ========================================================= */
 
 .email-fallback {
-  margin-top: 20px;
+  width: 100%;
+  min-width: 0;
 
+  margin-top: 20px;
   padding: 16px;
 
   border: 1px solid #d1d1d1;
@@ -254,19 +306,20 @@ h1 {
 .email-fallback p {
   margin: 0 0 12px;
 
-  text-align: left;
-
   font-size: 16px;
+  line-height: 1.4;
+
+  text-align: left;
 }
 
 .email-copy-row {
   display: flex;
-
   align-items: center;
 
-  gap: 12px;
-
+  width: 100%;
   min-width: 0;
+
+  gap: 12px;
 }
 
 .email-copy-row span {
@@ -275,6 +328,7 @@ h1 {
   color: #177da8;
 
   font-size: 16px;
+  line-height: 1.4;
 
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -309,7 +363,6 @@ h1 {
 
 .email-copy-row button:disabled {
   cursor: not-allowed;
-
   opacity: 0.55;
 }
 
@@ -319,7 +372,6 @@ h1 {
   margin: 8px 0 0;
 
   color: #087d5b;
-
   font-weight: 600;
 }
 
@@ -331,12 +383,11 @@ h1 {
   margin-top: 16px;
 
   color: #667184;
-
   font-size: 16px;
 }
 
 /* =========================================================
-   10 / 10 LIMIT
+   LIMIT REACHED
    ========================================================= */
 
 body.limit-reached .request-content {
@@ -347,7 +398,6 @@ body.limit-reached .request-content h2 {
   width: 100%;
 
   margin: 0 0 28px;
-
   padding: 15px 20px;
 
   border-radius: 4px;
@@ -369,47 +419,43 @@ body.limit-reached .request-copy > p {
   line-height: 1.4;
 }
 
-body.limit-reached .email-fallback {
-  display: none;
-}
-
+body.limit-reached .email-fallback,
 body.limit-reached .status-note {
   display: none;
 }
 
 body.limit-reached .primary-action {
   margin-top: 26px;
-
   background: #29abe2;
 }
 
 body.limit-reached .request-illustration {
-  width: 416px;
-  max-width: 100%;
-
+  max-width: 416px;
   height: 320px;
 
   object-fit: contain;
   object-position: center;
 }
 
-/* ---------------- FOOTER ---------------- */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 footer {
   display: flex;
-
   justify-content: center;
 
-  gap: 32px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
 
-  padding: 32px 20px;
+  gap: 32px;
+  padding: 24px 20px;
 }
 
 footer a {
   color: #687383;
 
   font-size: 16px;
-
   text-decoration: none;
 }
 
@@ -420,54 +466,77 @@ button:focus-visible {
 }
 
 /* =========================================================
-   MOBILE
+   TABLET - EARLIER RESPONSIVE BREAKPOINT
    ========================================================= */
 
-@media (max-width: 700px) {
+@media screen and (max-width: 900px) {
+
+  .stakeholder-main {
+    width: calc(100% - 48px);
+  }
+
+  .request-content {
+    column-gap: 28px;
+  }
+
+  .request-content h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .request-copy > p {
+    font-size: 17px;
+  }
+
+  .email-copy-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .email-copy-row button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   MOBILE - 700 PX
+   ========================================================= */
+
+@media screen and (max-width: 700px) {
+
   .stakeholder-header {
-    padding: 20px 20px 0;
+    padding: 16px 20px 0;
   }
 
   .stakeholder-header img {
-    width: 56px;
-    height: auto;
+    width: 50px;
+    height: 60px;
   }
 
-  main {
-    width: min(calc(100% - 40px), 390px);
+  .stakeholder-main {
+    flex: 1 0 auto;
 
-    padding: 20px 0 32px;
+    width: calc(100% - 40px);
+    max-width: 440px;
 
-    display: grid;
+    margin: 0 auto;
+    padding: 8px 0 28px;
   }
+
+  /* Back button and counter */
 
   .request-topbar {
-    display: contents;
-  }
+    width: 100%;
+    min-height: 36px;
 
-  h1 {
-    grid-row: 1;
-
-    margin: 0;
-
-    align-self: center;
-
-    font-size: 40px;
-    line-height: 1.15;
-
-    text-align: left;
-
-    min-width: 0;
+    gap: 12px;
   }
 
   .back-link {
-    grid-row: 1;
+    width: 36px;
+    height: 36px;
 
-    justify-self: end;
-    align-self: center;
-
-    width: 40px;
-    height: 40px;
+    flex-basis: 36px;
   }
 
   .back-link-icon {
@@ -475,285 +544,320 @@ button:focus-visible {
     height: 28px;
   }
 
+  #limit-status,
+  #limit-status strong {
+    font-size: 14px;
+  }
+
   #limit-status {
-    grid-row: 2;
+    flex: 1 1 auto;
+    text-align: right;
+  }
 
-    max-width: none;
+  /* Welcome heading */
 
-    margin: 10px 0 20px;
+  .stakeholder-main h1 {
+    margin: 8px 0 16px;
 
-    font-size: 16px;
-
+    font-size: 36px;
+    line-height: 1.15;
     text-align: left;
   }
 
-  #limit-status strong {
-    font-size: 18px;
-  }
+  /* Single mobile column */
 
   .request-content {
-    grid-row: 3;
+    display: flex;
+    flex-direction: column;
 
     width: 100%;
+    max-width: 100%;
 
-    grid-template-columns: minmax(0, 1fr);
-
-    row-gap: 20px;
+    gap: 12px;
   }
 
-  .request-content h2 {
-    grid-column: 1;
-    grid-row: 1;
+  .request-text-column {
+    order: 1;
 
-    margin: 0;
+    width: 100%;
+    min-width: 0;
+  }
 
-    font-family: Inter, sans-serif;
+  /* Illustration above the description */
 
-    font-size: 22px;
-    line-height: 1.3;
-    font-weight: 500;
+  .illustration-column {
+    order: 0;
+
+    width: 100%;
+    min-width: 0;
+
+    justify-content: center;
   }
 
   .request-illustration {
-    grid-column: 1;
-    grid-row: 2;
+    width: min(100%, 250px);
+    max-width: 100%;
 
-    width: min(100%, 292px);
     height: auto;
+    max-height: 170px;
 
     aspect-ratio: 292 / 201;
+    object-fit: contain;
 
-    justify-self: center;
+    margin: 0 auto;
+  }
+
+  /* Main copy */
+
+  .request-content h2 {
+    width: 100%;
+
+    margin: 0 0 12px;
+
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+
+    overflow-wrap: break-word;
   }
 
   .request-copy {
-    grid-column: 1;
-    grid-row: 3;
-
     width: 100%;
   }
 
   .request-copy > p {
-    font-size: 16px;
-    line-height: 1.45;
+    width: 100%;
+
+    margin: 0 0 12px;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    text-align: left;
+    overflow-wrap: break-word;
   }
+
+  /* Primary action */
 
   .primary-action {
     display: flex;
 
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
+    min-height: 46px;
 
-    min-height: 48px;
-
-    margin: 28px auto 0;
-
-    padding: 13px 20px;
+    margin: 12px 0 0;
+    padding: 10px 14px;
 
     border-radius: 8px;
 
     background: #2a3647;
 
     font-family: Inter, sans-serif;
-
     font-size: 16px;
+    line-height: 1.3;
 
     text-align: center;
   }
 
-  .desktop-action-label,
-  .action-check {
-    display: none;
-  }
-
-  .mobile-action-label {
-    display: inline;
-  }
+  /* Email fallback */
 
   .email-fallback {
     width: 100%;
+    min-width: 0;
 
-    margin-top: 18px;
+    margin-top: 12px;
+    padding: 12px;
 
-    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .email-fallback h3 {
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+
+  .email-fallback p {
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    line-height: 1.35;
   }
 
   .email-copy-row {
+    display: flex;
+    flex-direction: column;
     align-items: stretch;
 
-    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
 
-    gap: 10px;
+  .email-copy-row span {
+    width: 100%;
+
+    font-size: 14px;
+    line-height: 1.35;
+
+    overflow-wrap: anywhere;
   }
 
   .email-copy-row button {
     width: 100%;
+    min-height: 42px;
 
-    min-height: 48px;
+    font-size: 14px;
   }
 
-  footer {
-    padding: 18px 20px;
+  .email-fallback .copy-email-status {
+    font-size: 14px;
   }
 
-  body.limit-reached .request-content h2 {
-    padding: 12px 14px;
-
-    font-size: 18px;
-  }
-
-  body.limit-reached .request-illustration {
-    width: min(100%, 292px);
-
-    height: auto;
-  }
-
-  body.limit-reached .request-copy > p {
-    font-size: 16px;
-  }
-
-  body.limit-reached .primary-action {
-    background: #29abe2;
-  }
-}
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 375px) {
-  .stakeholder-header {
-    padding: 14px 16px 0;
-  }
-
-  .stakeholder-header img {
-    width: 52px;
-    height: auto;
-  }
-
-  main {
-    width: calc(100% - 32px);
-
-    padding: 14px 0 20px;
-  }
-
-  h1 {
-    font-size: 36px;
-  }
-
-  .back-link {
-    width: 40px;
-    height: 40px;
-  }
-
-  .back-link-icon {
-    width: 26px;
-    height: 26px;
-  }
-
-  #limit-status {
-    margin-bottom: 16px;
-  }
-
-  .request-content {
-    row-gap: 16px;
-  }
-
-  .request-content h2 {
-    font-size: 20px;
-  }
-
-  .request-illustration {
-    width: min(100%, 236px);
-  }
-
-  .request-copy > p {
-    margin-bottom: 12px;
-
-    font-size: 16px;
-    line-height: 1.4;
-  }
-
-  .primary-action {
-    width: 100%;
-
-    margin-top: 20px;
-  }
+  /* Footer can be reached by scrolling */
 
   footer {
     gap: 20px;
+    padding: 16px 20px 24px;
+  }
 
-    padding: 14px 16px 18px;
+  /* Request limit reached */
 
-    flex-wrap: wrap;
+  body.limit-reached .request-content {
+    align-items: stretch;
+  }
+
+  body.limit-reached .request-content h2 {
+    padding: 12px;
+
+    font-size: 18px;
+    line-height: 1.35;
+  }
+
+  body.limit-reached .request-copy > p {
+    font-size: 14px;
+  }
+
+  body.limit-reached .request-illustration {
+    width: min(100%, 250px);
+    height: auto;
+    max-height: 170px;
   }
 }
 
 /* =========================================================
-   VERY SMALL MOBILE
+   SMALL MOBILE - 375 PX
    ========================================================= */
 
-@media (max-width: 320px) {
+@media screen and (max-width: 375px) {
+
   .stakeholder-header {
-    padding: 10px 12px 0;
+    padding: 12px 16px 0;
   }
 
   .stakeholder-header img {
-    width: 48px;
-    height: auto;
+    width: 46px;
+    height: 56px;
   }
 
-  main {
-    width: calc(100% - 24px);
-
-    padding: 10px 0 16px;
+  .stakeholder-main {
+    width: calc(100% - 32px);
+    padding: 6px 0 24px;
   }
 
-  h1 {
+  .request-topbar {
+    gap: 8px;
+  }
+
+  .stakeholder-main h1 {
+    margin: 8px 0 14px;
+
     font-size: 32px;
   }
 
+  #limit-status,
+  #limit-status strong {
+    font-size: 13px;
+  }
+
   .request-content {
-    row-gap: 12px;
+    gap: 10px;
+  }
+
+  .request-illustration {
+    width: min(100%, 210px);
+    max-height: 145px;
   }
 
   .request-content h2 {
     font-size: 19px;
   }
 
-  .request-illustration {
-    width: min(100%, 210px);
+  .request-copy > p {
+    font-size: 14px;
+    line-height: 1.35;
   }
 
   .primary-action {
-    margin-top: 16px;
-
-    padding: 13px 18px;
+    margin-top: 10px;
   }
 
   .email-fallback {
-    padding: 12px;
+    padding: 10px;
   }
 
   footer {
-    padding: 12px 12px 16px;
+    gap: 16px;
+    padding: 14px 12px 20px;
   }
 }
 
 /* =========================================================
-   DESKTOP FIGMA
+   VERY SMALL MOBILE - 320 PX
    ========================================================= */
 
-@media (min-width: 701px) {
-  main {
-    width: min(calc(100% - 80px), 1121px);
+@media screen and (max-width: 320px) {
+
+  .stakeholder-header {
+    padding: 10px 12px 0;
   }
 
-  .request-content {
-    width: 964px;
+  .stakeholder-header img {
+    width: 44px;
+    height: 52px;
+  }
 
-    grid-template-columns: 502px 416px;
+  .stakeholder-main {
+    width: calc(100% - 24px);
+    padding: 6px 0 20px;
+  }
 
-    column-gap: 48px;
+  .stakeholder-main h1 {
+    font-size: 30px;
+  }
+
+  #limit-status,
+  #limit-status strong {
+    font-size: 12px;
+  }
+
+  .request-content h2 {
+    font-size: 18px;
+  }
+
+  .request-illustration {
+    width: min(100%, 190px);
+    max-height: 135px;
+  }
+
+  .request-copy > p {
+    font-size: 13px;
+  }
+
+  .primary-action {
+    font-size: 14px;
+  }
+
+  footer a {
+    font-size: 14px;
   }
 }
