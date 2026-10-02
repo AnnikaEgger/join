@@ -58,8 +58,10 @@ function guestLogin() {
  */
 function initLogin() {
   initSplash();
+
   const form = document.getElementById("login-form");
   if (!form) return;
+
   initPasswordToggle();
 }
 
@@ -70,22 +72,43 @@ function initLogin() {
  */
 function checkInputValidityOnInputLogin(inputId) {
   initPasswordToggle();
+
   const input = document.getElementById("login" + "-" + inputId);
+
   if (input.checkValidity()) {
     removeInvalidStyle(input);
   }
 }
 
 /**
- * Marks an invalid login field when the user leaves it.
- * @param {string} inputId - The login input name suffix to validate.
+ * Validates a login field when the user leaves it.
+ *
+ * Mentor correction:
+ * An empty field must not display an error simply because it
+ * loses focus when the user clicks Guest Log in.
+ *
+ * Empty required fields are still checked when the normal
+ * login form is submitted.
+ *
+ * @param {string} inputId - The login input name suffix.
  * @returns {void}
  */
 function checkInputValidityOnBlurLogin(inputId) {
-  const input = document.getElementById("login" + "-" + inputId);
+  const input = document.getElementById("login-" + inputId);
+
+  if (!input) return;
+
+  // Do not trigger an error for an untouched or empty field.
+  if (input.value.trim() === "") {
+    return;
+  }
+
+  // Validate fields containing user input.
   if (!input.checkValidity()) {
     removeGeneralError();
     addInvalidStyle(input);
+  } else {
+    removeInvalidStyle(input);
   }
 }
 
@@ -132,16 +155,20 @@ function removeGeneralError() {
 /**
  * Handles the login form submission and redirects the user on success.
  * @param {Event} event - The submit event triggered by the login form.
- * @returns {Promise<void>} Resolves after authentication and redirection logic completes.
+ * @returns {Promise<void>}
  */
 async function handleLogin(event) {
   event.preventDefault();
+
   const LOGIN_FORM = document.getElementById("login-form");
+
   if (!LOGIN_FORM.checkValidity()) {
     handleInvalidTaskform(LOGIN_FORM);
     return;
   }
+
   const matchedUser = await getMatchedUser();
+
   if (matchedUser) {
     saveCurrentUser(matchedUser);
     window.location.href = "./html/summary.html";
@@ -151,13 +178,17 @@ async function handleLogin(event) {
 }
 
 /**
- * Loads the current user from Firebase by matching the submitted email and password.
- * @returns {Promise<Object|undefined>} The matching user object or undefined when no match exists.
+ * Loads the current user from Firebase by matching
+ * the submitted email and password.
+ *
+ * @returns {Promise<Object|undefined>}
  */
 async function getMatchedUser() {
   const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
+
   const users = await loadAllUsers();
+
   return findMatchingUser(email, password, users);
 }
 
@@ -168,21 +199,28 @@ async function getMatchedUser() {
  */
 function handleInvalidTaskform(taskForm) {
   const invalidElements = taskForm.querySelectorAll(":invalid");
+
   if (!invalidElements.length) return;
+
   invalidElements.forEach((element) => {
     addInvalidStyle(element);
   });
+
   const firstInvalid = invalidElements[0];
+
   if (firstInvalid) focusInvalidElement(firstInvalid);
 }
 
 /**
  * Focuses the first invalid field and scrolls it into view.
- * @param {HTMLElement} element - The invalid form element to focus.
+ * This is used only after submitting the normal Login form.
+ *
+ * @param {HTMLElement} element - The invalid form element.
  * @returns {void}
  */
 function focusInvalidElement(element) {
   element.focus();
+
   element.scrollIntoView({
     behavior: "smooth",
     block: "center",
@@ -191,21 +229,24 @@ function focusInvalidElement(element) {
 
 /**
  * Loads all users from Firebase.
- * @returns {Promise<Array<Object>>} A promise resolving to the user list.
+ * @returns {Promise<Array<Object>>}
  */
 async function loadAllUsers() {
   const response = await fetch(BASE_URL + "users.json");
   const data = await response.json();
+
   if (!data) return [];
+
   return Object.values(data);
 }
 
 /**
  * Finds a user matching the given email and password.
- * @param {string} email - The submitted email address.
- * @param {string} password - The submitted password.
- * @param {Array<Object>} users - The available user records.
- * @returns {Object|undefined} The matching user object, or undefined when no match exists.
+ *
+ * @param {string} email
+ * @param {string} password
+ * @param {Array<Object>} users
+ * @returns {Object|undefined}
  */
 function findMatchingUser(email, password, users) {
   return users.find(
@@ -226,37 +267,47 @@ function saveCurrentUser(user) {
     phone: "",
     color: user.color,
   };
+
   localStorage.setItem("currentUser", JSON.stringify(userData));
 }
 
 /**
  * Updates the password toggle icon according to input state.
- * @param {string} inputId - The password input element ID.
- * @param {string} toggleId - The toggle button element ID.
+ *
+ * @param {string} inputId
+ * @param {string} toggleId
  * @returns {void}
  */
 function updatePasswordIcon(inputId, toggleId) {
   const input = document.getElementById(inputId);
   const toggle = document.getElementById(toggleId);
+
   if (input.value === "") {
     toggle.innerHTML = ICON_LOCK;
     toggle.classList.add("non-clickable");
     return;
   }
+
   toggle.classList.remove("non-clickable");
-  toggle.innerHTML = input.type === "password" ? ICON_EYE_OFF : ICON_EYE_ON;
+
+  toggle.innerHTML =
+    input.type === "password" ? ICON_EYE_OFF : ICON_EYE_ON;
 }
 
 /**
  * Toggles password visibility for the specified input.
- * @param {string} inputId - The password input element ID.
- * @param {string} toggleId - The toggle button element ID.
+ *
+ * @param {string} inputId
+ * @param {string} toggleId
  * @returns {void}
  */
 function togglePassword(inputId, toggleId) {
   const input = document.getElementById(inputId);
+
   if (input.value === "") return;
+
   input.type = input.type === "password" ? "text" : "password";
+
   updatePasswordIcon(inputId, toggleId);
 }
 
@@ -274,13 +325,18 @@ function initPasswordToggle() {
  */
 function initSplash() {
   const overlay = document.getElementById("splash-overlay");
+
   if (!overlay) return;
+
   if (sessionStorage.getItem("splashShown")) {
     overlay.style.display = "none";
     return;
   }
+
   sessionStorage.setItem("splashShown", "true");
+
   overlay.classList.add("splash-active");
+
   setTimeout(() => overlay.classList.add("splash-done"), 2200);
 }
 
@@ -288,6 +344,7 @@ document.addEventListener("DOMContentLoaded", initLogin);
 
 /**
  * Enables pointer interaction for a named UI panel.
+ *
  * @param {string} id - The panel identifier to enable.
  * @returns {void}
  */
@@ -299,13 +356,16 @@ function enableAllPointerEvents(id) {
     "taskDialog": "content-wrapper--task-dialog",
     "--contacts": "body--contacts",
   };
+
   const element = document.getElementById(panels[id]);
+
   if (element) element.classList.remove("disabled-ui");
 }
 
 /**
  * Disables a button while a loading action is in progress.
- * @param {string} buttonId - The button element ID to disable.
+ *
+ * @param {string} buttonId - The button element ID.
  * @returns {void}
  */
 function disableButtonWhileLoading(buttonId) {
@@ -314,8 +374,9 @@ function disableButtonWhileLoading(buttonId) {
 }
 
 /**
- * Enables a button that was previously disabled.
- * @param {string} buttonId - The button element ID to enable.
+ * Enables a previously disabled button.
+ *
+ * @param {string} buttonId - The button element ID.
  * @returns {void}
  */
 function enableButton(buttonId) {
@@ -324,16 +385,18 @@ function enableButton(buttonId) {
 }
 
 /**
- * Protects protected pages by verifying that a logged-in user exists in local storage.
- * If the session is missing or invalid, the user is redirected to the login page.
+ * Protects protected pages by checking whether a logged-in user exists.
+ *
  * @returns {void}
  */
 function guardPage() {
   const stored = localStorage.getItem("currentUser");
+
   if (!stored) {
     window.location.href = "../index.html";
     return;
   }
+
   try {
     JSON.parse(stored);
   } catch (e) {
@@ -343,7 +406,9 @@ function guardPage() {
 }
 
 /**
- * Initializes page protection for help, privacy policy, and legal notice pages.
+ * Initializes protection for Help, Privacy Policy
+ * and Legal Notice pages.
+ *
  * @returns {void}
  */
 function initHelpPrivacyPolicyLegalNotice() {
